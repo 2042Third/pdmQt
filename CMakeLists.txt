@@ -12,7 +12,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools svg)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools svg)
 
-find_library(SECUREMEM_LIB SecureMemory ${CMAKE_CURRENT_SOURCE_DIR}/lib/cryptoSQLite/external/securememorybin/bin)
+find_library(SECUREMEM_LIB SecureMemory # PDM cryptoSQLite
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/cryptoSQLite/external/securememorybin/bin)
+
 
 
 set(TS_FILES pdm_qt_zh_CN.ts)
@@ -53,11 +55,20 @@ else()
 endif()
 
 target_include_directories(pdm_qt PUBLIC
+    lib/
+    lib/pdm-crypt-module
+    lib/pdm-crypt-module/src/lib
     lib/cryptoSQLite
+    lib/pdm_network
 )
 
+add_subdirectory(lib/pdm-crypt-module) # pdm encryption
+add_subdirectory(lib/pdm_network) # pdm network connectivity
 add_subdirectory(lib/cryptoSQLite) # encrypted database
+
 target_link_libraries(pdm_qt PRIVATE
+    cc20 # pdm encryption
+    pdm-network # pdm network connectivity
     cryptosqlite # encrypted database interface
     Qt${QT_VERSION_MAJOR}::Widgets)
 
