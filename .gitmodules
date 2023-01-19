@@ -1,0 +1,3 @@
+[submodule "lib/cryptoSQLite"]
+	path = lib/cryptoSQLite
+	url = https://github.com/2042third/cryptoSQLite.git

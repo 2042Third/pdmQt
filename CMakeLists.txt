@@ -9,8 +9,11 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools svg)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools svg)
+
+find_library(SECUREMEM_LIB SecureMemory ${CMAKE_CURRENT_SOURCE_DIR}/lib/cryptoSQLite/external/securememorybin/bin)
+
 
 set(TS_FILES pdm_qt_zh_CN.ts)
 
@@ -49,7 +52,16 @@ else()
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-target_link_libraries(pdm_qt PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_include_directories(pdm_qt PUBLIC
+    lib/cryptoSQLite
+)
+
+add_subdirectory(lib/cryptoSQLite) # encrypted database
+target_link_libraries(pdm_qt PRIVATE
+    cryptosqlite # encrypted database interface
+    Qt${QT_VERSION_MAJOR}::Widgets)
+
+
 
 set_target_properties(pdm_qt PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
