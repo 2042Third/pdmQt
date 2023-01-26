@@ -2,12 +2,15 @@ cmake_minimum_required(VERSION 3.5)
 
 project(pdm_qt VERSION 0.1 LANGUAGES CXX)
 
+
+
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_PREFIX_PATH "C:\\Qt\\6.4.2\\mingw_64\\lib\\cmake")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools svg)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools svg)
@@ -17,7 +20,9 @@ find_library(SECUREMEM_LIB SecureMemory # PDM cryptoSQLite
 
 
 
-set(TS_FILES pdm_qt_zh_CN.ts)
+set(TS_FILES
+#    pdm_qt_zh_CN.ts
+    )
 
 set(PROJECT_SOURCES
         main.cpp
