@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(pdm_qt VERSION 0.1 LANGUAGES CXX)
+project(pdm_qt VERSION 0.1 LANGUAGES C CXX)
 
-
+cmake_policy(SET CMP0079 NEW) # allow things from other directories
+cmake_policy(SET CMP0135 NEW) # cryptoSqlite icu download prebuilt binary
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -10,6 +11,8 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DVK_PROTOTYPES")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVK_PROTOTYPES")
 set(CMAKE_PREFIX_PATH "C:\\Qt\\6.4.2\\mingw_64\\lib\\cmake")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools svg)
@@ -71,11 +74,15 @@ add_subdirectory(lib/pdm-crypt-module) # pdm encryption
 add_subdirectory(lib/pdm_network) # pdm network connectivity
 add_subdirectory(lib/cryptoSQLite) # encrypted database
 
-target_link_libraries(pdm_qt PRIVATE
+install(FILES PDM_CURL_LOCATION DESTINATION ${PROJECT_BINARY_DIR} )
+target_link_libraries(pdm_qt PUBLIC
+    Qt${QT_VERSION_MAJOR}::Widgets
     cc20 # pdm encryption
+    ssl
+    crypto
     pdm-network # pdm network connectivity
     cryptosqlite # encrypted database interface
-    Qt${QT_VERSION_MAJOR}::Widgets)
+    )
 
 
 
