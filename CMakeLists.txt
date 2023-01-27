@@ -78,8 +78,6 @@ install(FILES PDM_CURL_LOCATION DESTINATION ${PROJECT_BINARY_DIR} )
 target_link_libraries(pdm_qt PUBLIC
     Qt${QT_VERSION_MAJOR}::Widgets
     cc20 # pdm encryption
-    ssl
-    crypto
     pdm-network # pdm network connectivity
     cryptosqlite # encrypted database interface
     )
