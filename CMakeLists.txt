@@ -77,6 +77,8 @@ add_subdirectory(lib/cryptoSQLite) # encrypted database
 install(FILES PDM_CURL_LOCATION DESTINATION ${PROJECT_BINARY_DIR} )
 target_link_libraries(pdm_qt PUBLIC
     Qt${QT_VERSION_MAJOR}::Widgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/local/lib/libssl.a
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/local/lib/libcrypto.a
     cc20 # pdm encryption
     pdm-network # pdm network connectivity
     cryptosqlite # encrypted database interface
