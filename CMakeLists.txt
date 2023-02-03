@@ -21,6 +21,12 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools svg
 find_library(SECUREMEM_LIB SecureMemory # PDM cryptoSQLite
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/cryptoSQLite/external/securememorybin/bin)
 
+find_library(SSL_LIB ssl # Openssl
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/)
+
+find_library(CRYPTO_LIB crypto # Openssl
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/)
+
 
 
 set(TS_FILES
@@ -77,8 +83,8 @@ add_subdirectory(lib/cryptoSQLite) # encrypted database
 install(FILES PDM_CURL_LOCATION DESTINATION ${PROJECT_BINARY_DIR} )
 target_link_libraries(pdm_qt PUBLIC
     Qt${QT_VERSION_MAJOR}::Widgets
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/local/lib/libssl.a
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/local/lib/libcrypto.a
+#    ${SSL_LIB}
+#    ${CRYPTO_LIB}
     cc20 # pdm encryption
     pdm-network # pdm network connectivity
     cryptosqlite # encrypted database interface
