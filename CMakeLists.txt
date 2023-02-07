@@ -15,8 +15,16 @@ set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DVK_PROTOTYPES")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVK_PROTOTYPES")
 #set(CMAKE_PREFIX_PATH "C:\\Qt\\6.4.2\\mingw_64\\lib\\cmake")
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools svg)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools svg)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
+    Widgets
+    LinguistTools
+#    svg
+)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
+    Widgets
+    LinguistTools
+#    svg
+)
 
 find_library(SECUREMEM_LIB SecureMemory # PDM cryptoSQLite
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/cryptoSQLite/external/securememorybin/bin)
@@ -99,6 +107,12 @@ set_target_properties(pdm_qt PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+#add_custom_command(TARGET pdm_qt POST_BUILD
+#    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt${QT_VERSION_MAJOR}::Core> $<TARGET_FILE_DIR:pdm_qt>
+#    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt${QT_VERSION_MAJOR}::Gui> $<TARGET_FILE_DIR:pdm_qt>
+#    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt${QT_VERSION_MAJOR}::Widgets> $<TARGET_FILE_DIR:pdm_qt>
+#    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt6::Svg> $<TARGET_FILE_DIR:pdm_qt>
+#    )
 
 install(TARGETS pdm_qt
     BUNDLE DESTINATION .
