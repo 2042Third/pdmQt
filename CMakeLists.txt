@@ -46,6 +46,9 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        pdmsettingswindow.h
+        pdmsettingswindow.cpp
+        pdmsettingswindow.ui
         ${TS_FILES}
 )
 
