@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "./pdmsettingswindow.h"
+#include "settingsmainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,7 +17,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionSettings_triggered()
 {
-    static PdmSettingsWindow w;
+    static SettingsMainWindow w;
     w.show(); // Show the PDM settings window.
 }
 
