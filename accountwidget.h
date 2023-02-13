@@ -14,7 +14,7 @@ class AccountWidget : public QWidget
 public:
     explicit AccountWidget(QWidget *parent = nullptr);
     ~AccountWidget();
-
+    QWidget * loginWidget;
 private:
     Ui::AccountWidget *ui;
 };

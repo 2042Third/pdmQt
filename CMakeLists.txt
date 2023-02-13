@@ -49,6 +49,7 @@ set(PROJECT_SOURCES
         settingsmainwindow.h settingsmainwindow.cpp settingsmainwindow.ui
         accountwidget.h accountwidget.cpp accountwidget.ui
         informationwidget.h informationwidget.cpp informationwidget.ui
+        loginwidget.h loginwidget.cpp
         ${TS_FILES}
 )
 
