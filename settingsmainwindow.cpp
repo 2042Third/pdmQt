@@ -12,3 +12,9 @@ SettingsMainWindow::~SettingsMainWindow()
 {
     delete ui;
 }
+
+void SettingsMainWindow::on_settingAccountButton_released()
+{
+
+}
+
