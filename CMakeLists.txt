@@ -48,7 +48,6 @@ set(PROJECT_SOURCES
         mainwindow.ui
         settingsmainwindow.h settingsmainwindow.cpp settingsmainwindow.ui
         accountwidget.h accountwidget.cpp accountwidget.ui
-        form.h form.cpp form.ui
         ${TS_FILES}
 )
 
