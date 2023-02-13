@@ -15,6 +15,9 @@ public:
     explicit SettingsMainWindow(QWidget *parent = nullptr);
     ~SettingsMainWindow();
 
+private slots:
+    void on_settingAccountButton_released();
+
 private:
     Ui::SettingsMainWindow *ui;
 };
