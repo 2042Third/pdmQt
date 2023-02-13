@@ -93,6 +93,7 @@
     </property>
     <addaction name="actionAbout"/>
     <addaction name="separator"/>
+    <addaction name="actionDebug_Messages"/>
    </widget>
    <widget class="QMenu" name="menuUser">
     <property name="title">
@@ -130,6 +131,11 @@
   <action name="actionSettings">
    <property name="text">
     <string>Settings</string>
+   </property>
+  </action>
+  <action name="actionDebug_Messages">
+   <property name="text">
+    <string>Debug Messages</string>
    </property>
   </action>
  </widget>

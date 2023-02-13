@@ -7,7 +7,7 @@ AccountWidget::AccountWidget(QWidget *parent) :
     ui(new Ui::AccountWidget)
 {
     ui->setupUi(this);
-    loginWidget = new LoginWidget();
+    loginWidget = new LoginWidget(this);
     ui->gridLayout->addWidget(loginWidget);
 }
 

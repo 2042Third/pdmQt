@@ -22,6 +22,9 @@ public:
     QWidget * acc_ui;
     QWidget * info_ui;
 
+signals:
+    void log(const QString &message, const  QString &color );
+
 private slots:
     void on_settingAccountButton_released();
 

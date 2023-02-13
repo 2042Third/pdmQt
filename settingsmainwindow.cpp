@@ -31,6 +31,8 @@ SettingsMainWindow::~SettingsMainWindow()
 
 void SettingsMainWindow::on_settingAccountButton_released()
 {
+
+    emit log("Clicked Account button in settings","#000000");
     acc_ui = new AccountWidget(ui->centralwidget);
     acc_ui->setObjectName("widget");
     if(lastWidget!=nullptr){
@@ -51,6 +53,7 @@ void SettingsMainWindow::on_widget_customContextMenuRequested(const QPoint &pos)
 
 void SettingsMainWindow::on_settingInfoButton_released()
 {
+    emit log("Clicked Information button in settings","#000000");
     info_ui = new InformationWidget(ui->centralwidget);
     info_ui -> setObjectName("widget");
 

@@ -1,33 +1,45 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "settingsmainwindow.h"
-#include "accountwidget.h"
+#include <QObject>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    debugWindow = new DebugWindow(ui->centralwidget);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete debugWindow;
 }
 
 
 void MainWindow::on_actionSettings_triggered()
 {
-    static SettingsMainWindow w;
-    w.show(); // Show the PDM settings window.
+    if (!settingsWindow){
+        settingsWindow = new SettingsMainWindow(ui->centralwidget);
+        connect(settingsWindow,&SettingsMainWindow::log,debugWindow,&DebugWindow::appendMessage);
+    }
+
+    settingsWindow->show(); // Show the PDM settings window.
 }
 
 
 void MainWindow::on_actionAccount_triggered()
 {
     // Open the setting window and to the account page.
-    static SettingsMainWindow w;
-    w.navToAccount();
-    w.show(); // Show the PDM settings window.
+    settingsWindow->navToAccount();
+    settingsWindow->show(); // Show the PDM settings window.
+}
+
+
+void MainWindow::on_actionDebug_Messages_triggered()
+{
+//    if(!debugWindow)
+//        debugWindow = new DebugWindow(ui->centralwidget);
+    debugWindow->show();
 }
 

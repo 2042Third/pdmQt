@@ -50,6 +50,7 @@ set(PROJECT_SOURCES
         accountwidget.h accountwidget.cpp accountwidget.ui
         informationwidget.h informationwidget.cpp informationwidget.ui
         loginwidget.h loginwidget.cpp
+        debugwindow.h debugwindow.cpp debugwindow.ui
         ${TS_FILES}
 )
 
