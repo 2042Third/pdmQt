@@ -47,6 +47,7 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         settingsmainwindow.h settingsmainwindow.cpp settingsmainwindow.ui
+        accountwidget.h accountwidget.cpp accountwidget.ui
         ${TS_FILES}
 )
 
