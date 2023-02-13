@@ -48,6 +48,7 @@ set(PROJECT_SOURCES
         mainwindow.ui
         settingsmainwindow.h settingsmainwindow.cpp settingsmainwindow.ui
         accountwidget.h accountwidget.cpp accountwidget.ui
+        informationwidget.h informationwidget.cpp informationwidget.ui
         ${TS_FILES}
 )
 
@@ -100,8 +101,6 @@ target_link_libraries(pdm_qt PUBLIC
     pdm-network # pdm network connectivity
     cryptosqlite # encrypted database interface
     )
-
-
 
 set_target_properties(pdm_qt PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
