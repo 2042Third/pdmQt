@@ -15,6 +15,9 @@ public:
     explicit SettingsMainWindow(QWidget *parent = nullptr);
     ~SettingsMainWindow();
     bool destroyWidget();
+
+    void navToAccount() {on_settingAccountButton_released();}
+
     QWidget *lastWidget = nullptr;
     QWidget * acc_ui;
     QWidget * info_ui;

@@ -26,5 +26,8 @@ void MainWindow::on_actionSettings_triggered()
 void MainWindow::on_actionAccount_triggered()
 {
     // Open the setting window and to the account page.
+    static SettingsMainWindow w;
+    w.navToAccount();
+    w.show(); // Show the PDM settings window.
 }
 

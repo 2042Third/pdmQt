@@ -18,6 +18,8 @@ public:
 private slots:
     void on_actionSettings_triggered();
 
+    void on_actionAccount_triggered();
+
 private:
     Ui::MainWindow *ui;
 
