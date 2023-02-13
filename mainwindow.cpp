@@ -22,3 +22,9 @@ void MainWindow::on_actionSettings_triggered()
     w.show(); // Show the PDM settings window.
 }
 
+
+void MainWindow::on_actionAccount_triggered()
+{
+    // Open the setting window and to the account page.
+}
+
