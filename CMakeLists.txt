@@ -48,6 +48,7 @@ set(PROJECT_SOURCES
         mainwindow.ui
         settingsmainwindow.h settingsmainwindow.cpp settingsmainwindow.ui
         accountwidget.h accountwidget.cpp accountwidget.ui
+        form.h form.cpp form.ui
         ${TS_FILES}
 )
 
@@ -79,6 +80,7 @@ else()
 endif()
 
 target_include_directories(pdm_qt PUBLIC
+    ./
     lib/
     lib/pdm-crypt-module
     lib/pdm-crypt-module/src/lib

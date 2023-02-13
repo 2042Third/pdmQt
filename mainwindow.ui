@@ -46,6 +46,16 @@
         <attribute name="title">
          <string>Notes</string>
         </attribute>
+        <widget class="AccountWidget" name="widget" native="true">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>180</y>
+           <width>120</width>
+           <height>80</height>
+          </rect>
+         </property>
+        </widget>
        </widget>
       </widget>
       <widget class="QTabWidget" name="tabWidget">
@@ -133,6 +143,14 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>AccountWidget</class>
+   <extends>QWidget</extends>
+   <header>./accountwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

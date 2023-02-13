@@ -1,6 +1,8 @@
 #include "settingsmainwindow.h"
 #include "ui_settingsmainwindow.h"
 
+
+
 SettingsMainWindow::SettingsMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SettingsMainWindow)
