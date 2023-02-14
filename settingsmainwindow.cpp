@@ -8,60 +8,44 @@ SettingsMainWindow::SettingsMainWindow(QWidget *parent) :
     ui(new Ui::SettingsMainWindow)
 {
     ui->setupUi(this);
-}
 
-bool SettingsMainWindow::destroyWidget(){
-    QList< QWidget* > children;
-
-    children = ui->gridLayout->findChildren< QWidget* >();
-    for (unsigned int i=0; i<children.count();i++) {
-        if (children.at( i )->objectName() == "widget") {
-            delete children.at(i);
-            return true;
-        }
-    }
-
-    return false;
+  acc_ui = new AccountWidget(ui->centralwidget);
+  acc_ui->setObjectName("acc_ui");
+  info_ui = new InformationWidget(ui->centralwidget);
+  info_ui->setObjectName("info_ui");
+  ui->stackedWidget->addWidget(acc_ui);
+  ui->stackedWidget->addWidget(info_ui);
 }
 
 SettingsMainWindow::~SettingsMainWindow()
 {
     delete ui;
+    delete acc_ui;
+    delete info_ui;
 }
 
 void SettingsMainWindow::on_settingAccountButton_released()
 {
-
-    emit log("Clicked Account button in settings","#000000");
-    acc_ui = new AccountWidget(ui->centralwidget);
-    acc_ui->setObjectName("widget");
-    if(lastWidget!=nullptr){
-        ui->gridLayout->removeWidget(lastWidget);
-        delete lastWidget;
-    }
-    ui->gridLayout->addWidget(acc_ui,2,1,1,3);
-    lastWidget = acc_ui;
-
+  emit log("Clicked Account button in settings","#000000");
+//  if (!acc_ui){
+//    acc_ui = new AccountWidget(ui->centralwidget);
+//    acc_ui->setObjectName("acc_ui");
+//  }
+//  ui->gridLayout->addWidget(acc_ui, 2, 1, 1, 3);
+  ui->stackedWidget->setCurrentWidget(acc_ui);
 }
 
 
-void SettingsMainWindow::on_widget_customContextMenuRequested(const QPoint &pos)
-{
-
-}
 
 
 void SettingsMainWindow::on_settingInfoButton_released()
 {
-    emit log("Clicked Information button in settings","#000000");
-    info_ui = new InformationWidget(ui->centralwidget);
-    info_ui -> setObjectName("widget");
-
-    if(lastWidget!=nullptr){
-        ui->gridLayout->removeWidget(lastWidget);
-        delete lastWidget;
-    }
-    ui->gridLayout->addWidget(info_ui,2,1,1,3);
-    lastWidget = info_ui;
+  emit log("Clicked Information button in settings","#000000");
+//  if (!info_ui){
+//    info_ui = new InformationWidget(ui->centralwidget);
+//    info_ui->setObjectName("info_ui");
+//  }
+//  ui->gridLayout->addWidget(info_ui, 2, 1, 1, 3);
+  ui->stackedWidget->setCurrentWidget(info_ui);
 }
 
