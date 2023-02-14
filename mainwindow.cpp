@@ -12,38 +12,38 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    delete ui;
-    delete debugWindow;
+  delete ui;
+  delete debugWindow;
 }
 
 
 void MainWindow::on_actionSettings_triggered()
 {
-    if (!settingsWindow){
-        settingsWindow = new SettingsMainWindow(ui->centralwidget);
-        connect(settingsWindow,&SettingsMainWindow::log,debugWindow,&DebugWindow::appendMessage);
-    }
-
-    settingsWindow->show(); // Show the PDM settings window.
+  newSettingsWindow();
+  settingsWindow->show(); // Show the PDM settings window.
 }
-
 
 void MainWindow::on_actionAccount_triggered()
 {
-    if (!settingsWindow){
-        settingsWindow = new SettingsMainWindow(ui->centralwidget);
-        connect(settingsWindow,&SettingsMainWindow::log,debugWindow,&DebugWindow::appendMessage);
-    }
-    // Open the setting window and to the account page.
-    settingsWindow->navToAccount();
-    settingsWindow->show(); // Show the PDM settings window.
+  newSettingsWindow();
+  // Open the setting window and to the account page.
+  settingsWindow->navToAccount();
+  settingsWindow->show(); // Show the PDM settings window.
 }
 
+
+// Signals
 
 void MainWindow::on_actionDebug_Messages_triggered()
 {
-//    if(!debugWindow)
-//        debugWindow = new DebugWindow(ui->centralwidget);
     debugWindow->show();
 }
 
+// Helpers
+
+void MainWindow::newSettingsWindow() {
+  if (!settingsWindow){
+    settingsWindow = new SettingsMainWindow(ui->centralwidget);
+    connect(settingsWindow, &SettingsMainWindow::log, debugWindow, &DebugWindow::appendMessage);
+  }
+}

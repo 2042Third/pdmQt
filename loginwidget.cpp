@@ -20,16 +20,17 @@ LoginWidget::LoginWidget(QWidget *parent)
 }
 void LoginWidget::onLoginClicked()
 {
-    QString username = m_usernameEdit->text();
-    QString password = m_passwordEdit->text();
 
-    // Add code to verify the username and password here
+  QString username = m_usernameEdit->text();
+  QString password = m_passwordEdit->text();
 
-    if (!username.isEmpty() && !password.isEmpty()) {
-        // Add code to show the main window or do other tasks here
-    } else {
-        QMessageBox::warning(this, "Error", "Incorrect username or password");
-    }
+  // Add code to verify the username and password here
+
+  if (!username.isEmpty() && !password.isEmpty()) {
+    // Add code to show the main window or do other tasks here
+  } else {
+    QMessageBox::warning(this, "Error", "Incorrect username or password");
+  }
 }
 LoginWidget::~LoginWidget() {
 

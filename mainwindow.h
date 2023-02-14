@@ -31,5 +31,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+  void newSettingsWindow();
 };
 #endif // MAINWINDOW_H

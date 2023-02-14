@@ -15,6 +15,8 @@ class LoginWidget: public QWidget
 public:
     explicit LoginWidget(QWidget *parent = nullptr);
     ~ LoginWidget();
+signals:
+  void log(const QString &message, const  QString &color );
 private slots:
     void onLoginClicked();
 
