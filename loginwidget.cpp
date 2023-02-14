@@ -28,6 +28,9 @@ void LoginWidget::onLoginClicked()
 
   if (!username.isEmpty() && !password.isEmpty()) {
     // Add code to show the main window or do other tasks here
+    log("Login attempted:", "#FF0000");
+    log("\tusername: "+username, "#FF0000");
+    log("\tpassword: "+password, "#FF0000");
   } else {
     QMessageBox::warning(this, "Error", "Incorrect username or password");
   }

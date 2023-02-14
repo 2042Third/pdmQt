@@ -15,6 +15,8 @@ public:
     explicit InformationWidget(QWidget *parent = nullptr);
     ~InformationWidget();
 
+signals:
+  void log(const QString &message, const  QString &color );
 private:
     Ui::InformationWidget *ui;
 };

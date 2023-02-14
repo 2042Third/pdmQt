@@ -2,7 +2,8 @@
 #define SETTINGSMAINWINDOW_H
 
 #include <QMainWindow>
-
+#include "accountwidget.h"
+#include "informationwidget.h"
 namespace Ui {
 class SettingsMainWindow;
 }
@@ -17,8 +18,8 @@ public:
 
     void navToAccount() {on_settingAccountButton_released();}
 
-    QWidget * acc_ui;
-    QWidget * info_ui;
+  AccountWidget * acc_ui;
+  InformationWidget * info_ui;
 
 signals:
     void log(const QString &message, const  QString &color );

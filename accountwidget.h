@@ -3,6 +3,7 @@
 
 #include <QWidget>
 
+#include "loginwidget.h"
 namespace Ui {
 class AccountWidget;
 }
@@ -14,7 +15,11 @@ class AccountWidget : public QWidget
 public:
     explicit AccountWidget(QWidget *parent = nullptr);
     ~AccountWidget();
-    QWidget * loginWidget;
+    LoginWidget * loginWidget;
+
+signals:
+  void log(const QString &message, const QString &color);
+
 private:
     Ui::AccountWidget *ui;
 };
