@@ -30,6 +30,10 @@ void MainWindow::on_actionSettings_triggered()
 
 void MainWindow::on_actionAccount_triggered()
 {
+    if (!settingsWindow){
+        settingsWindow = new SettingsMainWindow(ui->centralwidget);
+        connect(settingsWindow,&SettingsMainWindow::log,debugWindow,&DebugWindow::appendMessage);
+    }
     // Open the setting window and to the account page.
     settingsWindow->navToAccount();
     settingsWindow->show(); // Show the PDM settings window.
