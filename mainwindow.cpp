@@ -1,13 +1,28 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <QObject>
+#include <QFile>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
-    debugWindow = new DebugWindow(ui->centralwidget);
+// Read the contents of the .qss file into a string
+//  QFile file("Geoo.qss");
+//  QFile file("DeepBox.qss");
+//  QFile file("Combinear.qss");
+//  file.open(QFile::ReadOnly | QFile::Text);
+//  QTextStream stream(&file);
+//  QString stylesheet = stream.readAll();
+//  file.close();
+
+  // Apply the stylesheet to the main window
+//  this->setStyleSheet(stylesheet);
+
+  ui->setupUi(this);
+  debugWindow = new DebugWindow(ui->centralwidget);
+
+
 }
 
 MainWindow::~MainWindow()
