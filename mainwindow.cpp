@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include <QObject>
 #include <QFile>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -62,3 +63,18 @@ void MainWindow::newSettingsWindow() {
     connect(settingsWindow, &SettingsMainWindow::log, debugWindow, &DebugWindow::appendMessage);
   }
 }
+
+void MainWindow::on_actionOpen_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(nullptr, "Open File", "", "Text Files (*.txt);;All Files (*)");
+        if (fileName.isEmpty()) {
+            qDebug() << "No file was selected.";
+            return;
+        }
+
+        QFileInfo fileInfo(fileName);
+        qint64 fileSize = fileInfo.size();
+        qDebug() << "Selected file:" << fileName;
+        debugWindow->appendMessage("File Opened: \n\t"+fileName+"\n\t size="+QString::number(fileSize));
+}
+

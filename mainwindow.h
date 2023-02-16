@@ -28,6 +28,8 @@ private slots:
 
     void on_actionDebug_Messages_triggered();
 
+    void on_actionOpen_triggered();
+
 private:
     Ui::MainWindow *ui;
 

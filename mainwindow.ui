@@ -88,6 +88,7 @@
     <property name="title">
      <string>Files</string>
     </property>
+    <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
@@ -141,6 +142,11 @@
   <action name="actionDebug_Messages">
    <property name="text">
     <string>Debug Messages</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
    </property>
   </action>
  </widget>
