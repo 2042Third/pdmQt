@@ -75,6 +75,8 @@ void MainWindow::on_actionOpen_triggered()
         QFileInfo fileInfo(fileName);
         qint64 fileSize = fileInfo.size();
         qDebug() << "Selected file:" << fileName;
-        debugWindow->appendMessage("File Opened: \n\t"+fileName+"\n\t size="+QString::number(fileSize));
+        debugWindow->appendMessage("File Opened: ");
+        debugWindow->appendMessage("  \""+fileName+"\"");
+        debugWindow->appendMessage("  size="+QString::number(fileSize));
 }
 
