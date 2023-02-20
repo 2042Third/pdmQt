@@ -49,6 +49,9 @@
        </widget>
       </widget>
       <widget class="QTabWidget" name="tabWidget">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
        <property name="tabsClosable">
         <bool>true</bool>
        </property>
@@ -65,11 +68,6 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_2">
-        <attribute name="title">
-         <string>Tab 2</string>
-        </attribute>
-       </widget>
       </widget>
      </widget>
     </item>
@@ -81,7 +79,7 @@
      <x>0</x>
      <y>0</y>
      <width>1056</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFiles">
