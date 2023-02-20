@@ -51,6 +51,7 @@ set(PROJECT_SOURCES
         informationwidget.h informationwidget.cpp informationwidget.ui
         loginwidget.h loginwidget.cpp
         debugwindow.h debugwindow.cpp debugwindow.ui
+        PdmRunTime.h PdmRunTime.cpp
         ${TS_FILES}
 )
 
