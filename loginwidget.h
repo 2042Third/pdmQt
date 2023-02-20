@@ -18,7 +18,7 @@ public:
     ~ LoginWidget();
     void setRef(PdmRunTime*rtRef) override {
       PdmRuntimeRef::setRef(rtRef);
-      emit rtRef->log("login widget Created","#00FF00");
+      emit rt->log("login widget Created","#00FF00");
     }
 private slots:
     void onLoginClicked();

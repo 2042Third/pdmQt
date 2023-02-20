@@ -4,18 +4,19 @@
 LoginWidget::LoginWidget(QWidget *parent)
     : QWidget(parent),PdmRuntimeRef()
 {
-    m_usernameEdit = new QLineEdit(this);
-    m_passwordEdit = new QLineEdit(this);
-    m_passwordEdit->setEchoMode(QLineEdit::Password);
+  m_usernameEdit = new QLineEdit(this);
+  m_passwordEdit = new QLineEdit(this);
+  m_passwordEdit->setEchoMode(QLineEdit::Password);
 
-    m_loginButton = new QPushButton("Login", this);
+  m_loginButton = new QPushButton("Login", this);
+  connect(m_loginButton, &QPushButton::clicked, this, &LoginWidget::onLoginClicked);
 
-    QFormLayout *formLayout = new QFormLayout(this);
-    formLayout->addRow("Username:", m_usernameEdit);
-    formLayout->addRow("Password:", m_passwordEdit);
-    formLayout->addRow(m_loginButton);
+  QFormLayout *formLayout = new QFormLayout(this);
+  formLayout->addRow("Username:", m_usernameEdit);
+  formLayout->addRow("Password:", m_passwordEdit);
+  formLayout->addRow(m_loginButton);
 
-    setLayout(formLayout);
+  setLayout(formLayout);
 }
 void LoginWidget::onLoginClicked()
 {
