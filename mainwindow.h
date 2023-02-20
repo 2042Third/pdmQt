@@ -6,6 +6,7 @@
 #include "settingsmainwindow.h"
 #include "accountwidget.h"
 #include "debugwindow.h"
+#include "PdmRunTime.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,10 +17,11 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
-    DebugWindow * debugWindow;
-    SettingsMainWindow * settingsWindow=nullptr;
+  MainWindow(QWidget *parent = nullptr);
+  ~MainWindow();
+  DebugWindow * debugWindow;
+  SettingsMainWindow * settingsWindow=nullptr;
+  PdmRunTime* rt;
 
 private slots:
     void on_actionSettings_triggered();

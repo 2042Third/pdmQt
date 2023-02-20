@@ -22,7 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
 
   ui->setupUi(this);
   debugWindow = new DebugWindow(ui->centralwidget);
-
+  rt = new PdmRunTime();
+  connect(rt, &PdmRunTime::log, debugWindow, &DebugWindow::appendMessage);
 
 }
 
@@ -30,6 +31,7 @@ MainWindow::~MainWindow()
 {
   delete ui;
   delete debugWindow;
+  delete rt;
 }
 
 
@@ -60,7 +62,7 @@ void MainWindow::on_actionDebug_Messages_triggered()
 void MainWindow::newSettingsWindow() {
   if (!settingsWindow){
     settingsWindow = new SettingsMainWindow(ui->centralwidget);
-    connect(settingsWindow, &SettingsMainWindow::log, debugWindow, &DebugWindow::appendMessage);
+    settingsWindow->setRef(rt);
   }
 }
 

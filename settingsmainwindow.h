@@ -4,11 +4,14 @@
 #include <QMainWindow>
 #include "accountwidget.h"
 #include "informationwidget.h"
+#include "PdmRunTime.h"
+#include "PdmRuntimeRef.h"
+
 namespace Ui {
 class SettingsMainWindow;
 }
 
-class SettingsMainWindow : public QMainWindow
+class SettingsMainWindow : public QMainWindow, public PdmRuntimeRef
 {
     Q_OBJECT
 
@@ -21,15 +24,13 @@ public:
   AccountWidget * acc_ui;
   InformationWidget * info_ui;
 
-signals:
-    void log(const QString &message, const  QString &color );
-
 private slots:
     void on_settingAccountButton_released();
 
     void on_settingInfoButton_released();
 
 private:
+
     Ui::SettingsMainWindow *ui;
 };
 

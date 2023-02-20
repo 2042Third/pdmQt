@@ -53,7 +53,7 @@ set(PROJECT_SOURCES
         debugwindow.h debugwindow.cpp debugwindow.ui
         PdmRunTime.h PdmRunTime.cpp
         ${TS_FILES}
-)
+    PdmRuntimeRef.cpp)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(pdm_qt
