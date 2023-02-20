@@ -2,14 +2,13 @@
 #include <QFormLayout>
 
 LoginWidget::LoginWidget(QWidget *parent)
-    : QWidget(parent)
+    : QWidget(parent),PdmRuntimeRef()
 {
     m_usernameEdit = new QLineEdit(this);
     m_passwordEdit = new QLineEdit(this);
     m_passwordEdit->setEchoMode(QLineEdit::Password);
 
     m_loginButton = new QPushButton("Login", this);
-    connect(m_loginButton, &QPushButton::clicked, this, &LoginWidget::onLoginClicked);
 
     QFormLayout *formLayout = new QFormLayout(this);
     formLayout->addRow("Username:", m_usernameEdit);
@@ -28,9 +27,9 @@ void LoginWidget::onLoginClicked()
 
   if (!username.isEmpty() && !password.isEmpty()) {
     // Add code to show the main window or do other tasks here
-    log("Login attempted:", "#FF0000");
-    log("\tusername: "+username, "#FF0000");
-    log("\tpassword: "+password, "#FF0000");
+    emit rt->log("Login attempted:", "#FF0000");
+    emit rt->log("\tusername: "+username, "#FF0000");
+    emit rt->log("\tpassword: "+password, "#FF0000");
   } else {
     QMessageBox::warning(this, "Error", "Incorrect username or password");
   }

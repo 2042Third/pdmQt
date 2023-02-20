@@ -23,7 +23,12 @@ public:
 
   AccountWidget * acc_ui;
   InformationWidget * info_ui;
-
+  void setRef(PdmRunTime* rtRef) override {
+    PdmRuntimeRef::setRef(rtRef);
+    acc_ui->setRef(rt);
+    info_ui->setRef(rt);
+    emit rt->log("SettingsWidget widget Created","#00FF00");
+  }
 private slots:
     void on_settingAccountButton_released();
 

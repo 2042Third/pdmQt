@@ -8,15 +8,18 @@
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
+#include "PdmRuntimeRef.h"
 
-class LoginWidget: public QWidget
+class LoginWidget: public QWidget, public PdmRuntimeRef
 {
     Q_OBJECT
 public:
     explicit LoginWidget(QWidget *parent = nullptr);
     ~ LoginWidget();
-signals:
-  void log(const QString &message, const  QString &color );
+    void setRef(PdmRunTime*rtRef) override {
+      PdmRuntimeRef::setRef(rtRef);
+      emit rtRef->log("login widget Created","#00FF00");
+    }
 private slots:
     void onLoginClicked();
 

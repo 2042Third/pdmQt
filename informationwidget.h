@@ -2,12 +2,13 @@
 #define INFORMATIONWIDGET_H
 
 #include <QWidget>
+#include "PdmRuntimeRef.h"
 
 namespace Ui {
 class InformationWidget;
 }
 
-class InformationWidget : public QWidget
+class InformationWidget : public QWidget,public PdmRuntimeRef
 {
     Q_OBJECT
 
@@ -15,8 +16,6 @@ public:
     explicit InformationWidget(QWidget *parent = nullptr);
     ~InformationWidget();
 
-signals:
-  void log(const QString &message, const  QString &color );
 private:
     Ui::InformationWidget *ui;
 };

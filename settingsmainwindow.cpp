@@ -6,14 +6,13 @@
 
 
 SettingsMainWindow::SettingsMainWindow(QWidget *parent) :
-    QMainWindow(parent),
+    QMainWindow(parent), PdmRuntimeRef(),
     ui(new Ui::SettingsMainWindow)
 {
   ui->setupUi(this); // .ui file generated header setup
 
   acc_ui = new AccountWidget(ui->centralwidget);
   acc_ui->setObjectName("acc_ui");
-//  connect(acc_ui, &AccountWidget::log, this,&SettingsMainWindow::log);
 
   info_ui = new InformationWidget(ui->centralwidget);
   info_ui->setObjectName("info_ui");
