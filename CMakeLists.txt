@@ -42,18 +42,18 @@ set(TS_FILES
     )
 
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-        settingsmainwindow.h settingsmainwindow.cpp settingsmainwindow.ui
-        accountwidget.h accountwidget.cpp accountwidget.ui
-        informationwidget.h informationwidget.cpp informationwidget.ui
-        loginwidget.h loginwidget.cpp
-        debugwindow.h debugwindow.cpp debugwindow.ui
-        PdmRunTime.h PdmRunTime.cpp
+    src/main.cpp
+    src/mainwindow.cpp
+    src/mainwindow.h
+    src/mainwindow.ui
+    src/settingsmainwindow.h src/settingsmainwindow.cpp src/settingsmainwindow.ui
+    src/accountwidget.h src/accountwidget.cpp src/accountwidget.ui
+    src/informationwidget.h src/informationwidget.cpp src/informationwidget.ui
+    src/loginwidget.h src/loginwidget.cpp
+    src/debugwindow.h src/debugwindow.cpp src/debugwindow.ui
+    src/PdmRunTime.h src/PdmRunTime.cpp
         ${TS_FILES}
-    PdmRuntimeRef.cpp)
+    src/PdmRuntimeRef.cpp)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(pdm_qt
