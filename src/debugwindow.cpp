@@ -24,3 +24,9 @@ DebugWindow::~DebugWindow()
     delete ui;
     delete texts;
 }
+
+void DebugWindow::on_actionOpen_One_Note_Page_triggered()
+{
+
+}
+

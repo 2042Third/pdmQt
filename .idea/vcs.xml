@@ -3,6 +3,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/cryptoSQLite" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/json" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/pdm-crypt-module" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/pdm_network" vcs="Git" />
   </component>

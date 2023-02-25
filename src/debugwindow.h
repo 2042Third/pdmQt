@@ -19,6 +19,9 @@ public:
 public slots:
     void appendMessage(const QString &message, const  QString &color = "#000000");
 
+private slots:
+    void on_actionOpen_One_Note_Page_triggered();
+
 private:
     Ui::DebugWindow *ui;
     QTextEdit* texts;
