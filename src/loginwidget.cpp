@@ -33,6 +33,8 @@ void LoginWidget::onLoginClicked()
     emit rt->log("\tpassword: "+password, "#FF0000");
   } else {
     QMessageBox::warning(this, "Error", "Incorrect username or password");
+    emit rt->log("Error", "#FF0004");
+    emit rt->log("username or password not entered.", "#FF0004");
   }
 }
 LoginWidget::~LoginWidget() {
