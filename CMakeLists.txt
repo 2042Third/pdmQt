@@ -42,6 +42,7 @@ set(TS_FILES
     )
 
 set(PROJECT_SOURCES
+    resources.qrc
     src/main.cpp
     src/mainwindow.cpp
     src/mainwindow.h
