@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
   QApplication a(argc, argv);
 
   // Application Icon
-
+  a.setWindowIcon(QIcon(":/images/icon/icon.png"));
 
   // Translation
   QTranslator translator;
