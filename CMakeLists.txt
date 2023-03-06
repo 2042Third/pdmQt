@@ -54,7 +54,19 @@ set(PROJECT_SOURCES
     src/debugwindow.h src/debugwindow.cpp src/debugwindow.ui
     src/PdmRunTime.h src/PdmRunTime.cpp
         ${TS_FILES}
-    src/PdmRuntimeRef.cpp)
+    src/PdmRuntimeRef.cpp
+
+    # PDM things
+    src/handler/pdm_databse.cpp
+    src/handler/pdm_database.h
+    src/handler/pdm_status.h
+    src/handler/pdm_net.cpp
+    src/handler/pdm_net.h
+    src/handler/pdm_net_type.cpp
+    src/handler/net_convert.cpp
+    src/handler/types.h
+    src/crypto/pdmCryptoDB.hpp # encrypted database
+    )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(pdm_qt
@@ -85,6 +97,7 @@ endif()
 
 target_include_directories(pdm_qt PUBLIC
     ./
+    src/ # For the "crypto/pdmCryptoDB.hpp" include only
     lib/
     lib/json/single_include
     lib/pdm-crypt-module
