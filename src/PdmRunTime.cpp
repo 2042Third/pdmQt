@@ -1,7 +1,5 @@
 #include "PdmRunTime.h"
+  PdmRunTime::PdmRunTime(QObject *parent)
+      : QObject(parent) {
 
-PdmRunTime::PdmRunTime(QObject *parent)
-    : QObject(parent)
-{
-
-}
+  }
