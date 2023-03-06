@@ -86,6 +86,7 @@ endif()
 target_include_directories(pdm_qt PUBLIC
     ./
     lib/
+    lib/json/single_include
     lib/pdm-crypt-module
     lib/pdm-crypt-module/src/lib
     lib/cryptoSQLite
