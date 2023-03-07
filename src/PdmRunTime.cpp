@@ -29,6 +29,7 @@ int PdmRunTime::get_user_loc (const std::string& file_names,int conf) {
   }
   return 0;
 }
+
 int PdmRunTime::signin_action(const std::string &a, NetWriter *wt_in, const char *password, const char *email) {
   std::string ps = password, user_mail = email;
   struct NetCallBack_ {
@@ -74,4 +75,22 @@ PdmRunTime::~PdmRunTime() {
   delete db;
   delete user_data;
   delete user_conf;
+}
+
+int PdmRunTime::signin_action(const std::string &a, NetWriter *wt_in, const char *password, const char *email,
+                              size_t (*_callback)(char *, size_t, size_t, void *)) {
+  std::string ps = password, user_mail = email;
+  std::cout<<"User email: "<< wt.userinfo.email<< std::endl;
+  MD5 md5; md5.add(user_mail.c_str(),user_mail.size());
+  std::string file_names = md5.getHash();
+  get_user_loc(file_names);
+  const std::filesystem::path confp(conf_loc);
+  std::filesystem::create_directories(confp.parent_path()); // Create user config dir
+  std::cout<< "conf_loc: "<< conf_loc<<std::endl;
+  user_conf->open_db(conf_loc.c_str(),"pdmnotes",8); // Make local user configurations
+  wt_in->pdm_runtime = this;
+  wt_in->data = ps;
+  signin_post(a,wt_in,_callback); // Call network post for Sign In action
+
+  return 1;
 }
