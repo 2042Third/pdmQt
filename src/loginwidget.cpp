@@ -54,9 +54,10 @@ void LoginWidget::onLoginClicked()
         emit rt->log((" \"data_loc: \""+rt->data_loc).c_str(), "#016C05");
         rt->user_data->open_db(rt->data_loc.c_str(),wt->data.c_str(),wt->data.size());
         emit rt->log(" Database opened!", "#016C05");
+        emit rt->loginSuccess(wt);
       } else {
         emit rt->log("Unsuccessful callback. ", "#6C2501");
-        // TODO: Deal with the failed login
+        emit rt->loginFail(wt);
       }
       return callback_out; /* we copied this many bytes */
     }
@@ -81,9 +82,6 @@ void LoginWidget::onLoginClicked()
     emit rt->log("username or password not entered.", "#FF0004");
   }
 }
-LoginWidget::~LoginWidget() {
-
-}
 
 bool LoginWidget::eventFilter(QObject *object, QEvent *event) {
   // Catch Enter key press events and trigger login button click
@@ -95,4 +93,11 @@ bool LoginWidget::eventFilter(QObject *object, QEvent *event) {
     }
   }
   return QObject::eventFilter(object, event);
+}
+
+
+
+
+LoginWidget::~LoginWidget() {
+
 }

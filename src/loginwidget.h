@@ -12,22 +12,22 @@
 
 class LoginWidget: public QWidget, public PdmRuntimeRef
 {
-    Q_OBJECT
+  Q_OBJECT
 public:
-    explicit LoginWidget(QWidget *parent = nullptr);
-    ~ LoginWidget();
-    void setRef(PdmRunTime*rtRef) override {
-      PdmRuntimeRef::setRef(rtRef);
-      emit rt->log("login widget Created","#00FF00");
-    }
+  explicit LoginWidget(QWidget *parent = nullptr);
+  ~ LoginWidget();
+  void setRef(PdmRunTime*rtRef) override {
+    PdmRuntimeRef::setRef(rtRef);
+    emit rt->log("login widget Created","#00FF00");
+  }
 private slots:
-    void onLoginClicked();
+  void onLoginClicked();
   bool eventFilter(QObject *object, QEvent *event) override;
 
 private:
-    QLineEdit *m_usernameEdit;
-    QLineEdit *m_passwordEdit;
-    QPushButton *m_loginButton;
+  QLineEdit *m_usernameEdit;
+  QLineEdit *m_passwordEdit;
+  QPushButton *m_loginButton;
 };
 
 #endif // LOGINWIDGET_H

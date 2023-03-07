@@ -1,5 +1,6 @@
 #include "PdmRunTime.h"
 #include "misc/md5.h"
+#include <QObject>
 
 PdmRunTime::PdmRunTime(QObject *parent)
       : QObject(parent) {
@@ -8,7 +9,10 @@ PdmRunTime::PdmRunTime(QObject *parent)
   user_data = new PDM::pdm_database(); // Create config db for user
 
   set_db(db);
-  }
+
+  connect (this, &PdmRunTime::loginSuccess, this, &PdmRunTime::on_loginSuccess);
+  connect (this, &PdmRunTime::loginFail, this, &PdmRunTime::on_loginFail);
+}
 /**
    * Checks if user exists on this computer.
    * Locations:
@@ -68,6 +72,15 @@ int PdmRunTime::signin_action(const std::string &a, NetWriter *wt_in, const char
   signin_post(a,wt_in,NetCallBack_::_callback); // Call network post for Sign In action
 
   return 1;
+}
+void PdmRunTime::on_loginSuccess(const NetObj* netObj) {
+  emit log(("Login successful: "+netObj->userinfo.email).c_str(), "#00CC00");
+
+}
+
+void PdmRunTime::on_loginFail(const NetObj* netObj) {
+  emit log(("Login Failed for \""+netObj->userinfo.email
+                +"\", status: "+ netObj->userinfo.status).c_str(), "#FF0004");
 }
 
 PdmRunTime::~PdmRunTime() {
