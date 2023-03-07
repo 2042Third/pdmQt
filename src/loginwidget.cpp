@@ -1,4 +1,5 @@
 #include "loginwidget.h"
+#include "handler/pdm_net_type.h"
 #include <QFormLayout>
 
 LoginWidget::LoginWidget(QWidget *parent)
@@ -20,17 +21,22 @@ LoginWidget::LoginWidget(QWidget *parent)
 }
 void LoginWidget::onLoginClicked()
 {
-
+  static std::string j_str;
   QString username = m_usernameEdit->text();
   QString password = m_passwordEdit->text();
 
   // Add code to verify the username and password here
 
   if (!username.isEmpty() && !password.isEmpty()) {
-    // Add code to show the main window or do other tasks here
     emit rt->log("Login attempted:", "#FF0000");
     emit rt->log("\tusername: "+username, "#FF0000");
     emit rt->log("\tpassword: "+password, "#FF0000");
+    // Get JSON object of the user login information
+    std::map<std::string,std::string> data=PDM::pdm_net_type::get_signin_json(username.toUtf8().constData(),password.toUtf8().constData());
+    j_str = PDM::network::get_json(data);
+    rt->signin_action(j_str, &rt->wt,password.toUtf8().constData(), username.toUtf8().constData());
+    emit rt->log("Login send to the server ...", "#D6FC19");
+
   } else {
     QMessageBox::warning(this, "Error", "Incorrect username or password");
     emit rt->log("Error", "#FF0004");
