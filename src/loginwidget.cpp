@@ -1,7 +1,13 @@
+/**
+ * By Yi Yang
+ *  Feb. 2023
+ * */
+
 #include "loginwidget.h"
 #include "handler/pdm_net_type.h"
 #include "misc/md5.h"
 #include <QFormLayout>
+#include <QKeyEvent>
 
 LoginWidget::LoginWidget(QWidget *parent)
     : QWidget(parent),PdmRuntimeRef()
@@ -12,6 +18,9 @@ LoginWidget::LoginWidget(QWidget *parent)
 
   m_loginButton = new QPushButton("Login", this);
   connect(m_loginButton, &QPushButton::clicked, this, &LoginWidget::onLoginClicked);
+  // Install event filter to catch Enter key press
+  m_usernameEdit->installEventFilter(this);
+  m_passwordEdit->installEventFilter(this);
 
   QFormLayout *formLayout = new QFormLayout(this);
   formLayout->addRow("Username:", m_usernameEdit);
@@ -74,4 +83,16 @@ void LoginWidget::onLoginClicked()
 }
 LoginWidget::~LoginWidget() {
 
+}
+
+bool LoginWidget::eventFilter(QObject *object, QEvent *event) {
+  // Catch Enter key press events and trigger login button click
+  if (event->type() == QEvent::KeyPress) {
+    QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+    if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter) {
+      onLoginClicked();
+      return true;
+    }
+  }
+  return QObject::eventFilter(object, event);
 }

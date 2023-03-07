@@ -22,6 +22,7 @@ public:
     }
 private slots:
     void onLoginClicked();
+  bool eventFilter(QObject *object, QEvent *event) override;
 
 private:
     QLineEdit *m_usernameEdit;

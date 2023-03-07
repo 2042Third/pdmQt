@@ -31,8 +31,8 @@ public:
   }
 private slots:
     void on_settingAccountButton_released();
-
     void on_settingInfoButton_released();
+
 
 private:
 
