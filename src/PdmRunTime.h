@@ -26,13 +26,13 @@
     int signin_action(const std::string&a, NetWriter* wt_in,const char* password,const char* email,
                       size_t _callback(char *, size_t , size_t , void *));
     int get_user_loc(const std::string &file_names,int conf=1);
-
-    void on_loginSuccess(const NetObj* netObj);
-    void on_loginFail(const NetObj* netObj);
-  signals:
+public slots:
+    void on_loginSuccess();
+    void on_loginFail();
+    signals:
     void log(const QString &message, const QString &color);
-    void loginSuccess(const NetObj* netObj);
-    void loginFail(const NetObj* netObj);
+    void loginSuccess();
+    void loginFail();
 
   };
 #endif // PDMRUNTIME_H

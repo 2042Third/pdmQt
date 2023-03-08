@@ -5,6 +5,7 @@
 
 #include "loginwidget.h"
 #include "PdmRuntimeRef.h"
+#include "userinformation.h"
 
 namespace Ui {
 class AccountWidget;
@@ -12,19 +13,21 @@ class AccountWidget;
 
 class AccountWidget : public QWidget, public PdmRuntimeRef
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
   explicit AccountWidget(QWidget *parent = nullptr);
   ~AccountWidget();
   LoginWidget * loginWidget;
-  void setRef(PdmRunTime* rtRef) override {
-    PdmRuntimeRef::setRef(rtRef);
-    loginWidget->setRef(rtRef);
-    emit rtRef->log("Account widget Created","#00FF00");
-  }
+  UserInformation* informationWidget;
+
+  void setRef(PdmRunTime* rtRef) override ;
+
+public slots:
+  void accountLoginSuccess () ;
 private:
-    Ui::AccountWidget *ui;
+  Ui::AccountWidget *ui;
+
 };
 
 #endif // ACCOUNTWIDGET_H

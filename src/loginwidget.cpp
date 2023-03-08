@@ -54,10 +54,10 @@ void LoginWidget::onLoginClicked()
         emit rt->log((" \"data_loc: \""+rt->data_loc).c_str(), "#016C05");
         rt->user_data->open_db(rt->data_loc.c_str(),wt->data.c_str(),wt->data.size());
         emit rt->log(" Database opened!", "#016C05");
-        emit rt->loginSuccess(wt);
+        emit rt->loginSuccess();
       } else {
         emit rt->log("Unsuccessful callback. ", "#6C2501");
-        emit rt->loginFail(wt);
+        emit rt->loginFail();
       }
       return callback_out; /* we copied this many bytes */
     }

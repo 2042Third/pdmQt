@@ -73,14 +73,14 @@ int PdmRunTime::signin_action(const std::string &a, NetWriter *wt_in, const char
 
   return 1;
 }
-void PdmRunTime::on_loginSuccess(const NetObj* netObj) {
-  emit log(("Login successful: "+netObj->userinfo.email).c_str(), "#00CC00");
+void PdmRunTime::on_loginSuccess() {
+  emit log(("Login successful: "+wt.userinfo.email).c_str(), "#00CC00");
 
 }
 
-void PdmRunTime::on_loginFail(const NetObj* netObj) {
-  emit log(("Login Failed for \""+netObj->userinfo.email
-                +"\", status: "+ netObj->userinfo.status).c_str(), "#FF0004");
+void PdmRunTime::on_loginFail() {
+  emit log(("Login Failed for \""+wt.userinfo.email
+                +"\", status: "+ wt.userinfo.status).c_str(), "#FF0004");
 }
 
 PdmRunTime::~PdmRunTime() {

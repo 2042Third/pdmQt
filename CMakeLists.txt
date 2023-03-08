@@ -55,6 +55,7 @@ set(PROJECT_SOURCES
     src/PdmRunTime.h src/PdmRunTime.cpp
         ${TS_FILES}
     src/PdmRuntimeRef.cpp
+    src/userinformation.h src/userinformation.cpp src/userinformation.ui
 
     # PDM things
     src/handler/pdm_databse.cpp
@@ -66,6 +67,7 @@ set(PROJECT_SOURCES
     src/handler/net_convert.cpp
     src/handler/types.h
     src/crypto/pdmCryptoDB.hpp # encrypted database
+
     )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
