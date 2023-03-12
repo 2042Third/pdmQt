@@ -1,9 +1,6 @@
 #include "userinformation.h"
 #include "ui_userinformation.h"
 #include <QWidget>
-#include <QLabel>
-#include <QLineEdit>
-#include <QVBoxLayout>
 #include <QString>
 
 UserInformation::UserInformation(QWidget *parent) :
@@ -12,15 +9,15 @@ UserInformation::UserInformation(QWidget *parent) :
 {
     ui->setupUi(this);
 
-  QLabel *usernameLabel = new QLabel("Username:");
-  QLabel *emailLabel = new QLabel("Email:");
-  QLabel *creationDateLabel = new QLabel("Account creation date:");
+  usernameLabel = new QLabel("Username:");
+  emailLabel = new QLabel("Email:");
+  creationDateLabel = new QLabel("Account creation date:");
 
-  QLineEdit *usernameLineEdit = new QLineEdit("");
-  QLineEdit *emailLineEdit = new QLineEdit("");
-  QLineEdit *creationDateLineEdit = new QLineEdit("");
+  usernameLineEdit = new QLabel("");
+  emailLineEdit = new QLabel("");
+  creationDateLineEdit = new QLabel("");
 
-  QVBoxLayout *layout = new QVBoxLayout;
+  layout = new QVBoxLayout;
   layout->addWidget(usernameLabel);
   layout->addWidget(usernameLineEdit);
   layout->addWidget(emailLabel);
@@ -33,5 +30,21 @@ UserInformation::UserInformation(QWidget *parent) :
 
 UserInformation::~UserInformation()
 {
-    delete ui;
+  delete ui;
+
+  delete usernameLabel;
+  delete emailLabel;
+  delete creationDateLabel;
+  delete usernameLineEdit;
+  delete emailLineEdit;
+  delete creationDateLineEdit;
+  delete layout;
 }
+
+void UserInformation::displayUserInfo() {
+  usernameLineEdit->setText(rt->wt.userinfo.username.c_str());
+  emailLineEdit->setText(rt->wt.userinfo.email.c_str());
+  creationDateLineEdit->setText(rt->wt.userinfo.ctime.c_str());
+}
+
+

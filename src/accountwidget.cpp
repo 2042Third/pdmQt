@@ -40,7 +40,9 @@ void AccountWidget::accountLoginSuccess() {
   ui->gridLayout->removeWidget(loginWidget);
   ui->gridLayout->addWidget(informationWidget);
   informationWidget->show();
+  informationWidget->displayUserInfo();
   emit rt->log ("AccountWidget replaces loginWidget with Information Widget", "#000000");
 }
+
 
 
