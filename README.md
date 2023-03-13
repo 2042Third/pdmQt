@@ -16,4 +16,4 @@ pdmQt allows you to encrypt and decrypt files using pdm-core-module. You can sel
 
 ## License
 
-pdmQt is licensed under the GLS-3 License made by Yi Yang. See LICENSE file for more details.
+pdmQt is licensed under the GPL-3 License made by Yi Yang. See LICENSE file for more details.
