@@ -16,6 +16,9 @@ class DebugWindow :
 public:
   explicit DebugWindow(QWidget *parent = nullptr);
   ~DebugWindow();
+
+  void toggleMaximize();
+
 public slots:
   void appendMessage(const QString &message, const  QString &color = "#000000");
   void setWindowPosition(QPoint &a);

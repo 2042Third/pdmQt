@@ -1,6 +1,7 @@
 #include <QPushButton>
 #include "debugwindow.h"
 #include "ui_debugwindow.h"
+#include "CustomWindow.h"
 
 DebugWindow::DebugWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -16,6 +17,19 @@ DebugWindow::DebugWindow(QWidget *parent) :
 
   QPushButton *keepOnTopButton = new QPushButton("Toggle Stay On Top", this);
   connect(keepOnTopButton, &QPushButton::clicked, this, &DebugWindow::on_keepOnTopButton_clicked);
+
+  // Custom windowing.
+  // Set the custom title bar for the Debug window
+  CustomTitleBar *titleBar = new CustomTitleBar(this);
+  setWindowFlags(Qt::FramelessWindowHint | Qt::Window);
+  setWindowTitle("Custom Title Bar Example");
+  setCentralWidget(ui->centralwidget);
+  setMenuWidget(titleBar);
+
+  // Connect signals from the custom title bar to handle window actions
+  connect(titleBar, &CustomTitleBar::minimizeWindow, this, &DebugWindow::showMinimized);
+  connect(titleBar, &CustomTitleBar::maximizeWindow, this, &DebugWindow::toggleMaximize);
+  connect(titleBar, &CustomTitleBar::closeWindow, this, &DebugWindow::close);
 
 }
 void DebugWindow::appendMessage(const QString &message, const QString &color)
@@ -46,4 +60,13 @@ void DebugWindow::on_keepOnTopButton_clicked()
   // Toggle the Qt::WindowStaysOnTopHint flag using XOR
   setWindowFlags(flags ^ Qt::WindowStaysOnTopHint);
   show();
+}
+
+
+void DebugWindow::toggleMaximize() {
+  if (isMaximized()) {
+    showNormal();
+  } else {
+    showMaximized();
+  }
 }

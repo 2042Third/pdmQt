@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent)
   rt = new PdmRunTime();
   connect(rt, &PdmRunTime::log, debugWindow, &DebugWindow::appendMessage);
 
+
+
 }
 
 MainWindow::~MainWindow()
