@@ -17,7 +17,7 @@ DebugWindow::DebugWindow(QWidget *parent) :
   // Set the custom title bar for the Debug window
   titleBar = new CustomTitleBar(this);
   setWindowFlags(Qt::FramelessWindowHint | Qt::Window);
-  setWindowTitle("Debug");
+  setWindowTitle("Debug Window");
   setCentralWidget(ui->centralwidget);
   setMenuWidget(titleBar);
 
@@ -28,6 +28,7 @@ DebugWindow::DebugWindow(QWidget *parent) :
 
   // Connect the custom button to staying this debug window on top.
   titleBar->customButton->setIcon(QIcon(":/images/icon/pin"));
+  titleBar->customButton->setToolTip("Toggle pin on top (currently not pinned)" );
   connect(titleBar->customButton, &QPushButton::clicked, this, &DebugWindow::onKeepOnTopButtonClicked);
 
 }
@@ -61,6 +62,8 @@ void DebugWindow::onKeepOnTopButtonClicked()
   // Toggle the Qt::WindowStaysOnTopHint flag using XOR and update the icon
   setWindowFlags(flags ^ Qt::WindowStaysOnTopHint);
   titleBar->customButton->setIcon(flags & Qt::WindowStaysOnTopHint ? QIcon(":/images/icon/pin") : QIcon (":/images/icon/pin-off"));
+  titleBar->customButton->setToolTip(flags & Qt::WindowStaysOnTopHint ? "Toggle pin on top (currently not pinned)"
+  : "Toggle pin on top (currently pinned)");
   show();
 }
 
