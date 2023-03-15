@@ -21,7 +21,7 @@ public slots:
   void setWindowPosition(QPoint &a);
 private slots:
   void on_actionOpen_One_Note_Page_triggered();
-
+  void on_keepOnTopButton_clicked();
 private:
   Ui::DebugWindow *ui;
   QTextEdit* texts;

@@ -1,17 +1,22 @@
+#include <QPushButton>
 #include "debugwindow.h"
 #include "ui_debugwindow.h"
 
 DebugWindow::DebugWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::DebugWindow)
+  QMainWindow(parent),
+  ui(new Ui::DebugWindow)
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 
-    // After the setup of the designer;
-    texts = new QTextEdit(ui->centralwidget);
-    texts->setObjectName("textEdit");
-    texts->setReadOnly(true);
-    ui->verticalLayout->addWidget(texts);
+  // After the setup of the designer;
+  texts = new QTextEdit(ui->centralwidget);
+  texts->setObjectName("textEdit");
+  texts->setReadOnly(true);
+  ui->verticalLayout->addWidget(texts);
+
+  QPushButton *keepOnTopButton = new QPushButton("Toggle Stay On Top", this);
+  connect(keepOnTopButton, &QPushButton::clicked, this, &DebugWindow::on_keepOnTopButton_clicked);
+
 }
 void DebugWindow::appendMessage(const QString &message, const QString &color)
 {
@@ -35,4 +40,10 @@ void DebugWindow::on_actionOpen_One_Note_Page_triggered()
 void DebugWindow::setWindowPosition(QPoint &a) {
   move(a);
 }
-
+void DebugWindow::on_keepOnTopButton_clicked()
+{
+  Qt::WindowFlags flags = windowFlags();
+  // Toggle the Qt::WindowStaysOnTopHint flag using XOR
+  setWindowFlags(flags ^ Qt::WindowStaysOnTopHint);
+  show();
+}
