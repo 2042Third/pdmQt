@@ -9,6 +9,6 @@ ShadowFrameWidget::ShadowFrameWidget(QWidget *parent) : QWidget(parent) {
   QPalette palette = this->palette();
   palette.setColor(QPalette::Window, Qt::white);
   setPalette(palette);
-  
   setAutoFillBackground(true);
+//  setStyleSheet("border-radius: 10px;");
 }

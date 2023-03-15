@@ -47,7 +47,6 @@ DebugWindow::DebugWindow(QWidget *parent) :
   // Apply the shadow effect to the main content widget
   shadowFrameWidget->setGraphicsEffect(shadowEffect);
 
-
   // Set the init size.
   resize(500, 400);
 }
