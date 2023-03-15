@@ -29,6 +29,7 @@
 public slots:
     void on_loginSuccess();
     void on_loginFail();
+
     signals:
     void log(const QString &message, const QString &color);
     void loginSuccess();

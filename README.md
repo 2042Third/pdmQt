@@ -14,6 +14,9 @@ Then, you can clone this repository and open the pdmQt.pro file in Qt Creator. B
 
 pdmQt allows you to encrypt and decrypt files using pdm-core-module. You can select a file to encrypt or decrypt, choose a password, and specify an output file name. The application will show you the progress and status of the encryption or decryption process.
 
+## Credit
+SVG icons provided by open source project: https://pictogrammers.com/libraries/
+
 ## License
 
 pdmQt is licensed under the GPL-3 License made by Yi Yang. See LICENSE file for more details.

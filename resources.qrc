@@ -1,5 +1,11 @@
 <RCC>
     <qresource prefix="/images/icon">
         <file alias="icon.png">resource/icon/icon.png</file>
+        <file alias="pin">resource/icon/pin.svg</file>
+        <file alias="pin-off">resource/icon/pin-off.svg</file>
+        <file alias="checkbox-blank">resource/icon/checkbox-blank-outline.svg</file>
+        <file alias="close">resource/icon/close.svg</file>
+        <file alias="minus">resource/icon/minus.svg</file>
+        <file alias="maximize">resource/icon/window-maximize.svg</file>
     </qresource>
 </RCC>

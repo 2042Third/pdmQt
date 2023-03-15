@@ -23,15 +23,13 @@ public:
 public slots:
   void appendMessage(const QString &message, const  QString &color = "#000000");
   void setWindowPosition(QPoint &a);
+  void onKeepOnTopButtonClicked();
 private slots:
   void on_actionOpen_One_Note_Page_triggered();
-  void on_keepOnTopButton_clicked();
 private:
   Ui::DebugWindow *ui;
   QTextEdit* texts;
-  QPushButton *keepOnTopButton;
   CustomTitleBar *titleBar;
-
 
 };
 
