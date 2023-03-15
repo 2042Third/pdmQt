@@ -1,25 +1,27 @@
 #include <QPushButton>
 #include "debugwindow.h"
-#include "ui_debugwindow.h"
 
 DebugWindow::DebugWindow(QWidget *parent) :
-  QMainWindow(parent),
-  ui(new Ui::DebugWindow)
+  QMainWindow(parent, Qt::FramelessWindowHint)
 {
-  ui->setupUi(this);
+  mainContent = new QWidget(); // Basically central widget
+  verticalLayout = new QVBoxLayout(mainContent);
+  shadowFrameWidget = new ShadowFrameWidget(this); // init the shadow drop
 
   // After the setup of the designer;
-  texts = new QTextEdit(ui->centralwidget);
+  texts = new QTextEdit(mainContent);
   texts->setObjectName("textEdit");
   texts->setReadOnly(true);
-  ui->verticalLayout->addWidget(texts);
+  verticalLayout->addWidget(texts);
   // Custom windowing.
   // Set the custom title bar for the Debug window
   titleBar = new CustomTitleBar(this);
-  setWindowFlags(Qt::FramelessWindowHint | Qt::Window);
-  setWindowTitle("Debug Window");
-  setCentralWidget(ui->centralwidget);
-  setMenuWidget(titleBar);
+
+  shadowWidgetLayout = new QVBoxLayout(shadowFrameWidget);
+  shadowWidgetLayout->setContentsMargins(10, 10, 10, 10); // Adjust the margins to control the shadow size
+  shadowWidgetLayout->addWidget(titleBar); // custom titlebar
+  shadowWidgetLayout->addWidget(texts); // main content, the console
+  shadowFrameWidget->setLayout(shadowWidgetLayout);
 
   // Connect signals from the custom title bar to handle window actions
   connect(titleBar, &CustomTitleBar::minimizeWindow, this, &DebugWindow::showMinimized);
@@ -31,7 +33,10 @@ DebugWindow::DebugWindow(QWidget *parent) :
   titleBar->customButton->setToolTip("Toggle pin on top (currently not pinned)" );
   connect(titleBar->customButton, &QPushButton::clicked, this, &DebugWindow::onKeepOnTopButtonClicked);
 
+  // Set the layout for the custom title bar window
+  setCentralWidget(shadowFrameWidget);
 }
+
 void DebugWindow::appendMessage(const QString &message, const QString &color)
 {
     QString html = QString("<font color=%1>%2</font>").arg(color, message);
@@ -39,12 +44,13 @@ void DebugWindow::appendMessage(const QString &message, const QString &color)
 }
 
 
-
 DebugWindow::~DebugWindow()
 {
-    delete ui;
-    delete texts;
-    delete titleBar;
+  delete texts;
+  delete titleBar;
+  delete shadowFrameWidget;
+  delete shadowWidgetLayout;
+  delete mainContent;
 }
 
 void DebugWindow::on_actionOpen_One_Note_Page_triggered()

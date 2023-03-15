@@ -36,6 +36,7 @@ private:
   QPushButton *maximizeButton;
   QPushButton *closeButton;
 
+
 };
 
 

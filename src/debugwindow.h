@@ -4,10 +4,8 @@
 #include <QMainWindow>
 #include <QtWidgets/QTextEdit>
 #include "CustomWindow.h"
+#include "shadowFrameWidget.h"
 
-namespace Ui {
-class DebugWindow;
-}
 
 class DebugWindow :
         public QMainWindow
@@ -26,11 +24,14 @@ public slots:
   void onKeepOnTopButtonClicked();
 private slots:
   void on_actionOpen_One_Note_Page_triggered();
-private:
-  Ui::DebugWindow *ui;
+public:
   QTextEdit* texts;
   CustomTitleBar *titleBar;
+  ShadowFrameWidget* shadowFrameWidget;
+  QVBoxLayout *shadowWidgetLayout;
 
+  QVBoxLayout *verticalLayout;
+  QWidget *mainContent ; // Create the main content for your window
 };
 
 #endif // DEBUGWINDOW_H

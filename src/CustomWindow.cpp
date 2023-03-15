@@ -2,7 +2,8 @@
 // Created by Yi Yang on 3/14/2023.
 //
 #include <QMouseEvent>
-
+#include <QStyleFactory>
+#include <QApplication>
 #include "CustomWindow.h"
 void CustomTitleBar::mousePressEvent(QMouseEvent *event) {
   if (event->button() == Qt::LeftButton) {
@@ -39,8 +40,8 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
 
   // Create a horizontal layout for the custom title bar
   layout = new QHBoxLayout(this);
-  layout->setContentsMargins(0, 0, 0, 0);
-  layout->setSpacing(0);
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->setSpacing(5);
 
   // Create a QLabel for the window title
   titleLabel = new QLabel("Custom Window", this);
@@ -66,4 +67,5 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
   layout->addWidget(minimizeButton);
   layout->addWidget(maximizeButton);
   layout->addWidget(closeButton);
+
 }

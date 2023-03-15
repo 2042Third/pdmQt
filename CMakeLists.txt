@@ -68,7 +68,7 @@ set(PROJECT_SOURCES
     src/handler/types.h
     src/crypto/pdmCryptoDB.hpp # encrypted database
 
-    src/CustomWindow.h src/CustomWindow.cpp)
+    src/CustomWindow.h src/CustomWindow.cpp src/shadowFrameWidget.h src/shadowFrameWidget.cpp)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(pdm_qt
