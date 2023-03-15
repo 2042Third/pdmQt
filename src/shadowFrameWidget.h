@@ -13,7 +13,7 @@ Q_OBJECT
 public:
   explicit ShadowFrameWidget(QWidget *parent = nullptr);
 
-protected:
-  void paintEvent(QPaintEvent *event) override;
+//protected:
+//  void paintEvent(QPaintEvent *event) override;
 };
 #endif

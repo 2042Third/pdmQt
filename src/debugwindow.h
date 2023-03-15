@@ -4,8 +4,9 @@
 #include <QMainWindow>
 #include <QtWidgets/QTextEdit>
 #include "CustomWindow.h"
+#include "qgraphicseffect.h"
 #include "shadowFrameWidget.h"
-
+#include <QGraphicsDropShadowEffect>
 
 class DebugWindow :
         public QMainWindow
@@ -29,6 +30,7 @@ public:
   CustomTitleBar *titleBar;
   ShadowFrameWidget* shadowFrameWidget;
   QVBoxLayout *shadowWidgetLayout;
+  QGraphicsDropShadowEffect *shadowEffect;
 
   QVBoxLayout *verticalLayout;
   QWidget *mainContent ; // Create the main content for your window

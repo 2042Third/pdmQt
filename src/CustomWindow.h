@@ -35,7 +35,8 @@ private:
   QPushButton *minimizeButton;
   QPushButton *maximizeButton;
   QPushButton *closeButton;
-
+protected:
+  void paintEvent(QPaintEvent *event) override;
 
 };
 
