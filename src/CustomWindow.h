@@ -16,16 +16,16 @@ public:
       : QWidget(parent) {
 
     // Create a horizontal layout for the custom title bar
-    QHBoxLayout *layout = new QHBoxLayout(this);
+    layout = new QHBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     // Create a QLabel for the window title
-    QLabel *titleLabel = new QLabel("Custom Title Bar", this);
+    titleLabel = new QLabel("Custom Title Bar", this);
     layout->addWidget(titleLabel);
 
     // Create a custom button for the title bar
-    QPushButton *customButton = new QPushButton("Custom", this);
+    customButton = new QPushButton("Custom", this);
     connect(customButton, &QPushButton::clicked, this, &CustomTitleBar::on_customButton_clicked);
     layout->addWidget(customButton);
 
@@ -33,9 +33,9 @@ public:
     layout->addStretch(1);
 
     // Create the minimize, maximize, and close buttons
-    QPushButton *minimizeButton = new QPushButton("Min", this);
-    QPushButton *maximizeButton = new QPushButton("Max", this);
-    QPushButton *closeButton = new QPushButton("Close", this);
+    minimizeButton = new QPushButton("Min", this);
+    maximizeButton = new QPushButton("Max", this);
+    closeButton = new QPushButton("Close", this);
 
     connect(minimizeButton, &QPushButton::clicked, this, &CustomTitleBar::minimizeWindow);
     connect(maximizeButton, &QPushButton::clicked, this, &CustomTitleBar::maximizeWindow);
@@ -46,7 +46,9 @@ public:
     layout->addWidget(closeButton);
   }
 
-  signals:
+  ~CustomTitleBar() override;
+
+signals:
     void minimizeWindow();
     void maximizeWindow();
     void closeWindow();
@@ -63,6 +65,15 @@ private:
 
   QPoint m_dragStartPosition;
   bool m_dragging = false;
+
+  QHBoxLayout *layout;
+  QLabel *titleLabel;
+  QPushButton *customButton;
+  QPushButton *minimizeButton;
+  QPushButton *maximizeButton;
+  QPushButton *closeButton;
+
+
 };
 
 

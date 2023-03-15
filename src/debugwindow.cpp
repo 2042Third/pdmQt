@@ -1,7 +1,6 @@
 #include <QPushButton>
 #include "debugwindow.h"
 #include "ui_debugwindow.h"
-#include "CustomWindow.h"
 
 DebugWindow::DebugWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -15,12 +14,12 @@ DebugWindow::DebugWindow(QWidget *parent) :
   texts->setReadOnly(true);
   ui->verticalLayout->addWidget(texts);
 
-  QPushButton *keepOnTopButton = new QPushButton("Toggle Stay On Top", this);
+  keepOnTopButton = new QPushButton("Toggle Stay On Top", this);
   connect(keepOnTopButton, &QPushButton::clicked, this, &DebugWindow::on_keepOnTopButton_clicked);
 
   // Custom windowing.
   // Set the custom title bar for the Debug window
-  CustomTitleBar *titleBar = new CustomTitleBar(this);
+  titleBar = new CustomTitleBar(this);
   setWindowFlags(Qt::FramelessWindowHint | Qt::Window);
   setWindowTitle("Custom Title Bar Example");
   setCentralWidget(ui->centralwidget);
@@ -44,6 +43,8 @@ DebugWindow::~DebugWindow()
 {
     delete ui;
     delete texts;
+    delete keepOnTopButton;
+    delete titleBar;
 }
 
 void DebugWindow::on_actionOpen_One_Note_Page_triggered()

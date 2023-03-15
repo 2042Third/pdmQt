@@ -24,3 +24,12 @@ void CustomTitleBar::mouseReleaseEvent(QMouseEvent *event) {
     m_dragging = false;
   }
 }
+
+CustomTitleBar::~CustomTitleBar() {
+  delete layout;
+  delete titleLabel;
+  delete customButton;
+  delete minimizeButton;
+  delete maximizeButton;
+  delete closeButton;
+}

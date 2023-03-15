@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWidgets/QTextEdit>
+#include "CustomWindow.h"
 
 namespace Ui {
 class DebugWindow;
@@ -28,6 +29,10 @@ private slots:
 private:
   Ui::DebugWindow *ui;
   QTextEdit* texts;
+  QPushButton *keepOnTopButton;
+  CustomTitleBar *titleBar;
+
+
 };
 
 #endif // DEBUGWINDOW_H
