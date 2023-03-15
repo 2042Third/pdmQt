@@ -19,6 +19,8 @@ void DebugWindow::appendMessage(const QString &message, const QString &color)
     texts->append(html);
 }
 
+
+
 DebugWindow::~DebugWindow()
 {
     delete ui;
@@ -28,5 +30,9 @@ DebugWindow::~DebugWindow()
 void DebugWindow::on_actionOpen_One_Note_Page_triggered()
 {
 
+}
+
+void DebugWindow::setWindowPosition(QPoint &a) {
+  move(a);
 }
 

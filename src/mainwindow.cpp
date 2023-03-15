@@ -54,7 +54,22 @@ void MainWindow::on_actionAccount_triggered()
 
 void MainWindow::on_actionDebug_Messages_triggered()
 {
-    debugWindow->show();
+  QWidget *activeWindow = QApplication::activeWindow();
+  if (activeWindow) {
+    QRect activeWindowGeometry = activeWindow->geometry();
+    int x = activeWindowGeometry.x();
+    int y = activeWindowGeometry.y();
+    int width = activeWindowGeometry.width();
+    int height = activeWindowGeometry.height();
+
+    qDebug() << "Active window geometry:"
+             << "x =" << x
+             << "y =" << y
+             << "width =" << width
+             << "height =" << height;
+    debugWindow->move(QPoint(x+width,y)); // Put the debug window to the right of the active window if possible.
+  }
+  debugWindow->show();
 }
 
 // Helpers
