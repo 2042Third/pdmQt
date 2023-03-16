@@ -54,7 +54,7 @@ set(PROJECT_SOURCES
     src/debugwindow.h src/debugwindow.cpp src/debugwindow.ui
     src/PdmRunTime.h src/PdmRunTime.cpp
         ${TS_FILES}
-    src/PdmRuntimeRef.cpp
+    src/PdmRuntimeRef.cpp src/PdmRunTimeRef.h
     src/userinformation.h src/userinformation.cpp src/userinformation.ui
 
     # PDM things
