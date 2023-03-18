@@ -26,8 +26,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
 #    svg
 )
 
-find_library(SECUREMEM_LIB SecureMemory # PDM cryptoSQLite
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/cryptoSQLite/external/securememorybin/bin)
+#find_library(SECUREMEM_LIB SecureMemory # PDM cryptoSQLite
+#    ${CMAKE_CURRENT_SOURCE_DIR}/lib/cryptoSQLite/external/securememorybin/bin)
 
 find_library(SSL_LIB ssl # Openssl
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/)
