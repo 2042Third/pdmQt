@@ -42,11 +42,12 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
 
   // Create a horizontal layout for the custom title bar
   layout = new QHBoxLayout(this);
-  layout->setContentsMargins(5, 5, 5, 5);
-  layout->setSpacing(5);
+  layout->setContentsMargins(0, 0, 0, 0);
+  layout->setSpacing(0);
 
   // Create a QLabel for the window title
   titleLabel = new QLabel("Custom Window", this);
+  titleLabel->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(titleLabel);
 
   // Create a custom button for the title bar
@@ -59,8 +60,11 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
 
   // Create the minimize, maximize, and close buttons
   minimizeButton = new QPushButton("", this); minimizeButton->setIcon(QIcon(":/images/icon/minus"));
+  minimizeButton->setFlat(true); minimizeButton->setStyleSheet(buttonStyleSheetDG);
   maximizeButton = new QPushButton("", this); maximizeButton->setIcon(QIcon(":/images/icon/maximize"));
+  maximizeButton->setFlat(true); maximizeButton->setStyleSheet(buttonStyleSheetDG);
   closeButton = new QPushButton(QIcon(":/images/icon/close"),"", this);
+  closeButton->setFlat(true); closeButton->setStyleSheet(buttonStyleSheetRD);
 
   connect(minimizeButton, &QPushButton::clicked, this, &CustomTitleBar::minimizeWindow);
   connect(maximizeButton, &QPushButton::clicked, this, &CustomTitleBar::maximizeWindow);

@@ -37,6 +37,15 @@ private:
   QPushButton *maximizeButton;
   QPushButton *closeButton;
 
+  // Dark gray button
+  QString buttonStyleSheetDG = "QPushButton { border: none;padding: 5px; }"
+                               "QPushButton:hover { background-color: #C4C4C4; }"
+                               "QPushButton:pressed { background-color: #B2B2B2; }";
+  // Red button
+  QString buttonStyleSheetRD = "QPushButton { border: none;padding: 5px; }"
+                               "QPushButton:hover { background-color: #F50000; }"
+                               "QPushButton:pressed { background-color: #DE1F1F; }";
+
 };
 
 
