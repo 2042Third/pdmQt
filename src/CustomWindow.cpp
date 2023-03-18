@@ -72,18 +72,6 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
 
 }
 
-void CustomTitleBar::paintEvent(QPaintEvent *event)
-{
-//  QPainter painter(this);
-//  painter.setRenderHint(QPainter::Antialiasing);
-//
-//  QStyleOption opt;
-//  opt.initFrom(this);
-//  style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
-//
-//  QColor color(0, 0, 0, 50);
-//  for (int i = 1; i <= 10; i++) {
-//    painter.setPen(QPen(color, i, Qt::SolidLine, Qt::RoundCap));
-//    painter.drawRoundedRect(QRectF(i, i, width() - 2 * i, height() - 2 * i), 5, 5);
-//  }
+void CustomTitleBar::changeName(QString a) {
+  titleLabel->setText(a);
 }

@@ -15,6 +15,7 @@ public:
   explicit CustomTitleBar(QWidget *parent = nullptr);
   ~CustomTitleBar() override;
   QPushButton *customButton;
+  void changeName (QString a) ;
 
 signals:
     void minimizeWindow();
@@ -35,8 +36,6 @@ private:
   QPushButton *minimizeButton;
   QPushButton *maximizeButton;
   QPushButton *closeButton;
-protected:
-  void paintEvent(QPaintEvent *event) override;
 
 };
 
