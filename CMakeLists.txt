@@ -47,15 +47,15 @@ set(PROJECT_SOURCES
     src/mainwindow.cpp
     src/mainwindow.h
     src/mainwindow.ui
-    src/settingsmainwindow.h src/settingsmainwindow.cpp src/settingsmainwindow.ui
-    src/accountwidget.h src/accountwidget.cpp src/accountwidget.ui
-    src/informationwidget.h src/informationwidget.cpp src/informationwidget.ui
-    src/loginwidget.h src/loginwidget.cpp
-    src/debugwindow.h src/debugwindow.cpp src/debugwindow.ui
+    src/settings/settingsmainwindow.h src/settings/settingsmainwindow.cpp src/settings/settingsmainwindow.ui
+    src/settings/accountwidget.h src/settings/accountwidget.cpp src/settings/accountwidget.ui
+    src/settings/informationwidget.h src/settings/informationwidget.cpp src/settings/informationwidget.ui
+    src/settings/loginwidget.h src/settings/loginwidget.cpp
+    src/others/debugwindow.h src/others/debugwindow.cpp src/others/debugwindow.ui
     src/PdmRunTime.h src/PdmRunTime.cpp
         ${TS_FILES}
     src/PdmRuntimeRef.cpp src/PdmRunTimeRef.h
-    src/userinformation.h src/userinformation.cpp src/userinformation.ui
+    src/settings/userinformation.h src/settings/userinformation.cpp src/settings/userinformation.ui
 
     # PDM things
     src/handler/pdm_databse.cpp
@@ -68,7 +68,7 @@ set(PROJECT_SOURCES
     src/handler/types.h
     src/crypto/pdmCryptoDB.hpp # encrypted database
 
-    src/CustomWindow.h src/CustomWindow.cpp src/shadowFrameWidget.h src/shadowFrameWidget.cpp)
+    src/CustomWindow.h src/CustomWindow.cpp src/others/shadowFrameWidget.h src/others/shadowFrameWidget.cpp)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(pdm_qt

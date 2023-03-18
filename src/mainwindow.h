@@ -3,9 +3,9 @@
 
 #include <QMainWindow>
 
-#include "settingsmainwindow.h"
-#include "accountwidget.h"
-#include "debugwindow.h"
+#include "src/settings/settingsmainwindow.h"
+#include "src/settings/accountwidget.h"
+#include "src/others/debugwindow.h"
 #include "PdmRunTime.h"
 
 QT_BEGIN_NAMESPACE

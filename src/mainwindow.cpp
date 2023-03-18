@@ -51,11 +51,11 @@ void MainWindow::on_actionDebug_Messages_triggered()
     int width = activeWindowGeometry.width();
     int height = activeWindowGeometry.height();
 
-    qDebug() << "Active window geometry:"
-             << "x =" << x
-             << "y =" << y
-             << "width =" << width
-             << "height =" << height;
+//    qDebug() << "Active window geometry:"
+//             << "x =" << x
+//             << "y =" << y
+//             << "width =" << width
+//             << "height =" << height;
     debugWindow->move(QPoint(x+width,y)); // Put the debug window to the right of the active window if possible.
   }
   debugWindow->show();

@@ -74,12 +74,16 @@ void DebugWindow::setWindowPosition(QPoint &a) {
 void DebugWindow::onKeepOnTopButtonClicked()
 {
   Qt::WindowFlags flags = windowFlags();
+
   // Toggle the Qt::WindowStaysOnTopHint flag using XOR and update the icon
   setWindowFlags(flags ^ Qt::WindowStaysOnTopHint);
-  titleBar->customButton->setIcon(flags & Qt::WindowStaysOnTopHint ? QIcon(":/images/icon/pin") : QIcon (":/images/icon/pin-off"));
+
+  titleBar->customButton->setIcon(flags & Qt::WindowStaysOnTopHint ? QIcon(":/images/icon/pin") : QIcon(":/images/icon/pin-off"));
   titleBar->customButton->setToolTip(flags & Qt::WindowStaysOnTopHint ? "Toggle pin on top (currently not pinned)"
-  : "Toggle pin on top (currently pinned)");
+                                                                      : "Toggle pin on top (currently pinned)");
+
   show();
+  raise(); // Bring the window to the front
 }
 
 void DebugWindow::toggleMaximize() {
