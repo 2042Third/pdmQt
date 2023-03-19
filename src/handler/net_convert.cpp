@@ -3,6 +3,8 @@
 //
 
 #include "net_convert.h"
+#include "pdm_qt_helpers.h"
+
 namespace PDM {
   using json = nlohmann::json;
   int net_convert::convert(const json &j,UserInfo& userinfo){
@@ -19,7 +21,7 @@ namespace PDM {
     userinfo.statusInfo          = add_str(j,"statusInfo");
     userinfo.receiverstring      = add_str(j,"receiver"); // using receiver
     userinfo.authdata            = add_str(j,"authdata");
-    userinfo.time                = atoi(add_str(j,"time").c_str());
+    userinfo.time                = PDM::pdm_qt_helpers::cstrToUint64(add_str(j,"time").c_str());
     userinfo.update_time         = add_number(j,"update_time");
     userinfo.utime               = add_str(j,"utime");
     userinfo.pdmSecurityVersion  = add_str(j,"pdmSecurityVersion");
@@ -41,7 +43,7 @@ namespace PDM {
     return 0;
   }
 
-  uint32_t net_convert::add_number(const json &j, const std::string &a) {
+  uint64_t net_convert::add_number(const json &j, const std::string &a) {
     try {
       if (exists(j, a)) {
 //        std::cout<<"Adding number: "<<a<<" as "<< j[a]<<std::endl;

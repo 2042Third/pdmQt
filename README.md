@@ -16,6 +16,8 @@ pdmQt allows you to encrypt and decrypt files using pdm-core-module. You can sel
 
 ## Credit
 SVG icons provided by open source project: https://pictogrammers.com/libraries/
+"date.h" single header library: https://github.com/HowardHinnant/date
+
 
 ## License
 

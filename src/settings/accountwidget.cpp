@@ -42,6 +42,9 @@ void AccountWidget::accountLoginSuccess() {
   informationWidget->show();
   informationWidget->displayUserInfo();
   emit rt->log ("AccountWidget replaces loginWidget with Information Widget", "#000000");
+
+  // Debug
+
 }
 
 

@@ -41,7 +41,7 @@ void LoginWidget::onLoginClicked()
       int callback_out = (int) PDM::network::post_callback_signin(data,  size,  nmemb, userp);
       auto *wt = (struct NetObj *)userp;
       auto*rt = (PdmRunTime *)wt->pdm_runtime;
-      emit rt->log("Callback started and successful", "#016C05");
+      emit rt->log("Callback started and successful ("+QString(wt->js.dump().c_str())+")", "#016C05");
       if (rt->wt.userinfo.status == "success") { // The sign in is successful
         MD5 md5; md5.add(wt->userinfo.email.c_str(),wt->userinfo.email.size());
         std::string file_names = md5.getHash(); // md5 encode user email
