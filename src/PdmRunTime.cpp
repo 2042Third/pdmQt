@@ -3,6 +3,7 @@
 #include "empp.h"
 #include "handler/pdm_qt_helpers.h"
 #include <QObject>
+#include <QMessageBox>
 
 PdmRunTime::PdmRunTime(QObject *parent)
       : QObject(parent) {
@@ -83,6 +84,18 @@ void PdmRunTime::on_loginSuccess() {
 void PdmRunTime::on_loginFail() {
   emit log(("Login Failed for \""+wt.userinfo.email
                 +"\", status: "+ wt.userinfo.status).c_str(), "#FF0004");
+  // Show a window to tell the user that the login failed with the reason.
+  QMessageBox msgBox;
+  msgBox.setWindowTitle("Login Failed");
+  msgBox.setText("Login Failed");
+  msgBox.setInformativeText(("Email or password incorrect. Please try again."
+                             " Status: "+ wt.userinfo.status).c_str());
+  // Message with red text
+  msgBox.setStyleSheet("QLabel{min-width: 300px; color: red;}");
+  msgBox.setStandardButtons(QMessageBox::Ok);
+  msgBox.setDefaultButton(QMessageBox::Ok);
+  msgBox.exec();
+
 }
 
 PdmRunTime::~PdmRunTime() {
