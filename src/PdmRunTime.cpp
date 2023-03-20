@@ -1,5 +1,7 @@
 #include "PdmRunTime.h"
 #include "misc/md5.h"
+#include "empp.h"
+#include "handler/pdm_qt_helpers.h"
 #include <QObject>
 
 PdmRunTime::PdmRunTime(QObject *parent)
@@ -106,4 +108,9 @@ int PdmRunTime::signin_action(const std::string &a, NetWriter *wt_in, const char
   signin_post(a,wt_in,_callback); // Call network post for Sign In action
 
   return 1;
+}
+
+void PdmRunTime::decryptUserData() {
+  wt.userinfo.username = loader_out(wt.data,wt.userinfo.receiverstring); // username decryption
+  wt.userinfo.ctime = PDM::pdm_qt_helpers::unix_time_to_qstr(wt.userinfo.time).toStdString(); // date time string
 }

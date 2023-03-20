@@ -41,10 +41,9 @@ void AccountWidget::accountLoginSuccess() {
   ui->gridLayout->addWidget(informationWidget);
   informationWidget->show();
   informationWidget->displayUserInfo();
-  emit rt->log ("AccountWidget replaces loginWidget with Information Widget", "#000000");
 
-  // Debug
-
+  // Decrypt the user's data and store it in the runtime.
+  rt->decryptUserData();
 }
 
 

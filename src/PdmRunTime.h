@@ -35,5 +35,6 @@ public slots:
     void loginSuccess();
     void loginFail();
 
+    void decryptUserData();
   };
 #endif // PDMRUNTIME_H

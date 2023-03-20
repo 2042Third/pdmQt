@@ -18,6 +18,7 @@ struct NetObj:NetWriter {
   nlohmann::json js;
   PDM::UserInfo userinfo;
   PDM::pdm_database * db;
+
 };
 namespace PDM {
 
