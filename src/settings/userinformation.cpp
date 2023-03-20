@@ -14,14 +14,14 @@ UserInformation::UserInformation(QWidget *parent) :
   emailLabel = new QLabel("Email:");
   creationDateLabel = new QLabel("Account creation date:");
 
-  // Set labels to be bold and right aligned.
-  usernameLabel->setAlignment(Qt::AlignRight); usernameLabel->setFont(QFont("Arial", 10, QFont::Bold));
-  emailLabel->setAlignment(Qt::AlignRight); emailLabel->setFont(QFont("Arial", 10, QFont::Bold));
-  creationDateLabel->setAlignment(Qt::AlignRight); creationDateLabel->setFont(QFont("Arial", 10, QFont::Bold));
-
   usernameLineEdit = new QLabel("");
   emailLineEdit = new QLabel("");
   creationDateLineEdit = new QLabel("");
+
+  // Set the line edits(QLabel) to be centered and bold. Also make these labels selectable.
+  usernameLineEdit->setAlignment(Qt::AlignCenter); usernameLineEdit->setStyleSheet("font-weight: bold;"); usernameLineEdit->setTextInteractionFlags(Qt::TextSelectableByMouse);
+  emailLineEdit->setAlignment(Qt::AlignCenter); emailLineEdit->setStyleSheet("font-weight: bold;"); emailLineEdit->setTextInteractionFlags(Qt::TextSelectableByMouse);
+  creationDateLineEdit->setAlignment(Qt::AlignCenter); creationDateLineEdit->setStyleSheet("font-weight: bold;"); creationDateLineEdit->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
   layout = new QVBoxLayout;
   layout->addWidget(usernameLabel);
