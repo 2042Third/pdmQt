@@ -33,17 +33,17 @@ AccountWidget::~AccountWidget()
 /**
  * Display account information if login successful.
  * Remove login widget and replace with another
- * @param netObj Network return of the login action
  * */
 void AccountWidget::accountLoginSuccess() {
+  // Decrypt the user's data and store it in the runtime.
+  rt->userDataCheck();
+  // Hide the login widget and display the user information widget.
   loginWidget->hide();
   ui->gridLayout->removeWidget(loginWidget);
   ui->gridLayout->addWidget(informationWidget);
   informationWidget->show();
   informationWidget->displayUserInfo();
 
-  // Decrypt the user's data and store it in the runtime.
-  rt->decryptUserData();
 }
 
 

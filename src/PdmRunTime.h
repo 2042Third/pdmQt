@@ -22,10 +22,15 @@
     std::string conf_loc;
     std::string data_loc;
 
+    // Actions
     int signin_action(const std::string&a, NetWriter* wt_in,const char* password,const char* email);
     int signin_action(const std::string&a, NetWriter* wt_in,const char* password,const char* email,
                       size_t _callback(char *, size_t , size_t , void *));
     int get_user_loc(const std::string &file_names,int conf=1);
+
+    // Data Handlers
+    void userDataCheck();
+
 public slots:
     void on_loginSuccess();
     void on_loginFail();
@@ -35,6 +40,5 @@ public slots:
     void loginSuccess();
     void loginFail();
 
-    void decryptUserData();
   };
 #endif // PDMRUNTIME_H

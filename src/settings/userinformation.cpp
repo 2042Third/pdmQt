@@ -14,6 +14,11 @@ UserInformation::UserInformation(QWidget *parent) :
   emailLabel = new QLabel("Email:");
   creationDateLabel = new QLabel("Account creation date:");
 
+  // Set labels to be bold and right aligned.
+  usernameLabel->setAlignment(Qt::AlignRight); usernameLabel->setFont(QFont("Arial", 10, QFont::Bold));
+  emailLabel->setAlignment(Qt::AlignRight); emailLabel->setFont(QFont("Arial", 10, QFont::Bold));
+  creationDateLabel->setAlignment(Qt::AlignRight); creationDateLabel->setFont(QFont("Arial", 10, QFont::Bold));
+
   usernameLineEdit = new QLabel("");
   emailLineEdit = new QLabel("");
   creationDateLineEdit = new QLabel("");

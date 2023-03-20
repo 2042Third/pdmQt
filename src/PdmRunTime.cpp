@@ -110,7 +110,7 @@ int PdmRunTime::signin_action(const std::string &a, NetWriter *wt_in, const char
   return 1;
 }
 
-void PdmRunTime::decryptUserData() {
+void PdmRunTime::userDataCheck() {
   wt.userinfo.username = loader_out(wt.data,wt.userinfo.receiverstring); // username decryption
   wt.userinfo.ctime = PDM::pdm_qt_helpers::unix_time_to_qstr(wt.userinfo.time).toStdString(); // date time string
 }
