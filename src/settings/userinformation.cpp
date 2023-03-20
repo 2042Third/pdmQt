@@ -18,10 +18,14 @@ UserInformation::UserInformation(QWidget *parent) :
   emailLineEdit = new QLabel("");
   creationDateLineEdit = new QLabel("");
 
-  // Set the line edits(QLabel) to be centered and bold. Also make these labels selectable.
-  usernameLineEdit->setAlignment(Qt::AlignCenter); usernameLineEdit->setStyleSheet("font-weight: bold;"); usernameLineEdit->setTextInteractionFlags(Qt::TextSelectableByMouse);
-  emailLineEdit->setAlignment(Qt::AlignCenter); emailLineEdit->setStyleSheet("font-weight: bold;"); emailLineEdit->setTextInteractionFlags(Qt::TextSelectableByMouse);
-  creationDateLineEdit->setAlignment(Qt::AlignCenter); creationDateLineEdit->setStyleSheet("font-weight: bold;"); creationDateLineEdit->setTextInteractionFlags(Qt::TextSelectableByMouse);
+  // Set the line edits(QLabel) to be centered and bold, and
+  // labels selectable, and labels' hover mouse cursor to I-beam.
+  usernameLineEdit->setAlignment(Qt::AlignCenter); usernameLineEdit->setStyleSheet("font-weight: bold;");
+  usernameLineEdit->setTextInteractionFlags(Qt::TextSelectableByMouse); usernameLineEdit->setCursor(Qt::IBeamCursor);
+  emailLineEdit->setAlignment(Qt::AlignCenter); emailLineEdit->setStyleSheet("font-weight: bold;");
+  emailLineEdit->setTextInteractionFlags(Qt::TextSelectableByMouse); emailLineEdit->setCursor(Qt::IBeamCursor);
+  creationDateLineEdit->setAlignment(Qt::AlignCenter); creationDateLineEdit->setStyleSheet("font-weight: bold;");
+  creationDateLineEdit->setTextInteractionFlags(Qt::TextSelectableByMouse); creationDateLineEdit->setCursor(Qt::IBeamCursor);
 
   layout = new QVBoxLayout;
   layout->addWidget(usernameLabel);
