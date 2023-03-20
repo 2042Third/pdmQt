@@ -7,5 +7,6 @@
         <file alias="minus">resource/icon/minus.svg</file>
         <file alias="maximize">resource/icon/window-maximize.svg</file>
         <file alias="icon.png">resource/icon/logo.png</file>
+        <file alias="icon_small">resource/icon/logo_head.png</file>
     </qresource>
 </RCC>
