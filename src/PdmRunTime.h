@@ -30,6 +30,7 @@ explicit PdmRunTime(QObject *parent = nullptr);
   int get_user_loc(const std::string &file_names,int conf=1);
 
   // Data Handlers
+  QString currentStatusBar ;
   void userDataCheck();
 
 public slots:
