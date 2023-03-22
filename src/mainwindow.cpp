@@ -107,18 +107,17 @@ void MainWindow::open_user_database_location() {
   QStringList args;
   args << "/select," + QDir::toNativeSeparators(fileInfo.absoluteFilePath());
   emit rt->log(">>>Executing command: "+command+ " "+ args.join(" "), "#C22A1C");
-
   QProcess::startDetached(command, args);
 #elif defined(Q_OS_MAC)
   QStringList scriptArgs;
-    scriptArgs << QLatin1String("-e");
-    scriptArgs << QString::fromLatin1("tell application \"Finder\" to reveal POSIX file \"%1\"")
-                   .arg(fileInfo.absoluteFilePath());
-    QProcess::execute(QLatin1String("/usr/bin/osascript"), scriptArgs);
-    scriptArgs.clear();
-    scriptArgs << QLatin1String("-e");
-    scriptArgs << QLatin1String("tell application \"Finder\" to activate");
-    QProcess::execute(QLatin1String("/usr/bin/osascript"), scriptArgs);
+  scriptArgs << QLatin1String("-e");
+  scriptArgs << QString::fromLatin1("tell application \"Finder\" to reveal POSIX file \"%1\"")
+                 .arg(fileInfo.absoluteFilePath());
+  QProcess::execute(QLatin1String("/usr/bin/osascript"), scriptArgs);
+  scriptArgs.clear();
+  scriptArgs << QLatin1String("-e");
+  scriptArgs << QLatin1String("tell application \"Finder\" to activate");
+  QProcess::execute(QLatin1String("/usr/bin/osascript"), scriptArgs);
 #else
     // Fallback to open the folder containing the file
     QDesktopServices::openUrl(QUrl::fromLocalFile(dir.absolutePath()));
