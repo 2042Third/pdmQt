@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QFile>
 #include <QFileDialog>
+#include <QProcess>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -88,6 +89,36 @@ void MainWindow::mainwindowLoginSuccess() {
   if (rt->showUsernameInStatusBar) statusBar()->showMessage(rt->wt.userinfo.username.c_str()); // Show username in status bar.
   else statusBar()->showMessage(""); // Hide warning message.
   statusBar()->setToolTip("");
-  // Add 
+  // Add button menu item "open user database location" to the help menu bar.
+  QAction *openUserDatabaseLocation = new QAction("Open User Database Location", this);
+  connect(openUserDatabaseLocation, &QAction::triggered, this, &MainWindow::open_user_database_location);
+  ui->menuHelp->addAction(openUserDatabaseLocation);
+
+}
+
+void MainWindow::open_user_database_location() {
+  QString filePath = rt->data_loc.c_str(); // Replace with the actual file path
+  QFileInfo fileInfo(filePath);
+  QDir dir = fileInfo.dir();
+
+#ifdef Q_OS_WIN
+  QString command = "explorer.exe /select,\"" + QDir::toNativeSeparators(fileInfo.absoluteFilePath()) + "\"";
+  emit rt->log(">>>Executing command: "+command, "#C22A1C");
+
+  QProcess::startDetached(command);
+#elif defined(Q_OS_MAC)
+  QStringList scriptArgs;
+    scriptArgs << QLatin1String("-e");
+    scriptArgs << QString::fromLatin1("tell application \"Finder\" to reveal POSIX file \"%1\"")
+                   .arg(fileInfo.absoluteFilePath());
+    QProcess::execute(QLatin1String("/usr/bin/osascript"), scriptArgs);
+    scriptArgs.clear();
+    scriptArgs << QLatin1String("-e");
+    scriptArgs << QLatin1String("tell application \"Finder\" to activate");
+    QProcess::execute(QLatin1String("/usr/bin/osascript"), scriptArgs);
+#else
+    // Fallback to open the folder containing the file
+    QDesktopServices::openUrl(QUrl::fromLocalFile(dir.absolutePath()));
+#endif
 }
 

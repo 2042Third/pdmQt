@@ -24,15 +24,13 @@ public:
   PdmRunTime* rt;
 
 private slots:
-    void on_actionSettings_triggered();
+  void on_actionSettings_triggered();
+  void on_actionAccount_triggered();
+  void on_actionDebug_Messages_triggered();
+  void on_actionOpen_triggered();
+  void mainwindowLoginSuccess();
+  void open_user_database_location();
 
-    void on_actionAccount_triggered();
-
-    void on_actionDebug_Messages_triggered();
-
-    void on_actionOpen_triggered();
-
-    void mainwindowLoginSuccess();
 
 private:
     Ui::MainWindow *ui;
