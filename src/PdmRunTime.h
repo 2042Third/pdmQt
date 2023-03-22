@@ -5,31 +5,33 @@
 #include <src/handler/pdm_database.h>
 #include <src/handler/pdm_status.h>
 #include <src/handler/pdm_net.h>
+#include "handler/pdm_settings.h"
 
 
-  class PdmRunTime : public QObject,
-      public PDM::Status,
-      public PDM::network {
+class PdmRunTime : public QObject,
+  public PDM::Status,
+  public PDM::network,
+  public PDM::Settings{
 
-  Q_OBJECT
-  public:
+Q_OBJECT
+public:
 
-    PDM::pdm_database * db; // debug
-    PDM::pdm_database * user_conf; // User config
-    PDM::pdm_database * user_data; // User data
-    explicit PdmRunTime(QObject *parent = nullptr);
-    ~PdmRunTime();
-    std::string conf_loc;
-    std::string data_loc;
+  PDM::pdm_database * db; // debug
+  PDM::pdm_database * user_conf; // User config
+  PDM::pdm_database * user_data; // User data
+explicit PdmRunTime(QObject *parent = nullptr);
+  ~PdmRunTime();
+  std::string conf_loc;
+  std::string data_loc;
 
-    // Actions
-    int signin_action(const std::string&a, NetWriter* wt_in,const char* password,const char* email);
-    int signin_action(const std::string&a, NetWriter* wt_in,const char* password,const char* email,
-                      size_t _callback(char *, size_t , size_t , void *));
-    int get_user_loc(const std::string &file_names,int conf=1);
+  // Actions
+  int signin_action(const std::string&a, NetWriter* wt_in,const char* password,const char* email);
+  int signin_action(const std::string&a, NetWriter* wt_in,const char* password,const char* email,
+                  size_t _callback(char *, size_t , size_t , void *));
+  int get_user_loc(const std::string &file_names,int conf=1);
 
-    // Data Handlers
-    void userDataCheck();
+  // Data Handlers
+  void userDataCheck();
 
 public slots:
     void on_loginSuccess();

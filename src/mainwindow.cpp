@@ -13,7 +13,9 @@ MainWindow::MainWindow(QWidget *parent)
   debugWindow = new DebugWindow(ui->centralwidget);
   rt = new PdmRunTime();
   connect(rt, &PdmRunTime::log, debugWindow, &DebugWindow::appendMessage);
-
+  connect(rt, &PdmRunTime::loginSuccess, this, &MainWindow::mainwindowLoginSuccess);
+  statusBar()->showMessage("No Login");
+  statusBar()->setToolTip("Login to your account in Settings->Account.");
 }
 
 MainWindow::~MainWindow()
@@ -80,5 +82,11 @@ void MainWindow::on_actionOpen_triggered()
         debugWindow->appendMessage("File Opened: ");
         debugWindow->appendMessage("  \""+fileName+"\"");
         debugWindow->appendMessage("  size="+QString::number(fileSize));
+}
+
+void MainWindow::mainwindowLoginSuccess() {
+  if (rt->showUsernameInStatusBar) statusBar()->showMessage(rt->wt.userinfo.username.c_str()); // Show username in status bar.
+  else statusBar()->showMessage(""); // Hide warning message.
+  statusBar()->setToolTip("");
 }
 

@@ -78,7 +78,9 @@ int PdmRunTime::signin_action(const std::string &a, NetWriter *wt_in, const char
 }
 void PdmRunTime::on_loginSuccess() {
   emit log(("Login successful: "+wt.userinfo.email).c_str(), "#00CC00");
-
+  // Decrypt the user's data and store it in the runtime.
+  // This should be the first thing to do after login
+  userDataCheck();
 }
 
 void PdmRunTime::on_loginFail() {

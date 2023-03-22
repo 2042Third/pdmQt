@@ -32,6 +32,8 @@ private slots:
 
     void on_actionOpen_triggered();
 
+    void mainwindowLoginSuccess();
+
 private:
     Ui::MainWindow *ui;
 

@@ -35,8 +35,7 @@ AccountWidget::~AccountWidget()
  * Remove login widget and replace with another
  * */
 void AccountWidget::accountLoginSuccess() {
-  // Decrypt the user's data and store it in the runtime.
-  rt->userDataCheck();
+
   // Hide the login widget and display the user information widget.
   loginWidget->hide();
   ui->gridLayout->removeWidget(loginWidget);
