@@ -25,7 +25,7 @@ private slots:
   bool eventFilter(QObject *object, QEvent *event) override;
 
 private:
-  QLineEdit *m_usernameEdit;
+  QLineEdit *m_emailEdit;
   QLineEdit *m_passwordEdit;
   QPushButton *m_loginButton;
 };

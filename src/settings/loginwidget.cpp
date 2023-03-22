@@ -12,18 +12,18 @@
 LoginWidget::LoginWidget(QWidget *parent)
     : QWidget(parent),PdmRuntimeRef()
 {
-  m_usernameEdit = new QLineEdit(this);
+  m_emailEdit = new QLineEdit(this);
   m_passwordEdit = new QLineEdit(this);
   m_passwordEdit->setEchoMode(QLineEdit::Password);
 
   m_loginButton = new QPushButton("Login", this);
   connect(m_loginButton, &QPushButton::clicked, this, &LoginWidget::onLoginClicked);
   // Install event filter to catch Enter key press
-  m_usernameEdit->installEventFilter(this);
+  m_emailEdit->installEventFilter(this);
   m_passwordEdit->installEventFilter(this);
 
   QFormLayout *formLayout = new QFormLayout(this);
-  formLayout->addRow("Username:", m_usernameEdit);
+  formLayout->addRow("Email:", m_emailEdit);
   formLayout->addRow("Password:", m_passwordEdit);
   formLayout->addRow(m_loginButton);
 
@@ -32,7 +32,7 @@ LoginWidget::LoginWidget(QWidget *parent)
 void LoginWidget::onLoginClicked()
 {
   static std::string j_str;
-  QString username = m_usernameEdit->text();
+  QString username = m_emailEdit->text();
   QString password = m_passwordEdit->text();
 
   // Call back
