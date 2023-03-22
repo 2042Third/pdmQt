@@ -8,6 +8,8 @@ namespace PDM{
   class Settings {
   public:
     int showUsernameInStatusBar = 1;
+    // Debug Status
+    int has_database_location = 0;
   };
 }
 #endif //PDM_QT_PDM_SETTINGS_H

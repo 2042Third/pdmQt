@@ -88,5 +88,6 @@ void MainWindow::mainwindowLoginSuccess() {
   if (rt->showUsernameInStatusBar) statusBar()->showMessage(rt->wt.userinfo.username.c_str()); // Show username in status bar.
   else statusBar()->showMessage(""); // Hide warning message.
   statusBar()->setToolTip("");
+  // Add 
 }
 

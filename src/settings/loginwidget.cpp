@@ -50,9 +50,13 @@ void LoginWidget::onLoginClicked()
           const std::filesystem::path confp(rt->conf_loc), datap(rt->data_loc);
           std::filesystem::create_directories(datap.parent_path()); // Create user data dir.
           // TODO: What to do when user first use this computer to login
+          // Show absolute path of the confp
         }
-        emit rt->log((" \"data_loc: \""+rt->data_loc).c_str(), "#016C05");
         rt->user_data->open_db(rt->data_loc.c_str(),wt->data.c_str(),wt->data.size());
+
+        emit rt->log("Databse location: ", "#016C05");
+        emit rt->log(rt->conf_loc.c_str() , "#016C05");
+
         emit rt->log(" Database opened!", "#016C05");
         emit rt->loginSuccess();
       } else {
