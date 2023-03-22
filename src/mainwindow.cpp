@@ -102,10 +102,13 @@ void MainWindow::open_user_database_location() {
   QDir dir = fileInfo.dir();
 
 #ifdef Q_OS_WIN
-  QString command = "explorer.exe /select,\"" + QDir::toNativeSeparators(fileInfo.absoluteFilePath()) + "\"";
-  emit rt->log(">>>Executing command: "+command, "#C22A1C");
 
-  QProcess::startDetached(command);
+  QString command = "explorer.exe";
+  QStringList args;
+  args << "/select," + QDir::toNativeSeparators(fileInfo.absoluteFilePath());
+  emit rt->log(">>>Executing command: "+command+ " "+ args.join(" "), "#C22A1C");
+
+  QProcess::startDetached(command, args);
 #elif defined(Q_OS_MAC)
   QStringList scriptArgs;
     scriptArgs << QLatin1String("-e");
