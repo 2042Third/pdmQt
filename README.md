@@ -1,6 +1,6 @@
 # pdmQt
 
-PDM is a encrypted notebook app that uses pdm encryption core module.
+PDM is an encrypted notebook app that uses pdm encryption core module.
 
 ## Building
 
@@ -15,13 +15,13 @@ Then, you can clone this repository and open the pdmQt.pro file in Qt Creator. B
 pdmQt allows you to encrypt and decrypt files using pdm-core-module. You can select a file to encrypt or decrypt, choose a password, and specify an output file name. The application will show you the progress and status of the encryption or decryption process.
 
 ## Credit
+cryptoSQLite: https://github.com/viaduck/crypto_sqlite
+
+cryptoSQLite's secure memory: https://github.com/viaduck/secure_memory
+
 SVG icons provided by open source project: https://pictogrammers.com/libraries/
 
-
 "date.h" single header library: https://github.com/HowardHinnant/date
-
-
-
 
 ## License
 
