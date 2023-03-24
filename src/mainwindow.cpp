@@ -37,6 +37,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionSettings_triggered()
 {
   newSettingsWindow();
+  settingsWindow->navToAccount();
   settingsWindow->show(); // Show the PDM settings window.
 }
 
@@ -79,17 +80,17 @@ void MainWindow::newSettingsWindow() {
 void MainWindow::on_actionOpen_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(nullptr, "Open File", "", "Text Files (*.txt);;All Files (*)");
-        if (fileName.isEmpty()) {
-            qDebug() << "No file was selected.";
-            return;
-        }
+    if (fileName.isEmpty()) {
+      qDebug() << "No file was selected.";
+      return;
+    }
 
-        QFileInfo fileInfo(fileName);
-        qint64 fileSize = fileInfo.size();
-        qDebug() << "Selected file:" << fileName;
-        debugWindow->appendMessage("File Opened: ");
-        debugWindow->appendMessage("  \""+fileName+"\"");
-        debugWindow->appendMessage("  size="+QString::number(fileSize));
+    QFileInfo fileInfo(fileName);
+    qint64 fileSize = fileInfo.size();
+    qDebug() << "Selected file:" << fileName;
+    debugWindow->appendMessage("File Opened: ");
+    debugWindow->appendMessage("  \""+fileName+"\"");
+    debugWindow->appendMessage("  size="+QString::number(fileSize));
 }
 
 void MainWindow::mainwindowLoginSuccess() {
