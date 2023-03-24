@@ -8,5 +8,8 @@
         <file alias="maximize">resource/icon/window-maximize.svg</file>
         <file alias="icon.png">resource/icon/logo.png</file>
         <file alias="icon_small">resource/icon/logo_head.png</file>
+        <file alias="account">resource/icon/account.svg</file>
+        <file alias="information">resource/icon/information.svg</file>
+        <file alias="settings">resource/icon/settings.svg</file>
     </qresource>
 </RCC>

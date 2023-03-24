@@ -23,6 +23,18 @@ SettingsMainWindow::SettingsMainWindow(QWidget *parent) :
   buttons.push_back(ui->settingAccountButton); // 0, account button
   buttons.push_back(ui->settingInfoButton); // 1, info button
 
+  ui->settingAccountButton->setText("");
+  ui->settingAccountButton->setIcon(QIcon(":/images/icon/account"));
+  ui->settingAccountButton->setToolTip("Account");
+//  ui->settingAccountButton->setFlat(true);
+  ui->settingAccountButton->setStyleSheet("QPushButton { background-color: none; border: none; } QPushButton:hover { background-color: lightgray; }");
+
+  ui->settingInfoButton->setText("");
+  ui->settingInfoButton->setIcon(QIcon(":/images/icon/information"));
+  ui->settingInfoButton->setToolTip("Information");
+//  ui->settingInfoButton->setFlat(true);
+  ui->settingInfoButton->setStyleSheet("QPushButton { background-color: none; border: none; } QPushButton:hover { background-color: lightgray; }");
+  setActiveButton(0);
 }
 
 SettingsMainWindow::~SettingsMainWindow()
@@ -49,9 +61,9 @@ void SettingsMainWindow::on_settingInfoButton_released()
 void SettingsMainWindow::setActiveButton(int idx) {
   for (int i = 0; i < buttons.size(); i++) {
     if (i == idx) {
-      buttons[i]->setStyleSheet("background-color: lightblue;");
+      buttons[i]->setStyleSheet("QPushButton { background-color: lightblue; border: none; } QPushButton:hover { background-color: lightblue; }");
     } else {
-      buttons[i]->setStyleSheet("");
+      buttons[i]->setStyleSheet("QPushButton { background-color: none; border: none; } QPushButton:hover { background-color: lightgray; }");
     }
   }
 }

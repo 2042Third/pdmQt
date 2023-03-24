@@ -37,7 +37,6 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionSettings_triggered()
 {
   newSettingsWindow();
-  settingsWindow->navToAccount();
   settingsWindow->show(); // Show the PDM settings window.
 }
 
