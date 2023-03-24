@@ -16,8 +16,7 @@ SettingsMainWindow::SettingsMainWindow(QWidget *parent) :
 
   info_ui = new InformationWidget(ui->centralwidget);
   info_ui->setObjectName("info_ui");
-
-
+  
   ui->stackedWidget->addWidget(acc_ui);
   ui->stackedWidget->addWidget(info_ui);
 
