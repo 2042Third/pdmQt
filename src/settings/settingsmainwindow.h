@@ -16,10 +16,11 @@ class SettingsMainWindow : public QMainWindow, public PdmRuntimeRef
     Q_OBJECT
 
 public:
-    explicit SettingsMainWindow(QWidget *parent = nullptr);
-    ~SettingsMainWindow();
+  explicit SettingsMainWindow(QWidget *parent = nullptr);
+  ~SettingsMainWindow();
 
-    void navToAccount() {on_settingAccountButton_released();}
+  void navToAccount() {on_settingAccountButton_released();}
+  void setActiveButton(int idx);
 
   AccountWidget * acc_ui;
   InformationWidget * info_ui;
@@ -29,6 +30,9 @@ public:
     info_ui->setRef(rt);
     emit rt->log("SettingsWidget widget Created","#00FF00");
   }
+
+  QVector<QPushButton*> buttons;
+
 private slots:
     void on_settingAccountButton_released();
     void on_settingInfoButton_released();
