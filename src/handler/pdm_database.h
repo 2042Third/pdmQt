@@ -44,6 +44,18 @@ public:
   // Static queries
   const std::string add_note_head = "insert or replace into notes(noteid, useremail, content, h, intgrh,time, head)"
                                     " values(?,?,?,?,?,?,?);";
+  const char *local_table_create_query = "CREATE TABLE IF NOT EXISTS pdm_local("
+    "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+    "last_time_open DATETIME DEFAULT CURRENT_TIMESTAMP,"
+    "data TEXT );";
+
+  const char* note_table_create_query = "CREATE TABLE IF NOT EXISTS notes (noteid INTEGER PRIMARY KEY, "
+                                        "useremail text not null,"
+                                        "content TEXT,"
+                                        "h text,"
+                                        "intgrh text,"
+                                        "time INTEGER , "
+                                        "head text); ";
 };
 
 }
