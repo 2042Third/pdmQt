@@ -24,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
     statusBar()->showMessage(rt->currentStatusBar);
   });
 
+  // Finish settings up the settings
+  rt->setup_settings();
 }
 
 MainWindow::~MainWindow()

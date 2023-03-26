@@ -17,6 +17,7 @@ Q_OBJECT
 public:
 
   PDM::pdm_database * db; // debug
+  PDM::pdm_database * app_settings; // Settings
   PDM::pdm_database * user_conf; // User config
   PDM::pdm_database * user_data; // User data
 explicit PdmRunTime(QObject *parent = nullptr);
@@ -28,6 +29,8 @@ explicit PdmRunTime(QObject *parent = nullptr);
   int signin_action(const std::string&a, NetWriter* wt_in,const char* password,const char* email,
                   size_t _callback(char *, size_t , size_t , void *));
   int get_user_loc(const std::string &file_names,int conf=1);
+  int setup_settings();
+  static int setup_settings_check();
 
   // Data Handlers
   QString currentStatusBar ;
