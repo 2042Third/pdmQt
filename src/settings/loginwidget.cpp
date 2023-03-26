@@ -52,6 +52,9 @@ void LoginWidget::onLoginClicked()
           rt->user_conf->execute(rt->user_conf->local_table_create_query); // Make user config table when not exist
           emit rt->log("made user config table", "#016C05");
         }
+        else {
+          emit rt->log("User config file found", "#016C05");
+        }
         rt->user_data->open_db(rt->data_loc.c_str(),wt->data.c_str(),wt->data.size()); // Always new user data
 
         emit rt->log("Databse location: ", "#016C05");
