@@ -63,7 +63,7 @@ int PDM::pdm_database::close_db(char *name) {
   return 1;
 }
 
-int PDM::pdm_database::execute(char *input) {
+int PDM::pdm_database::execute(const char *input) {
   change(PDM::Status::LOADING);
   reset(&current_display_table);
   rc = sqlite3_exec(db, input, callback, &current_display_table, &zErrMsg);

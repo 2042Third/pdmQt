@@ -49,10 +49,10 @@ void LoginWidget::onLoginClicked()
         if (!rt->get_user_loc(file_names,0)){
           const std::filesystem::path confp(rt->conf_loc), datap(rt->data_loc);
           std::filesystem::create_directories(datap.parent_path()); // Create user data dir.
-          // TODO: What to do when user first use this computer to login
-          // Show absolute path of the confp
+          rt->user_conf->execute(rt->user_conf->local_table_create_query); // Make user config table when not exist
+          emit rt->log("made user config table", "#016C05");
         }
-        rt->user_data->open_db(rt->data_loc.c_str(),wt->data.c_str(),wt->data.size());
+        rt->user_data->open_db(rt->data_loc.c_str(),wt->data.c_str(),wt->data.size()); // Always new user data
 
         emit rt->log("Databse location: ", "#016C05");
         emit rt->log(rt->conf_loc.c_str() , "#016C05");
