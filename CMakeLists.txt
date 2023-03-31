@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.5)
 project(pdm_qt VERSION 0.1 LANGUAGES C CXX)
 
 cmake_policy(SET CMP0079 NEW) # allow things from other directories
-cmake_policy(SET CMP0135 NEW) # cryptoSqlite icu download prebuilt binary
+#cmake_policy(SET CMP0135 NEW) # cryptoSqlite icu download prebuilt binary
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -14,6 +14,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DVK_PROTOTYPES")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVK_PROTOTYPES")
 #set(CMAKE_PREFIX_PATH "C:\\Qt\\6.4.2\\mingw_64\\lib\\cmake")
+
+if(APPLE)
+    set(CMAKE_PREFIX_PATH "/Users/mikeyang/Qt/6.4.2/macos/lib/cmake")
+endif()
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
     Widgets
