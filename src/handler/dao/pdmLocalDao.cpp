@@ -2,28 +2,34 @@
 // Created by Yi Yang on 4/1/2023.
 //
 
+#include <sstream>
 #include "pdmLocalDao.h"
 
-PdmLocalDao::PdmLocalDao(const std::string& db_name) {
-  sqlite3_open(db_name.c_str(), &db_);
-  create_table();
+PdmLocalDao::PdmLocalDao() {
+}
+PdmLocalDao::PdmLocalDao(sqlite3* db) {
+  db_ = db;
 }
 
 PdmLocalDao::~PdmLocalDao() {
-  sqlite3_close(db_);
 }
 
 void PdmLocalDao::create_table() {
-  const char* local_table_create_query =
-      "CREATE TABLE IF NOT EXISTS pdm_local("
-      "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-      "last_time_open DATETIME DEFAULT CURRENT_TIMESTAMP,"
-      "data TEXT );";
-  sqlite3_exec(db_, local_table_create_query, nullptr, nullptr, nullptr);
+  if(db_== nullptr){std::cout << "db is null" << std::endl;return;}
+  std::stringstream ss;
+  ss << "create table if not exists ";
+  ss << "pdm_local"; // database name
+  ss << "(";
+  ss << db_structure.id.signature()<< ",";
+  ss << db_structure.last_time_open.signature()<< ",";
+  ss << db_structure.data.signature();
+  ss << ");";
+  sqlite3_exec(db_, ss.str().c_str(), nullptr, nullptr, nullptr);
 }
 
 
 int PdmLocalDao::insert(const std::string& data) {
+  if(db_== nullptr){std::cout << "db is null" << std::endl;return 0;}
   std::string query = "INSERT INTO pdm_local (data) VALUES (?);";
   sqlite3_stmt* stmt;
   sqlite3_prepare_v2(db_, query.c_str(), -1, &stmt, nullptr);
@@ -36,6 +42,7 @@ int PdmLocalDao::insert(const std::string& data) {
 }
 
 std::unique_ptr<PdmLocal> PdmLocalDao::find_by_id(int id) {
+  if(db_== nullptr){std::cout << "db is null" << std::endl;return nullptr;}
   std::string query = "SELECT id, last_time_open, data FROM pdm_local WHERE id = ?;";
   sqlite3_stmt* stmt;
   sqlite3_prepare_v2(db_, query.c_str(), -1, &stmt, nullptr);

@@ -16,22 +16,24 @@
 // PdmLocal class representing a single row in the pdm_local table
 class PdmLocal {
 public:
-  PdmDBType<int> id_dv = PdmDBType<int>( "id", "INTEGER", "PRIMARY KEY AUTOINCREMENT");
-  PdmDBType<std::string> last_time_open_dv = PdmDBType<std::string>( "last_time_open", "DATETIME", "DEFAULT CURRENT_TIMESTAMP");
-  PdmDBType<std::string> data_dv = PdmDBType<std::string>( "data", "TEXT", "");
+  PdmDBType<int> id = PdmDBType<int>("id", "INTEGER", "PRIMARY KEY AUTOINCREMENT");
+  PdmDBType<std::string> last_time_open = PdmDBType<std::string>( "last_time_open", "DATETIME", "DEFAULT CURRENT_TIMESTAMP");
+  PdmDBType<std::string> data = PdmDBType<std::string>( "data", "TEXT", "");
 
-  PdmLocal(int id, const std::string& last_time_open, const std::string& data)
+  PdmLocal(int id_, const std::string& last_time_open_, const std::string& data_)
       {
-        id_dv.val = id;
-        last_time_open_dv.val = last_time_open;
-        data_dv.val = data;
+        id.val = id_;
+        last_time_open.val = last_time_open_;
+        data.val = data_;
       }
+      PdmLocal();
 };
 
 // PdmLocalDao class to handle database operations for the pdm_local table
 class PdmLocalDao {
 public:
-  PdmLocalDao(const std::string& db_name) ;
+  PdmLocalDao() ;
+  PdmLocalDao(sqlite3* db) ;
 
   ~PdmLocalDao() ;
 
@@ -41,10 +43,12 @@ public:
 
   std::unique_ptr<PdmLocal> find_by_id(int id) ;
 
-  // Implement other CRUD methods as needed
+  void set_db(sqlite3* db) { db_ = db; }
 
+  // Implement other CRUD methods as needed
+  PdmLocal db_structure;
 private:
-  sqlite3* db_;
+  sqlite3* db_ = nullptr;
 };
 
 

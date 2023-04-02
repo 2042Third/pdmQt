@@ -18,6 +18,7 @@ public:
   const std::string &name;
   const std::string &type;
   const std::string &mod;
+  std::string signature(){return name + " " + type + " " + mod;}
 };
 
 
