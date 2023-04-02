@@ -5,11 +5,11 @@
 #ifndef PDM_PLATFORMS_UI_PDM_DATABASE_H
 #define PDM_PLATFORMS_UI_PDM_DATABASE_H
 
-#include "pdm_status.h"
+#include "src/handler/pdm_status.h"
 #include "sqlite3.h"
 #include "cryptosqlite/cryptosqlite.h"
 #include "nlohmann/json.hpp"
-#include "types.h"
+#include "src/handler/types.h"
 
 namespace PDM {
 class pdm_database : public Status{

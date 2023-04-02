@@ -2,7 +2,7 @@
 #define PDMRUNTIME_H
 
 #include <QObject>
-#include <src/handler/pdm_database.h>
+#include "src/handler/db/pdm_database.h"
 #include <src/handler/pdm_status.h>
 #include <src/handler/pdm_net.h>
 #include "handler/pdm_settings.h"

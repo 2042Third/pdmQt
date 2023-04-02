@@ -16,6 +16,9 @@
 class PdmLocal {
 public:
   int id;
+  const std::string id_name = "id";
+  const std::string id_type = "INTEGER";
+  const std::string id_mod = "PRIMARY KEY AUTOINCREMENT";
   std::string last_time_open;
   std::string data;
 
