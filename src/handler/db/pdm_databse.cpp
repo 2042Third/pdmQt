@@ -38,14 +38,22 @@ namespace PDM {
 
   }
 }
-
+/**
+ * Open a database file.
+ * @param name name and path of the database file
+ * @param pas password
+ * @param pas_size size of the password
+ * Checks if the path given is good. If not, make path.
+ * */
 int PDM::pdm_database::open_db(const char *name, const char*pas, int pas_size) {
+  namespace fs = std::filesystem;
+
   change(PDM::Status::LOADING);
-  cryptosqlite::setCryptoFactory([] (std::unique_ptr<IDataCrypt> &crypt) {
+  fs::create_directories(fs::path(name).parent_path()); // Create user config dir
+  cryptosqlite::setCryptoFactory([] (std::unique_ptr<IDataCrypt> &crypt) { // set the crypto factory
     crypt = std::make_unique<pdm_crypto_db>();
   });
   rc = sqlite3_open_encrypted(name, &db, pas, pas_size); // open the encrypted database
-//  rc = sqlite3_open_v2(name, &db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_URI, NULL);
   change(PDM::Status::OPEN);
   if( rc ){
     change(PDM::Status::PDM_ERROR);
