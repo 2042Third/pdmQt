@@ -56,11 +56,13 @@ int PDM::pdm_database::open_db(const char *name, const char*pas, int pas_size) {
   rc = sqlite3_open_encrypted(name, &db, pas, pas_size); // open the encrypted database
   change(PDM::Status::OPEN);
   if( rc ){
+    status_open = 0;
     change(PDM::Status::PDM_ERROR);
     fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
     sqlite3_close(db);
     return 0;
   }
+  status_open = 1;
   return 1;
 }
 
@@ -68,6 +70,7 @@ int PDM::pdm_database::close_db(char *name) {
   change(PDM::Status::LOADING);
   sqlite3_close(db);
   change(PDM::Status::CLOSED);
+  status_open=0;
   return 1;
 }
 
@@ -86,6 +89,12 @@ int PDM::pdm_database::execute(const char *input) {
   return 1;
 }
 
+/**
+ * Execute a query and return the result.
+ * * need to move this to a different file
+ * @param input query
+ * @return result of the query
+ * */
 int PDM::pdm_database::execute_note_heads(const nlohmann::json&j,const UserInfo&userinfo) {
   sqlite3_stmt* stmt = 0;
   rc = sqlite3_prepare_v2( db, add_note_head.c_str(), -1, &stmt, 0 );

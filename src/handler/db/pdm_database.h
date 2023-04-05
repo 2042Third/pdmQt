@@ -40,6 +40,7 @@ public:
   int rc;
   return_table current_display_table;
   std::string last_command ;
+  int status_open = 0;
 
   // Static queries
   const std::string add_note_head = "insert or replace into notes(noteid, useremail, content, h, intgrh,time, head)"

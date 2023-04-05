@@ -76,10 +76,7 @@ int PdmRunTime::signin_action(const std::string &a, NetWriter *wt_in, const char
   std::cout<<"User email: "<< wt.userinfo.email<< std::endl;
   MD5 md5; md5.add(user_mail.c_str(),user_mail.size());
   std::string file_names = md5.getHash();
-  get_user_loc(file_names);
-  // Commented out because open_db will create the directory if it doesn't exist
-//  const std::filesystem::path confp(conf_loc);
-//  std::filesystem::create_directories(confp.parent_path()); // Create user config dir
+  get_user_loc(file_names); // Get user's database location
   std::cout<< "conf_loc: "<< conf_loc<<std::endl;
   user_conf->open_db(conf_loc.c_str(),"pdmnotes",8); // Make local user configurations
   wt_in->pdm_runtime = this;

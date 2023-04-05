@@ -11,26 +11,12 @@
 #include <sqlite3.h>
 #include <string>
 #include <vector>
-#include "handler/db/PdmDBType.h"
+#include "handler/db/pdm_database.h"
+#include "pdmLocalDaoTables.h"
 
 namespace PDM{
-// Local class representing a single row in the pdm_local table
-class Local {
-public:
-  PdmDBType<int> id = PdmDBType<int>("id", "INTEGER", "PRIMARY KEY AUTOINCREMENT");
-  PdmDBType<std::string> last_time_open = PdmDBType<std::string>( "last_time_open", "DATETIME", "DEFAULT CURRENT_TIMESTAMP");
-  PdmDBType<std::string> data = PdmDBType<std::string>( "data", "TEXT", "");
-  Local(int id_, const std::string& last_time_open_, const std::string& data_)
-  {
-    id.val = id_;
-    last_time_open.val = last_time_open_;
-    data.val = data_;
-  }
-  Local()= default;
-};
-
 // LocalDao class to handle database operations for the pdm_local table
-class LocalDao {
+class LocalDao: pdm_database{
 public:
   LocalDao() ;
   ~LocalDao() ;
@@ -41,12 +27,9 @@ public:
 
   std::unique_ptr<Local> find_by_id(int id) ;
 
-  void set_db(sqlite3* db) { db_ = db; }
-
   // Implement other CRUD methods as needed
-  Local db_structure;
+  Local local;
 private:
-  sqlite3* db_ = nullptr;
 };
 } // Namespace PDM
 
