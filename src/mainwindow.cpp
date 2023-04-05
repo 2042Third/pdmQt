@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QProcess>
+#include <QWindow>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,6 +25,10 @@ MainWindow::MainWindow(QWidget *parent)
     statusBar()->showMessage(rt->currentStatusBar);
   });
 
+  QWindow *window = windowHandle();
+
+  // Connect to the windowStateChanged signal
+  connect(window, &QWindow::windowStateChanged, this, &MainWindow::onWindowStateChanged);
   // Finish settings up the settings
   rt->setup_settings();
 }
@@ -139,3 +144,17 @@ void MainWindow::open_user_database_location() {
 #endif
 }
 
+void MainWindow::onWindowStateChanged(Qt::WindowState state)
+{
+  if (state == Qt::WindowMinimized) {
+  }
+  else if (state == Qt::WindowActive) {
+  }
+  else if (state == Qt::WindowFullScreen) {
+  }
+  else if (state == Qt::WindowMaximized) {
+  }
+  else if (state == Qt::WindowNoState) { // Window moving or resizing.
+    
+  }
+}

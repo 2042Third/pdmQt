@@ -61,7 +61,6 @@ void PdmRunTime::on_loginFail() {
   msgBox.setStandardButtons(QMessageBox::Ok);
   msgBox.setDefaultButton(QMessageBox::Ok);
   msgBox.exec();
-
 }
 
 PdmRunTime::~PdmRunTime() {
@@ -70,7 +69,6 @@ PdmRunTime::~PdmRunTime() {
   delete local_dao;
   delete user_data;
   delete user_conf;
-
 }
 
 int PdmRunTime::signin_action(const std::string &a, NetWriter *wt_in, const char *password, const char *email,
@@ -100,9 +98,8 @@ int PdmRunTime::setup_settings_check() {
 }
 
 int PdmRunTime::setup_settings() {
-  static std::string conf_location = "./conf/conf", settings_location = "./settings/settings";
-  app_settings->open_db(settings_location.c_str(),"pdmnotes",8); // Make local user configurations
-  local_dao->open_db(conf_location.c_str(),"pdmnotes",8); // Make local app configurations
+  app_settings->open_db("./settings/settings","pdmnotes",8); // Make local user configurations
+  local_dao->open_db("./conf/conf","pdmnotes",8); // Make local app configurations
   local_dao->create_table(); // Create table for local app configurations
   return 0;
 }

@@ -6,6 +6,7 @@
 #define PDM_QT_PDMLOCALDAOTABLES_H
 #include "handler/db/PdmDBType.h"
 #include <string>
+#include <sstream>
 
 namespace PDM {
   // Base class for all tables
@@ -67,19 +68,40 @@ namespace PDM {
     }
 
     std::string get_table_create_string() override {
-      return "CREATE TABLE " + creation_condition + " " + table_name + "("
-             + id.signature() + ","
-             + ref_id.signature() + ","
-             + last_display_pos_x.signature() + ","
-             + last_display_pos_y.signature() + ","
-             + last_display_width.signature() + ","
-             + last_display_height.signature() + ","
-             + last_display_maximized.signature() + ","
-             + last_display_fullscreen.signature() + ","
-             + window_name.signature()
-             + constraint
-             + ")"
-             +";";
+      constexpr auto base_query = "CREATE TABLE ";
+      constexpr auto delimiter = ",";
+      constexpr auto query_end = ");";
+
+      std::string query;
+      query.reserve(512);  // Adjust this value according to the expected query size.
+
+      query.append(base_query);
+      query.append(creation_condition);
+      query.append(" ");
+      query.append(table_name);
+      query.append("(");
+      query.append(id.signature());
+      query.append(delimiter);
+      query.append(ref_id.signature());
+      query.append(delimiter);
+      query.append(last_display_pos_x.signature());
+      query.append(delimiter);
+      query.append(last_display_pos_y.signature());
+      query.append(delimiter);
+      query.append(last_display_width.signature());
+      query.append(delimiter);
+      query.append(last_display_height.signature());
+      query.append(delimiter);
+      query.append(last_display_maximized.signature());
+      query.append(delimiter);
+      query.append(last_display_fullscreen.signature());
+      query.append(delimiter);
+      query.append(window_name.signature());
+      query.append(delimiter);
+      query.append(constraint);
+      query.append(query_end);
+
+      return query;
     }
   };
 

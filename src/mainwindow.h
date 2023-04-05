@@ -30,6 +30,7 @@ private slots:
   void on_actionOpen_triggered();
   void mainwindowLoginSuccess();
   void open_user_database_location();
+  void onWindowStateChanged(Qt::WindowState state);
 
 
 private:

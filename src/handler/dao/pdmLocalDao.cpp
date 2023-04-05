@@ -15,6 +15,7 @@ PDM::LocalDao::~LocalDao() {
 void PDM::LocalDao::create_table() {
   if(!status_open){std::cout << "db is null" << std::endl;return;}
   execute(local.get_table_create_string().c_str()); // Create the local table
+  static std::string a = local_display.get_table_create_string();
   execute(local_display.get_table_create_string().c_str()); // Create the local_display table
 }
 
