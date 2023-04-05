@@ -50,6 +50,7 @@ namespace PDM {
   };
   // Stores the last display position of the windows
   class LocalDisplay: Table{
+  public:
     PdmDBType<int> id = PdmDBType<int>("id", "INTEGER", " NOT NULL PRIMARY KEY AUTOINCREMENT");
     PdmDBType<int> ref_id = PdmDBType<int>("ref_id", "INTEGER", " NOT NULL");
     PdmDBType<int> last_display_pos_x = PdmDBType<int>("posx", "INTEGER", "");

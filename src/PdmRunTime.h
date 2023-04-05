@@ -6,6 +6,7 @@
 #include <src/handler/pdm_status.h>
 #include <src/handler/pdm_net.h>
 #include "handler/pdm_settings.h"
+#include "handler/dao/pdmLocalDao.h"
 
 
 class PdmRunTime : public QObject,
@@ -18,6 +19,7 @@ public:
 
   PDM::pdm_database * db; // debug
   PDM::pdm_database * app_settings; // Settings
+  PDM::LocalDao * local_dao; // Local Dao
   PDM::pdm_database * user_conf; // User config
   PDM::pdm_database * user_data; // User data
 explicit PdmRunTime(QObject *parent = nullptr);

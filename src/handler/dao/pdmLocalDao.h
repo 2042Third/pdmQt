@@ -16,7 +16,7 @@
 
 namespace PDM{
 // LocalDao class to handle database operations for the pdm_local table
-class LocalDao: pdm_database{
+class LocalDao: public pdm_database{
 public:
   LocalDao() ;
   ~LocalDao() ;
@@ -28,8 +28,9 @@ public:
   std::unique_ptr<Local> find_by_id(int id) ;
 
   // Implement other CRUD methods as needed
-  Local local;
-private:
+  Local local; // Local table object, contain the id of the settings
+  LocalDisplay local_display; // LocalDisplay table object
+
 };
 } // Namespace PDM
 

@@ -9,6 +9,7 @@ PdmRunTime::PdmRunTime(QObject *parent)
       : QObject(parent) {
   db = new PDM::pdm_database(); // Create the db used for debug, also store the most recent data
   app_settings = new PDM::pdm_database(); // Create the db used for debug, also store the most recent data
+  local_dao = new PDM::LocalDao(); // Create the db that stores the configurations
   user_conf = new PDM::pdm_database(); // Create config db for user
   user_data = new PDM::pdm_database(); // Create config db for user
 
@@ -66,8 +67,10 @@ void PdmRunTime::on_loginFail() {
 PdmRunTime::~PdmRunTime() {
   delete db;
   delete app_settings;
+  delete local_dao;
   delete user_data;
   delete user_conf;
+
 }
 
 int PdmRunTime::signin_action(const std::string &a, NetWriter *wt_in, const char *password, const char *email,
@@ -97,11 +100,13 @@ int PdmRunTime::setup_settings_check() {
 }
 
 int PdmRunTime::setup_settings() {
-  if(setup_settings_check()){
-    emit log("Settings already exist", "#FF0004");
-    return 1;
-  }
-  emit log("Creating settings", "#00CC00");
+//  if(setup_settings_check()){
+//    emit log("Settings already exist", "#FF0004");
+//    return 1;
+//  }
+//  emit log("Creating settings", "#00CC00");
   app_settings->open_db("./settings/settings","pdmnotes",8); // Make local user configurations
+  local_dao->open_db("./conf/conf","pdmnotes",8); // Make local app configurations
+//  local_dao->create_table(); // Create table for local app configurations
   return 0;
 }
