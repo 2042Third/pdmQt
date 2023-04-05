@@ -8,13 +8,16 @@
 #include <string>
 
 namespace PDM {
+  // Base class for all tables
   class Table{
-
   public:
     std::string creation_condition ;
     std::string constraint; // constraint
     std::string table_name; // table name
+    virtual std::string get_table_create_string() = 0;
   };
+
+
 // Local class representing a single row in the pdm_local table
   class Local : Table{ // basic data and sets the id
   public:
@@ -35,7 +38,7 @@ namespace PDM {
       constraint = "";
     }
 
-    std::string get_table_create_string() {
+    std::string get_table_create_string() override  {
       return "CREATE TABLE " + creation_condition + " " + table_name + "("
              + id.signature() + ","
              + last_time_open.signature() + ","
@@ -43,6 +46,7 @@ namespace PDM {
              + ")"
              + constraint+";";
     }
+
   };
   // Stores the last display position of the windows
   class LocalDisplay: Table{
@@ -55,6 +59,28 @@ namespace PDM {
     PdmDBType<int> last_display_maximized = PdmDBType<int>("maximized", "INTEGER", "");
     PdmDBType<int> last_display_fullscreen = PdmDBType<int>("fullscreen", "INTEGER", "");
     PdmDBType<std::string> window_name = PdmDBType<std::string>("window_name", "TEXT", "");
+
+    LocalDisplay(){
+      creation_condition = "IF NOT EXISTS";
+      table_name = "local_display";
+      constraint = "FOREIGN KEY(ref_id) REFERENCES "+table_name+"(id) ON DELETE CASCADE";
+    }
+
+    std::string get_table_create_string() override {
+      return "CREATE TABLE " + creation_condition + " " + table_name + "("
+             + id.signature() + ","
+             + ref_id.signature() + ","
+             + last_display_pos_x.signature() + ","
+             + last_display_pos_y.signature() + ","
+             + last_display_width.signature() + ","
+             + last_display_height.signature() + ","
+             + last_display_maximized.signature() + ","
+             + last_display_fullscreen.signature() + ","
+             + window_name.signature()
+             + constraint
+             + ")"
+             +";";
+    }
   };
 
 } // Namespace PDM
