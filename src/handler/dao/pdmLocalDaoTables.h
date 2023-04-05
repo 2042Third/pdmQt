@@ -22,9 +22,8 @@ namespace PDM {
   class Local : Table{ // basic data and sets the id
   public:
     PdmDBType<int> id = PdmDBType<int>("id", "INTEGER", "PRIMARY KEY AUTOINCREMENT");
-    PdmDBType <std::string> last_time_open = PdmDBType<std::string>("last_time_open", "DATETIME",
-                                                                    "DEFAULT CURRENT_TIMESTAMP");
-    PdmDBType <std::string> data = PdmDBType<std::string>("data", "TEXT", "");
+    PdmDBType <std::string> last_time_open = PdmDBType<std::string>("last_time_open", "DATETIME","DEFAULT CURRENT_TIMESTAMP");
+    PdmDBType <std::string> data = PdmDBType<std::string>("data", "TEXT", " ");
 
     Local(int id_, const std::string &last_time_open_, const std::string &data_):Local() {
       id.val = id_;

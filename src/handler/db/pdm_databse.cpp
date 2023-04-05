@@ -47,7 +47,6 @@ namespace PDM {
  * */
 int PDM::pdm_database::open_db(const char *name, const char*pas, int pas_size) {
   namespace fs = std::filesystem;
-
   change(PDM::Status::LOADING);
   fs::create_directories(fs::path(name).parent_path()); // Create user config dir
   cryptosqlite::setCryptoFactory([] (std::unique_ptr<IDataCrypt> &crypt) { // set the crypto factory

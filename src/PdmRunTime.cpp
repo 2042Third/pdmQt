@@ -100,13 +100,9 @@ int PdmRunTime::setup_settings_check() {
 }
 
 int PdmRunTime::setup_settings() {
-//  if(setup_settings_check()){
-//    emit log("Settings already exist", "#FF0004");
-//    return 1;
-//  }
-//  emit log("Creating settings", "#00CC00");
-  app_settings->open_db("./settings/settings","pdmnotes",8); // Make local user configurations
-  local_dao->open_db("./conf/conf","pdmnotes",8); // Make local app configurations
-//  local_dao->create_table(); // Create table for local app configurations
+  static std::string conf_location = "./conf/conf", settings_location = "./settings/settings";
+  app_settings->open_db(settings_location.c_str(),"pdmnotes",8); // Make local user configurations
+  local_dao->open_db(conf_location.c_str(),"pdmnotes",8); // Make local app configurations
+  local_dao->create_table(); // Create table for local app configurations
   return 0;
 }
