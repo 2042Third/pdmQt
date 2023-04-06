@@ -32,6 +32,10 @@ private slots:
   void open_user_database_location();
   void onWindowStateChanged(Qt::WindowState state);
 
+protected:
+  void changeEvent(QEvent *event) override;
+  void moveEvent(QMoveEvent *event) override;
+  void resizeEvent(QResizeEvent *event) override;
 
 private:
     Ui::MainWindow *ui;

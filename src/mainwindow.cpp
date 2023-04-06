@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QProcess>
+#include <QWindowStateChangeEvent>
 #include <QWindow>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -25,12 +26,9 @@ MainWindow::MainWindow(QWidget *parent)
     statusBar()->showMessage(rt->currentStatusBar);
   });
 
-  QWindow *window = windowHandle();
-
-  // Connect to the windowStateChanged signal
-  connect(window, &QWindow::windowStateChanged, this, &MainWindow::onWindowStateChanged);
   // Finish settings up the settings
   rt->setup_settings();
+
 }
 
 MainWindow::~MainWindow()
@@ -162,4 +160,21 @@ void MainWindow::onWindowStateChanged(Qt::WindowState state)
   emit rt->log("Window state update: ", "#C22A1C");
   emit rt->log("  Window position: "+QString::number(this->x())+", "+QString::number(this->y()), "#C22A1C");
   emit rt->log("  Window size: "+QString::number(this->width())+", "+QString::number(this->height()), "#C22A1C");
+}
+void MainWindow::moveEvent(QMoveEvent *event) {
+  QMainWindow::moveEvent(event);
+  emit rt->log("Window moved: ", "#C22A1C");
+  emit rt->log("  Window position: " + QString::number(this->x()) + ", " + QString::number(this->y()), "#C22A1C");
+}
+void MainWindow::resizeEvent(QResizeEvent *event) {
+  QMainWindow::resizeEvent(event);
+  emit rt->log("Window resized: ", "#C22A1C");
+  emit rt->log("  Window size: " + QString::number(this->width()) + ", " + QString::number(this->height()), "#C22A1C");
+}
+void MainWindow::changeEvent(QEvent *event) {
+  if (event->type() == QEvent::WindowStateChange) {
+
+  }
+
+  QMainWindow::changeEvent(event);
 }
