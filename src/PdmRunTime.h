@@ -46,6 +46,7 @@ public slots:
     void log(const QString &message, const QString &color);
     void loginSuccess();
     void loginFail();
+    void databaseLocalReady();
 
   };
 #endif // PDMRUNTIME_H

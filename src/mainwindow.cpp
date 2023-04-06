@@ -159,4 +159,7 @@ void MainWindow::onWindowStateChanged(Qt::WindowState state)
     emit rt->log("  Window position: "+QString::number(this->x())+", "+QString::number(this->y()), "#C22A1C");
     emit rt->log("  Window size: "+QString::number(this->width())+", "+QString::number(this->height()), "#C22A1C");
   }
+  emit rt->log("Window state update: ", "#C22A1C");
+  emit rt->log("  Window position: "+QString::number(this->x())+", "+QString::number(this->y()), "#C22A1C");
+  emit rt->log("  Window size: "+QString::number(this->width())+", "+QString::number(this->height()), "#C22A1C");
 }
