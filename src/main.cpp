@@ -15,9 +15,9 @@ int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
 
-  QCoreApplication::setOrganizationName("PDM");
+  QCoreApplication::setOrganizationName("pdm");
   QCoreApplication::setOrganizationDomain("pdm.pw");
-  QCoreApplication::setApplicationName("PDMNotes");
+  QCoreApplication::setApplicationName("pdmnotes");
 
   // Application Icon
   a.setWindowIcon(QIcon(":/images/icon/icon_small"));
