@@ -4,6 +4,8 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QProcess>
+#include <QTimer>
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -26,6 +28,21 @@ MainWindow::MainWindow(QWidget *parent)
 
   // Finish settings up the settings
   rt->setup_settings();
+
+  QSettings settings;
+  // Restore the previous window geometry
+  restoreGeometry(settings.value("mainwindow/geometry").toByteArray());
+
+  moveTimer = new QTimer(this);
+  moveTimer->setSingleShot(true);
+  moveTimer->setInterval(3000); // Adjust the delay as needed (in milliseconds)
+  resizeTimer = new QTimer(this);
+  resizeTimer->setSingleShot(true);
+  resizeTimer->setInterval(3000); // Adjust the delay as needed (in milliseconds)
+
+  connect(moveTimer, &QTimer::timeout, this, &MainWindow::onMoveTimerTimeout);
+  connect(resizeTimer, &QTimer::timeout, this, &MainWindow::onResizeTimerTimeout);
+
 }
 
 MainWindow::~MainWindow()
@@ -33,6 +50,8 @@ MainWindow::~MainWindow()
   delete ui;
   delete debugWindow;
   delete rt;
+  delete moveTimer;
+  delete resizeTimer;
 }
 
 
@@ -137,5 +156,33 @@ void MainWindow::open_user_database_location() {
     // Fallback to open the folder containing the file
     QDesktopServices::openUrl(QUrl::fromLocalFile(dir.absolutePath()));
 #endif
+}
+
+
+void MainWindow::moveEvent(QMoveEvent *event) {
+  QMainWindow::moveEvent(event);
+  // Start the timer when the window is moved
+  moveTimer->start();
+}
+void MainWindow::resizeEvent(QResizeEvent *event) {
+  QMainWindow::resizeEvent(event);
+  // Start the timer when the window is resized
+  resizeTimer->start();
+}
+
+void MainWindow::onMoveTimerTimeout() {
+  emit rt->log("Window stopped moving: ", "#C22A1C");
+  emit rt->log("  Final position: " + QString::number(this->x()) + ", " + QString::number(this->y()), "#C22A1C");
+  emit rt->log("  Window geometry: "+ saveGeometry(), "#C22A1C");
+  QSettings settings;
+  settings.setValue("mainwindow/geometry", saveGeometry());
+
+}
+
+void MainWindow::onResizeTimerTimeout() {
+  emit rt->log("Window stopped resizing: ", "#C22A1C");
+  emit rt->log("  Final size: " + QString::number(this->width()) + ", " + QString::number(this->height()), "#C22A1C");
+  QSettings settings;
+  settings.setValue("mainwindow/geometry", saveGeometry());
 }
 

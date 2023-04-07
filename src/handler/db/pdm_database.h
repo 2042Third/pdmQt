@@ -5,11 +5,11 @@
 #ifndef PDM_PLATFORMS_UI_PDM_DATABASE_H
 #define PDM_PLATFORMS_UI_PDM_DATABASE_H
 
-#include "pdm_status.h"
+#include "src/handler/pdm_status.h"
 #include "sqlite3.h"
 #include "cryptosqlite/cryptosqlite.h"
 #include "nlohmann/json.hpp"
-#include "types.h"
+#include "src/handler/types.h"
 
 namespace PDM {
 class pdm_database : public Status{
@@ -40,6 +40,7 @@ public:
   int rc;
   return_table current_display_table;
   std::string last_command ;
+  int status_open = 0;
 
   // Static queries
   const std::string add_note_head = "insert or replace into notes(noteid, useremail, content, h, intgrh,time, head)"
@@ -56,6 +57,7 @@ public:
                                         "intgrh text,"
                                         "time INTEGER , "
                                         "head text); ";
+
 };
 
 }

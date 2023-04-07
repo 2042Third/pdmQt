@@ -30,11 +30,19 @@ private slots:
   void on_actionOpen_triggered();
   void mainwindowLoginSuccess();
   void open_user_database_location();
+  void onMoveTimerTimeout();
+  void onResizeTimerTimeout();
 
+protected:
+  void moveEvent(QMoveEvent *event) override;
+  void resizeEvent(QResizeEvent *event) override;
 
 private:
-    Ui::MainWindow *ui;
+  QTimer* moveTimer;
+  QTimer* resizeTimer;
+  Ui::MainWindow *ui;
 
   void newSettingsWindow();
+
 };
 #endif // MAINWINDOW_H

@@ -70,8 +70,8 @@ set(PROJECT_SOURCES
     src/settings/userinformation.h src/settings/userinformation.cpp src/settings/userinformation.ui
 
     # PDM things
-    src/handler/pdm_databse.cpp
-    src/handler/pdm_database.h
+    src/handler/db/pdm_databse.cpp
+    src/handler/db/pdm_database.h
     src/handler/pdm_status.h
     src/handler/pdm_net.cpp
     src/handler/pdm_net.h
@@ -80,7 +80,7 @@ set(PROJECT_SOURCES
     src/handler/types.h
     src/crypto/pdmCryptoDB.hpp # encrypted database
 
-    src/CustomWindow.h src/CustomWindow.cpp src/others/shadowFrameWidget.h src/others/shadowFrameWidget.cpp src/handler/pdm_qt_helpers.h src/handler/pdm_qt_helpers.cpp src/handler/pdm_settings.h src/handler/pdm_settings.cpp)
+    src/CustomWindow.h src/CustomWindow.cpp src/others/shadowFrameWidget.h src/others/shadowFrameWidget.cpp src/handler/pdm_qt_helpers.h src/handler/pdm_qt_helpers.cpp src/handler/pdm_settings.h src/handler/pdm_settings.cpp src/handler/dao/pdmLocalDao.h src/handler/dao/pdmLocalDao.cpp src/handler/db/PdmDBType.h src/handler/dao/pdmLocalDaoTables.cpp)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(pdm_qt

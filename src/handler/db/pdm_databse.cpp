@@ -4,7 +4,7 @@
 
 #include "pdm_database.h"
 #include "crypto/pdmCryptoDB.hpp"
-#include "net_convert.h"
+#include "src/handler/net_convert.h"
 #include <memory>
 #include <string>
 
@@ -38,21 +38,30 @@ namespace PDM {
 
   }
 }
-
+/**
+ * Open a database file.
+ * @param name name and path of the database file
+ * @param pas password
+ * @param pas_size size of the password
+ * Checks if the path given is good. If not, make path.
+ * */
 int PDM::pdm_database::open_db(const char *name, const char*pas, int pas_size) {
+  namespace fs = std::filesystem;
   change(PDM::Status::LOADING);
-  cryptosqlite::setCryptoFactory([] (std::unique_ptr<IDataCrypt> &crypt) {
+  fs::create_directories(fs::path(name).parent_path()); // Create user config dir
+  cryptosqlite::setCryptoFactory([] (std::unique_ptr<IDataCrypt> &crypt) { // set the crypto factory
     crypt = std::make_unique<pdm_crypto_db>();
   });
   rc = sqlite3_open_encrypted(name, &db, pas, pas_size); // open the encrypted database
-//  rc = sqlite3_open_v2(name, &db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_URI, NULL);
   change(PDM::Status::OPEN);
   if( rc ){
+    status_open = 0;
     change(PDM::Status::PDM_ERROR);
     fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
     sqlite3_close(db);
     return 0;
   }
+  status_open = 1;
   return 1;
 }
 
@@ -60,6 +69,7 @@ int PDM::pdm_database::close_db(char *name) {
   change(PDM::Status::LOADING);
   sqlite3_close(db);
   change(PDM::Status::CLOSED);
+  status_open=0;
   return 1;
 }
 
@@ -78,6 +88,12 @@ int PDM::pdm_database::execute(const char *input) {
   return 1;
 }
 
+/**
+ * Execute a query and return the result.
+ * * need to move this to a different file
+ * @param input query
+ * @return result of the query
+ * */
 int PDM::pdm_database::execute_note_heads(const nlohmann::json&j,const UserInfo&userinfo) {
   sqlite3_stmt* stmt = 0;
   rc = sqlite3_prepare_v2( db, add_note_head.c_str(), -1, &stmt, 0 );

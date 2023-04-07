@@ -9,6 +9,7 @@ PdmRunTime::PdmRunTime(QObject *parent)
       : QObject(parent) {
   db = new PDM::pdm_database(); // Create the db used for debug, also store the most recent data
   app_settings = new PDM::pdm_database(); // Create the db used for debug, also store the most recent data
+  local_dao = new PDM::LocalDao(); // Create the db that stores the configurations
   user_conf = new PDM::pdm_database(); // Create config db for user
   user_data = new PDM::pdm_database(); // Create config db for user
 
@@ -60,12 +61,12 @@ void PdmRunTime::on_loginFail() {
   msgBox.setStandardButtons(QMessageBox::Ok);
   msgBox.setDefaultButton(QMessageBox::Ok);
   msgBox.exec();
-
 }
 
 PdmRunTime::~PdmRunTime() {
   delete db;
   delete app_settings;
+  delete local_dao;
   delete user_data;
   delete user_conf;
 }
@@ -76,9 +77,7 @@ int PdmRunTime::signin_action(const std::string &a, NetWriter *wt_in, const char
   std::cout<<"User email: "<< wt.userinfo.email<< std::endl;
   MD5 md5; md5.add(user_mail.c_str(),user_mail.size());
   std::string file_names = md5.getHash();
-  get_user_loc(file_names);
-  const std::filesystem::path confp(conf_loc);
-  std::filesystem::create_directories(confp.parent_path()); // Create user config dir
+  get_user_loc(file_names); // Get user's database location
   std::cout<< "conf_loc: "<< conf_loc<<std::endl;
   user_conf->open_db(conf_loc.c_str(),"pdmnotes",8); // Make local user configurations
   wt_in->pdm_runtime = this;
@@ -99,11 +98,9 @@ int PdmRunTime::setup_settings_check() {
 }
 
 int PdmRunTime::setup_settings() {
-  if(setup_settings_check()){
-    emit log("Settings already exist", "#FF0004");
-    return 1;
-  }
-  emit log("Creating settings", "#00CC00");
   app_settings->open_db("./settings/settings","pdmnotes",8); // Make local user configurations
+  local_dao->open_db("./conf/conf","pdmnotes",8); // Make local app configurations
+  local_dao->create_table(); // Create table for local app configurations
+  local_dao->insert("local data"); // Insert data for local app configurations
   return 0;
 }
