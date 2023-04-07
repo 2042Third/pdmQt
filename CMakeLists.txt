@@ -33,13 +33,21 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
 #find_library(SECUREMEM_LIB SecureMemory # PDM cryptoSQLite
 #    ${CMAKE_CURRENT_SOURCE_DIR}/lib/cryptoSQLite/external/securememorybin/bin)
 
+# check if we are on windows
+if(WIN32)
+
 find_library(SSL_LIB ssl # Openssl
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/)
 
 find_library(CRYPTO_LIB crypto # Openssl
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/)
 
+elseif(APPLE)
 
+    find_library(SSL_LIB ssl )
+
+    find_library(CRYPTO_LIB crypto )
+endif()
 
 set(TS_FILES
 #    pdm_qt_zh_CN.ts
@@ -127,7 +135,7 @@ target_link_libraries(pdm_qt PUBLIC
     )
 
 set_target_properties(pdm_qt PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+    MACOSX_BUNDLE_GUI_IDENTIFIER pdm.notes.pw
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
