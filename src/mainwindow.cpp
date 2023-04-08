@@ -29,9 +29,14 @@ MainWindow::MainWindow(QWidget *parent)
   // Finish settings up the settings
   rt->setup_settings();
 
+  //Default geometry for the main window
+  QWidget tempWidget;
+  tempWidget.setGeometry(847, 236, 866, 905);
+  QByteArray defaultGeometry = tempWidget.saveGeometry();
+
   QSettings settings;
   // Restore the previous window geometry
-  restoreGeometry(settings.value("mainwindow/geometry").toByteArray());
+  restoreGeometry(settings.value("mainwindow/geometry",defaultGeometry).toByteArray());
 
   moveTimer = new QTimer(this);
   moveTimer->setSingleShot(true);

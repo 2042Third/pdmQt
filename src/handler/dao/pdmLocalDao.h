@@ -23,7 +23,7 @@ public:
 
   void create_table() ;
 
-  int insert(const std::string& data) ;
+  int insert(const std::string& key, const std::string& val, const std::string& data="");
 
   std::unique_ptr<Local> find_by_id(int id) ;
 

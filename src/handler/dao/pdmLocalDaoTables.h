@@ -24,12 +24,18 @@ namespace PDM {
   public:
     PdmDBType<int> id = PdmDBType<int>("id", "INTEGER", "PRIMARY KEY AUTOINCREMENT");
     PdmDBType <std::string> last_time_open = PdmDBType<std::string>("last_time_open", "DATETIME","DEFAULT CURRENT_TIMESTAMP");
-    PdmDBType <std::string> data = PdmDBType<std::string>("data", "TEXT", " ");
+    PdmDBType <std::string> key = PdmDBType<std::string>("key", "TEXT", "not null");
+    PdmDBType <std::string> val = PdmDBType<std::string>("val", "TEXT", "default \'\'");
+    PdmDBType <std::string> data = PdmDBType<std::string>("data", "TEXT", "default \'\'");
 
-    Local(int id_, const std::string &last_time_open_, const std::string &data_):Local() {
-      id.val = id_;
-      last_time_open.val = last_time_open_;
-      data.val = data_;
+    Local(int idIn, const std::string& last_time_openIn, const std::string& keyIn, const std::string& valIn,
+          const std::string& dataIn)
+        : Local(){
+    id.val = idIn;
+    last_time_open.val = last_time_openIn;
+    key.val = keyIn;
+    val.val = valIn;
+    data.val = dataIn;
     }
 
     Local() {
@@ -42,10 +48,24 @@ namespace PDM {
       return "CREATE TABLE " + creation_condition + " " + table_name + "("
              + id.signature() + ","
              + last_time_open.signature() + ","
+              + key.signature() + ","
+              + val.signature() + ","
              + data.signature()
              + ")"
              + constraint+";";
     }
+
+    /**
+     * Get the insert or replace string that requires prepared statements.
+     * @return the string
+     * */
+    std::string insert_replace_str(){
+      std::stringstream ss;
+      ss << "INSERT OR REPLACE INTO " << table_name << " (key, val, data) VALUES (?,?,?);";
+
+      return ss.str();
+    }
+
 
   };
   // Stores the last display position of the windows

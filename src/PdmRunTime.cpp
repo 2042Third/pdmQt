@@ -99,8 +99,9 @@ int PdmRunTime::setup_settings_check() {
 
 int PdmRunTime::setup_settings() {
   app_settings->open_db("./settings/settings","pdmnotes",8); // Make local user configurations
+
   local_dao->open_db("./conf/conf","pdmnotes",8); // Make local app configurations
   local_dao->create_table(); // Create table for local app configurations
-  local_dao->insert("local data"); // Insert data for local app configurations
+  local_dao->insert("LoginAttampt", "DEBUG"); // Insert data for local app configurations
   return 0;
 }
