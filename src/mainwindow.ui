@@ -136,6 +136,9 @@
    <property name="text">
     <string>Settings</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+S</string>
+   </property>
   </action>
   <action name="actionDebug_Messages">
    <property name="text">
