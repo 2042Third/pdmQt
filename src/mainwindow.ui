@@ -144,6 +144,9 @@
    <property name="text">
     <string>Debug Messages</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+D</string>
+   </property>
   </action>
   <action name="actionOpen">
    <property name="text">

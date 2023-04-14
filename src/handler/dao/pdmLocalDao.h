@@ -29,7 +29,7 @@ public:
 
   // Implement other CRUD methods as needed
   Local local; // Local table object, contain the id of the settings
-  LocalDisplay local_display; // LocalDisplay table object
+//  LocalDisplay local_display; // LocalDisplay table object
 
 };
 } // Namespace PDM

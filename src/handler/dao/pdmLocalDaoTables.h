@@ -62,7 +62,6 @@ namespace PDM {
     std::string insert_replace_str(){
       std::stringstream ss;
       ss << "INSERT OR REPLACE INTO " << table_name << " (key, val, data) VALUES (?,?,?);";
-
       return ss.str();
     }
 
