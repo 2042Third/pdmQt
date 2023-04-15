@@ -25,14 +25,18 @@ SettingsMainWindow::SettingsMainWindow(QWidget *parent) :
 
   ui->settingAccountButton->setText("");
   ui->settingAccountButton->setIcon(QIcon(":/images/icon/account"));
+  ui->settingAccountButton->setIconSize(QSize(30, 30));
   ui->settingAccountButton->setToolTip("Account");
-//  ui->settingAccountButton->setFlat(true);
+  ui->settingAccountButton->setMinimumHeight(50);
+  ui->settingAccountButton->setMaximumHeight(50);
   ui->settingAccountButton->setStyleSheet("QPushButton { background-color: none; border: none; } QPushButton:hover { background-color: lightgray; }");
 
   ui->settingInfoButton->setText("");
   ui->settingInfoButton->setIcon(QIcon(":/images/icon/information"));
+  ui->settingInfoButton->setIconSize(QSize(30, 30));
   ui->settingInfoButton->setToolTip("Information");
-//  ui->settingInfoButton->setFlat(true);
+  ui->settingInfoButton->setMinimumHeight(50);
+  ui->settingInfoButton->setMaximumHeight(50);
   ui->settingInfoButton->setStyleSheet("QPushButton { background-color: none; border: none; } QPushButton:hover { background-color: lightgray; }");
   setActiveButton(0);
 }
