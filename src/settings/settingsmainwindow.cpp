@@ -29,6 +29,8 @@ SettingsMainWindow::SettingsMainWindow(QWidget *parent) :
   ui->settingAccountButton->setToolTip("Account");
   ui->settingAccountButton->setMinimumHeight(50);
   ui->settingAccountButton->setMaximumHeight(50);
+  ui->settingAccountButton->setMinimumWidth(50);
+  ui->settingAccountButton->setMaximumWidth(50);
   ui->settingAccountButton->setStyleSheet("QPushButton { background-color: none; border: none; } QPushButton:hover { background-color: lightgray; }");
 
   ui->settingInfoButton->setText("");
@@ -37,6 +39,8 @@ SettingsMainWindow::SettingsMainWindow(QWidget *parent) :
   ui->settingInfoButton->setToolTip("Information");
   ui->settingInfoButton->setMinimumHeight(50);
   ui->settingInfoButton->setMaximumHeight(50);
+  ui->settingInfoButton->setMinimumWidth(50);
+  ui->settingInfoButton->setMaximumWidth(50);
   ui->settingInfoButton->setStyleSheet("QPushButton { background-color: none; border: none; } QPushButton:hover { background-color: lightgray; }");
   setActiveButton(0);
 }
