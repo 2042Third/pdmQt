@@ -16,6 +16,7 @@ namespace PDM {
     wt->js = json::parse(wt->readptr);
     PDM::network::get_userinfo(wt->js,wt->userinfo);
     // TODO: add statement to call notes heads.
+    // READ THE ORIGINAL NOTES HEAD FROM TEH DEBUG EXE
     PDM::network::note_heads_action(wt->db->get_userinfo().token,wt,post_callback_heads);
     std::cout<< "Signin Return: "<< wt->js<<std::endl;
     return nmemb; /* we copied this many bytes */
