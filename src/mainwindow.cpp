@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "handler/pdmqt/pdm_qt_net.h"
 #include <QObject>
 #include <QFile>
 #include <QFileDialog>
@@ -132,7 +133,8 @@ void MainWindow::mainwindowLoginSuccess() {
   QAction *openUserDatabaseLocation = new QAction("Open User Database Location", this);
   connect(openUserDatabaseLocation, &QAction::triggered, this, &MainWindow::open_user_database_location);
   ui->menuHelp->addAction(openUserDatabaseLocation);
-
+  // Get notes heads calls.
+  PDM::pdm_qt_net::client_action_note_heads(rt);
 }
 
 void MainWindow::open_user_database_location() {

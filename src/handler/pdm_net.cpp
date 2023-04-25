@@ -17,7 +17,7 @@ namespace PDM {
     PDM::network::get_userinfo(wt->js,wt->userinfo);
     // TODO: add statement to call notes heads.
     // READ THE ORIGINAL NOTES HEAD FROM TEH DEBUG EXE
-    PDM::network::note_heads_action(wt->db->get_userinfo().token,wt,post_callback_heads);
+//    PDM::network::note_heads_action(wt->db->get_userinfo().token,wt,post_callback_heads);
     std::cout<< "Signin Return: "<< wt->js<<std::endl;
     return nmemb; /* we copied this many bytes */
   }
@@ -34,7 +34,9 @@ namespace PDM {
     post(a,actions.signinURL,  wt_in,_callback);
     return 1;
   }
-
+  /**
+   * @param a: session token in json format
+   * */
   int network::note_heads_action  (const std::string &a, NetWriter *wt_in,
                                    size_t _callback(char *, size_t , size_t , void *)) {
     post(a,actions.notesGetHeadsURL,  wt_in,_callback);

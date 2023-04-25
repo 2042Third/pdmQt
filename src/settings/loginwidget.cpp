@@ -102,9 +102,6 @@ bool LoginWidget::eventFilter(QObject *object, QEvent *event) {
   return QObject::eventFilter(object, event);
 }
 
-
-
-
 LoginWidget::~LoginWidget() {
 
 }

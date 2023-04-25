@@ -15,6 +15,7 @@ PdmRunTime::PdmRunTime(QObject *parent)
 
   set_db(db);
 
+  // Slots
   connect (this, &PdmRunTime::loginSuccess, this, &PdmRunTime::on_loginSuccess);
   connect (this, &PdmRunTime::loginFail, this, &PdmRunTime::on_loginFail);
 }
@@ -47,6 +48,7 @@ void PdmRunTime::on_loginSuccess() {
   // Decrypt the user's data and store it in the runtime.
   // This should be the first thing to do after login
   userDataCheck();
+
 }
 
 void PdmRunTime::on_loginFail() {
