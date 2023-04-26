@@ -12,11 +12,15 @@
  * @param rtt: pdm runtime pointer.
  * */
 int PDM::pdm_qt_net::client_action_note_heads(void *rtt) {
-  static std::string j_str;
+  std::string j_str;
   auto *rt = (PdmRunTime *) rtt;
+  std::cout<< "client_action_note_heads"<<std::endl;
+  std::cout<< "userinfo.email: "<<rt->wt.userinfo.email<<std::endl;
+  std::cout<< "userinfo.sess: "<<rt->wt.userinfo.sess<<std::endl;
   std::map<std::string,std::string> data=
       PDM::pdm_net_type::get_note_heads(rt->wt.userinfo.sess,rt->wt.userinfo.email,rt->notes.GetHeadsType);
   j_str = PDM::network::get_json(data);
+
   rt->note_heads_action(j_str, &rt->wt);
   return 0;
 }

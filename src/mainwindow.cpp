@@ -133,6 +133,7 @@ void MainWindow::mainwindowLoginSuccess() {
   QAction *openUserDatabaseLocation = new QAction("Open User Database Location", this);
   connect(openUserDatabaseLocation, &QAction::triggered, this, &MainWindow::open_user_database_location);
   ui->menuHelp->addAction(openUserDatabaseLocation);
+
   // Get notes heads calls.
   PDM::pdm_qt_net::client_action_note_heads(rt);
 }

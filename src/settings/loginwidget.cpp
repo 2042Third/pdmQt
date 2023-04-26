@@ -56,6 +56,7 @@ void LoginWidget::onLoginClicked()
           emit rt->log("User config file found", "#016C05");
         }
         rt->user_data->open_db(rt->data_loc.c_str(),wt->data.c_str(),wt->data.size()); // Always new user data
+        rt->user_data->execute(rt->user_data-> note_table_create_query); // Make user data table when not exist
 
         emit rt->log("Databse location: ", "#016C05");
         emit rt->log(rt->conf_loc.c_str() , "#016C05");

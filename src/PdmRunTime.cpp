@@ -13,7 +13,8 @@ PdmRunTime::PdmRunTime(QObject *parent)
   user_conf = new PDM::pdm_database(); // Create config db for user
   user_data = new PDM::pdm_database(); // Create config db for user
 
-  set_db(db);
+  set_db(user_data);
+//  set_db(db); // Old
 
   // Slots
   connect (this, &PdmRunTime::loginSuccess, this, &PdmRunTime::on_loginSuccess);
