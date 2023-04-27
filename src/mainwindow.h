@@ -7,6 +7,7 @@
 #include "src/settings/accountwidget.h"
 #include "src/others/debugwindow.h"
 #include "PdmRunTime.h"
+#include "notesView/NotesScroll.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -29,6 +30,7 @@ private slots:
   void on_actionDebug_Messages_triggered();
   void on_actionOpen_triggered();
   void mainwindowLoginSuccess();
+  void mainwindowNoteHeadsSuccess();
   void open_user_database_location();
   void onMoveTimerTimeout();
   void onResizeTimerTimeout();
@@ -40,6 +42,7 @@ protected:
 private:
   QTimer* moveTimer;
   QTimer* resizeTimer;
+  NotesScroll* noteList;
   Ui::MainWindow *ui;
 
   void newSettingsWindow();

@@ -14,35 +14,13 @@ class NotesScroll : public QAbstractListModel
   Q_OBJECT
 
 public:
-  explicit NotesScroll(QObject *parent = nullptr)
-  : QAbstractListModel(parent) {}
+  explicit NotesScroll(QObject *parent = nullptr);
 
-  void addNote(const Note &note)
-  {
-    beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    m_notes << note;
-    endInsertRows();
-  }
+  void addNote(const Note &note);
 
-  int rowCount(const QModelIndex & parent = QModelIndex()) const override
-  {
-    Q_UNUSED(parent)
-    return m_notes.count();
-  }
+  int rowCount(const QModelIndex & parent = QModelIndex()) const override;
 
-  QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override
-  {
-    if (index.row() < 0 || index.row() >= m_notes.count())
-      return QVariant();
-
-    const Note &note = m_notes[index.row()];
-    if (role == Qt::DisplayRole) {
-      return note.title + "\n" + note.subtitle + "\n" + note.date.toString("yyyy-MM-dd hh:mm:ss");
-    } else if (role == Qt::UserRole) {
-      return note.date;
-    }
-    return QVariant();
-  }
+  QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
 private:
   QList<Note> m_notes;

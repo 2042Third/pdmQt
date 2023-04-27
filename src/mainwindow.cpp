@@ -1,12 +1,14 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "handler/pdmqt/pdm_qt_net.h"
+#include "notesView/NotesScroll.h"
 #include <QObject>
 #include <QFile>
 #include <QFileDialog>
 #include <QProcess>
 #include <QTimer>
 #include <QSettings>
+#include <QListView>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,8 +20,22 @@ MainWindow::MainWindow(QWidget *parent)
   rt = new PdmRunTime();
   connect(rt, &PdmRunTime::log, debugWindow, &DebugWindow::appendMessage);
   connect(rt, &PdmRunTime::loginSuccess, this, &MainWindow::mainwindowLoginSuccess);
+  connect(rt, &PdmRunTime::noteHeadsSuccess, this, &MainWindow::mainwindowNoteHeadsSuccess);
   statusBar()->showMessage("No Login"); rt->currentStatusBar = QString("No Login");
   statusBar()->setToolTip("Login to your account in Settings->Account.");
+
+  // Setup noteListWidget
+  noteList = new NotesScroll(ui->notesListTab);
+  noteList->addNote(Note("Title1", "Subtitle1", QDateTime::currentDateTime()));
+  noteList->addNote(Note("Title2", "Subtitle2", QDateTime::currentDateTime().addDays(1)));
+
+  QListView *view = new QListView;
+  view->setModel(noteList);
+
+  QVBoxLayout *layout = new QVBoxLayout;
+  layout->addWidget(view);
+  ui->notesListTab->setLayout(layout);
+  ui->notesListTab->show();
 
   // Restore the previous status bar message once the tooltip is hidden
   connect(qApp, &QGuiApplication::focusObjectChanged, [=](QObject *newFocusObject) {
@@ -192,5 +208,9 @@ void MainWindow::onResizeTimerTimeout() {
   emit rt->log("  Final size: " + QString::number(this->width()) + ", " + QString::number(this->height()), "#C22A1C");
   QSettings settings;
   settings.setValue("mainwindow/geometry", saveGeometry());
+}
+
+void MainWindow::mainwindowNoteHeadsSuccess() {
+  emit rt->log("Note heads received.", "#C22A1C");
 }
 
