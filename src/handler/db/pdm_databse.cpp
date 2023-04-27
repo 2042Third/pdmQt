@@ -94,8 +94,9 @@ int PDM::pdm_database::execute(const char *input) {
  * @param input query
  * @return result of the query
  * */
-int PDM::pdm_database::execute_note_heads(const nlohmann::json&j,const UserInfo&userinfo) {
+int PDM::pdm_database::execute_note_heads(const nlohmann::json&j,const UserInfo&userinfo, const std::string& data) {
   sqlite3_stmt* stmt = 0;
+//  std::string headstr;
   rc = sqlite3_prepare_v2( db, add_note_head.c_str(), -1, &stmt, 0 );
 
 //  Optional, but will most likely increase performance.
@@ -109,7 +110,8 @@ int PDM::pdm_database::execute_note_heads(const nlohmann::json&j,const UserInfo&
     rc = sqlite3_bind_text( stmt, 4, j["h"].get<std::string>().c_str(), -1, SQLITE_TRANSIENT);
     rc = sqlite3_bind_text( stmt, 5, "\0", -1, SQLITE_TRANSIENT);
     rc = sqlite3_bind_int(  stmt, 6, atoi(i["time"].get<std::string>().c_str()) );
-    rc = sqlite3_bind_text( stmt, 7, PDM::net_convert::add_str(i,"head").c_str(), -1, SQLITE_TRANSIENT);
+    std::string headstr = PDM::net_convert::add_str(i,"head");
+    rc = sqlite3_bind_text( stmt, 7, headstr.size()?loader_out(data,headstr).c_str():"", -1, SQLITE_TRANSIENT);
     while ( sqlite3_step( stmt ) == SQLITE_ROW ) { // While query has result-rows.
       for ( int colIndex = 0; colIndex < sqlite3_column_count( stmt ); colIndex++ ) {
         int result = sqlite3_column_int( stmt, colIndex );

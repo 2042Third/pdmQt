@@ -26,7 +26,7 @@ public:
   int open_db(const char* name, const char*pas,int pas_size);
   int close_db(char* name);
   int execute(const char *input);
-  int execute_note_heads(const nlohmann::json&j,const UserInfo&userinfo);
+  int execute_note_heads(const nlohmann::json&j,const UserInfo&userinfo, const std::string& data);
 
   static void reset (return_table* a) {
     a->argc=0;

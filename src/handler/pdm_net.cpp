@@ -24,7 +24,7 @@ namespace PDM {
     wt->readptr = std::move(std::string(data,nmemb));
     wt->js = json::parse(wt->readptr);
     std::cout<< "Notes Return: "<< wt->js<<std::endl;
-    wt->db->execute_note_heads(wt->js, wt->userinfo);
+    wt->db->execute_note_heads(wt->js, wt->userinfo, wt->data);
     return nmemb; /* we copied this many bytes */
   }
 
