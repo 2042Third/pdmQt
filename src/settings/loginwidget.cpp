@@ -71,8 +71,6 @@ void LoginWidget::onLoginClicked()
     }
   };
 
-  // Add code to verify the username and password here
-
   if (!username.isEmpty() && !password.isEmpty()) {
     emit rt->log("Login attempted:", "#FF0000");
     emit rt->log("\tusername: "+username, "#FF0000");
