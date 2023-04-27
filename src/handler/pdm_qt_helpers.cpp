@@ -21,3 +21,6 @@ QString PDM::pdm_qt_helpers::unix_time_to_qstr(uint64_t a) {
   QString datetime_string = QDateTime::fromMSecsSinceEpoch(a).toString("yyyy-MM-dd hh:mm:ss"); // Convert QDateTime to string
   return datetime_string;
 }
+QDateTime PDM::pdm_qt_helpers::unix_time_to_qtime(uint64_t a) {
+  return QDateTime::fromMSecsSinceEpoch(a);
+}

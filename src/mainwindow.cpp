@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include "handler/pdmqt/pdm_qt_net.h"
 #include "notesView/NotesScroll.h"
+#include "handler/pdm_qt_helpers.h"
 #include <QObject>
 #include <QFile>
 #include <QFileDialog>
@@ -26,8 +27,8 @@ MainWindow::MainWindow(QWidget *parent)
 
   // Setup noteListWidget
   noteList = new NotesScroll(ui->notesListTab);
-  noteList->addNote(Note("Title1", "Subtitle1", QDateTime::currentDateTime()));
-  noteList->addNote(Note("Title2", "Subtitle2", QDateTime::currentDateTime().addDays(1)));
+//  noteList->addNote(Note("Title1", "Subtitle1", QDateTime::currentDateTime()));
+//  noteList->addNote(Note("Title2", "Subtitle2", QDateTime::currentDateTime().addDays(1)));
 
   QListView *view = new QListView;
   view->setModel(noteList);
@@ -212,5 +213,31 @@ void MainWindow::onResizeTimerTimeout() {
 
 void MainWindow::mainwindowNoteHeadsSuccess() {
   emit rt->log("Note heads received.", "#C22A1C");
+  // Add note heads to the note list.
+  sqlite3_stmt* stmt = nullptr;
+  const char* query = "SELECT head, h, time FROM notes WHERE useremail = ?"; // Adjust the SQL to fit your schema
+  int rc = sqlite3_prepare_v2(rt->user_data->db, query, -1, &stmt, nullptr);
+  if (rc != SQLITE_OK) {
+    emit rt->log("Error preparing statement: " + QString::number(rc), "#C22A1C");
+    return;
+  }
+
+  // Bind the user's email to the query
+  rc = sqlite3_bind_text(stmt, 1, rt->wt.userinfo.email.c_str(), -1, SQLITE_TRANSIENT);
+  if (rc != SQLITE_OK) {
+    emit rt->log("Error executing statement: " + QString::number(rc), "#C22A1C");
+    return;
+  }
+  // Execute the query and add each result to the model
+  while (sqlite3_step(stmt) == SQLITE_ROW) {
+    QString title = QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0)));
+    QString subtitle = QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
+    QDateTime date = QDateTime(PDM::pdm_qt_helpers::unix_time_to_qtime(sqlite3_column_int(stmt, 2)));
+
+    noteList->addNote(Note(title, subtitle, date));
+  }
+  // Clean up
+  sqlite3_finalize(stmt);
+
 }
 
