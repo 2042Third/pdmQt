@@ -7,14 +7,15 @@
 
 
 #include <QString>
+#include <QDateTime>
 
 class Note {
 public:
-  std::string title;
-  std::string subtitle;
-  std::string date;
+  QString title;
+  QString subtitle;
+  QDateTime date;
 
-  Note(const std::string &title, const std::string &subtitle, const std::string &date)
+  Note(const QString &title, const QString &subtitle, const QDateTime &date)
       : title(title), subtitle(subtitle), date(date) {}
 };
 
