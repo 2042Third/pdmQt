@@ -15,9 +15,6 @@ namespace PDM {
     wt->readptr = std::move(std::string(data,nmemb));
     wt->js = json::parse(wt->readptr);
     PDM::network::get_userinfo(wt->js,wt->userinfo);
-    // TODO: add statement to call notes heads.
-    // READ THE ORIGINAL NOTES HEAD FROM TEH DEBUG EXE
-//    PDM::network::note_heads_action(wt->db->get_userinfo().token,wt,post_callback_heads);
     std::cout<< "Signin Return: "<< wt->js<<std::endl;
     return nmemb; /* we copied this many bytes */
   }
@@ -25,6 +22,7 @@ namespace PDM {
     auto *wt = (struct NetObj *)userp;
     wt->readptr = std::move(std::string(data,nmemb));
     wt->js = json::parse(wt->readptr);
+    std::cout<< "Notes Return: "<< wt->js<<std::endl;
     wt->db->execute_note_heads(wt->js, wt->userinfo);
     return nmemb; /* we copied this many bytes */
   }
