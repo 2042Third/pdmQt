@@ -4,19 +4,23 @@
 
 #include "pdmListView.h"
 
-pdmListView::pdmListView(QWidget *parent) : QListView(parent) {
+pdmListView::pdmListView(QWidget *parent) :
+  QListView(parent)
+  , PdmRuntimeRef()
+{
 
 }
+
 void pdmListView::mousePressEvent(QMouseEvent *event)
 {
   if (event->button() == Qt::LeftButton) {
     QModelIndex index = indexAt(event->pos());
     if (index.isValid())
-        emit leftClicked(index);
+        emit rt->noteListLeftClicked(index);
   } else if (event->button() == Qt::RightButton) {
     QModelIndex index = indexAt(event->pos());
     if (index.isValid())
-        emit rightClicked(index);
+        emit rt->noteListRightClicked(index);
   }
   QListView::mousePressEvent(event);
 }

@@ -3,6 +3,7 @@
 #include "handler/pdmqt/pdm_qt_net.h"
 #include "notesView/NotesScroll.h"
 #include "handler/pdm_qt_helpers.h"
+#include "notesView/pdmListView.h"
 #include <QObject>
 #include <QFile>
 #include <QFileDialog>
@@ -22,17 +23,19 @@ MainWindow::MainWindow(QWidget *parent)
   connect(rt, &PdmRunTime::log, debugWindow, &DebugWindow::appendMessage);
   connect(rt, &PdmRunTime::loginSuccess, this, &MainWindow::mainwindowLoginSuccess);
   connect(rt, &PdmRunTime::noteHeadsSuccess, this, &MainWindow::mainwindowNoteHeadsSuccess);
+
+  //Default Messages
   statusBar()->showMessage("No Login"); rt->currentStatusBar = QString("No Login");
   statusBar()->setToolTip("Login to your account in Settings->Account.");
 
   // Setup noteListWidget
   noteList = new NotesScroll(ui->notesListTab);
-
-  QListView *view = new QListView;
+  auto *view = new pdmListView;
+  view->setRef(rt);
   view->setModel(noteList);
-
-  QVBoxLayout *layout = new QVBoxLayout;
+  auto *layout = new QVBoxLayout;
   layout->addWidget(view);
+
   ui->notesListTab->setLayout(layout);
   ui->notesListTab->show();
 
@@ -73,6 +76,7 @@ MainWindow::~MainWindow()
   delete rt;
   delete moveTimer;
   delete resizeTimer;
+  delete noteList;
 }
 
 

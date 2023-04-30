@@ -8,16 +8,14 @@
 
 #include <QListView>
 #include <QMouseEvent>
+#include "PdmRuntimeRef.h"
 
-class pdmListView : public QListView
+class pdmListView : public QListView, public PdmRuntimeRef
 {
   Q_OBJECT
   public:
   explicit pdmListView(QWidget *parent = nullptr);
 
-  signals:
-  void leftClicked(const QModelIndex &index);
-  void rightClicked(const QModelIndex &index);
 
   protected:
   void mousePressEvent(QMouseEvent *event) override;

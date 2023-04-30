@@ -39,17 +39,19 @@ explicit PdmRunTime(QObject *parent = nullptr);
   void userDataCheck();
 
 public slots:
-    void on_loginSuccess();
-    void on_loginFail();
+  void on_loginSuccess();
+  void on_loginFail();
 
-    signals:
-    void log(const QString &message, const QString &color);
+  signals:
+  void log(const QString &message, const QString &color);
 
-    void loginSuccess();
-    void loginFail();
-    void noteHeadsSuccess();
-    void noteHeadsFail();
-    void databaseLocalReady();
+  void loginSuccess();
+  void loginFail();
+  void noteHeadsSuccess();
+  void noteHeadsFail();
+  void databaseLocalReady();
+  void noteListLeftClicked(const QModelIndex &index);
+  void noteListRightClicked(const QModelIndex &index);
 
   };
 #endif // PDMRUNTIME_H
