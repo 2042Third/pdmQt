@@ -17,8 +17,8 @@ void NotesScroll::addNote(const Note &note)
 
 int NotesScroll::rowCount(const QModelIndex & parent) const
 {
-Q_UNUSED(parent)
-return m_notes.count();
+  Q_UNUSED(parent)
+  return m_notes.count();
 }
 QVariant NotesScroll::data(const QModelIndex &index, int role) const
 {

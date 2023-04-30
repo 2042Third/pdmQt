@@ -27,8 +27,6 @@ MainWindow::MainWindow(QWidget *parent)
 
   // Setup noteListWidget
   noteList = new NotesScroll(ui->notesListTab);
-//  noteList->addNote(Note("Title1", "Subtitle1", QDateTime::currentDateTime()));
-//  noteList->addNote(Note("Title2", "Subtitle2", QDateTime::currentDateTime().addDays(1)));
 
   QListView *view = new QListView;
   view->setModel(noteList);
