@@ -34,6 +34,7 @@ private slots:
   void open_user_database_location();
   void onMoveTimerTimeout();
   void onResizeTimerTimeout();
+  void mainwindowNoteListLeftClicked(const QModelIndex &index);
 
 protected:
   void moveEvent(QMoveEvent *event) override;

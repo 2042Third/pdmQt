@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(rt, &PdmRunTime::log, debugWindow, &DebugWindow::appendMessage);
   connect(rt, &PdmRunTime::loginSuccess, this, &MainWindow::mainwindowLoginSuccess);
   connect(rt, &PdmRunTime::noteHeadsSuccess, this, &MainWindow::mainwindowNoteHeadsSuccess);
+  connect(rt, &PdmRunTime::noteListLeftClicked, this, &MainWindow::mainwindowNoteListLeftClicked);
 
   //Default Messages
   statusBar()->showMessage("No Login"); rt->currentStatusBar = QString("No Login");
@@ -241,5 +242,9 @@ void MainWindow::mainwindowNoteHeadsSuccess() {
   // Clean up
   sqlite3_finalize(stmt);
 
+}
+
+void MainWindow::mainwindowNoteListLeftClicked(const QModelIndex &index) {
+  emit rt->log("Note list left clicked: " + QString::number(index.row()), "#C22A1C");
 }
 
