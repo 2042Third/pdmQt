@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   //Default geometry for the main window
   QWidget tempWidget;
-  tempWidget.setGeometry(847, 236, 866, 905);
+  tempWidget.setGeometry(847, 236, defaultWidth, 905);
   QByteArray defaultGeometry = tempWidget.saveGeometry();
 
   QSettings settings;
@@ -68,6 +68,10 @@ MainWindow::MainWindow(QWidget *parent)
   connect(moveTimer, &QTimer::timeout, this, &MainWindow::onMoveTimerTimeout);
   connect(resizeTimer, &QTimer::timeout, this, &MainWindow::onResizeTimerTimeout);
 
+  // Set the initial position of the splitter's handle
+  QList<int> initialSizes;
+  initialSizes << 200 << defaultWidth-200;
+  ui->splitter->setSizes(initialSizes);
 }
 
 MainWindow::~MainWindow()

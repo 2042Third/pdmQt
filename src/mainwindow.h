@@ -48,5 +48,6 @@ private:
 
   void newSettingsWindow();
 
+  int defaultWidth = 866;
 };
 #endif // MAINWINDOW_H
