@@ -10,6 +10,7 @@
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
+#include <QSvgRenderer>
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +21,16 @@ int main(int argc, char *argv[])
   QCoreApplication::setApplicationName("pdmnotes");
 
   // Application Icon
-  a.setWindowIcon(QIcon(":/images/icon/icon_small"));
+  QSvgRenderer renderer;
+  renderer.load(QString(":/images/icon/pdmIcon"));
+  QPixmap pixmap(128, 128);
+  pixmap.fill(Qt::transparent);
+  QPainter painter(&pixmap);
+  painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+  renderer.render(&painter);
+  QIcon icon(pixmap);
+
+  a.setWindowIcon(icon);
 
   // Translation
   QTranslator translator;

@@ -11,5 +11,6 @@
         <file alias="account">resource/icon/account.svg</file>
         <file alias="information">resource/icon/information.svg</file>
         <file alias="settings">resource/icon/settings.svg</file>
+        <file alias="pdmIcon">resource/icon/pdmIcon.svg</file>
     </qresource>
 </RCC>

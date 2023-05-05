@@ -22,12 +22,12 @@ endif()
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
     Widgets
     LinguistTools
-#    svg
+    Svg
 )
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
     Widgets
     LinguistTools
-#    svg
+    Svg
 )
 
 #find_library(SECUREMEM_LIB SecureMemory # PDM cryptoSQLite
@@ -127,6 +127,7 @@ add_subdirectory(lib/cryptoSQLite) # encrypted database
 install(FILES PDM_CURL_LOCATION DESTINATION ${PROJECT_BINARY_DIR} )
 target_link_libraries(pdm_qt PUBLIC
     Qt${QT_VERSION_MAJOR}::Widgets
+    Qt6::Svg
 #    ${SSL_LIB}
 #    ${CRYPTO_LIB}
     cc20 # pdm encryption
