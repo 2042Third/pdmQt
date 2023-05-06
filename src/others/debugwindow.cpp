@@ -1,4 +1,5 @@
 #include <QPushButton>
+#include <QSettings>
 #include "debugwindow.h"
 
 DebugWindow::DebugWindow(QWidget *parent) :
@@ -30,6 +31,9 @@ DebugWindow::DebugWindow(QWidget *parent) :
   connect(titleBar, &CustomTitleBar::minimizeWindow, this, &DebugWindow::showMinimized);
   connect(titleBar, &CustomTitleBar::maximizeWindow, this, &DebugWindow::toggleMaximize);
   connect(titleBar, &CustomTitleBar::closeWindow, this, &DebugWindow::close);
+  connect(titleBar, &CustomTitleBar::closeWindow, this, &DebugWindow::debugWindowCloseButton);
+
+
 
   // Connect the custom button to staying this debug window on top.
   titleBar->customButton->setIcon(QIcon(":/images/icon/pin"));
@@ -79,8 +83,7 @@ void DebugWindow::onKeepOnTopButtonClicked()
   setWindowFlags(flags ^ Qt::WindowStaysOnTopHint);
 
   titleBar->customButton->setIcon(flags & Qt::WindowStaysOnTopHint ? QIcon(":/images/icon/pin") : QIcon(":/images/icon/pin-off"));
-  titleBar->customButton->setToolTip(flags & Qt::WindowStaysOnTopHint ? "Toggle pin on top (currently not pinned)"
-                                                                      : "Toggle pin on top (currently pinned)");
+  titleBar->customButton->setToolTip(flags & Qt::WindowStaysOnTopHint ? "Toggle pin on top (currently not pinned)": "Toggle pin on top (currently pinned)");
 
   show();
   raise(); // Bring the window to the front
@@ -93,3 +96,29 @@ void DebugWindow::toggleMaximize() {
     showMaximized();
   }
 }
+
+void DebugWindow::debugWindowCloseButton() {
+  QSettings settings;
+  settings.setValue("debugwindow/isopen", false);
+}
+
+void DebugWindow::show() {
+  QWidget::show();
+
+  // Set qsetting
+  QSettings settings;
+  settings.setValue("debugwindow/isopen", true);
+}
+
+
+void DebugWindow::checkAndShow() {
+  QSettings settings;
+  // After everything is settled, restore windows
+  if (settings.value("debugwindow/isopen", false).toBool()){
+    show();
+//    appendMessage("Debug window restored at: " + settings.value("debugwindow/position").toByteArray(), "green");
+//    restoreGeometry(settings.value("debugwindow/position").toByteArray());
+  }
+}
+
+

@@ -6,36 +6,9 @@
 #include <QApplication>
 #include <QPainter>
 #include <QStyleOption>
+#include <QSettings>
 #include "CustomWindow.h"
-void CustomTitleBar::mousePressEvent(QMouseEvent *event) {
-  if (event->button() == Qt::LeftButton) {
-    m_dragStartPosition = event->globalPosition().toPoint();
-    m_dragging = true;
-  }
-}
-
-void CustomTitleBar::mouseMoveEvent(QMouseEvent *event) {
-  if (m_dragging && (event->buttons() & Qt::LeftButton)) {
-    QPoint delta = event->globalPosition().toPoint() - m_dragStartPosition;
-    m_dragStartPosition = event->globalPosition().toPoint();
-    window()->move(window()->pos() + delta);
-  }
-}
-
-void CustomTitleBar::mouseReleaseEvent(QMouseEvent *event) {
-  if (event->button() == Qt::LeftButton) {
-    m_dragging = false;
-  }
-}
-
-CustomTitleBar::~CustomTitleBar() {
-  delete layout;
-  delete titleLabel;
-  delete customButton;
-  delete minimizeButton;
-  delete maximizeButton;
-  delete closeButton;
-}
+#include <QTimer>
 
 CustomTitleBar::CustomTitleBar(QWidget *parent)
     : QWidget(parent) {
@@ -74,8 +47,50 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
   layout->addWidget(maximizeButton);
   layout->addWidget(closeButton);
 
+  moveTimer = new QTimer(this);
+  moveTimer->setSingleShot(true);
+  moveTimer->setInterval(3000);
+  connect(moveTimer, &QTimer::timeout, this, &CustomTitleBar::onMoveTimerTimeout);
 }
+
+
+void CustomTitleBar::mousePressEvent(QMouseEvent *event) {
+  if (event->button() == Qt::LeftButton) {
+    m_dragStartPosition = event->globalPosition().toPoint();
+    m_dragging = true;
+  }
+}
+
+void CustomTitleBar::mouseMoveEvent(QMouseEvent *event) {
+  if (m_dragging && (event->buttons() & Qt::LeftButton)) {
+    QPoint delta = event->globalPosition().toPoint() - m_dragStartPosition;
+    m_dragStartPosition = event->globalPosition().toPoint();
+    window()->move(window()->pos() + delta);
+    moveTimer->start();
+  }
+}
+
+void CustomTitleBar::mouseReleaseEvent(QMouseEvent *event) {
+  if (event->button() == Qt::LeftButton) {
+    m_dragging = false;
+  }
+}
+
+CustomTitleBar::~CustomTitleBar() {
+  delete layout;
+  delete titleLabel;
+  delete customButton;
+  delete minimizeButton;
+  delete maximizeButton;
+  delete closeButton;
+}
+
 
 void CustomTitleBar::changeName(QString a) {
   titleLabel->setText(a);
+}
+
+void CustomTitleBar::onMoveTimerTimeout() {
+  QSettings settings;
+  settings.setValue("debugwindow/position", saveGeometry());
 }

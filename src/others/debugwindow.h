@@ -18,11 +18,14 @@ public:
   ~DebugWindow();
 
   void toggleMaximize();
+  void show() ;
 
 public slots:
   void appendMessage(const QString &message, const  QString &color = "#000000");
   void setWindowPosition(QPoint &a);
   void onKeepOnTopButtonClicked();
+  void debugWindowCloseButton();
+
 private slots:
   void on_actionOpen_One_Note_Page_triggered();
 public:
@@ -34,6 +37,8 @@ public:
 
   QVBoxLayout *verticalLayout;
   QWidget *mainContent ; // Create the main content for your window
+  void checkAndShow(); // MAYBE: move this to CustomWindow class
+
 };
 
 #endif // DEBUGWINDOW_H

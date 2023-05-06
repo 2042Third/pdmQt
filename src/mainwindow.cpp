@@ -72,6 +72,10 @@ MainWindow::MainWindow(QWidget *parent)
   QList<int> initialSizes;
   initialSizes << 200 << defaultWidth-200;
   ui->splitter->setSizes(initialSizes);
+
+  // Restore previous sessions' windows opened and their geometry
+  debugWindow->checkAndShow();
+
 }
 
 MainWindow::~MainWindow()
@@ -205,7 +209,6 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 void MainWindow::onMoveTimerTimeout() {
   emit rt->log("Window stopped moving: ", "#C22A1C");
   emit rt->log("  Final position: " + QString::number(this->x()) + ", " + QString::number(this->y()), "#C22A1C");
-  emit rt->log("  Window geometry: "+ saveGeometry(), "#C22A1C");
   QSettings settings;
   settings.setValue("mainwindow/geometry", saveGeometry());
 

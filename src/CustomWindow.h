@@ -45,7 +45,9 @@ private:
   QString buttonStyleSheetRD = "QPushButton { border: none;padding: 5px; }"
                                "QPushButton:hover { background-color: #F50000; }"
                                "QPushButton:pressed { background-color: #DE1F1F; }";
-
+protected:
+  QTimer *moveTimer;
+  void onMoveTimerTimeout();
 };
 
 
