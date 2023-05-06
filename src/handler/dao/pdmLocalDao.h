@@ -15,23 +15,16 @@
 #include "pdmLocalDaoTables.h"
 
 namespace PDM{
-// LocalDao class to handle database operations for the pdm_local table
-class LocalDao: public pdm_database{
-public:
-  LocalDao() ;
-  ~LocalDao() ;
+  class LocalDao: public pdm_database{
+  public:
+    LocalDao() ;
+    ~LocalDao() ;
 
-  void create_table() ;
-
-  int insert(const std::string& key, const std::string& val, const std::string& data="");
-
-  std::unique_ptr<Local> find_by_id(int id) ;
-
-  // Implement other CRUD methods as needed
-  Local local; // Local table object, contain the id of the settings
-//  LocalDisplay local_display; // LocalDisplay table object
-
-};
+    void create_table() ;
+    int insert(const std::string& key, const std::string& val, const std::string& data="");
+    std::unique_ptr<Local> find_by_id(int id) ;
+    Local local; // Local table object, contain the id of the settings
+  };
 } // Namespace PDM
 
 

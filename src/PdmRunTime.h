@@ -7,6 +7,7 @@
 #include <src/handler/pdm_net.h>
 #include "handler/pdm_settings.h"
 #include "handler/dao/pdmLocalDao.h"
+#include "handler/dao/pdmNotesCache.h"
 
 
 class PdmRunTime : public QObject,
@@ -21,7 +22,7 @@ public:
   PDM::pdm_database * app_settings; // Settings
   PDM::LocalDao * local_dao; // Local Dao
   PDM::pdm_database * user_conf; // User config
-  PDM::pdm_database * user_data; // User data
+  PDM::pdmNotesCache * user_data; // User data
 explicit PdmRunTime(QObject *parent = nullptr);
   ~PdmRunTime();
   std::string conf_loc;

@@ -11,7 +11,7 @@ PdmRunTime::PdmRunTime(QObject *parent)
   app_settings = new PDM::pdm_database(); // Create the db used for debug, also store the most recent data
   local_dao = new PDM::LocalDao(); // Create the db that stores the configurations
   user_conf = new PDM::pdm_database(); // Create config db for user
-  user_data = new PDM::pdm_database(); // Create config db for user
+  user_data = new PDM::pdmNotesCache(); // Create config db for user
 
   set_db(user_data); // User local data.
 //  set_db(db); // Old
