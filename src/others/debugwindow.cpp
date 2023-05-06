@@ -115,9 +115,10 @@ void DebugWindow::checkAndShow() {
   QSettings settings;
   // After everything is settled, restore windows
   if (settings.value("debugwindow/isopen", false).toBool()){
-    show();
+    QWidget::show();
 //    appendMessage("Debug window restored at: " + settings.value("debugwindow/position").toByteArray(), "green");
 //    restoreGeometry(settings.value("debugwindow/position").toByteArray());
+    move(QPoint(settings.value("debugwindow/positionX",500).toInt(), settings.value("debugwindow/positionY",500).toInt()));
   }
 }
 

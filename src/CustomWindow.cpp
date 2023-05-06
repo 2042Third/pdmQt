@@ -92,5 +92,6 @@ void CustomTitleBar::changeName(QString a) {
 
 void CustomTitleBar::onMoveTimerTimeout() {
   QSettings settings;
-  settings.setValue("debugwindow/position", saveGeometry());
+  settings.setValue("debugwindow/positionX", window()->pos().x());
+  settings.setValue("debugwindow/positionY", window()->pos().y());
 }
