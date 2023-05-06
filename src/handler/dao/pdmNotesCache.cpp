@@ -8,8 +8,43 @@
 #include "crypto/pdmCryptoDB.hpp"
 #include "pdmNotesCache.h"
 
-void PDM::pdmNotesCache::updateNote(int noteid, const std::string &content) {
+PDM::pdmNotesCache::pdmNotesCache():pdm_database() {
 
+}
+
+void PDM::pdmNotesCache::updateNote(int noteid, const std::string &content) {
+  sqlite3_stmt* stmt;
+  const char* sql = "UPDATE notes SET content = ? WHERE noteid = ?;";
+
+  int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+  if (rc != SQLITE_OK) {
+    std::cerr << "SQL error (prepare): " << sqlite3_errmsg(db) << std::endl;
+    return;
+  }
+
+  // Bind content (first parameter)
+  rc = sqlite3_bind_text(stmt, 1, content.c_str(), -1, SQLITE_TRANSIENT);
+  if (rc != SQLITE_OK) {
+    std::cerr << "SQL error (bind content): " << sqlite3_errmsg(db) << std::endl;
+    sqlite3_finalize(stmt);
+    return;
+  }
+
+  // Bind noteid (second parameter)
+  rc = sqlite3_bind_int(stmt, 2, noteid);
+  if (rc != SQLITE_OK) {
+    std::cerr << "SQL error (bind noteid): " << sqlite3_errmsg(db) << std::endl;
+    sqlite3_finalize(stmt);
+    return;
+  }
+
+  // Execute the statement
+  rc = sqlite3_step(stmt);
+  if (rc != SQLITE_DONE) {
+    std::cerr << "SQL error (step): " << sqlite3_errmsg(db) << std::endl;
+  }
+
+  sqlite3_finalize(stmt);
 }
 
 /**
@@ -57,10 +92,6 @@ int PDM::pdmNotesCache::execute_note_heads(const nlohmann::json&j, const UserInf
   rc = sqlite3_finalize( stmt );  //  Clean up the statements
 
   return 0;
-}
-
-PDM::pdmNotesCache::pdmNotesCache():pdm_database() {
-
 }
 
 
