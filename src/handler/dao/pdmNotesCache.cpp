@@ -97,7 +97,7 @@ int PDM::pdmNotesCache::execute_note_heads(const nlohmann::json&j, const UserInf
   return 0;
 }
 
-int PDM::pdmNotesCache::getNote(int noteid, const std::string& data,NoteMsg* note) {
+int PDM::pdmNotesCache::getNote(int noteid, const std::string& data, NoteMsg* note) {
   // Add note heads to the note list.
   sqlite3_stmt* stmt = nullptr;
   const char* query = "SELECT head, h, time, content FROM notes WHERE noteid = ?"; // Adjust the SQL to fit your schema
@@ -106,7 +106,6 @@ int PDM::pdmNotesCache::getNote(int noteid, const std::string& data,NoteMsg* not
     std::cout<< "Error preparing statement: " << sqlite3_errmsg(db) << std::endl;
     return 0;
   }
-  std::cout<<"Note prepared."<<std::endl;
 
   // Bind the user's email to the query
   rc = sqlite3_bind_int(stmt, 1, noteid);
@@ -131,6 +130,37 @@ int PDM::pdmNotesCache::getNote(int noteid, const std::string& data,NoteMsg* not
   // Clean up
   sqlite3_finalize(stmt);
   return 0;
+}
+
+int PDM::pdmNotesCache::addAllToNoteList(const string &data, const std::string& email, NotesScroll *noteList) {
+  // Add note heads to the note list.
+  sqlite3_stmt* stmt = nullptr;
+  const char* query = "SELECT head, h, time, noteid FROM notes WHERE useremail = ?"; // Adjust the SQL to fit your schema
+  int rc = sqlite3_prepare_v2(db, query, -1, &stmt, nullptr);
+  if (rc != SQLITE_OK) {
+    std::cout<< "Error preparing statement: " << sqlite3_errmsg(db) << std::endl;
+    return 0;
+  }
+
+  // Bind the user's email to the query
+  rc = sqlite3_bind_text(stmt, 1, email.c_str(), -1, SQLITE_TRANSIENT);
+  if (rc != SQLITE_OK) {
+    std::cout<< "Error executing statement: " << sqlite3_errmsg(db) << std::endl;
+    return 0;
+  }
+  // Execute the query and add each result to the model
+  while (sqlite3_step(stmt) == SQLITE_ROW) {
+    std::string headstr = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 0));
+    QString title = QString::fromUtf8(headstr.size()?loader_out(data,headstr).c_str():"");
+    QString subtitle = QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
+    QDateTime date = QDateTime(PDM::pdm_qt_helpers::unix_time_to_qtime(sqlite3_column_int(stmt, 2)));
+    int noteid = sqlite3_column_int(stmt, 3);
+
+    noteList->addNote(Note(title, subtitle, date,noteid));
+  }
+  // Clean up
+  sqlite3_finalize(stmt);
+  return 1;
 }
 
 

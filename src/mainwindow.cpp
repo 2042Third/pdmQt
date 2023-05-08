@@ -222,39 +222,13 @@ void MainWindow::onResizeTimerTimeout() {
 
 void MainWindow::mainwindowNoteHeadsSuccess() {
   emit rt->log("Note heads received.", "#C22A1C");
-  // Add note heads to the note list.
-  sqlite3_stmt* stmt = nullptr;
-  const char* query = "SELECT head, h, time, noteid FROM notes WHERE useremail = ?"; // Adjust the SQL to fit your schema
-  int rc = sqlite3_prepare_v2(rt->user_data->db, query, -1, &stmt, nullptr);
-  if (rc != SQLITE_OK) {
-    emit rt->log("Error preparing statement: " + QString::number(rc), "#C22A1C");
-    return;
-  }
-
-  // Bind the user's email to the query
-  rc = sqlite3_bind_text(stmt, 1, rt->wt.userinfo.email.c_str(), -1, SQLITE_TRANSIENT);
-  if (rc != SQLITE_OK) {
-    emit rt->log("Error executing statement: " + QString::number(rc), "#C22A1C");
-    return;
-  }
-  // Execute the query and add each result to the model
-  while (sqlite3_step(stmt) == SQLITE_ROW) {
-    std::string headstr = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 0));
-    QString title = QString::fromUtf8(headstr.size()?loader_out(rt->wt.data,headstr).c_str():"");
-    QString subtitle = QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
-    QDateTime date = QDateTime(PDM::pdm_qt_helpers::unix_time_to_qtime(sqlite3_column_int(stmt, 2)));
-    int noteid = sqlite3_column_int(stmt, 3);
-    rt->noteList->addNote(Note(title, subtitle, date,noteid));
-  }
-  // Clean up
-  sqlite3_finalize(stmt);
-
+  if(rt->user_data->addAllToNoteList(rt->wt.data,rt->wt.userinfo.email, rt->noteList)) emit rt->log("Note heads added to note list.", "#1CC22A");
+  else emit rt->log("Error adding note heads to note list.", "#C22A1C");
 }
 
 void MainWindow::mainwindowNoteListLeftClicked(const QModelIndex &index) {
   emit rt->log("Note list left clicked: " + QString::number(index.row()), "#C22A1C");
-  // Get the note from the server
-  PDM::pdm_qt_net::client_action_note_retrieve(rt, rt->noteList->getNote(index)->noteid);
+  PDM::pdm_qt_net::client_action_note_retrieve(rt, rt->noteList->getNote(index)->noteid); // Get the note from the server
 }
 
 void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {

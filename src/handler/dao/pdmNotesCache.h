@@ -11,6 +11,7 @@
 #include "sqlite3.h"
 #include "src/handler/pdm_status.h"
 #include "handler/db/pdm_database.h"
+#include "notesView/NotesScroll.h"
 
 namespace PDM {
 
@@ -24,6 +25,7 @@ namespace PDM {
     int getNote(int noteid, const std::string& data, NoteMsg* note);
     int insert(const std::string &key, const std::string &val, const std::string &data = "");
     int execute_note_heads(const nlohmann::json&j, const UserInfo&userinfo, const std::string& data);
+    int addAllToNoteList(const std::string& data, const std::string& email, NotesScroll* noteList);
     // Static queries
     const std::string add_note_head = "insert or replace into notes(noteid, useremail, content, h, intgrh,time, head)"
                                       " values(?,?,?,?,?,?,?);";
