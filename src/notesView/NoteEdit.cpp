@@ -7,8 +7,10 @@
 #include <utility>
 
 NoteEdit::NoteEdit(PDM::NoteMsg note, QWidget *parent):
-QTextEdit(parent),
-m_note(std::move(note)) {
+QTextEdit(parent)
+, m_note(std::move(note))
+, PdmRuntimeRef()
+{
   // Initialize your QTextEdit with the note content if needed
   setPlainText(QString::fromStdString(m_note.content));
 }

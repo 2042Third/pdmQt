@@ -16,10 +16,10 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+    , ui(new Ui::MainWindow) {
 
   ui->setupUi(this);
+  ui->tabWidget->setTabsClosable(true);
   debugWindow = new DebugWindow(ui->centralwidget);
   rt = new PdmRunTime();
   connect(rt, &PdmRunTime::log, debugWindow, &DebugWindow::appendMessage);
@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(rt, &PdmRunTime::noteHeadsSuccess, this, &MainWindow::mainwindowNoteHeadsSuccess);
   connect(rt, &PdmRunTime::noteListLeftClicked, this, &MainWindow::mainwindowNoteListLeftClicked);
   connect(rt, &PdmRunTime::noteRetrieveSuccess, this, &MainWindow::mainwindowNoteRetrieveSuccess);
+  connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &MainWindow::mainwindowTabCloseRequested);
 
   //Default Messages
   statusBar()->showMessage("No Login"); rt->currentStatusBar = QString("No Login");
@@ -264,7 +265,17 @@ void MainWindow::mainwindowNoteListLeftClicked(const QModelIndex &index) {
 void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
   emit rt->log("Note open/retrieve received.", "#C22A1C");
   NoteEdit * noteEdit= new NoteEdit();
+  noteEdit->setRef(rt);
   rt->user_data->getNote(noteId,rt->wt.data, noteEdit->getNote());
   noteEdit->setNote();
-  ui->tabWidget->addTab( noteEdit, noteEdit->getNote()->head.c_str());
+  int tebIndex = ui->tabWidget->addTab( noteEdit, noteEdit->getNote()->head.c_str());
+  ui->tabWidget->setCurrentIndex(tebIndex);
+  noteEdit->setFocus();
+}
+
+void MainWindow::mainwindowTabCloseRequested(int index){
+  emit rt->log("Tab close requested: " + QString::number(index), "#C22A1C");
+  QWidget *widget = ui->tabWidget->widget(index);
+  ui->tabWidget->removeTab(index);
+  delete widget;
 }

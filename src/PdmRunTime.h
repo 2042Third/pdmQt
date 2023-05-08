@@ -45,7 +45,6 @@ public slots:
 
   signals:
   void log(const QString &message, const QString &color);
-
   void loginSuccess();
   void loginFail();
   void noteHeadsSuccess();

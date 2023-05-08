@@ -36,6 +36,7 @@ private slots:
   void onMoveTimerTimeout();
   void onResizeTimerTimeout();
   void mainwindowNoteListLeftClicked(const QModelIndex &index);
+  void mainwindowTabCloseRequested(int index);
 
 protected:
   void moveEvent(QMoveEvent *event) override;
