@@ -32,7 +32,7 @@ namespace PDM {
     wt->readptr = std::move(std::string(data,nmemb));
     wt->js = json::parse(wt->readptr);
     std::cout<< "Note retrieve Return: "<< wt->js<<std::endl;
-    ((PDM::pdmNotesCache*)wt->db)->update(wt->js, wt->userinfo, wt->data);
+    ((PDM::pdmNotesCache*)wt->db)->updateNote(net_convert::add_number(wt->js,"noteId"),net_convert::add_str(wt->js,"content") );
     return nmemb; /* we copied this many bytes */
   }
 
