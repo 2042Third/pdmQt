@@ -45,7 +45,6 @@ protected:
 private:
   QTimer* moveTimer;
   QTimer* resizeTimer;
-  NotesScroll* noteList;
   Ui::MainWindow *ui;
 
   void newSettingsWindow();

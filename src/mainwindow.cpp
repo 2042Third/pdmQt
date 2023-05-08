@@ -34,10 +34,10 @@ MainWindow::MainWindow(QWidget *parent)
   statusBar()->setToolTip("Login to your account in Settings->Account.");
 
   // Setup noteListWidget
-  noteList = new NotesScroll(ui->notesListTab);
+  rt->noteList = new NotesScroll(ui->notesListTab);
   auto *view = new pdmListView;
   view->setRef(rt);
-  view->setModel(noteList);
+  view->setModel(rt->noteList);
   auto *layout = new QVBoxLayout;
   layout->addWidget(view);
 
@@ -89,7 +89,7 @@ MainWindow::~MainWindow()
   delete rt;
   delete moveTimer;
   delete resizeTimer;
-  delete noteList;
+  delete rt->noteList;
 }
 
 
@@ -249,7 +249,7 @@ void MainWindow::mainwindowNoteHeadsSuccess() {
     QString subtitle = QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
     QDateTime date = QDateTime(PDM::pdm_qt_helpers::unix_time_to_qtime(sqlite3_column_int(stmt, 2)));
     int noteid = sqlite3_column_int(stmt, 3);
-    noteList->addNote(Note(title, subtitle, date,noteid));
+    rt->noteList->addNote(Note(title, subtitle, date,noteid));
   }
   // Clean up
   sqlite3_finalize(stmt);
@@ -259,7 +259,7 @@ void MainWindow::mainwindowNoteHeadsSuccess() {
 void MainWindow::mainwindowNoteListLeftClicked(const QModelIndex &index) {
   emit rt->log("Note list left clicked: " + QString::number(index.row()), "#C22A1C");
   // Get the note from the server
-  PDM::pdm_qt_net::client_action_note_retrieve(rt, noteList->getNote(index)->noteid);
+  PDM::pdm_qt_net::client_action_note_retrieve(rt, rt->noteList->getNote(index)->noteid);
 }
 
 void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {

@@ -47,10 +47,8 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
   layout->addWidget(maximizeButton);
   layout->addWidget(closeButton);
 
-  moveTimer = new QTimer(this);
-  moveTimer->setSingleShot(true);
-  moveTimer->setInterval(3000);
-  connect(moveTimer, &QTimer::timeout, this, &CustomTitleBar::onMoveTimerTimeout);
+  moveTimer = new PdmUpdateTimer(3000, this);
+  connect(moveTimer, &PdmUpdateTimer::timeout, this, &CustomTitleBar::onMoveTimerTimeout);
 }
 
 

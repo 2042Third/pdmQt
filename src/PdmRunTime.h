@@ -8,6 +8,7 @@
 #include "handler/pdm_settings.h"
 #include "handler/dao/pdmLocalDao.h"
 #include "handler/dao/pdmNotesCache.h"
+#include "notesView/NotesScroll.h"
 
 
 class PdmRunTime : public QObject,
@@ -16,6 +17,7 @@ class PdmRunTime : public QObject,
   public PDM::Settings{
 
 Q_OBJECT
+
 public:
 
   PDM::pdm_database * db; // debug
@@ -23,6 +25,7 @@ public:
   PDM::LocalDao * local_dao; // Local Dao
   PDM::pdm_database * user_conf; // User config
   PDM::pdmNotesCache * user_data; // User data
+  NotesScroll* noteList;
 explicit PdmRunTime(QObject *parent = nullptr);
   ~PdmRunTime();
   std::string conf_loc;
@@ -38,6 +41,7 @@ explicit PdmRunTime(QObject *parent = nullptr);
   // Data Handlers
   QString currentStatusBar ;
   void userDataCheck();
+
 
 public slots:
   void on_loginSuccess();

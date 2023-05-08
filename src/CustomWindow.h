@@ -7,6 +7,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include "helpers/PdmUpdateTimer.h"
 
 class CustomTitleBar : public QWidget {
   Q_OBJECT
@@ -46,7 +47,7 @@ private:
                                "QPushButton:hover { background-color: #F50000; }"
                                "QPushButton:pressed { background-color: #DE1F1F; }";
 protected:
-  QTimer *moveTimer;
+  PdmUpdateTimer *moveTimer;
   void onMoveTimerTimeout();
 };
 

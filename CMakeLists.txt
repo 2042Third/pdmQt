@@ -80,7 +80,7 @@ set(PROJECT_SOURCES
     src/handler/types.h
     src/crypto/pdmCryptoDB.hpp # encrypted database
 
-    src/CustomWindow.h src/CustomWindow.cpp src/others/shadowFrameWidget.h src/others/shadowFrameWidget.cpp src/handler/pdm_qt_helpers.h src/handler/pdm_qt_helpers.cpp src/handler/pdm_settings.h src/handler/pdm_settings.cpp src/handler/dao/pdmLocalDao.h src/handler/dao/pdmLocalDao.cpp src/handler/db/PdmDBType.h src/handler/pdmqt/pdm_qt_net.h src/handler/pdmqt/pdm_qt_net.cpp src/notesView/NotesScroll.h src/notesView/NotesScroll.cpp src/notesView/Note.h src/notesView/pdmListView.h src/notesView/pdmListView.cpp src/handler/dao/pdmNotesCache.h src/handler/dao/pdmNotesCache.cpp src/notesView/NoteEdit.cpp src/notesView/NoteEdit.h)
+    src/CustomWindow.h src/CustomWindow.cpp src/others/shadowFrameWidget.h src/others/shadowFrameWidget.cpp src/handler/pdm_qt_helpers.h src/handler/pdm_qt_helpers.cpp src/handler/pdm_settings.h src/handler/pdm_settings.cpp src/handler/dao/pdmLocalDao.h src/handler/dao/pdmLocalDao.cpp src/handler/db/PdmDBType.h src/handler/pdmqt/pdm_qt_net.h src/handler/pdmqt/pdm_qt_net.cpp src/notesView/NotesScroll.h src/notesView/NotesScroll.cpp src/notesView/Note.h src/notesView/pdmListView.h src/notesView/pdmListView.cpp src/handler/dao/pdmNotesCache.h src/handler/dao/pdmNotesCache.cpp src/notesView/NoteEdit.cpp src/notesView/NoteEdit.h src/helpers/PdmUpdateTimer.h src/helpers/PdmUpdateTimer.cpp)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(pdm_qt
