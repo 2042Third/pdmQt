@@ -76,7 +76,8 @@ void LoginWidget::onLoginClicked()
     emit rt->log("\tusername: "+username, "#FF0000");
     emit rt->log("\tpassword: "+password, "#FF0000");
     // Get JSON object of the user login information
-    std::map<std::string,std::string> data=PDM::pdm_net_type::get_signin_json(username.toUtf8().constData(),password.toUtf8().constData());
+    std::map<std::string,std::string> data= PDM::pdm_net_type::getSigninJsonStr(username.toUtf8().constData(),
+                                                                                password.toUtf8().constData());
     j_str = PDM::network::get_json(data);
     rt->signin_action(j_str, &rt->wt,password.toUtf8().constData(), username.toUtf8().constData(),
                       NetCallBack_::_callback);

@@ -15,12 +15,11 @@ class NotesScroll : public QAbstractListModel
 
 public:
   explicit NotesScroll(QObject *parent = nullptr);
-
   void addNote(const Note &note);
-
+  const Note* getNote(const QModelIndex &index)const ;
   int rowCount(const QModelIndex & parent = QModelIndex()) const override;
-
   QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+
 
 private:
   QList<Note> m_notes;

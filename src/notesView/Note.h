@@ -14,9 +14,10 @@ public:
   QString title;
   QString subtitle;
   QDateTime date;
+  int noteid;
 
-  Note(const QString &title, const QString &subtitle, const QDateTime &date)
-      : title(title), subtitle(subtitle), date(date) {}
+  Note(const QString &title, const QString &subtitle, const QDateTime &date, int note_id)
+      : title(title), subtitle(subtitle), date(date), noteid(note_id) {}
 };
 
 

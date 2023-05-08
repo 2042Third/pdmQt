@@ -59,7 +59,8 @@ int PDM::pdmNotesCache::execute_note_heads(const nlohmann::json&j, const UserInf
   rc = sqlite3_prepare_v2( db, add_note_head.c_str(), -1, &stmt, 0 );
 
 //  Optional, but will most likely increase performance.
-  rc = sqlite3_exec( db, "BEGIN TRANSACTION", 0, 0, 0 );
+  rc = sqlite3_exec( db, "BEGIN TRANSACTIO", 0, 0, 0 );
+
 
   for ( auto&i: j["content"] ) {
     //  Bind-parameter indexing is 1-based.

@@ -50,10 +50,10 @@ namespace PDM {
 
     int signin_post       (const std::string&a, NetWriter* wt_in,
                            size_t _callback(char *, size_t , size_t , void *)=post_callback_signin );
-    int note_heads_action (const std::string&a, NetWriter* wt_in,
-                           size_t _callback(char *, size_t , size_t , void *)=post_callback_heads ) ;
+
     static void get_userinfo (const json &j,UserInfo& userinfo);
     static size_t post_callback_heads( char *data, size_t size, size_t nmemb, void *userp);
+    static size_t post_callback_note( char *data, size_t size, size_t nmemb, void *userp);
     static size_t post_callback_signin( char *data, size_t size, size_t nmemb, void *userp);
 
     network();

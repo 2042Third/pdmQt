@@ -33,3 +33,10 @@ QVariant NotesScroll::data(const QModelIndex &index, int role) const
   }
   return QVariant();
 }
+
+const Note* NotesScroll::getNote(const QModelIndex &index) const {
+  if (index.row() < 0 || index.row() >= m_notes.size())
+    return nullptr; // Return a nullptr if the index is invalid
+
+  return &m_notes[index.row()];
+}

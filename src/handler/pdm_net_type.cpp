@@ -8,7 +8,7 @@
 namespace PDM {
 
 
-  std::map<std::string,std::string> pdm_net_type::get_signin_json(const char* email, const char* password){
+  std::map<std::string,std::string> pdm_net_type::getSigninJsonStr(const char* email, const char* password){
     std::string ps = password,user_mail = email;
      std::map<std::string,std::string> data
      {
@@ -18,9 +18,9 @@ namespace PDM {
      return std::move(data);
   }
 
-  std::map<std::string, std::string> pdm_net_type::get_note_heads(const std::string&sess,
-                                                                 const std::string&email,
-                                                                 const std::string& ntype) {
+  std::map<std::string, std::string> pdm_net_type::getNoteHeadsJsonStr(const std::string&sess,
+                                                                       const std::string&email,
+                                                                       const std::string& ntype) {
     std::map<std::string,std::string> data
         {
              {"username" , "" }
@@ -28,6 +28,21 @@ namespace PDM {
             ,{"sess"     , sess } // use the stored session key for encryption
             ,{"ntype"    , ntype }
             ,{"email"    , email }
+        };
+    return std::move(data);
+  }
+  std::map<std::string, std::string> pdm_net_type::getNoteRetrieveJsonStr(const std::string&sess,
+                                                                          const std::string&email,
+                                                                          const std::string&noteId,
+                                                                          const std::string& ntype) {
+    std::map<std::string,std::string> data
+        {
+             {"username" , "" }
+            ,{"content"  , "" }
+            ,{"sess"     , sess } // use the stored session key for encryption
+            ,{"ntype"    , ntype }
+            ,{"email"    , email }
+            ,{"note_id"  , noteId}
         };
     return std::move(data);
   }

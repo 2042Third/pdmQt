@@ -27,18 +27,18 @@ namespace PDM {
     ((PDM::pdmNotesCache*)wt->db)->execute_note_heads(wt->js, wt->userinfo, wt->data);
     return nmemb; /* we copied this many bytes */
   }
+  size_t network::post_callback_note( char *data, size_t size, size_t nmemb, void *userp){
+    auto *wt = (struct NetObj *)userp;
+    wt->readptr = std::move(std::string(data,nmemb));
+    wt->js = json::parse(wt->readptr);
+    std::cout<< "Note retrieve Return: "<< wt->js<<std::endl;
+    ((PDM::pdmNotesCache*)wt->db)->update(wt->js, wt->userinfo, wt->data);
+    return nmemb; /* we copied this many bytes */
+  }
 
   int network::signin_post        (const std::string&a, NetWriter* wt_in,
                                    size_t _callback(char *, size_t , size_t , void *)) {
     post(a,actions.signinURL,  wt_in,_callback);
-    return 1;
-  }
-  /**
-   * @param a: session token in json format
-   * */
-  int network::note_heads_action  (const std::string &a, NetWriter *wt_in,
-                                   size_t _callback(char *, size_t , size_t , void *)) {
-    post(a,actions.notesGetHeadsURL,  wt_in,_callback);
     return 1;
   }
 

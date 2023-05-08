@@ -225,7 +225,7 @@ void MainWindow::mainwindowNoteHeadsSuccess() {
   emit rt->log("Note heads received.", "#C22A1C");
   // Add note heads to the note list.
   sqlite3_stmt* stmt = nullptr;
-  const char* query = "SELECT head, h, time FROM notes WHERE useremail = ?"; // Adjust the SQL to fit your schema
+  const char* query = "SELECT head, h, time, noteid FROM notes WHERE useremail = ?"; // Adjust the SQL to fit your schema
   int rc = sqlite3_prepare_v2(rt->user_data->db, query, -1, &stmt, nullptr);
   if (rc != SQLITE_OK) {
     emit rt->log("Error preparing statement: " + QString::number(rc), "#C22A1C");
@@ -243,8 +243,8 @@ void MainWindow::mainwindowNoteHeadsSuccess() {
     QString title = QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0)));
     QString subtitle = QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
     QDateTime date = QDateTime(PDM::pdm_qt_helpers::unix_time_to_qtime(sqlite3_column_int(stmt, 2)));
-
-    noteList->addNote(Note(title, subtitle, date));
+    int noteid = sqlite3_column_int(stmt, 3);
+    noteList->addNote(Note(title, subtitle, date,noteid));
   }
   // Clean up
   sqlite3_finalize(stmt);
@@ -253,5 +253,7 @@ void MainWindow::mainwindowNoteHeadsSuccess() {
 
 void MainWindow::mainwindowNoteListLeftClicked(const QModelIndex &index) {
   emit rt->log("Note list left clicked: " + QString::number(index.row()), "#C22A1C");
+  // Get the note from the server
+  PDM::pdm_qt_net::client_action_note_retrieve(rt, noteList->getNote(index)->noteid);
 }
 
