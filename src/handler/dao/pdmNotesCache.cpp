@@ -7,6 +7,7 @@
 #include "src/handler/net_convert.h"
 #include "crypto/pdmCryptoDB.hpp"
 #include "pdmNotesCache.h"
+#include "handler/pdm_qt_helpers.h"
 
 PDM::pdmNotesCache::pdmNotesCache():pdm_database() {
 
@@ -93,6 +94,42 @@ int PDM::pdmNotesCache::execute_note_heads(const nlohmann::json&j, const UserInf
   }
   rc = sqlite3_finalize( stmt );  //  Clean up the statements
 
+  return 0;
+}
+
+int PDM::pdmNotesCache::getNote(int noteid, const std::string& data,NoteMsg* note) {
+  // Add note heads to the note list.
+  sqlite3_stmt* stmt = nullptr;
+  const char* query = "SELECT head, h, time, content FROM notes WHERE noteid = ?"; // Adjust the SQL to fit your schema
+  int rc = sqlite3_prepare_v2(db, query, -1, &stmt, nullptr);
+  if (rc != SQLITE_OK) {
+    std::cout<< "Error preparing statement: " << sqlite3_errmsg(db) << std::endl;
+    return 0;
+  }
+  std::cout<<"Note prepared."<<std::endl;
+
+  // Bind the user's email to the query
+  rc = sqlite3_bind_int(stmt, 1, noteid);
+  if (rc != SQLITE_OK) {
+    std::cout<< "Error executing statement: " << sqlite3_errmsg(db) << std::endl;
+    return 0;
+  }
+  // Execute the query and display the note to the tab
+  while (sqlite3_step(stmt) == SQLITE_ROW) {
+    std::string headstr = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 0));
+    std::string title = (headstr.size()?loader_out(data,headstr).c_str():"");
+    std::string subtitle =  (reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
+    size_t date = sqlite3_column_int(stmt, 2);
+    std::string content = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
+
+    note->head=title;
+    note->note_id=noteid;
+    note->time = date;
+    note->h = subtitle;
+    note->content = content.size()?loader_out(data,content).c_str():"";
+  }
+  // Clean up
+  sqlite3_finalize(stmt);
   return 0;
 }
 
