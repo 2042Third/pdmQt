@@ -7,7 +7,12 @@
 
 
 #include <QTimer>
-
+/**
+ * Connect to "PdmUpdateTimer::timeout()" signal to handle the timeout event.
+ *
+ * Use start() to start the timer.
+ * If before the timer is reached, start() is called again, the timer will be reset.
+ * */
 class PdmUpdateTimer: public QTimer {
 public:
   explicit PdmUpdateTimer(QObject *parent = nullptr);

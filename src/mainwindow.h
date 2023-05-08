@@ -43,8 +43,8 @@ protected:
   void resizeEvent(QResizeEvent *event) override;
 
 private:
-  QTimer* moveTimer;
-  QTimer* resizeTimer;
+  PdmUpdateTimer * moveTimer;
+  PdmUpdateTimer * resizeTimer;
   Ui::MainWindow *ui;
 
   void newSettingsWindow();

@@ -62,15 +62,10 @@ MainWindow::MainWindow(QWidget *parent)
   // Restore the previous window geometry
   restoreGeometry(settings.value("mainwindow/geometry",defaultGeometry).toByteArray());
 
-  moveTimer = new QTimer(this);
-  moveTimer->setSingleShot(true);
-  moveTimer->setInterval(3000); // Adjust the delay as needed (in milliseconds)
-  resizeTimer = new QTimer(this);
-  resizeTimer->setSingleShot(true);
-  resizeTimer->setInterval(3000); // Adjust the delay as needed (in milliseconds)
-
-  connect(moveTimer, &QTimer::timeout, this, &MainWindow::onMoveTimerTimeout);
-  connect(resizeTimer, &QTimer::timeout, this, &MainWindow::onResizeTimerTimeout);
+  moveTimer = new PdmUpdateTimer(3000,this);
+  resizeTimer = new PdmUpdateTimer(3000,this);
+  connect(moveTimer, &PdmUpdateTimer::timeout, this, &MainWindow::onMoveTimerTimeout);
+  connect(resizeTimer, &PdmUpdateTimer::timeout, this, &MainWindow::onResizeTimerTimeout);
 
   // Set the initial position of the splitter's handle
   QList<int> initialSizes;
