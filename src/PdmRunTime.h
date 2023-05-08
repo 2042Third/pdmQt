@@ -50,8 +50,8 @@ public slots:
   void loginFail();
   void noteHeadsSuccess();
   void noteHeadsFail();
-  void noteRetrieveSuccess();
-  void noteRetrieveFail();
+  void noteRetrieveSuccess(int noteid);
+  void noteRetrieveFail(int noteid);
   void databaseLocalReady();
   void noteListLeftClicked(const QModelIndex &index);
   void noteListRightClicked(const QModelIndex &index);

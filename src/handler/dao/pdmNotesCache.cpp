@@ -13,6 +13,7 @@ PDM::pdmNotesCache::pdmNotesCache():pdm_database() {
 }
 
 void PDM::pdmNotesCache::updateNote(int noteid, const std::string &content) {
+  std::fprintf(stdout, "Note retrieve updating database: note id=%d\n", noteid);
   sqlite3_stmt* stmt;
   const char* sql = "UPDATE notes SET content = ? WHERE noteid = ?;";
 
@@ -71,7 +72,7 @@ int PDM::pdmNotesCache::execute_note_heads(const nlohmann::json&j, const UserInf
     rc = sqlite3_bind_text( stmt, 5, "\0", -1, SQLITE_TRANSIENT);
     rc = sqlite3_bind_int(  stmt, 6, atoi(i["time"].get<string>().c_str()) );
     string headstr = net_convert::add_str(i,"head");
-    rc = sqlite3_bind_text( stmt, 7, headstr.size()?loader_out(data,headstr).c_str():"", -1, SQLITE_TRANSIENT);
+    rc = sqlite3_bind_text( stmt, 7, headstr.c_str(), -1, SQLITE_TRANSIENT);
     while ( sqlite3_step( stmt ) == SQLITE_ROW ) { // While query has result-rows.
       for ( int colIndex = 0; colIndex < sqlite3_column_count( stmt ); colIndex++ ) {
         int result = sqlite3_column_int( stmt, colIndex );

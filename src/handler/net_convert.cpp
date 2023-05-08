@@ -50,7 +50,7 @@ namespace PDM {
       if (exists(j, a)) {
 //        std::cout<<"Adding number: "<<a<<" as "<< j[a]<<std::endl;
         if (!j[a].is_null()) {
-          return j[a].get<int>();
+          return j[a].get<uint64_t>();
         }
       }
     }  catch (int err) {
@@ -89,5 +89,18 @@ namespace PDM {
     return "none";
   }
 
+  int net_convert::get_int(const json &j, const std::string &a) {
+    try {
+      if (exists(j, a)) {
+        if(!j[a].is_null()) {
+          return atoi(j[a].get<std::string>().c_str());
+        }
+      }
+    } catch (int err) {
+      std::cout << "[ERROR] Adding int: " << a << " as " << j[a] << std::endl;
+      return -1;
+    }
+    return -1;
+  }
 
 }

@@ -4,6 +4,7 @@
 #include "notesView/NotesScroll.h"
 #include "handler/pdm_qt_helpers.h"
 #include "notesView/pdmListView.h"
+#include "empp.h"
 #include <QObject>
 #include <QFile>
 #include <QFileDialog>
@@ -24,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(rt, &PdmRunTime::loginSuccess, this, &MainWindow::mainwindowLoginSuccess);
   connect(rt, &PdmRunTime::noteHeadsSuccess, this, &MainWindow::mainwindowNoteHeadsSuccess);
   connect(rt, &PdmRunTime::noteListLeftClicked, this, &MainWindow::mainwindowNoteListLeftClicked);
+  connect(rt, &PdmRunTime::noteRetrieveSuccess, this, &MainWindow::mainwindowNoteRetrieveSuccess);
 
   //Default Messages
   statusBar()->showMessage("No Login"); rt->currentStatusBar = QString("No Login");
@@ -240,7 +242,8 @@ void MainWindow::mainwindowNoteHeadsSuccess() {
   }
   // Execute the query and add each result to the model
   while (sqlite3_step(stmt) == SQLITE_ROW) {
-    QString title = QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0)));
+    std::string headstr = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 0));
+    QString title = QString::fromUtf8(headstr.size()?loader_out(rt->wt.data,headstr).c_str():"");
     QString subtitle = QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
     QDateTime date = QDateTime(PDM::pdm_qt_helpers::unix_time_to_qtime(sqlite3_column_int(stmt, 2)));
     int noteid = sqlite3_column_int(stmt, 3);
@@ -257,3 +260,35 @@ void MainWindow::mainwindowNoteListLeftClicked(const QModelIndex &index) {
   PDM::pdm_qt_net::client_action_note_retrieve(rt, noteList->getNote(index)->noteid);
 }
 
+void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
+  emit rt->log("Note open/retrieve received.", "#C22A1C");
+  std::cout<<"Note open/retrieve received."<<std::endl;
+  // Add note heads to the note list.
+  sqlite3_stmt* stmt = nullptr;
+  const char* query = "SELECT head, h, time, content FROM notes WHERE noteid = ?"; // Adjust the SQL to fit your schema
+  int rc = sqlite3_prepare_v2(rt->user_data->db, query, -1, &stmt, nullptr);
+  if (rc != SQLITE_OK) {
+    emit rt->log("Error preparing statement: " + QString::number(rc), "#C22A1C");
+    return;
+  }
+  std::cout<<"Note prepared."<<std::endl;
+
+  // Bind the user's email to the query
+  rc = sqlite3_bind_int(stmt, 1, noteId);
+  if (rc != SQLITE_OK) {
+    emit rt->log("Error executing statement: " + QString::number(rc), "#C22A1C");
+    return;
+  }
+  // Execute the query and display the note to the tab
+  while (sqlite3_step(stmt) == SQLITE_ROW) {
+    std::string headstr = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 0));
+    QString title = QString::fromUtf8(headstr.size()?loader_out(rt->wt.data,headstr).c_str():"");
+    QString subtitle = QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
+    QDateTime date = QDateTime(PDM::pdm_qt_helpers::unix_time_to_qtime(sqlite3_column_int(stmt, 2)));
+    QString content = QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3)));
+    QTextEdit * noteEdit= new QTextEdit(content.size()?loader_out(rt->wt.data,content.toStdString()).c_str():"");
+    ui->tabWidget->addTab( noteEdit, title);
+  }
+  // Clean up
+  sqlite3_finalize(stmt);
+}

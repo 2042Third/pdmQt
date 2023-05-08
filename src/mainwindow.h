@@ -31,6 +31,7 @@ private slots:
   void on_actionOpen_triggered();
   void mainwindowLoginSuccess();
   void mainwindowNoteHeadsSuccess();
+  void mainwindowNoteRetrieveSuccess(int noteId);
   void open_user_database_location();
   void onMoveTimerTimeout();
   void onResizeTimerTimeout();
