@@ -88,4 +88,11 @@ int PDM::pdm_database::execute(const char *input) {
   return 1;
 }
 
+std::string PDM::pdm_database::getStrReturn(sqlite3_stmt *stmt, int i) {
+  return
+  reinterpret_cast<const char*>((sqlite3_column_type(stmt, i)!=SQLITE_NULL
+  ? sqlite3_column_text(stmt,i)
+  :(const unsigned char * )"") );
+}
+
 

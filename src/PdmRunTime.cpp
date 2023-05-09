@@ -105,5 +105,8 @@ int PdmRunTime::setup_settings() {
   local_dao->open_db("./conf/conf","pdmnotes",8); // Make local app configurations
   local_dao->create_table(); // Create table for local app configurations
   local_dao->insert("LoginAttampt", "DEBUG"); // Insert data for local app configurations
+
+  std::unique_ptr<PDM::Local> tmp = local_dao->find_by_key("LoginAttampt"); // Find data for local app configurations
+  emit log(("LoginAttampt: "+(tmp?tmp->val.val:"null")).c_str(), "#00CC00");
   return 0;
 }

@@ -69,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   // Set the initial position of the splitter's handle
   QList<int> initialSizes;
-  initialSizes << 200 << defaultWidth-200;
+  initialSizes << defaultWidth/5*2 << defaultWidth-defaultWidth/5*2;
   ui->splitter->setSizes(initialSizes);
 
   // Restore previous sessions' windows opened and their geometry

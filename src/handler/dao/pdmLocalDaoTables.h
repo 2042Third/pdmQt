@@ -22,20 +22,24 @@ namespace PDM {
 // Local class representing a single row in the pdm_local table
   class Local : Table{ // basic data and sets the id
   public:
-    PdmDBType<int> id = PdmDBType<int>("id", "INTEGER", "PRIMARY KEY AUTOINCREMENT");
-    PdmDBType <std::string> last_time_open = PdmDBType<std::string>("last_time_open", "DATETIME","DEFAULT CURRENT_TIMESTAMP");
-    PdmDBType <std::string> key = PdmDBType<std::string>("key", "TEXT", "not null");
-    PdmDBType <std::string> val = PdmDBType<std::string>("val", "TEXT", "default \'\'");
-    PdmDBType <std::string> data = PdmDBType<std::string>("data", "TEXT", "default \'\'");
+    int id_val;
+    std::string last_time_open_val;
+    std::string key_val;
+    std::string val_val;
+    std::string data_val;
+
+    PdmDBType<int> id = PdmDBType<int>(id_val, "id", "INTEGER", "PRIMARY KEY AUTOINCREMENT");
+    PdmDBType <std::string> last_time_open = PdmDBType<std::string>(last_time_open_val, "last_time_open", "DATETIME","DEFAULT CURRENT_TIMESTAMP");
+    PdmDBType <std::string> key = PdmDBType<std::string>(key_val, "key", "TEXT", "not null UNIQUE");
+    PdmDBType <std::string> val = PdmDBType<std::string>(val_val, "val", "TEXT", "default \'\'");
+    PdmDBType <std::string> data = PdmDBType<std::string>(data_val, "data", "TEXT", "default \'\'");
 
     Local(int idIn, const std::string& last_time_openIn, const std::string& keyIn, const std::string& valIn,
           const std::string& dataIn)
-        : Local(){
-    id.val = idIn;
-    last_time_open.val = last_time_openIn;
-    key.val = keyIn;
-    val.val = valIn;
-    data.val = dataIn;
+        : id_val(idIn), last_time_open_val(last_time_openIn), key_val(keyIn), val_val(valIn), data_val(dataIn), Table() {
+      creation_condition = "IF NOT EXISTS";
+      table_name = "pdm_local";
+      constraint = "";
     }
 
     Local() {

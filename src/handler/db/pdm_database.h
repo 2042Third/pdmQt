@@ -32,6 +32,7 @@ public:
     a->argv.clear();
     a->col_name.clear();
   }
+  static std::string getStrReturn(sqlite3_stmt *stmt, int i);
 
   sqlite3 *db{};
   cryptosqlite enc_db;
