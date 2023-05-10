@@ -21,6 +21,9 @@ LoginWidget::LoginWidget(QWidget *parent)
   // Install event filter to catch Enter key press
   m_emailEdit->installEventFilter(this);
   m_passwordEdit->installEventFilter(this);
+  m_emailEdit->setPlaceholderText("Enter your email");
+  m_passwordEdit->setPlaceholderText("Enter your password");
+  m_emailEdit->setFocus();
 
   QFormLayout *formLayout = new QFormLayout(this);
   formLayout->addRow("Email:", m_emailEdit);

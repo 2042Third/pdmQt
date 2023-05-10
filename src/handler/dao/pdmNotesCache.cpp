@@ -63,17 +63,17 @@ int PDM::pdmNotesCache::execute_note_heads(const nlohmann::json&j, const UserInf
 //  Optional, but will most likely increase performance.
   rc = sqlite3_exec( db, "BEGIN TRANSACTIO", 0, 0, 0 );
 
-
   for ( auto&i: j["content"] ) {
     //  Bind-parameter indexing is 1-based.
-    rc = sqlite3_bind_int( stmt, 1, atoi(i["note_id"].get<string>().c_str()) );
+    NoteHead head;
+    net_convert::convert(i, head);
+    rc = sqlite3_bind_int( stmt, 1, stoi(head.note_id) );
     rc = sqlite3_bind_text( stmt, 2, userinfo.email.c_str(), -1, SQLITE_TRANSIENT );
     rc = sqlite3_bind_text( stmt, 3, "\0", -1, SQLITE_TRANSIENT);
     rc = sqlite3_bind_text(stmt, 4, j["h"].get<string>().c_str(), -1, SQLITE_TRANSIENT);
     rc = sqlite3_bind_text( stmt, 5, "\0", -1, SQLITE_TRANSIENT);
-    rc = sqlite3_bind_int(  stmt, 6, atoi(i["time"].get<string>().c_str()) );
-    string headstr = net_convert::add_str(i,"head");
-    rc = sqlite3_bind_text( stmt, 7, headstr.c_str(), -1, SQLITE_TRANSIENT);
+    rc = sqlite3_bind_double(  stmt, 6, head.time );
+    rc = sqlite3_bind_text( stmt, 7, head.head.c_str(), -1, SQLITE_TRANSIENT);
     while ( sqlite3_step( stmt ) == SQLITE_ROW ) { // While query has result-rows.
       for ( int colIndex = 0; colIndex < sqlite3_column_count( stmt ); colIndex++ ) {
         int result = sqlite3_column_int( stmt, colIndex );

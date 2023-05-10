@@ -22,8 +22,8 @@ namespace PDM {
     std::string statusInfo ;
     std::string receiverstring;
     std::string authdata;
-    uint64_t time=-1;
-    uint64_t update_time=-1;
+    double time=-1;
+    double update_time=-1;
     std::string utime;
     std::string pdmSecurityVersion;
     std::string checker;
@@ -35,8 +35,8 @@ namespace PDM {
     std::string head ;
     std::string note_id;
     uint64_t uid = -1;
-    uint64_t time=-1;
-    uint64_t update_time=-1;
+    double time=-1;
+    double update_time=-1;
     std::string utime ;
     std::string ctime ;
     uint64_t key=-1;

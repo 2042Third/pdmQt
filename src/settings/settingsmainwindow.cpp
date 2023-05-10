@@ -16,6 +16,11 @@ SettingsMainWindow::SettingsMainWindow(QWidget *parent) :
   ui->stackedWidget->addWidget(acc_ui);
   buttons.push_back(ui->settingAccountButton); // 0, account button
 
+  // Set the focus to the "acc_ui" widget
+  acc_ui->setFocus();
+  // Make sure "acc_ui" is the current widget
+  ui->stackedWidget->setCurrentWidget(acc_ui);
+
   info_ui = new InformationWidget(ui->centralwidget);
   info_ui->setObjectName("info_ui");
   ui->stackedWidget->addWidget(info_ui);

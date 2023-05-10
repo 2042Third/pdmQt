@@ -34,7 +34,7 @@ namespace PDM {
                                           "content TEXT,"
                                           "h text,"
                                           "intgrh text,"
-                                          "time INTEGER , "
+                                          "time real , "
                                           "head text); ";
 
   };
