@@ -6,6 +6,7 @@
 #include "notesView/pdmListView.h"
 #include "empp.h"
 #include "notesView/NoteEdit.h"
+#include "notesView/NotesScrollDelegate.h"
 #include <QObject>
 #include <QFile>
 #include <QFileDialog>
@@ -34,10 +35,12 @@ MainWindow::MainWindow(QWidget *parent)
   statusBar()->setToolTip("Login to your account in Settings->Account.");
 
   // Setup noteListWidget
+  NotesScrollDelegate *delegate = new NotesScrollDelegate(ui->notesListTab);
   rt->noteList = new NotesScroll(ui->notesListTab);
   auto *view = new pdmListView;
   view->setRef(rt);
   view->setModel(rt->noteList);
+  view->setItemDelegate(delegate);
   auto *layout = new QVBoxLayout;
   layout->addWidget(view);
 
@@ -84,7 +87,7 @@ MainWindow::~MainWindow()
   delete rt;
   delete moveTimer;
   delete resizeTimer;
-  delete rt->noteList;
+//  delete rt->noteList;
 }
 
 
@@ -228,7 +231,7 @@ void MainWindow::mainwindowNoteHeadsSuccess() {
 
 void MainWindow::mainwindowNoteListLeftClicked(const QModelIndex &index) {
   emit rt->log("Note list left clicked: " + QString::number(index.row()), "#C22A1C");
-  PDM::pdm_qt_net::client_action_note_retrieve(rt, rt->noteList->getNote(index)->noteid); // Get the note from the server
+  PDM::pdm_qt_net::client_action_note_retrieve(rt, stoi(rt->noteList->getNote(index)->note_id)); // Get the note from the server
 }
 
 void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {

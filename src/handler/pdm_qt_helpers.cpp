@@ -31,8 +31,12 @@ double PDM::pdm_qt_helpers::strToDouble(const std::string& str) {
   return std::stod(str);
 }
 
-QString PDM::pdm_qt_helpers::unix_time_to_qstr(uint64_t a) {
+QString PDM::pdm_qt_helpers::unix_time_to_qstr(int64_t a) {
   QString datetime_string = QDateTime::fromMSecsSinceEpoch(a).toString("yyyy-MM-dd hh:mm:ss"); // Convert QDateTime to string
+  return datetime_string;
+}
+QString PDM::pdm_qt_helpers::unix_time_to_qstr_sec(int64_t a) {
+  QString datetime_string = QDateTime::fromSecsSinceEpoch(a).toString("yyyy-MM-dd hh:mm:ss"); // Convert QDateTime to string
   return datetime_string;
 }
 QDateTime PDM::pdm_qt_helpers::unix_time_to_qtime(uint64_t a) {

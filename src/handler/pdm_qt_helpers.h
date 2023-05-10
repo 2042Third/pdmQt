@@ -10,11 +10,12 @@
 namespace PDM {
   class  pdm_qt_helpers {
   public:
-    static QString unix_time_to_qstr(uint64_t a);
+    static QString unix_time_to_qstr(int64_t a);
     static uint64_t cstrToUint64(const char* str);
     static double cstrToDouble(const char* str);
     static double strToDouble(const std::string& str);
     static QDateTime unix_time_to_qtime(uint64_t a);
+    static QString unix_time_to_qstr_sec(int64_t a);
   };
 }
 

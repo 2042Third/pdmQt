@@ -150,13 +150,15 @@ int PDM::pdmNotesCache::addAllToNoteList(const string &data, const std::string& 
   }
   // Execute the query and add each result to the model
   while (sqlite3_step(stmt) == SQLITE_ROW) {
+    NoteHead head;
     std::string headstr = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 0));
-    QString title = QString::fromUtf8(headstr.size()?loader_out(data,headstr).c_str():"");
-    QString subtitle = QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
-    QDateTime date = QDateTime(PDM::pdm_qt_helpers::unix_time_to_qtime(sqlite3_column_int(stmt, 2)));
-    int noteid = sqlite3_column_int(stmt, 3);
+    head.head = headstr.size()?loader_out(data,headstr):"";
+    head.time = sqlite3_column_double(stmt, 2);
+    uint64_t tmp = uint64_t(head.time);
+    head.ctime = PDM::pdm_qt_helpers::unix_time_to_qstr_sec(tmp).toStdString();
+    head.note_id = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 3));
 
-    noteList->addNote(Note(title, subtitle, date,noteid));
+    noteList->addNote(head);
   }
   // Clean up
   sqlite3_finalize(stmt);

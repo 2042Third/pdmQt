@@ -7,7 +7,7 @@
 
 
 #include <QAbstractListModel>
-#include "Note.h"
+#include "handler/types.h"
 
 class NotesScroll : public QAbstractListModel
 {
@@ -15,12 +15,12 @@ class NotesScroll : public QAbstractListModel
 
 public:
   explicit NotesScroll(QObject *parent = nullptr);
-  void addNote(const Note &note);
-  const Note* getNote(const QModelIndex &index)const ;
+  void addNote( PDM::NoteHead note);
+  const PDM::NoteHead* getNote(const QModelIndex &index)const ;
   int rowCount(const QModelIndex & parent = QModelIndex()) const override;
   QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-  QList<Note> m_notes;
+  QList<PDM::NoteHead> m_notes;
 };
 
 

@@ -8,7 +8,7 @@ NotesScroll::NotesScroll(QObject *parent) : QAbstractListModel(parent) {
 
 }
 
-void NotesScroll::addNote(const Note &note)
+void NotesScroll::addNote( PDM::NoteHead note)
 {
   beginInsertRows(QModelIndex(), rowCount(), rowCount());
   m_notes << note;
@@ -25,16 +25,16 @@ QVariant NotesScroll::data(const QModelIndex &index, int role) const
   if (index.row() < 0 || index.row() >= m_notes.count())
     return QVariant();
 
-  const Note &note = m_notes[index.row()];
+  const PDM::NoteHead &note = m_notes[index.row()];
   if (role == Qt::DisplayRole) {
-    return note.title + "\n" + note.subtitle + "\n" + note.date.toString("yyyy-MM-dd hh:mm:ss");
+    return QString::fromStdString(note.head + "\n" + "\n" + note.ctime);
   } else if (role == Qt::UserRole) {
-    return note.date;
+    return QString::fromStdString(note.ctime);
   }
   return QVariant();
 }
 
-const Note* NotesScroll::getNote(const QModelIndex &index) const {
+const PDM::NoteHead* NotesScroll::getNote(const QModelIndex &index) const {
   if (index.row() < 0 || index.row() >= m_notes.size())
     return nullptr; // Return a nullptr if the index is invalid
 
