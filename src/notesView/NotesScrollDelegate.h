@@ -14,6 +14,8 @@ class NotesScrollDelegate : public QStyledItemDelegate {
 public:
   using QStyledItemDelegate::QStyledItemDelegate;
 
+  QIcon icon = QIcon(":/images/icon/file.svg");
+  QPixmap pixmap = icon.pixmap(QSize(25, 25)); // Set your desired size
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
   {
     QStyleOptionViewItem opt = option;
@@ -22,9 +24,6 @@ public:
     // Draw item background
     QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
     style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
-
-    QIcon icon = QIcon(":/images/icon/file.svg");
-    QPixmap pixmap = icon.pixmap(QSize(25, 25)); // Set your desired size
 
     // Draw the icon
     QRect iconRect = QRect(option.rect.topLeft() + QPoint(5, (option.rect.height() - pixmap.height()) / 2), pixmap.size());
