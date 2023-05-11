@@ -15,7 +15,7 @@ public:
   using QStyledItemDelegate::QStyledItemDelegate;
 
   QIcon icon = QIcon(":/images/icon/file.svg");
-  QPixmap pixmap = icon.pixmap(QSize(25, 25)); // Set your desired size
+  QPixmap pixmap = icon.pixmap(QSize(25, 25));
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
   {
     QStyleOptionViewItem opt = option;
@@ -36,7 +36,8 @@ public:
     auto noteParts = note.split("\n\n");
 
     QFont font = painter->font();
-    font.setPointSize(14);  // Change the size to your preferred value
+    int originalPointSize = font.pointSize();
+    font.setPointSize(14);
     painter->setFont(font);
 
     painter->drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter, noteParts[0]);
@@ -47,6 +48,9 @@ public:
     painter->setPen(Qt::gray);
     painter->drawText(textRect, Qt::AlignRight | Qt::AlignVCenter, noteParts[1]);
     painter->setPen(Qt::black);
+
+    font.setPointSize(originalPointSize);
+    painter->setFont(font);
 
   }
 
