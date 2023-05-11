@@ -23,8 +23,10 @@ void PDM::LocalDao::create_table() {
 /**
  * Insert insert or replaces a key value pair into the local table.
  * */
-int PDM::LocalDao::insert(const std::string& key, const std::string& val, const std::string& data ) {
-  std::string query = "INSERT or replace INTO pdm_local (key, val, data) VALUES (?, ?, ?);";
+int PDM::LocalDao::insert(const std::string& key, const std::string& val, int replace, const std::string& data ) {
+  std::string query = replace
+      ?"INSERT or replace INTO pdm_local (key, val, data) VALUES (?, ?, ?);"
+      :"INSERT INTO pdm_local (key, val, data) VALUES (?, ?, ?);";
   sqlite3_stmt* stmt;
   sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr);
   sqlite3_bind_text(stmt, 1, key.c_str(), -1, SQLITE_TRANSIENT);

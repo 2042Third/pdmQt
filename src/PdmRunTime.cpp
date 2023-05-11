@@ -2,6 +2,7 @@
 #include "misc/md5.h"
 #include "empp.h"
 #include "handler/pdm_qt_helpers.h"
+#include "others/PasswordDialog.h"
 #include <QObject>
 #include <QMessageBox>
 
@@ -93,6 +94,17 @@ int PdmRunTime::signin_action(const std::string &a, NetWriter *wt_in, const char
 void PdmRunTime::userDataCheck() {
   wt.userinfo.username = loader_out(wt.data,wt.userinfo.receiverstring); // username decryption
   wt.userinfo.ctime = PDM::pdm_qt_helpers::unix_time_to_qstr(wt.userinfo.time).toStdString(); // date time string
+  local_dao->insert("StoredLoginEmail",wt.userinfo.email);
+  PasswordDialog dialog;
+  if (dialog.exec() == QDialog::Accepted) {
+    local_dao->insert("email/"+wt.userinfo.email, loader_check(wt.app_ps,wt.data));
+  } else {
+    local_dao->insert("email/"+wt.userinfo.email, loader_check(wt.app_ps,wt.data));
+  }
+  std::unique_ptr<PDM::Local> tmp = local_dao->find_by_key("StoredLoginEmail"); // Find data for local app configurations
+  emit log(("StoredLoginEmail: "+(tmp?tmp->val.val:"null")).c_str(), "#00CC00");
+  std::unique_ptr<PDM::Local> tmp1 = local_dao->find_by_key("email/"+wt.userinfo.email); // Find data for local app configurations
+  emit log(("email/"+wt.userinfo.email+": "+(tmp1?tmp1->val.val:"null")).c_str(), "#00CC00");
 }
 
 int PdmRunTime::setup_settings_check() {
