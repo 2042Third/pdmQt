@@ -85,3 +85,15 @@ std::unique_ptr<PDM::Local> PDM::LocalDao::find_by_key(const std::string &key) {
   sqlite3_finalize(stmt);
   return pdm_local;
 }
+
+int PDM::LocalDao::del(const std::string &key) {
+  std::string query = "DELETE FROM pdm_local WHERE key = ?;";
+  sqlite3_stmt* stmt;
+  sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr);
+  sqlite3_bind_text(stmt, 1, key.c_str(), -1, SQLITE_TRANSIENT);
+
+  int result = sqlite3_step(stmt) == SQLITE_DONE ? sqlite3_last_insert_rowid(db) : -1;
+
+  sqlite3_finalize(stmt);
+  return result;
+}

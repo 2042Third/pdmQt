@@ -22,6 +22,7 @@ namespace PDM{
 
     void create_table() ;
     int insert(const std::string& key, const std::string& val, const std::string& data="");
+    int del(const std::string& key);
     std::unique_ptr<Local> find_by_id(int id) ;
     std::unique_ptr<Local> find_by_key(const std::string& key) ;
     Local local; // Local table object, contain the id of the settings
