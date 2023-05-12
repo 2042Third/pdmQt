@@ -96,6 +96,7 @@ void PdmRunTime::userDataCheck() {
   wt.userinfo.ctime = PDM::pdm_qt_helpers::unix_time_to_qstr(wt.userinfo.time).toStdString(); // date time string
   local_dao->insert("StoredLoginEmail",wt.userinfo.email);
   PasswordDialog dialog;
+  dialog.setRef(this);
   if (dialog.exec() == QDialog::Accepted) {
     local_dao->insert("email/"+wt.userinfo.email, loader_check(wt.app_ps,wt.data));
   } else {
