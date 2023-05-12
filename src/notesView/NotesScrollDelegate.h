@@ -25,9 +25,9 @@ public:
     QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
     style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
 
-    // Draw the icon
-    QRect iconRect = QRect(option.rect.topLeft() + QPoint(5, (option.rect.height() - pixmap.height()) / 2), pixmap.size());
-    painter->drawPixmap(iconRect, pixmap);
+//    // Draw the icon
+//    QRect iconRect = QRect(option.rect.topLeft() + QPoint(5, (option.rect.height() - pixmap.height()) / 2), pixmap.size());
+//    painter->drawPixmap(iconRect, pixmap);
 
     // Adjust the rect for the text
     QRect textRect = option.rect.adjusted(pixmap.width() + 18, 0, 0, 0); // Adjust the left margin
