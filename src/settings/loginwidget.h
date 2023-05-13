@@ -16,10 +16,7 @@ class LoginWidget: public QWidget, public PdmRuntimeRef
 public:
   explicit LoginWidget(QWidget *parent = nullptr);
   ~ LoginWidget();
-  void setRef(PdmRunTime*rtRef) override {
-    PdmRuntimeRef::setRef(rtRef);
-    emit rt->log("login widget Created","#00FF00");
-  }
+  void setRef(PdmRunTime*rtRef) override ;
 private slots:
   void onLoginClicked();
   bool eventFilter(QObject *object, QEvent *event) override;

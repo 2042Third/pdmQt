@@ -31,6 +31,8 @@ LoginWidget::LoginWidget(QWidget *parent)
   formLayout->addRow(m_loginButton);
 
   setLayout(formLayout);
+
+
 }
 void LoginWidget::onLoginClicked()
 {
@@ -107,4 +109,15 @@ bool LoginWidget::eventFilter(QObject *object, QEvent *event) {
 
 LoginWidget::~LoginWidget() {
 
+}
+
+void LoginWidget::setRef(PdmRunTime*rtRef)  {
+  PdmRuntimeRef::setRef(rtRef);
+  emit rt->log("login widget Created","#00FF00");
+
+  // Fill email if saved.
+  std::unique_ptr<PDM::Local> tmp = rt->local_dao->find_by_key("StoredLoginEmail");
+  if (tmp) {
+    m_emailEdit->setText(QString::fromStdString(tmp->val.val));
+  }
 }
