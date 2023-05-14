@@ -42,6 +42,8 @@ explicit PdmRunTime(QObject *parent = nullptr);
   QString currentStatusBar ;
   void userDataCheck();
 
+  // Refs
+  void * main_window;
 
 public slots:
   void on_loginSuccess();

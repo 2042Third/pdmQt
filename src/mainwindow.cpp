@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
   ui->tabWidget->setTabsClosable(true);
   debugWindow = new DebugWindow(ui->centralwidget);
   rt = new PdmRunTime();
+  rt->main_window = this;
   connect(rt, &PdmRunTime::log, debugWindow, &DebugWindow::appendMessage);
   connect(rt, &PdmRunTime::loginSuccess, this, &MainWindow::mainwindowLoginSuccess);
   connect(rt, &PdmRunTime::noteHeadsSuccess, this, &MainWindow::mainwindowNoteHeadsSuccess);

@@ -20,10 +20,10 @@ Q_OBJECT
 public:
 
   PasswordDialog(QWidget *parent = nullptr) : QDialog(parent) , PdmRuntimeRef(){
-    setWindowTitle("Enter Application Password");
+    setWindowTitle("Set Application Password");
 
     QVBoxLayout *layout = new QVBoxLayout(this);
-    QLabel *label = new QLabel("Enter Password:");
+    QLabel *label = new QLabel("Set a Password:");
     m_passwordLineEdit = new QLineEdit;
     m_passwordLineEdit->setEchoMode(QLineEdit::Password);
 
