@@ -28,9 +28,11 @@ public:
   }
 
   void setNote(){ setPlainText(m_note.content.c_str());}
+  PDM::NoteMsg m_note;
+
+  int idx=0;
 
 private:
-  PDM::NoteMsg m_note;
 
   void clearEditText();
 };

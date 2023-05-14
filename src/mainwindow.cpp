@@ -225,7 +225,8 @@ void MainWindow::onResizeTimerTimeout() {
 
 void MainWindow::mainwindowNoteHeadsSuccess() {
   emit rt->log("Note heads received.", "#C22A1C");
-  if(rt->user_data->addAllToNoteList(rt->wt.data,rt->wt.userinfo.email, rt->noteList)) emit rt->log("Note heads added to note list.", "#1CC22A");
+  if(rt->user_data->addAllToNoteList(rt->wt.data,rt->wt.userinfo.email, rt->noteList))
+    emit rt->log("Note heads added to note list.", "#1CC22A");
   else emit rt->log("Error adding note heads to note list.", "#C22A1C");
 }
 
@@ -234,14 +235,23 @@ void MainWindow::mainwindowNoteListLeftClicked(const QModelIndex &index) {
   PDM::pdm_qt_net::client_action_note_retrieve(rt, stoi(rt->noteList->getNote(index)->note_id)); // Get the note from the server
 }
 
+
 void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
   emit rt->log("Note open/retrieve received.", "#C22A1C");
-  NoteEdit * noteEdit= new NoteEdit();
+  PDM::NoteMsg note ;
+  rt->user_data->getNote(noteId,rt->wt.data, &note);
+  if(noteEditMap.contains(note.note_id)) { // Check if this already exists in the tab widget.
+    ui->tabWidget->setCurrentIndex(noteEditMap[note.note_id]->idx);
+    noteEditMap[note.note_id]->setFocus();
+    return;
+  }
+  auto * noteEdit= new NoteEdit(note);
+  noteEditMap.insert(note.note_id, noteEdit); // Add to the map
   noteEdit->setRef(rt);
-  rt->user_data->getNote(noteId,rt->wt.data, noteEdit->getNote());
   noteEdit->setNote();
-  int tebIndex = ui->tabWidget->addTab( noteEdit, noteEdit->getNote()->head.c_str());
-  ui->tabWidget->setCurrentIndex(tebIndex);
+  int tabIndex = ui->tabWidget->addTab( noteEdit, noteEdit->getNote()->head.c_str());
+  ui->tabWidget->setCurrentIndex(tabIndex);
+  noteEdit->idx=tabIndex;
   noteEdit->setFocus();
 }
 

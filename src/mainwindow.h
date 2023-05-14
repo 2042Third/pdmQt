@@ -8,6 +8,7 @@
 #include "src/others/debugwindow.h"
 #include "PdmRunTime.h"
 #include "notesView/NotesScroll.h"
+#include "notesView/NoteEdit.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -46,6 +47,7 @@ private:
   PdmUpdateTimer * moveTimer;
   PdmUpdateTimer * resizeTimer;
   Ui::MainWindow *ui;
+  QMap<std::string, NoteEdit*> noteEditMap;
 
   void newSettingsWindow();
 
