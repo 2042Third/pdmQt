@@ -98,9 +98,11 @@ void PdmRunTime::userDataCheck() {
   local_dao->insert("StoredLoginEmail",wt.userinfo.email);
   PasswordDialog dialog;
   dialog.setRef(this);
-  // Open the dialog at the center of rt->main_window
-  dialog.move(((MainWindow*)main_window)->geometry().center()  );
+// Force the dialog to calculate its size based on its layout
+  dialog.adjustSize();
 
+// Now move the dialog
+  dialog.move(((MainWindow*)main_window)->geometry().center() - dialog.geometry().center());
 
   if (dialog.exec() == QDialog::Accepted) {
     local_dao->insert("email/"+wt.userinfo.email, loader_check(wt.app_ps,wt.data));
