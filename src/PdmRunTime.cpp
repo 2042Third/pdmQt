@@ -99,7 +99,7 @@ void PdmRunTime::userDataCheck() {
   PasswordDialog dialog;
   dialog.setRef(this);
   // Open the dialog at the center of rt->main_window
-  dialog.move(((MainWindow*)main_window)->geometry().center() - dialog.geometry().center());
+  dialog.move(((MainWindow*)main_window)->geometry().center()  );
 
 
   if (dialog.exec() == QDialog::Accepted) {
