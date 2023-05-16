@@ -4,14 +4,11 @@
 #include "notesView/NotesScroll.h"
 #include "handler/pdm_qt_helpers.h"
 #include "notesView/pdmListView.h"
-#include "empp.h"
 #include "notesView/NoteEdit.h"
 #include "notesView/NotesScrollDelegate.h"
 #include <QObject>
-#include <QFile>
 #include <QFileDialog>
 #include <QProcess>
-#include <QTimer>
 #include <QSettings>
 #include <QListView>
 
@@ -78,7 +75,8 @@ MainWindow::MainWindow(QWidget *parent)
 
   // Restore previous sessions' windows opened and their geometry
   debugWindow->checkAndShow();
-
+  // Check existing user, if exist ask for decryption password
+  rt->checkExistingUser();
 }
 
 MainWindow::~MainWindow()

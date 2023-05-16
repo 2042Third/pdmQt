@@ -19,16 +19,16 @@ Q_OBJECT
 
 public:
 
-  PasswordDialog(QWidget *parent = nullptr) : QDialog(parent) , PdmRuntimeRef(){
-    setWindowTitle("Set Application Password");
+  explicit PasswordDialog(QWidget *parent = nullptr) : QDialog(parent) , PdmRuntimeRef(){
+    setWindowTitle(mTitle);
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    QLabel *label = new QLabel("Set a Password:");
+    auto *layout = new QVBoxLayout(this);
+    label = new QLabel(mLabel);
     m_passwordLineEdit = new QLineEdit;
     m_passwordLineEdit->setEchoMode(QLineEdit::Password);
 
-    QPushButton *okButton = new QPushButton("OK");
-    QPushButton *cancelButton = new QPushButton("Cancel");
+    auto *okButton = new QPushButton(mOkButton);
+    auto *cancelButton = new QPushButton(mCancelButton);
 
     layout->addWidget(label);
     layout->addWidget(m_passwordLineEdit);
@@ -42,6 +42,16 @@ public:
   void setRef(PdmRunTime* rtRef) override {
     PdmRuntimeRef::setRef(rtRef);
   }
+
+  void setLabel(const QString& str){
+    label->setText(str);
+  }
+
+  // strings that contain the default messages
+  QString mTitle = "Application Password";
+  QString mLabel = "Set a Password:";
+  QString mOkButton = "OK";
+  QString mCancelButton = "Cancel";
 
 private slots:
   void checkPassword() {
@@ -58,6 +68,7 @@ private slots:
 
 private:
   QLineEdit *m_passwordLineEdit;
+  QLabel *label;
 };
 
 

@@ -4,6 +4,7 @@
 #include "handler/pdm_qt_helpers.h"
 #include "others/PasswordDialog.h"
 #include "mainwindow.h"
+#include "handler/pdm_net_type.h"
 #include <QObject>
 #include <QMessageBox>
 
@@ -98,12 +99,8 @@ void PdmRunTime::userDataCheck() {
   local_dao->insert("StoredLoginEmail",wt.userinfo.email);
   PasswordDialog dialog;
   dialog.setRef(this);
-// Force the dialog to calculate its size based on its layout
   dialog.adjustSize();
-
-// Now move the dialog
   dialog.move(((MainWindow*)main_window)->geometry().center() - dialog.geometry().center());
-
   if (dialog.exec() == QDialog::Accepted) {
     local_dao->insert("email/"+wt.userinfo.email, loader_check(wt.app_ps,wt.data));
   } else {
@@ -129,4 +126,38 @@ int PdmRunTime::setup_settings() {
   std::unique_ptr<PDM::Local> tmp = local_dao->find_by_key("LoginAttampt"); // Find data for local app configurations
   emit log(("LoginAttampt: "+(tmp?tmp->val.val:"null")).c_str(), "#00CC00");
   return 0;
+}
+
+void PdmRunTime::checkExistingUser() {
+  std::unique_ptr<PDM::Local> email = local_dao->find_by_key("StoredLoginEmail");
+  if (email) {
+    std::unique_ptr<PDM::Local> encd_ps = local_dao->find_by_key("email/"+email->val.val);
+    if (!encd_ps) {
+      emit log("No password found for stored account", "#FF0004");
+      return;
+    }
+    // Ask for the decryption password
+    PasswordDialog dialog;
+    dialog.setRef(this);
+    dialog.mTitle = "Decrypt your data";
+    dialog.mLabel = "Enter decryption password for stored account "
+                    + QString::fromStdString(email->val.val) + ": ";
+    dialog.setLabel(dialog.mLabel);
+    dialog.adjustSize();
+    dialog.move(((MainWindow*)main_window)->geometry().center() - dialog.geometry().center());
+    if (dialog.exec() == QDialog::Accepted) {
+      std::string ps = loader_out(wt.app_ps,encd_ps->val.val);
+      if (!ps.size()) {
+        emit log("Password decryption failed", "#FF0004");
+        return;
+      }
+      std::map<std::string,std::string>
+          data= PDM::pdm_net_type::getSigninJsonStr(email->val.val.c_str(),ps.c_str());
+      std::string j_str = PDM::network::get_json(data);
+      signin_action(j_str,&wt,ps.c_str(),email->val.val.c_str(),SigninNetCallBack_::_callback);
+      emit log("Existing login send to the server ...", "#016C05");
+    } else {
+      emit log("Existing login failed to send to the server ...", "#016C05");
+    }
+  }
 }
