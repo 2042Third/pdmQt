@@ -57,11 +57,10 @@ MainWindow::MainWindow(QWidget *parent)
   //Default geometry for the main window
   QWidget tempWidget;
   tempWidget.setGeometry(847, 236, defaultWidth, 905);
-  QByteArray defaultGeometry = tempWidget.saveGeometry();
 
   QSettings settings;
   // Restore the previous window geometry
-  restoreGeometry(settings.value("mainwindow/geometry",defaultGeometry).toByteArray());
+  restoreGeometry(settings.value("mainwindow/geometry",tempWidget.saveGeometry()).toByteArray());
 
   moveTimer = new PdmUpdateTimer(3000,this);
   resizeTimer = new PdmUpdateTimer(3000,this);
@@ -76,7 +75,7 @@ MainWindow::MainWindow(QWidget *parent)
   // Restore previous sessions' windows opened and their geometry
   debugWindow->checkAndShow();
   // Check existing user, if exist ask for decryption password
-  rt->checkExistingUser();
+  QTimer::singleShot(0, rt, &PdmRunTime::checkExistingUser);
 }
 
 MainWindow::~MainWindow()
