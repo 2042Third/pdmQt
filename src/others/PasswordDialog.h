@@ -13,6 +13,8 @@
 #include <QLabel>
 #include <QMessageBox>
 #include "PdmRuntimeRef.h"
+#include "misc/md5.h"
+#include "empp.h"
 
 class PasswordDialog : public QDialog, public PdmRuntimeRef{
 Q_OBJECT
@@ -47,6 +49,37 @@ public:
     label->setText(str);
   }
 
+
+
+  /**
+   * Sets whether or not to check a password input.
+   * If check password, "ver" is decrypted using the input password and compared to "verComp".
+   * If they are the same, then the password is correct.
+   * @param b 1 if check password, 0 if not.
+   * @param str the encrypted string to check.
+   * @param plain the decrypted string to check.
+   * @requires str not empty, plain not empty.
+   * */
+  void setMD5Verification(int b, std::string str, std::string plain){
+    needVer=b;
+    ver = str;
+    verComp=plain;
+  }
+
+  int verification (const QString& ps){
+    if (!needVer) return 1;
+    if (needVer){
+      MD5 md5; md5.add(verComp.c_str(),verComp.size());
+      std::string verStr = md5.getHash();
+      std::string verOut= loader_out(ps.toStdString(),ver);
+      emit rt->log("verOut: "+QString::fromStdString(verOut),"#016C05");
+      emit rt->log("verStr: "+QString::fromStdString(verStr),"#016C05");
+      if (verOut==verStr) return 1;
+      else return 0;
+    }
+    return 0;
+  }
+
   // strings that contain the default messages
   QString mTitle = "Application Password";
   QString mLabel = "Set a Password:";
@@ -55,7 +88,7 @@ public:
 
 private slots:
   void checkPassword() {
-    if (m_passwordLineEdit->text().size()>=4) {
+    if (m_passwordLineEdit->text().size()>=4 && verification(m_passwordLineEdit->text())) {
       rt->wt.app_ps= m_passwordLineEdit->text().toStdString(); //set the local password.
       accept();
     } else {
@@ -66,9 +99,13 @@ private slots:
     }
   }
 
+
 private:
   QLineEdit *m_passwordLineEdit;
   QLabel *label;
+  int needVer=0;
+  std::string ver;
+  std::string verComp;
 };
 
 
