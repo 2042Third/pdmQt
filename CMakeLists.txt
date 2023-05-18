@@ -16,7 +16,9 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVK_PROTOTYPES")
 #set(CMAKE_PREFIX_PATH "C:\\Qt\\6.4.2\\mingw_64\\lib\\cmake")
 
 if(APPLE)
+    set(CMAKE_OSX_SYSROOT /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk)
     set(CMAKE_PREFIX_PATH "/Users/mikeyang/Qt/6.4.2/macos/lib/cmake")
+
 endif()
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
