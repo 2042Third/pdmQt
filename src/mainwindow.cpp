@@ -120,6 +120,7 @@ void MainWindow::on_actionDebug_Messages_triggered()
     debugWindow->titleBar->changeName("Debug Messages");
   }
   debugWindow->show();
+//  debugWindow->setFocus();
 }
 
 // Helpers
