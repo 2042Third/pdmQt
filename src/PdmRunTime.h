@@ -60,8 +60,11 @@ public slots:
   void noteRetrieveSuccess(int noteid);
   void noteRetrieveFail(int noteid);
   void databaseLocalReady();
+  // Notes
   void noteListLeftClicked(const QModelIndex &index);
   void noteListRightClicked(const QModelIndex &index);
+  void onZoomIn();
+  void onZoomOut();
 
 
 public: // network callbacks

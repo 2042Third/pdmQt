@@ -18,6 +18,7 @@ Q_OBJECT
 public:
   explicit NoteEdit(PDM::NoteMsg note, QWidget *parent = nullptr) ;
   explicit NoteEdit( QWidget *parent = nullptr) ;
+  void setRef(PdmRunTime *rtRef) override;
   ~NoteEdit() ;
 
   void clearNoteMsg(PDM::NoteMsg& noteMsg) ;
@@ -31,6 +32,11 @@ public:
   PDM::NoteMsg m_note;
 
   int idx=0;
+
+
+  private slots:
+  void zoomingIn();
+  void zoomingOut();
 
 private:
 

@@ -263,12 +263,13 @@ void MainWindow::mainwindowTabCloseRequested(int index){
 
 void MainWindow::on_actionZoom_In_triggered()
 {
-
+  emit rt->onZoomIn();
 }
 
 
 void MainWindow::on_actionZoom_Out_triggered()
 {
+  emit rt->onZoomOut();
 
 }
 
