@@ -260,3 +260,15 @@ void MainWindow::mainwindowTabCloseRequested(int index){
   ui->tabWidget->removeTab(index);
   delete widget;
 }
+
+void MainWindow::on_actionZoom_In_triggered()
+{
+
+}
+
+
+void MainWindow::on_actionZoom_Out_triggered()
+{
+
+}
+

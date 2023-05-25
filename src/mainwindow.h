@@ -39,7 +39,11 @@ private slots:
   void mainwindowNoteListLeftClicked(const QModelIndex &index);
   void mainwindowTabCloseRequested(int index);
 
-protected:
+  void on_actionZoom_In_triggered();
+
+  void on_actionZoom_Out_triggered();
+
+  protected:
   void moveEvent(QMoveEvent *event) override;
   void resizeEvent(QResizeEvent *event) override;
 
