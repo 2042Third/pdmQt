@@ -73,7 +73,7 @@ MainWindow::MainWindow(QWidget *parent)
   ui->splitter->setSizes(initialSizes);
 
   // Restore previous sessions' windows opened and their geometry
-  debugWindow->checkAndShow();
+  QTimer::singleShot(0, [this]() { debugWindow->checkAndShow(); });
   // Check existing user, if exist ask for decryption password
   QTimer::singleShot(0, rt, &PdmRunTime::checkExistingUser);
 }

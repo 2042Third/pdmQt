@@ -102,6 +102,7 @@ void PdmRunTime::userDataCheck() {
   dialog.adjustSize();
   dialog.move(((MainWindow*)main_window)->geometry().center() - dialog.geometry().center());
   if (dialog.exec() == QDialog::Accepted) {
+    emit log("Setting app password: "+ QString::fromStdString(wt.app_ps), "#00CC00");
     local_dao->insert("email/"+wt.userinfo.email, loader_check(wt.app_ps,wt.data));
     MD5 md5; md5.add(wt.userinfo.email.c_str(),wt.userinfo.email.size());
     std::string emailVer = md5.getHash(); // md5 encode user email
@@ -135,7 +136,7 @@ int PdmRunTime::setup_settings() {
 
 void PdmRunTime::checkExistingUser() {
   std::unique_ptr<PDM::Local> email = local_dao->find_by_key("StoredLoginEmail");
-  if (email) {
+  if (email) { // Check if a user has logged in before
     std::unique_ptr<PDM::Local> encd_ps = local_dao->find_by_key("email/"+email->val.val);
     std::unique_ptr<PDM::Local> encd_ps_ver = local_dao->find_by_key("email/"+email->val.val+"/verify");
     if (!encd_ps) {
@@ -146,7 +147,7 @@ void PdmRunTime::checkExistingUser() {
     PasswordDialog dialog;
     dialog.setRef(this);
     dialog.mTitle = "Decrypt your data";
-    dialog.mLabel = "Enter decryption password for stored account "
+    dialog.mLabel = "Found existing user data. Enter decryption password for stored account "
                     + QString::fromStdString(email->val.val) + ": ";
 
     if(encd_ps_ver) {

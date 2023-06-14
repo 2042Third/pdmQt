@@ -69,12 +69,13 @@ public:
   int verification (const QString& ps){
     if (!needVer) return 1;
     if (needVer){
-      MD5 md5; md5.add(verComp.c_str(),verComp.size());
-      std::string verStr = md5.getHash();
+      emit rt->log("input pass: "+ps,"#016C05");
+//      MD5 md5; md5.add(verComp.c_str(),verComp.size());
+//      std::string verStr = md5.getHash();
       std::string verOut= loader_out(ps.toStdString(),ver);
       emit rt->log("verOut: "+QString::fromStdString(verOut),"#016C05");
-      emit rt->log("verStr: "+QString::fromStdString(verStr),"#016C05");
-      if (verOut==verStr) return 1;
+      emit rt->log("verComp: "+QString::fromStdString(verComp),"#016C05");
+      if (verOut==verComp) return 1;
       else return 0;
     }
     return 0;
@@ -92,7 +93,7 @@ private slots:
       rt->wt.app_ps= m_passwordLineEdit->text().toStdString(); //set the local password.
       accept();
     } else {
-      QMessageBox::warning(this, "Error", "App password too short, please try a length of greater than 4 characters next time."
+      QMessageBox::warning(this, "Error", "App password wrong."
                                           " Using your password as the app password.");
       rt->wt.app_ps = rt->wt.data;
       m_passwordLineEdit->clear();
