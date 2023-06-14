@@ -17,7 +17,8 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVK_PROTOTYPES")
 
 if(APPLE)
     set(CMAKE_OSX_SYSROOT /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk)
-    set(CMAKE_PREFIX_PATH "/Users/mikeyang/Qt/6.4.2/macos/lib/cmake")
+    set(CMAKE_PREFIX_PATH "/Users/mikeyang/Qt/6.5.1/macos/lib/cmake")
+    set(OPENSSL_ROOT_DIR /opt/homebrew/opt/openssl@3)
 
 endif()
 
