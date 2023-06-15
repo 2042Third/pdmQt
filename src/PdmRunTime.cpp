@@ -7,6 +7,7 @@
 #include "handler/pdm_net_type.h"
 #include <QObject>
 #include <QMessageBox>
+#include <QStandardPaths>
 
 PdmRunTime::PdmRunTime(QObject *parent)
       : QObject(parent) {
@@ -31,15 +32,16 @@ PdmRunTime::PdmRunTime(QObject *parent)
    * @params conf - configuration, default 1; 1 = user configuration, else user data configuration
    * */
 int PdmRunTime::get_user_loc (const std::string& file_names,int conf) {
-  if (conf == 1 ) {
-    conf_loc = "./user/" + file_names + "/" + file_names;
-    conf_loc = std::filesystem::absolute( std::filesystem::path(conf_loc)).string();
+  QString path;
+  if (conf == 1) {
+    path = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+    conf_loc = path.toStdString() + "/user/" + file_names + "/" + file_names;
     const std::filesystem::path confp(conf_loc);
     return std::filesystem::exists(confp);
   }
   else if (conf == 0) {
-    data_loc = "./user/" + file_names + "/data/" + file_names + ".data";
-    data_loc = std::filesystem::absolute( std::filesystem::path(data_loc)).string();
+    path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    data_loc = path.toStdString() + "/user/" + file_names + "/data/" + file_names + ".data";
     const std::filesystem::path datap(data_loc);
     return std::filesystem::exists(datap);
   }
@@ -124,8 +126,12 @@ int PdmRunTime::setup_settings_check() {
 }
 
 int PdmRunTime::setup_settings() {
-  app_settings->open_db("./settings/settings","pdmnotes",8); // Make local user configurations
-  local_dao->open_db("./conf/conf","pdmnotes",8); // Make local app configurations
+  QString path;
+  path = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+  std::string stdPath = path.toStdString() +"/settings/settings";
+  app_settings->open_db(stdPath.c_str(),"pdmnotes",8); // Make local user configurations
+  stdPath = path.toStdString() +"/conf/conf";
+  local_dao->open_db(stdPath.c_str(),"pdmnotes",8); // Make local app configurations
   local_dao->create_table(); // Create table for local app configurations
   local_dao->insert("LoginAttampt", "DEBUG"); // Insert data for local app configurations
 
