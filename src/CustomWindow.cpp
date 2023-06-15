@@ -9,6 +9,7 @@
 #include <QSettings>
 #include "CustomWindow.h"
 #include <QTimer>
+#include <QPalette>
 
 CustomTitleBar::CustomTitleBar(QWidget *parent)
     : QWidget(parent) {
@@ -51,6 +52,14 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
   connect(moveTimer, &PdmUpdateTimer::timeout, this, &CustomTitleBar::onMoveTimerTimeout);
 }
 
+CustomTitleBar::~CustomTitleBar() {
+  delete layout;
+  delete titleLabel;
+  delete customButton;
+  delete minimizeButton;
+  delete maximizeButton;
+  delete closeButton;
+}
 
 void CustomTitleBar::mousePressEvent(QMouseEvent *event) {
   if (event->button() == Qt::LeftButton) {
@@ -74,16 +83,6 @@ void CustomTitleBar::mouseReleaseEvent(QMouseEvent *event) {
   }
 }
 
-CustomTitleBar::~CustomTitleBar() {
-  delete layout;
-  delete titleLabel;
-  delete customButton;
-  delete minimizeButton;
-  delete maximizeButton;
-  delete closeButton;
-}
-
-
 void CustomTitleBar::changeName(QString a) {
   titleLabel->setText(a);
 }
@@ -92,4 +91,39 @@ void CustomTitleBar::onMoveTimerTimeout() {
   QSettings settings;
   settings.setValue("debugwindow/positionX", window()->pos().x());
   settings.setValue("debugwindow/positionY", window()->pos().y());
+}
+
+bool CustomTitleBar::event(QEvent *event) {
+  switch (event->type()) {
+    case QEvent::PaletteChange: {
+      // The application palette has changed
+      // Update your widget's colors here
+
+      QPalette palette = QApplication::palette();
+      // You may want to use different color roles depending on what part of the widget you are updating
+      QColor backgroundColor = palette.color(QPalette::Window);
+      QColor textColor = palette.color(QPalette::WindowText);
+
+      // Assuming your custom title bar has a solid background color, you can update it like this:
+      QPalette titleBarPalette = this->palette();
+      titleBarPalette.setColor(QPalette::Window, backgroundColor);
+      this->setPalette(titleBarPalette);
+      this->setAutoFillBackground(true);
+
+      // You can update the text color of the title label like this:
+      QPalette labelPalette = titleLabel->palette();
+      labelPalette.setColor(QPalette::WindowText, textColor);
+      titleLabel->setPalette(labelPalette);
+
+      // Similarly, you can update the colors of the buttons here
+      // ...
+
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+  // Don't forget to call the base class implementation of the event method
+  return QWidget::event(event);
 }

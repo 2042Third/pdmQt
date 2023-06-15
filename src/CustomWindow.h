@@ -49,6 +49,8 @@ private:
 protected:
   PdmUpdateTimer *moveTimer;
   void onMoveTimerTimeout();
+
+  bool event(QEvent *event) override;
 };
 
 
