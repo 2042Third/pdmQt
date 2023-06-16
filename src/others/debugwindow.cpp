@@ -51,18 +51,15 @@ DebugWindow::DebugWindow(QWidget *parent) :
   // Apply the shadow effect to the main content widget
   shadowFrameWidget->setGraphicsEffect(shadowEffect);
 
+  // Set the textEdit background as gray
+  texts->setStyleSheet("background-color: #808080;");
+
   // Set the init size.
   resize(500, 400);
 }
 
 void DebugWindow::appendMessage(const QString &message, const QString &color)
 {
-  // If rgb value is black then change it into gray
-  if (color == "#000000") {
-    QString html = QString("<font color=%1>%2</font>").arg("#808080", message);
-    texts->append(html);
-    return;
-  }
   QString html = QString("<font color=%1>%2</font>").arg(color, message);
   texts->append(html);
 }
