@@ -57,8 +57,14 @@ DebugWindow::DebugWindow(QWidget *parent) :
 
 void DebugWindow::appendMessage(const QString &message, const QString &color)
 {
-    QString html = QString("<font color=%1>%2</font>").arg(color, message);
+  // If rgb value is black then change it into gray
+  if (color == "#000000") {
+    QString html = QString("<font color=%1>%2</font>").arg("#808080", message);
     texts->append(html);
+    return;
+  }
+  QString html = QString("<font color=%1>%2</font>").arg(color, message);
+  texts->append(html);
 }
 
 
