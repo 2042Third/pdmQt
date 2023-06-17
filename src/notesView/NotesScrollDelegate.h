@@ -9,27 +9,49 @@
 #include <QStyledItemDelegate>
 #include <QPainter>
 #include <QApplication>
+#include <QFile>
+#include <QSvgRenderer>
 
 class NotesScrollDelegate : public QStyledItemDelegate {
 public:
   using QStyledItemDelegate::QStyledItemDelegate;
 
-  QIcon icon = QIcon(":/images/icon/file.svg");
-  QPixmap pixmap = icon.pixmap(QSize(25, 25));
+//  QIcon icon = QIcon(":/images/icon/file.svg");
+//  QPixmap pixmap = icon.pixmap(QSize(25, 25));
 
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
   {
+    // Setup and system theme
     QStyleOptionViewItem opt = option;
     initStyleOption(&opt, index);
-
     // System pallete
     QPalette palette = QApplication::palette();
-
-// get the color for the window text (usually this is the text color)
+    // get the color for the window text (usually this is the text color)
     QColor textColor = palette.color(QPalette::WindowText);
-
-// get the color for the window background
+    // get the color for the window background
     QColor backgroundColor = palette.color(QPalette::Window);
+
+    QString filePath = ":/images/icon/file.svg";
+    QFile file(filePath);
+    file.open(QIODevice::ReadOnly);
+    QString svgData = file.readAll();
+    file.close();
+
+    svgData.replace("#000000", textColor.name() );
+
+    // Loading the icon
+    QSvgRenderer svgRenderer(svgData.toUtf8());
+
+// Create a QPixmap and QPainter to render the SVG
+    QPixmap pixmap(25, 25);
+    pixmap.fill(Qt::transparent); // To preserve SVG transparency
+    QPainter iconPainter(&pixmap);
+
+    svgRenderer.render(&iconPainter);
+
+// Now, use QPixmap wherever you need, e.g. QIcon
+    QIcon icon(pixmap);
+
 
     // Draw item background
     QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
