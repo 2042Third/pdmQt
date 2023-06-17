@@ -16,10 +16,20 @@ public:
 
   QIcon icon = QIcon(":/images/icon/file.svg");
   QPixmap pixmap = icon.pixmap(QSize(25, 25));
+
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
   {
     QStyleOptionViewItem opt = option;
     initStyleOption(&opt, index);
+
+    // System pallete
+    QPalette palette = QApplication::palette();
+
+// get the color for the window text (usually this is the text color)
+    QColor textColor = palette.color(QPalette::WindowText);
+
+// get the color for the window background
+    QColor backgroundColor = palette.color(QPalette::Window);
 
     // Draw item background
     QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
@@ -27,6 +37,7 @@ public:
 
     // Draw the icon
     QRect iconRect = QRect(option.rect.topLeft() + QPoint(5, (option.rect.height() - pixmap.height()) / 2), pixmap.size());
+    painter->setBrush(textColor); // Added to draw the icon according to the system theme.
     painter->drawPixmap(iconRect, pixmap);
 
     // Adjust the rect for the text
@@ -47,7 +58,7 @@ public:
     painter->setFont(font);
     painter->setPen(Qt::gray);
     painter->drawText(textRect, Qt::AlignRight | Qt::AlignVCenter, noteParts[1]);
-    painter->setPen(Qt::black);
+    painter->setPen(textColor);
 
     font.setPointSize(originalPointSize);
     painter->setFont(font);

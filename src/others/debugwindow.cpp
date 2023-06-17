@@ -52,7 +52,7 @@ DebugWindow::DebugWindow(QWidget *parent) :
   shadowFrameWidget->setGraphicsEffect(shadowEffect);
 
   // Set the textEdit background as gray
-  texts->setStyleSheet("background-color: #808080;");
+  texts->setStyleSheet("background-color: #404040;");
 
   // Set the init size.
   resize(500, 400);
