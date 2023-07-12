@@ -270,6 +270,5 @@ void MainWindow::on_actionZoom_In_triggered()
 void MainWindow::on_actionZoom_Out_triggered()
 {
   emit rt->onZoomOut();
-
 }
 

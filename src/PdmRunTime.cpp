@@ -103,15 +103,26 @@ void PdmRunTime::userDataCheck() {
   dialog.setRef(this);
   dialog.adjustSize();
   dialog.move(((MainWindow*)main_window)->geometry().center() - dialog.geometry().center());
-  if (dialog.exec() == QDialog::Accepted) {
-    emit log("Setting app password: "+ QString::fromStdString(wt.app_ps), "#00CC00");
-    local_dao->insert("email/"+wt.userinfo.email, loader_check(wt.app_ps,wt.data));
-    MD5 md5; md5.add(wt.userinfo.email.c_str(),wt.userinfo.email.size());
-    std::string emailVer = md5.getHash(); // md5 encode user email
-    local_dao->insert("email/"+wt.userinfo.email+"/verify", loader_check(wt.app_ps,emailVer));
-    local_dao->insert("hasAppPs/"+wt.userinfo.email, "1");
 
-  } else {
+  std::unique_ptr<PDM::Local> out = local_dao->find_by_key("hasAppPs/"+wt.userinfo.email); // Check if user has app password
+
+  if(out == nullptr){
+    if (dialog.exec() == QDialog::Accepted) {
+      emit log("Setting app password: " + QString::fromStdString(wt.app_ps), "#00CC00");
+      local_dao->insert("email/" + wt.userinfo.email, loader_check(wt.app_ps, wt.data));
+      MD5 md5;
+      md5.add(wt.userinfo.email.c_str(), wt.userinfo.email.size());
+      std::string emailVer = md5.getHash(); // md5 encode user email
+      local_dao->insert("email/" + wt.userinfo.email + "/verify", loader_check(wt.app_ps, emailVer));
+      local_dao->insert("hasAppPs/" + wt.userinfo.email, "1");
+
+    } else {
+      local_dao->insert("email/" + wt.userinfo.email, loader_check(wt.app_ps, wt.data));
+    }
+  }
+  else {
+    emit log("Application found password","#000000");
+    emit log("App password: "+ QString::fromStdString(wt.app_ps), "#00CC00");
     local_dao->insert("email/"+wt.userinfo.email, loader_check(wt.app_ps,wt.data));
   }
   std::unique_ptr<PDM::Local> tmp = local_dao->find_by_key("StoredLoginEmail"); // Find data for local app configurations
