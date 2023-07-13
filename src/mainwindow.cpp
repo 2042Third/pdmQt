@@ -248,7 +248,10 @@ void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
   noteEditMap.insert(note.note_id, noteEdit); // Add to the map
   noteEdit->setRef(rt);
   noteEdit->setNote();
-  int tabIndex = ui->tabWidget->addTab( noteEdit, noteEdit->getNote()->head.c_str());
+  std::string tmpTitle =  !noteEdit->getNote()->head.empty()? noteEdit->getNote()->head.c_str()
+      : std::string("Unnamed Note #")+note.note_id;
+
+  int tabIndex = ui->tabWidget->addTab(noteEdit, tmpTitle.c_str());
   ui->tabWidget->setCurrentIndex(tabIndex);
   noteEdit->idx=tabIndex;
   noteEdit->setFocus();

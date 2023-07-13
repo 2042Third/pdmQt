@@ -36,7 +36,7 @@ QVariant NotesScroll::data(const QModelIndex &index, int role) const
   const PDM::NoteHead &note = notesList[index.row()];
   if (role == Qt::DisplayRole) {
     if (note.head.empty()  ){
-      return QString::fromStdString("Unamed Note "+ note.note_id + "\n" + "\n" + note.ctime);
+      return QString::fromStdString("Unnamed Note "+ note.note_id + "\n" + "\n" + note.ctime);
     }
     return QString::fromStdString(note.head + "\n" + "\n" + note.ctime);
   } else if (role == Qt::UserRole) {
