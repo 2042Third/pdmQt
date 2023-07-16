@@ -12,6 +12,7 @@ AccountWidget::AccountWidget(QWidget *parent) :
 
   informationWidget = new UserInformation(); // Ready the user information widget for use.
 
+
 }
 
 void AccountWidget::setRef(PdmRunTime *rtRef) {
@@ -21,6 +22,10 @@ void AccountWidget::setRef(PdmRunTime *rtRef) {
 
   connect(rt, &PdmRunTime::loginSuccess, this, &AccountWidget::accountLoginSuccess);
   emit rtRef->log("Account widget Created","#00FF00");
+  // If the login is already successful, change the widget to the user information widget.
+  if (rt->isLoginSuccessful()) {
+    accountLoginSuccess();
+  }
 }
 
 AccountWidget::~AccountWidget()

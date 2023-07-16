@@ -43,6 +43,7 @@ explicit PdmRunTime(QObject *parent = nullptr);
   // Data Handlers
   QString currentStatusBar ;
   void userDataCheck();
+  int isLoginSuccessful() const;
 
   // Refs
   void * main_window;
@@ -65,6 +66,9 @@ public slots:
   void noteListRightClicked(const QModelIndex &index);
   void onZoomIn();
   void onZoomOut();
+
+private:
+    int hasLogIn = 0;
 
 
 public: // network callbacks

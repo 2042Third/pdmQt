@@ -18,7 +18,9 @@ PdmRunTime::PdmRunTime(QObject *parent)
   user_data = new PDM::pdmNotesCache(); // Create config db for user
 
   set_db(user_data); // User local data.
-//  set_db(db); // Old
+
+  // Initial states
+  this->hasLogIn = 0;
 
   // Slots
   connect (this, &PdmRunTime::loginSuccess, this, &PdmRunTime::on_loginSuccess);
@@ -54,6 +56,7 @@ void PdmRunTime::on_loginSuccess() {
   // Decrypt the user's data and store it in the runtime.
   // This should be the first thing to do after login
   userDataCheck();
+  this->hasLogIn = 1;
 
 }
 
@@ -193,4 +196,8 @@ void PdmRunTime::checkExistingUser() {
       emit log("Existing login failed to send to the server ...", "#016C05");
     }
   }
+}
+
+int PdmRunTime::isLoginSuccessful() const {
+  return hasLogIn;
 }
