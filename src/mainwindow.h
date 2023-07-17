@@ -37,6 +37,7 @@ private slots:
   void onMoveTimerTimeout();
   void onResizeTimerTimeout();
   void mainwindowNoteListLeftClicked(const QModelIndex &index);
+  void mainwindowNoteListRightClicked(const QModelIndex &index);
   void mainwindowTabCloseRequested(int index);
 
   void on_actionZoom_In_triggered();
