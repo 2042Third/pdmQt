@@ -9,8 +9,14 @@ pdmListView::pdmListView(QWidget *parent) :
   QListView(parent)
   , PdmRuntimeRef()
 {
+  firstAction = new QAction("Delete", this);
+  secondAction = new QAction("More", this);
+  contextMenu = new QMenu(this);
 
-}
+  contextMenu->addAction(firstAction);
+
+  contextMenu->addAction(secondAction);
+  }
 
 void pdmListView::mousePressEvent(QMouseEvent *event)
 {
@@ -22,21 +28,15 @@ void pdmListView::mousePressEvent(QMouseEvent *event)
     QModelIndex index = indexAt(event->pos());
     if (index.isValid()) {
       emit rt->noteListRightClicked(index);
-      QMenu contextMenu(this);
+      disconnect(firstAction, &QAction::triggered, 0, 0); // Disconnect from previous slots
+      disconnect(secondAction, &QAction::triggered, 0, 0); // Disconnect from previous slots
 
-      // Create menu actions
-      QAction *firstAction = new QAction("Delete", this);
+      // Connect to the current index
       connect(firstAction, &QAction::triggered, this, [this, index]() { handleDeleteAction(index); });
-      contextMenu.addAction(firstAction);
-
-      QAction *secondAction = new QAction("More", this);
       connect(secondAction, &QAction::triggered, this, [this, index]() { handleMoreAction(index); });
-      contextMenu.addAction(secondAction);
 
-      // Add more actions as required...
-
-      // Display the context menu at the event position
-      contextMenu.exec(event->globalPos());
+      // Show the context menu at the event position
+      contextMenu->exec(event->globalPos());
     }
   }
   QListView::mousePressEvent(event);

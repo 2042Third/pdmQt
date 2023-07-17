@@ -21,7 +21,9 @@ class pdmListView : public QListView, public PdmRuntimeRef
   void mousePressEvent(QMouseEvent *event) override;
   void handleDeleteAction(const QModelIndex &index);
   void handleMoreAction(const QModelIndex &index);
-
+  QMenu *contextMenu;
+  QAction *firstAction;
+  QAction *secondAction;
 };
 
 
