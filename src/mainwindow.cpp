@@ -34,12 +34,10 @@ MainWindow::MainWindow(QWidget *parent)
   statusBar()->setToolTip("Login to your account in Settings->Account.");
 
   // Setup noteListWidget
-  NotesScrollDelegate *delegate = new NotesScrollDelegate(ui->notesListTab);
   rt->noteList = new NotesScroll(ui->notesListTab);
   auto *view = new pdmListView;
   view->setRef(rt);
   view->setModel(rt->noteList);
-  view->setItemDelegate(delegate);
   auto *layout = new QVBoxLayout;
   layout->addWidget(view);
 

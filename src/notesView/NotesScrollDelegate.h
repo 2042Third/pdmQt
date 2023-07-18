@@ -24,6 +24,7 @@ public:
     // Setup and system theme
     QStyleOptionViewItem opt = option;
     initStyleOption(&opt, index);
+
     // System pallete
     QPalette palette = QApplication::palette();
     // get the color for the window text (usually this is the text color)
@@ -46,6 +47,10 @@ public:
     QPixmap pixmap(25, 25);
     pixmap.fill(Qt::transparent); // To preserve SVG transparency
     QPainter iconPainter(&pixmap);
+
+    // Mouse over
+    if (option.state & QStyle::State_MouseOver)
+      painter->fillRect(option.rect, QBrush(0xECECEC));  // set whatever color you want for hover
 
     svgRenderer.render(&iconPainter);
 
@@ -84,6 +89,7 @@ public:
 
     font.setPointSize(originalPointSize);
     painter->setFont(font);
+
 
   }
 

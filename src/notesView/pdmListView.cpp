@@ -3,12 +3,15 @@
 //
 
 #include "pdmListView.h"
+#include "NotesScrollDelegate.h"
 #include <QMenu>
 
 pdmListView::pdmListView(QWidget *parent) :
   QListView(parent)
   , PdmRuntimeRef()
 {
+  setMouseTracking(true);
+  setItemDelegate(new NotesScrollDelegate(this));
   firstAction = new QAction("Delete", this);
   secondAction = new QAction("More", this);
   contextMenu = new QMenu(this);
@@ -40,6 +43,14 @@ void pdmListView::mousePressEvent(QMouseEvent *event)
     }
   }
   QListView::mousePressEvent(event);
+}
+
+void pdmListView::mouseMoveEvent(QMouseEvent *event)
+{
+  QModelIndex index = indexAt(event->pos());
+  if (index.isValid())
+    update(index);
+  QListView::mouseMoveEvent(event);
 }
 
 void pdmListView::handleDeleteAction(const QModelIndex &index) {

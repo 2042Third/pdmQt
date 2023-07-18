@@ -18,12 +18,13 @@ class pdmListView : public QListView, public PdmRuntimeRef
 
 
   protected:
-  void mousePressEvent(QMouseEvent *event) override;
-  void handleDeleteAction(const QModelIndex &index);
-  void handleMoreAction(const QModelIndex &index);
-  QMenu *contextMenu;
-  QAction *firstAction;
-  QAction *secondAction;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void handleDeleteAction(const QModelIndex &index);
+    void handleMoreAction(const QModelIndex &index);
+    QMenu *contextMenu;
+    QAction *firstAction;
+    QAction *secondAction;
 };
 
 
