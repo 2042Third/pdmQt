@@ -30,7 +30,8 @@ class pdmListView : public QListView, public PdmRuntimeRef
     NotesScrollDelegate *scrollDelegate;
 private:
     QModelIndex lastHovered;
-    QVariantAnimation *animation;
+    QVariantAnimation *inAnimation;
+    QVariantAnimation *outAnimation;
 };
 
 
