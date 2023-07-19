@@ -2,10 +2,8 @@
 #include "./ui_mainwindow.h"
 #include "handler/pdmqt/pdm_qt_net.h"
 #include "notesView/NotesScroll.h"
-#include "handler/pdm_qt_helpers.h"
 #include "notesView/pdmListView.h"
 #include "notesView/NoteEdit.h"
-#include "notesView/NotesScrollDelegate.h"
 #include <QObject>
 #include <QFileDialog>
 #include <QProcess>
