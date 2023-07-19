@@ -39,8 +39,12 @@ QVariant NotesScroll::data(const QModelIndex &index, int role) const
       return QString::fromStdString("Unnamed Note "+ note.note_id + "\n" + "\n" + note.ctime);
     }
     return QString::fromStdString(note.head + "\n" + "\n" + note.ctime);
-  } else if (role == Qt::UserRole) {
+  }
+  else if (role == Qt::UserRole) {
     return QString::fromStdString(note.ctime);
+  }
+  else if (role == Qt::UserRole + 1) {
+    return alphaProgress[index.row()];
   }
   return QVariant();
 }
@@ -52,4 +56,13 @@ const PDM::NoteHead* NotesScroll::getNote(const QModelIndex &index) const {
   return &notesList[index.row()];
 }
 
-
+bool NotesScroll::setData(const QModelIndex &index, const QVariant &value, int role) {
+  if (role == Qt::UserRole + 1) {
+    // Set the data for UserRole + 1
+    // replace with the appropriate code to set your data
+    alphaProgress.insert(index.row(), value);
+    emit dataChanged(index, index, {role});
+    return true;
+  }
+  return QAbstractListModel::setData(index, value, role);
+}

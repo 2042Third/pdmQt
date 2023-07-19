@@ -11,15 +11,32 @@ pdmListView::pdmListView(QWidget *parent) :
   , PdmRuntimeRef()
 {
   setMouseTracking(true);
-  setItemDelegate(new NotesScrollDelegate(this));
+  scrollDelegate=new NotesScrollDelegate(this);
+  scrollDelegate->setRef(rt);
+  setItemDelegate(scrollDelegate);
   firstAction = new QAction("Delete", this);
   secondAction = new QAction("More", this);
   contextMenu = new QMenu(this);
 
   contextMenu->addAction(firstAction);
-
   contextMenu->addAction(secondAction);
-  }
+
+  animation = new QVariantAnimation(this);
+  animation->setStartValue(0.0);
+  animation->setEndValue(1.0);
+  animation->setDuration(200); // duration in ms, adjust to your liking
+
+  connect(animation, &QVariantAnimation::valueChanged, this, [this](const QVariant &value) {
+      if (lastHovered.isValid()) {
+        emit rt->log("Setting hover progress:" + QString::number(value.toFloat()) ,  "#000000");
+        model()->setData(lastHovered, value, Qt::UserRole + 1);
+        update(lastHovered);
+      }
+      this->viewport()->repaint();
+
+  });
+
+}
 
 void pdmListView::mousePressEvent(QMouseEvent *event)
 {
@@ -48,8 +65,19 @@ void pdmListView::mousePressEvent(QMouseEvent *event)
 void pdmListView::mouseMoveEvent(QMouseEvent *event)
 {
   QModelIndex index = indexAt(event->pos());
-  if (index.isValid())
-    update(index);
+//  if (index.isValid())
+//    update(index);
+
+  QModelIndex hoveredIndex = indexAt(event->pos());
+  if (index.isValid() && index != lastHovered) {
+    emit rt->log("Hovering over item at row:" + QString::number(hoveredIndex.row()) ,  "#000000");
+    emit rt->log("Data:" + hoveredIndex.data().toString() ,  "#000000");
+    if (lastHovered.isValid())
+      model()->setData(lastHovered, 0.0, Qt::UserRole + 1);
+    lastHovered = index;
+    animation->start();
+    emit rt->log("Animation started" ,  "#000000");
+  }
   QListView::mouseMoveEvent(event);
 }
 
@@ -60,4 +88,13 @@ void pdmListView::handleDeleteAction(const QModelIndex &index) {
 void pdmListView::handleMoreAction(const QModelIndex &index) {
   emit rt->log("[Note action more]  called " ,  "#000000");
 
+}
+
+void pdmListView::leaveEvent(QEvent *event)
+{
+  if (lastHovered.isValid())
+    model()->setData(lastHovered, 0.0, Qt::UserRole + 1);
+  lastHovered = QModelIndex();
+  animation->stop();
+  QListView::leaveEvent(event);
 }
