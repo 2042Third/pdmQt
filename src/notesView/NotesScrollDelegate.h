@@ -21,7 +21,7 @@ class NotesScrollDelegate :
 public:
   using QStyledItemDelegate::QStyledItemDelegate;
 
-    NotesScrollDelegate() : PdmRuntimeRef() {}
+    explicit NotesScrollDelegate(QWidget *parent=nullptr) : PdmRuntimeRef() {}
 //  QIcon icon = QIcon(":/images/icon/file.svg");
 //  QPixmap pixmap = icon.pixmap(QSize(25, 25));
 

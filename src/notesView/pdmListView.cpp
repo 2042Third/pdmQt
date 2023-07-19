@@ -12,8 +12,8 @@ pdmListView::pdmListView(QWidget *parent) :
 {
   setMouseTracking(true);
   scrollDelegate=new NotesScrollDelegate(this);
-  scrollDelegate->setRef(rt);
   setItemDelegate(scrollDelegate);
+  scrollDelegate->setRef(rt);
   firstAction = new QAction("Delete", this);
   secondAction = new QAction("More", this);
   contextMenu = new QMenu(this);
@@ -24,7 +24,7 @@ pdmListView::pdmListView(QWidget *parent) :
   animation = new QVariantAnimation(this);
   animation->setStartValue(0.0);
   animation->setEndValue(1.0);
-  animation->setDuration(200); // duration in ms, adjust to your liking
+  animation->setDuration(140); // duration in ms, adjust to your liking
 
   connect(animation, &QVariantAnimation::valueChanged, this, [this](const QVariant &value) {
       if (lastHovered.isValid()) {
