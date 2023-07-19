@@ -23,7 +23,7 @@ pdmListView::pdmListView(QWidget *parent) :
 
   animation = new QVariantAnimation(this);
   animation->setStartValue(0.0);
-  animation->setEndValue(1.0);
+  animation->setEndValue(0.3);
   animation->setDuration(140); // duration in ms, adjust to your liking
 
   connect(animation, &QVariantAnimation::valueChanged, this, [this](const QVariant &value) {
