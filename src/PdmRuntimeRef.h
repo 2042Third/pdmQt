@@ -7,7 +7,13 @@
 #include "PdmRunTime.h"
 class PdmRuntimeRef {
 public:
-  virtual void setRef(PdmRunTime* rtRef){rt = rtRef;}
+  explicit PdmRuntimeRef(PdmRunTime * rtIn = nullptr) {
+    rt = rtIn;
+  }
+
+  virtual void setRef(PdmRunTime* rtRef){
+    rt = rtRef;
+  }
 
 protected:
   PdmRunTime * rt=nullptr;

@@ -6,14 +6,13 @@
 #include "NotesScrollDelegate.h"
 #include <QMenu>
 
-pdmListView::pdmListView(QWidget *parent) :
+pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
   QListView(parent)
-  , PdmRuntimeRef()
+  , PdmRuntimeRef(rtIn)
 {
   setMouseTracking(true);
-  scrollDelegate=new NotesScrollDelegate(this);
+  scrollDelegate=new NotesScrollDelegate(this,rt);
   setItemDelegate(scrollDelegate);
-  scrollDelegate->setRef(rt);
   firstAction = new QAction("Delete", this);
   secondAction = new QAction("More", this);
   contextMenu = new QMenu(this);
@@ -24,7 +23,7 @@ pdmListView::pdmListView(QWidget *parent) :
   animation = new QVariantAnimation(this);
   animation->setStartValue(0.0);
   animation->setEndValue(0.3);
-  animation->setDuration(140); // duration in ms, adjust to your liking
+  animation->setDuration(80); // duration in ms, adjust to your liking
 
   connect(animation, &QVariantAnimation::valueChanged, this, [this](const QVariant &value) {
       if (lastHovered.isValid()) {

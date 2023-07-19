@@ -16,7 +16,7 @@ class pdmListView : public QListView, public PdmRuntimeRef
 {
   Q_OBJECT
   public:
-  explicit pdmListView(QWidget *parent = nullptr);
+  explicit pdmListView(QWidget *parent = nullptr, PdmRunTime* rtIn=nullptr);
 
   protected:
     void mouseMoveEvent(QMouseEvent *event) override;

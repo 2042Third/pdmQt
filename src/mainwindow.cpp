@@ -33,8 +33,8 @@ MainWindow::MainWindow(QWidget *parent)
 
   // Setup noteListWidget
   rt->noteList = new NotesScroll(ui->notesListTab);
-  auto *view = new pdmListView;
-  view->setRef(rt);
+  auto *view = new pdmListView(this, rt);
+//  view->setRef(rt);
   view->setModel(rt->noteList);
   auto *layout = new QVBoxLayout;
   layout->addWidget(view);

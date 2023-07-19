@@ -21,9 +21,8 @@ class NotesScrollDelegate :
 public:
   using QStyledItemDelegate::QStyledItemDelegate;
 
-    explicit NotesScrollDelegate(QWidget *parent=nullptr) : PdmRuntimeRef() {}
-//  QIcon icon = QIcon(":/images/icon/file.svg");
-//  QPixmap pixmap = icon.pixmap(QSize(25, 25));
+    explicit NotesScrollDelegate(QWidget *parent=nullptr, PdmRunTime* rtIn=nullptr)
+    : PdmRuntimeRef(rtIn) {}
 
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
   {
@@ -54,31 +53,16 @@ public:
     QPainter iconPainter(&pixmap);
 
     // Mouse over
-
-
-
     QVariant hoverProgressVariant = index.data(Qt::UserRole + 1);
     if (hoverProgressVariant.isValid()) {
       qreal hProgress = hoverProgressVariant.toReal();
-//      emit rt->log("Drawing hover effect with progress:" + QString::number(hProgress), "#000000");
       // Draw the hover effect using hoverProgress...
       if (hProgress > 0) {
-        qDebug()<< "[Check progress] "<<index.data(Qt::UserRole + 1);
         QColor hoverColor(0xECECEC);
         hoverColor.setAlphaF(hProgress); // interpolate hover color
-
         QPainterPath path;
         path.addRoundedRect(option.rect, 10, 10); // adjust the 2nd and 3rd parameter for the roundness
         painter->fillPath(path, hoverColor);  // fill with interpolated color
-        if(rt){
-          qDebug()<<"Drawing hover effect with progress:"<<hProgress<<" "<<index.data(Qt::UserRole + 1);
-          qDebug()<<"And rt is not null";
-        }
-        else {
-          qDebug()<<" rt is null";
-
-        }
-//        emit rt->log("Drawing hover effect with progress:" + QString::number(hProgress), "#000000");
       }
     }
 
@@ -115,8 +99,6 @@ public:
 
     font.setPointSize(originalPointSize);
     painter->setFont(font);
-
-
   }
 
   QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override
