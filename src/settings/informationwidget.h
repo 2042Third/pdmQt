@@ -13,7 +13,7 @@ class InformationWidget : public QWidget,public PdmRuntimeRef
     Q_OBJECT
 
 public:
-    explicit InformationWidget(QWidget *parent = nullptr);
+    explicit InformationWidget(QWidget *parent = nullptr, PdmRunTime* rtIn=nullptr);
     ~InformationWidget();
 
 private:

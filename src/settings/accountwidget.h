@@ -16,13 +16,10 @@ class AccountWidget : public QWidget, public PdmRuntimeRef
   Q_OBJECT
 
 public:
-  explicit AccountWidget(QWidget *parent = nullptr);
+  explicit AccountWidget(QWidget *parent = nullptr, PdmRunTime* rtIn=nullptr);
   ~AccountWidget();
   LoginWidget * loginWidget;
   UserInformation* informationWidget;
-
-  void setRef(PdmRunTime* rtRef) override ;
-
 
 public slots:
   void accountLoginSuccess () ;

@@ -124,8 +124,7 @@ void MainWindow::on_actionDebug_Messages_triggered()
 
 void MainWindow::newSettingsWindow() {
   if (!settingsWindow){
-    settingsWindow = new SettingsMainWindow(ui->centralwidget);
-    settingsWindow->setRef(rt);
+    settingsWindow = new SettingsMainWindow(ui->centralwidget, rt);
   }
 }
 
@@ -241,9 +240,8 @@ void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
     noteEditMap[note.note_id]->setFocus();
     return;
   }
-  auto * noteEdit= new NoteEdit(note);
+  auto * noteEdit= new NoteEdit(note, this, rt);
   noteEditMap.insert(note.note_id, noteEdit); // Add to the map
-  noteEdit->setRef(rt);
   noteEdit->setNote();
   std::string tmpTitle =  !noteEdit->getNote()->head.empty()? noteEdit->getNote()->head.c_str()
       : std::string("Unnamed Note #")+note.note_id;

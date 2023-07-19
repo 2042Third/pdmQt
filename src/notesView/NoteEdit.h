@@ -16,9 +16,8 @@ class NoteEdit : public QTextEdit , public PdmRuntimeRef{
 Q_OBJECT
 
 public:
-  explicit NoteEdit(PDM::NoteMsg note, QWidget *parent = nullptr) ;
-  explicit NoteEdit( QWidget *parent = nullptr) ;
-  void setRef(PdmRunTime *rtRef) override;
+  explicit NoteEdit(PDM::NoteMsg note, QWidget *parent = nullptr, PdmRunTime* rtIn=nullptr) ;
+  explicit NoteEdit( QWidget *parent = nullptr, PdmRunTime* rtIn=nullptr) ;
   ~NoteEdit() ;
 
   void clearNoteMsg(PDM::NoteMsg& noteMsg) ;

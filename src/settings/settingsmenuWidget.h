@@ -13,10 +13,9 @@ class settingsmenuWidget : public QWidget, public PdmRuntimeRef
 {
   Q_OBJECT
 public:
-  explicit settingsmenuWidget(QWidget *parent = nullptr);
+  explicit settingsmenuWidget(QWidget *parent = nullptr, PdmRunTime* rtIn=nullptr);
   ~settingsmenuWidget();
 
-  void setRef(PdmRunTime* rtRef) override ;
 };
 
 

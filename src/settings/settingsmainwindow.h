@@ -17,7 +17,7 @@ class SettingsMainWindow : public QMainWindow, public PdmRuntimeRef
     Q_OBJECT
 
 public:
-  explicit SettingsMainWindow(QWidget *parent = nullptr);
+  explicit SettingsMainWindow(QWidget *parent = nullptr, PdmRunTime* rtIn=nullptr);
   ~SettingsMainWindow();
 
   void navToAccount() {on_settingAccountButton_released();}

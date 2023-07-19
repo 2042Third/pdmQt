@@ -14,9 +14,8 @@ class LoginWidget: public QWidget, public PdmRuntimeRef
 {
   Q_OBJECT
 public:
-  explicit LoginWidget(QWidget *parent = nullptr);
+  explicit LoginWidget(QWidget *parent = nullptr, PdmRunTime* rtIn=nullptr);
   ~ LoginWidget();
-  void setRef(PdmRunTime*rtRef) override ;
 private slots:
   void onLoginClicked();
   bool eventFilter(QObject *object, QEvent *event) override;

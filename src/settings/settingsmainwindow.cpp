@@ -5,13 +5,13 @@
 #include <QObject>
 
 
-SettingsMainWindow::SettingsMainWindow(QWidget *parent) :
-    QMainWindow(parent), PdmRuntimeRef(),
+SettingsMainWindow::SettingsMainWindow(QWidget *parent, PdmRunTime* rtIn) :
+    QMainWindow(parent), PdmRuntimeRef(rtIn),
     ui(new Ui::SettingsMainWindow)
 {
   ui->setupUi(this); // .ui file generated header setup
 
-  acc_ui = new AccountWidget(ui->centralwidget);
+  acc_ui = new AccountWidget(ui->centralwidget,rt);
   acc_ui->setObjectName("acc_ui");
   ui->stackedWidget->addWidget(acc_ui);
   buttons.push_back(ui->settingAccountButton); // 0, account button
@@ -21,12 +21,12 @@ SettingsMainWindow::SettingsMainWindow(QWidget *parent) :
   // Make sure "acc_ui" is the current widget
   ui->stackedWidget->setCurrentWidget(acc_ui);
 
-  info_ui = new InformationWidget(ui->centralwidget);
+  info_ui = new InformationWidget(ui->centralwidget,rt);
   info_ui->setObjectName("info_ui");
   ui->stackedWidget->addWidget(info_ui);
   buttons.push_back(ui->settingInfoButton); // 1, info button
 
-  settings_ui = new settingsmenuWidget(ui->centralwidget);
+  settings_ui = new settingsmenuWidget(ui->centralwidget, rt);
   settings_ui->setObjectName("settings_ui");
   ui->stackedWidget->addWidget(settings_ui);
   buttons.push_back(ui->settingsSettingsButton); // 2, settings button

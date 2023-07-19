@@ -6,17 +6,21 @@
 
 #include <utility>
 
-NoteEdit::NoteEdit(PDM::NoteMsg note, QWidget *parent):
+NoteEdit::NoteEdit(PDM::NoteMsg note, QWidget *parent, PdmRunTime* rtIn):
 QTextEdit(parent)
 , m_note(std::move(note))
-, PdmRuntimeRef()
+, PdmRuntimeRef(rtIn)
 {
   // Initialize your QTextEdit with the note content if needed
   setPlainText(QString::fromStdString(m_note.content));
 
+  // Connect to the PDM runtime zoom in and zoom out signals
+  connect(rt, &PdmRunTime::onZoomIn, this, &NoteEdit::zoomingIn);
+  connect(rt, &PdmRunTime::onZoomOut, this, &NoteEdit::zoomingOut);
+
 }
 
-NoteEdit::NoteEdit(QWidget *parent) :QTextEdit(parent){
+NoteEdit::NoteEdit(QWidget *parent, PdmRunTime* rtIn) :QTextEdit(parent){
 
 }
 
@@ -59,12 +63,4 @@ void NoteEdit::zoomingOut() {
   this->zoomOut(2);
 }
 
-void NoteEdit::setRef(PdmRunTime *rtRef) {
-  PdmRuntimeRef::setRef(rtRef);
 
-  // Connect to the PDM runtime zoom in and zoom out signals
-  connect(rt, &PdmRunTime::onZoomIn, this, &NoteEdit::zoomingIn);
-  connect(rt, &PdmRunTime::onZoomOut, this, &NoteEdit::zoomingOut);
-
-
-}

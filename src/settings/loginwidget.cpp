@@ -9,8 +9,8 @@
 #include <QFormLayout>
 #include <QKeyEvent>
 
-LoginWidget::LoginWidget(QWidget *parent)
-    : QWidget(parent),PdmRuntimeRef()
+LoginWidget::LoginWidget(QWidget *parent, PdmRunTime *rtIn)
+    : QWidget(parent),PdmRuntimeRef(rtIn)
 {
   m_emailEdit = new QLineEdit(this);
   m_passwordEdit = new QLineEdit(this);
@@ -32,7 +32,10 @@ LoginWidget::LoginWidget(QWidget *parent)
 
   setLayout(formLayout);
 
-
+  std::unique_ptr<PDM::Local> tmp = rt->local_dao->find_by_key("StoredLoginEmail");
+  if (tmp) {
+    m_emailEdit->setText(QString::fromStdString(tmp->val.val));
+  }
 }
 void LoginWidget::onLoginClicked()
 {
@@ -40,41 +43,6 @@ void LoginWidget::onLoginClicked()
   QString username = m_emailEdit->text();
   QString password = m_passwordEdit->text();
 
-//  // Call back
-//  struct SigninNetCallBack_ {
-//    static size_t _callback(char *data, size_t size, size_t nmemb, void *userp) {
-//      int callback_out = (int) PDM::network::post_callback_signin(data,  size,  nmemb, userp);
-//      auto *wt = (struct NetObj *)userp;
-//      auto*rt = (PdmRunTime *)wt->pdm_runtime;
-//      emit rt->log("Callback started and successful ("+QString(wt->js.dump().c_str())+")", "#016C05");
-//      if (rt->wt.userinfo.status == "success") { // The sign in is successful
-//        MD5 md5; md5.add(wt->userinfo.email.c_str(),wt->userinfo.email.size());
-//        std::string file_names = md5.getHash(); // md5 encode user email
-//        // Check or create the appropriate db
-//        if (!rt->get_user_loc(file_names,0)){
-//          const std::filesystem::path confp(rt->conf_loc), datap(rt->data_loc);
-//          std::filesystem::create_directories(datap.parent_path()); // Create user data dir.
-//          rt->user_conf->execute(rt->user_conf->local_table_create_query); // Make user config table when not exist
-//          emit rt->log("made user config table", "#016C05");
-//        }
-//        else {
-//          emit rt->log("User config file found", "#016C05");
-//        }
-//        rt->user_data->open_db(rt->data_loc.c_str(),wt->data.c_str(),wt->data.size()); // Always new user data
-//        rt->user_data->execute(rt->user_data-> note_table_create_query); // Make user data table when not exist
-//
-//        emit rt->log("Databse location: ", "#016C05");
-//        emit rt->log(rt->conf_loc.c_str() , "#016C05");
-//
-//        emit rt->log(" Database opened!", "#016C05");
-//        emit rt->loginSuccess();
-//      } else {
-//        emit rt->log("Unsuccessful callback. ", "#6C2501");
-//        emit rt->loginFail();
-//      }
-//      return callback_out; /* we copied this many bytes */
-//    }
-//  };
 
   if (!username.isEmpty() && !password.isEmpty()) {
     emit rt->log("Login attempted:", "#FF0000");
@@ -109,15 +77,4 @@ bool LoginWidget::eventFilter(QObject *object, QEvent *event) {
 
 LoginWidget::~LoginWidget() {
 
-}
-
-void LoginWidget::setRef(PdmRunTime*rtRef)  {
-  PdmRuntimeRef::setRef(rtRef);
-  emit rt->log("login widget Created","#00FF00");
-
-  // Fill email if saved.
-  std::unique_ptr<PDM::Local> tmp = rt->local_dao->find_by_key("StoredLoginEmail");
-  if (tmp) {
-    m_emailEdit->setText(QString::fromStdString(tmp->val.val));
-  }
 }

@@ -12,8 +12,8 @@
 #include <QAbstractButton>
 #include "settingsmenuWidget.h"
 
-settingsmenuWidget::settingsmenuWidget(QWidget *parent): QWidget(parent)
-, PdmRuntimeRef()
+settingsmenuWidget::settingsmenuWidget(QWidget *parent,PdmRunTime*rtIn ): QWidget(parent)
+, PdmRuntimeRef(rtIn)
 {
   QVBoxLayout* mainLayout = new QVBoxLayout(this);
 
@@ -52,6 +52,3 @@ settingsmenuWidget::~settingsmenuWidget() {
 
 }
 
-void settingsmenuWidget::setRef(PdmRunTime *rtRef) {
-  PdmRuntimeRef::setRef(rtRef);
-}

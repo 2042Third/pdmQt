@@ -4,8 +4,8 @@
 #include <QWidget>
 #include <QString>
 
-UserInformation::UserInformation(QWidget *parent) :
-    QWidget(parent), PdmRuntimeRef(),
+UserInformation::UserInformation(QWidget *parent, PdmRunTime* rtIn  ) :
+    QWidget(parent), PdmRuntimeRef(rtIn),
     ui(new Ui::UserInformation)
 {
     ui->setupUi(this);

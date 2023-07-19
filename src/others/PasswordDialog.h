@@ -21,7 +21,8 @@ Q_OBJECT
 
 public:
 
-  explicit PasswordDialog(QWidget *parent = nullptr) : QDialog(parent) , PdmRuntimeRef(){
+  explicit PasswordDialog(QWidget *parent = nullptr, PdmRunTime*rtIn= nullptr)
+  : QDialog(parent) , PdmRuntimeRef(rtIn){
     setWindowTitle(mTitle);
 
     auto *layout = new QVBoxLayout(this);
@@ -41,9 +42,6 @@ public:
     connect(cancelButton, &QPushButton::clicked, this, &PasswordDialog::reject);
   }
 
-  void setRef(PdmRunTime* rtRef) override {
-    PdmRuntimeRef::setRef(rtRef);
-  }
 
   void setLabel(const QString& str){
     label->setText(str);

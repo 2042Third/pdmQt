@@ -16,7 +16,7 @@ class UserInformation : public QWidget, public PdmRuntimeRef
     Q_OBJECT
 
 public:
-  explicit UserInformation(QWidget *parent = nullptr);
+  explicit UserInformation(QWidget *parent = nullptr, PdmRunTime* rtIn=nullptr);
   ~UserInformation();
   void displayUserInfo();
 

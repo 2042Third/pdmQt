@@ -102,8 +102,7 @@ void PdmRunTime::userDataCheck() {
   wt.userinfo.username = loader_out(wt.data,wt.userinfo.receiverstring); // username decryption
   wt.userinfo.ctime = PDM::pdm_qt_helpers::unix_time_to_qstr(wt.userinfo.time).toStdString(); // date time string
   local_dao->insert("StoredLoginEmail",wt.userinfo.email);
-  PasswordDialog dialog;
-  dialog.setRef(this);
+  PasswordDialog dialog(nullptr,this);
   dialog.adjustSize();
   dialog.move(((MainWindow*)main_window)->geometry().center() - dialog.geometry().center());
 
@@ -164,8 +163,7 @@ void PdmRunTime::checkExistingUser() {
       return;
     }
     // Ask for the decryption password
-    PasswordDialog dialog;
-    dialog.setRef(this);
+    PasswordDialog dialog(nullptr,this);
     dialog.mTitle = "Decrypt your data";
     dialog.mLabel = "Found existing user data. Enter decryption password for stored account "
                     + QString::fromStdString(email->val.val) + ": ";

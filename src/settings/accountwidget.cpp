@@ -2,30 +2,21 @@
 #include "ui_accountwidget.h"
 #include <QObject>
 
-AccountWidget::AccountWidget(QWidget *parent) :
-  QWidget(parent), PdmRuntimeRef()
+AccountWidget::AccountWidget(QWidget *parent, PdmRunTime* rtIn) :
+  QWidget(parent), PdmRuntimeRef(rtIn)
   ,ui(new Ui::AccountWidget)
 {
   ui->setupUi(this);
-  loginWidget = new LoginWidget();
+  loginWidget = new LoginWidget( this);
   ui->gridLayout->addWidget(loginWidget);
 
-  informationWidget = new UserInformation(); // Ready the user information widget for use.
-
-
-}
-
-void AccountWidget::setRef(PdmRunTime *rtRef) {
-  PdmRuntimeRef::setRef(rtRef);
-  loginWidget->setRef(rtRef);
-  informationWidget->setRef(rtRef);
-
+  informationWidget = new UserInformation(this, rt); // Ready the user information widget for use.
   connect(rt, &PdmRunTime::loginSuccess, this, &AccountWidget::accountLoginSuccess);
-  emit rtRef->log("Account widget Created","#00FF00");
   // If the login is already successful, change the widget to the user information widget.
   if (rt->isLoginSuccessful()) {
     accountLoginSuccess();
   }
+
 }
 
 AccountWidget::~AccountWidget()
