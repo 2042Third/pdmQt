@@ -11,10 +11,6 @@ public:
     rt = rtIn;
   }
 
-  virtual void setRef(PdmRunTime* rtRef){
-    rt = rtRef;
-  }
-
 protected:
   PdmRunTime * rt=nullptr;
 };

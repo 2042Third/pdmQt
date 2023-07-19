@@ -32,6 +32,8 @@ private:
     QModelIndex lastHovered;
     QVariantAnimation *inAnimation;
     QVariantAnimation *outAnimation;
+
+    void clearHover();
 };
 
 

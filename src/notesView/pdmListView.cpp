@@ -27,6 +27,7 @@ pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
   inAnimation->setDuration(80);
   connect(inAnimation, &QVariantAnimation::valueChanged, this, [this](const QVariant &value) {
       if (lastHovered.isValid()) {
+        qDebug()<<"inAnimation="+QString::number(value.toFloat());
         model()->setData(lastHovered, value, Qt::UserRole + 1);
         update(lastHovered);
       }
@@ -39,6 +40,7 @@ pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
   outAnimation->setDuration(60);
   connect(outAnimation, &QVariantAnimation::valueChanged, this, [this](const QVariant &value) {
       if (lastHovered.isValid()) {
+        qDebug()<<"outAnimation="+QString::number(value.toFloat());
         model()->setData(lastHovered, value, Qt::UserRole + 1);
         update(lastHovered);
       }
@@ -74,8 +76,10 @@ void pdmListView::mouseMoveEvent(QMouseEvent *event)
 {
   QModelIndex index = indexAt(event->pos());
   if (index.isValid() && index != lastHovered) {
-    if (lastHovered.isValid())
-      model()->setData(lastHovered, 0.0, Qt::UserRole + 1);
+    clearHover();
+
+    // Stop any ongoing out animation and start the in animation
+    outAnimation->stop();
     lastHovered = index;
     inAnimation->start();
   }
@@ -93,10 +97,18 @@ void pdmListView::handleMoreAction(const QModelIndex &index) {
 
 void pdmListView::leaveEvent(QEvent *event)
 {
-  if (lastHovered.isValid())
-    model()->setData(lastHovered, 0.34, Qt::UserRole + 1);
-  lastHovered = QModelIndex();
-  inAnimation->stop();
-  outAnimation->start();
+  clearHover();
   QListView::leaveEvent(event);
+}
+
+void pdmListView::clearHover()
+{
+  if (lastHovered.isValid()) {
+    // Stop any ongoing in animation and start the out animation
+    inAnimation->stop();
+    outAnimation->start();
+
+    model()->setData(lastHovered, 0.0, Qt::UserRole + 1);
+  }
+  lastHovered = QModelIndex();
 }

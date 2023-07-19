@@ -7,7 +7,7 @@ AccountWidget::AccountWidget(QWidget *parent, PdmRunTime* rtIn) :
   ,ui(new Ui::AccountWidget)
 {
   ui->setupUi(this);
-  loginWidget = new LoginWidget( this);
+  loginWidget = new LoginWidget( this, rt);
   ui->gridLayout->addWidget(loginWidget);
 
   informationWidget = new UserInformation(this, rt); // Ready the user information widget for use.
