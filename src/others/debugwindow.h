@@ -38,7 +38,9 @@ public:
   QVBoxLayout *verticalLayout;
   QWidget *mainContent ; // Create the main content for your window
   void checkAndShow(); // MAYBE: move this to CustomWindow class
-
+  QPushButton* button1;
+  QPushButton* button2;
+  QPushButton* button3;
 };
 
 #endif // DEBUGWINDOW_H

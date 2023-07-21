@@ -51,11 +51,32 @@ DebugWindow::DebugWindow(QWidget *parent) :
   // Apply the shadow effect to the main content widget
   shadowFrameWidget->setGraphicsEffect(shadowEffect);
 
+  // Action buttons
+  QVBoxLayout* shadowContentLayout = new QVBoxLayout();
+
+  button1 = new QPushButton();
+  button1->setFixedSize(100, 50);  // Change these values to the size you want
+
+  button2 = new QPushButton();
+  button2->setFixedSize(100, 50);  // Change these values to the size you want
+
+  button3 = new QPushButton();
+  button3->setFixedSize(100, 50);  // Change these values to the size you want
+
+  shadowContentLayout->addWidget(texts);
+  shadowContentLayout->addWidget(button1);
+  shadowContentLayout->addWidget(button2);
+  shadowContentLayout->addWidget(button3);
+
+  shadowWidgetLayout->addWidget(titleBar);
+  shadowWidgetLayout->addLayout(shadowContentLayout);
+
+
   // Set the textEdit background as gray
   texts->setStyleSheet("background-color: #FFFFFF;");
 
   // Set the init size.
-  resize(500, 400);
+  resize(500, 500);
 }
 
 void DebugWindow::appendMessage(const QString &message, const QString &color)

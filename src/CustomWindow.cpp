@@ -10,6 +10,7 @@
 #include "CustomWindow.h"
 #include <QTimer>
 #include <QPalette>
+#include <QOperatingSystemVersion>
 
 CustomTitleBar::CustomTitleBar(QWidget *parent)
     : QWidget(parent) {
@@ -33,12 +34,36 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
   layout->addStretch(1);
 
   // Create the minimize, maximize, and close buttons
-  minimizeButton = new QPushButton("", this); minimizeButton->setIcon(QIcon(":/images/icon/minus"));
-  minimizeButton->setFlat(true); minimizeButton->setStyleSheet(buttonStyleSheetDG);
-  maximizeButton = new QPushButton("", this); maximizeButton->setIcon(QIcon(":/images/icon/maximize"));
-  maximizeButton->setFlat(true); maximizeButton->setStyleSheet(buttonStyleSheetDG);
-  closeButton = new QPushButton(QIcon(":/images/icon/close"),"", this);
-  closeButton->setFlat(true); closeButton->setStyleSheet(buttonStyleSheetRD);
+  minimizeButton = new QPushButton("", this);
+  maximizeButton = new QPushButton("", this);
+  closeButton = new QPushButton("", this);
+
+  if (QOperatingSystemVersion::currentType() == QOperatingSystemVersion::MacOS) {
+    minimizeButton->setIcon(QIcon(":/images/icon/macMinimize"));
+    maximizeButton->setIcon(QIcon(":/images/icon/macMaximize"));
+    closeButton->setIcon(QIcon(":/images/icon/macClose"));
+
+    closeButton->setStyleSheet("QPushButton { background-color: red; border-radius: 6px; }");
+    minimizeButton->setStyleSheet("QPushButton { background-color: yellow; border-radius: 6px; }");
+    maximizeButton->setStyleSheet("QPushButton { background-color: lime; border-radius: 6px; }");
+
+    layout->addWidget(closeButton);
+    layout->addWidget(minimizeButton);
+    layout->addWidget(maximizeButton);
+  }
+  else {
+    minimizeButton->setIcon(QIcon(":/images/icon/minus"));
+    maximizeButton->setIcon(QIcon(":/images/icon/maximize"));
+    closeButton->setIcon(QIcon(":/images/icon/close"));
+
+    minimizeButton->setStyleSheet("QPushButton { background-color: gray; }");
+    maximizeButton->setStyleSheet("QPushButton { background-color: gray; }");
+    closeButton->setStyleSheet("QPushButton { background-color: red; }");
+
+    layout->addWidget(minimizeButton);
+    layout->addWidget(maximizeButton);
+    layout->addWidget(closeButton);
+  }
 
   connect(minimizeButton, &QPushButton::clicked, this, &CustomTitleBar::minimizeWindow);
   connect(maximizeButton, &QPushButton::clicked, this, &CustomTitleBar::maximizeWindow);
