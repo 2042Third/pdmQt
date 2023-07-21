@@ -34,7 +34,6 @@ MainWindow::MainWindow(QWidget *parent)
   // Setup noteListWidget
   rt->noteList = new NotesScroll(ui->notesListTab);
   auto *view = new pdmListView(this, rt);
-//  view->setRef(rt);
   view->setModel(rt->noteList);
   auto *layout = new QVBoxLayout;
   layout->addWidget(view);
@@ -230,7 +229,17 @@ void MainWindow::mainwindowNoteListLeftClicked(const QModelIndex &index) {
   PDM::pdm_qt_net::client_action_note_retrieve(rt, stoi(rt->noteList->getNote(index)->note_id)); // Get the note from the server
 }
 
-
+/**
+ * Note is received in the local data store.
+ *
+ * Get the note from the local data store.
+ * This function creates a new NoteEdit widget and adds it to the tab widget.
+ * If the note already exists in the tab widget, it will switch to that tab.
+ * Put the note contents in the tab widget.
+ *
+ * @brief MainWindow::mainwindowNoteRetrieveSuccess
+ * @param noteId The note id of the note that was retrieved.
+ * */
 void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
   emit rt->log("Note open/retrieve received.", "#C22A1C");
   PDM::NoteMsg note ;
@@ -243,8 +252,8 @@ void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
   auto * noteEdit= new NoteEdit(note, this, rt);
   noteEditMap.insert(note.note_id, noteEdit); // Add to the map
   noteEdit->setNote();
-  std::string tmpTitle =  !noteEdit->getNote()->head.empty()? noteEdit->getNote()->head.c_str()
-      : std::string("Unnamed Note #")+note.note_id;
+  // If the note has a title, use that. Otherwise, use the note id.
+  std::string tmpTitle =  !note.head.empty()? note.head: "Unnamed Note "+std::to_string(noteId);
 
   int tabIndex = ui->tabWidget->addTab(noteEdit, tmpTitle.c_str());
   ui->tabWidget->setCurrentIndex(tabIndex);

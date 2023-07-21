@@ -27,7 +27,7 @@ pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
   inAnimation->setDuration(80);
   connect(inAnimation, &QVariantAnimation::valueChanged, this, [this](const QVariant &value) {
       if (lastHovered.isValid()) {
-        qDebug()<<"inAnimation="+QString::number(value.toFloat());
+//        qDebug()<<"inAnimation="+QString::number(value.toFloat());
         model()->setData(lastHovered, value, Qt::UserRole + 1);
         update(lastHovered);
       }
@@ -37,10 +37,10 @@ pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
   outAnimation = new QVariantAnimation(this);
   outAnimation->setStartValue(0.34);
   outAnimation->setEndValue(0.1);
-  outAnimation->setDuration(60);
+  outAnimation->setDuration(90);
   connect(outAnimation, &QVariantAnimation::valueChanged, this, [this](const QVariant &value) {
       if (lastHovered.isValid()) {
-        qDebug()<<"outAnimation="+QString::number(value.toFloat());
+//        qDebug()<<"outAnimation="+QString::number(value.toFloat());
         model()->setData(lastHovered, value, Qt::UserRole + 1);
         update(lastHovered);
       }
