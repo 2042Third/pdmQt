@@ -7,7 +7,7 @@
 #include <QPainter>
 #include <QStyleOption>
 #include <QSettings>
-#include "CustomWindow.h"
+#include "CustomTitleBar.h"
 #include <QTimer>
 #include <QPalette>
 #include <QOperatingSystemVersion>
@@ -23,15 +23,11 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
   // Create a QLabel for the window title
   titleLabel = new QLabel("Custom Window", this);
   titleLabel->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(titleLabel);
 
   // Create a custom button for the title bar
   customButton = new QPushButton("", this);
 //  connect(customButton, &QPushButton::clicked, this, &CustomTitleBar::on_customButton_clicked);
-  layout->addWidget(customButton);
 
-  // Add spacer to push the custom button to the right side
-  layout->addStretch(1);
 
   // Create the minimize, maximize, and close buttons
   minimizeButton = new QPushButton("", this);
@@ -39,26 +35,35 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
   closeButton = new QPushButton("", this);
 
   if (QOperatingSystemVersion::currentType() == QOperatingSystemVersion::MacOS) {
-    minimizeButton->setIcon(QIcon(":/images/icon/macMinimize"));
-    maximizeButton->setIcon(QIcon(":/images/icon/macMaximize"));
-    closeButton->setIcon(QIcon(":/images/icon/macClose"));
-
-    closeButton->setStyleSheet("QPushButton { background-color: red; border-radius: 6px; }");
-    minimizeButton->setStyleSheet("QPushButton { background-color: yellow; border-radius: 6px; }");
-    maximizeButton->setStyleSheet("QPushButton { background-color: lime; border-radius: 6px; }");
-
+    minimizeButton = new QPushButton("", this); minimizeButton->setIcon(QIcon(":/images/icon/minus"));
+    minimizeButton->setFlat(true); minimizeButton->setStyleSheet(buttonStyleSheetDG);
+    maximizeButton = new QPushButton("", this); maximizeButton->setIcon(QIcon(":/images/icon/maximize"));
+    maximizeButton->setFlat(true); maximizeButton->setStyleSheet(buttonStyleSheetDG);
+    closeButton = new QPushButton(QIcon(":/images/icon/close"),"", this);
+    closeButton->setFlat(true); closeButton->setStyleSheet(buttonStyleSheetRD);
     layout->addWidget(closeButton);
     layout->addWidget(minimizeButton);
     layout->addWidget(maximizeButton);
+
+    // Add spacer to push the custom button to the left side
+    layout->addStretch(1);
+
+    layout->addWidget(customButton);
+    layout->addWidget(titleLabel);
+
   }
   else {
-    minimizeButton->setIcon(QIcon(":/images/icon/minus"));
-    maximizeButton->setIcon(QIcon(":/images/icon/maximize"));
-    closeButton->setIcon(QIcon(":/images/icon/close"));
+    layout->addWidget(customButton);
 
-    minimizeButton->setStyleSheet("QPushButton { background-color: gray; }");
-    maximizeButton->setStyleSheet("QPushButton { background-color: gray; }");
-    closeButton->setStyleSheet("QPushButton { background-color: red; }");
+    // Add spacer to push the custom button to the right side
+    layout->addStretch(1);
+
+    minimizeButton = new QPushButton("", this); minimizeButton->setIcon(QIcon(":/images/icon/minus"));
+    minimizeButton->setFlat(true); minimizeButton->setStyleSheet(buttonStyleSheetDG);
+    maximizeButton = new QPushButton("", this); maximizeButton->setIcon(QIcon(":/images/icon/maximize"));
+    maximizeButton->setFlat(true); maximizeButton->setStyleSheet(buttonStyleSheetDG);
+    closeButton = new QPushButton(QIcon(":/images/icon/close"),"", this);
+    closeButton->setFlat(true); closeButton->setStyleSheet(buttonStyleSheetRD);
 
     layout->addWidget(minimizeButton);
     layout->addWidget(maximizeButton);
@@ -69,9 +74,7 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
   connect(maximizeButton, &QPushButton::clicked, this, &CustomTitleBar::maximizeWindow);
   connect(closeButton, &QPushButton::clicked, this, &CustomTitleBar::closeWindow);
 
-  layout->addWidget(minimizeButton);
-  layout->addWidget(maximizeButton);
-  layout->addWidget(closeButton);
+
 
   moveTimer = new PdmUpdateTimer(3000, this);
   connect(moveTimer, &PdmUpdateTimer::timeout, this, &CustomTitleBar::onMoveTimerTimeout);

@@ -8,14 +8,14 @@ DebugWindow::DebugWindow(QWidget *parent) :
 
   setAttribute(Qt::WA_TranslucentBackground);
   mainContent = new QWidget(); // Basically central widget
-  verticalLayout = new QVBoxLayout(mainContent);
+//  verticalLayout = new QVBoxLayout(mainContent);
   shadowFrameWidget = new ShadowFrameWidget(this); // init the shadow drop
 
   // After the setup of the designer;
   texts = new QTextEdit(mainContent);
   texts->setObjectName("textEdit");
   texts->setReadOnly(true);
-  verticalLayout->addWidget(texts);
+//  verticalLayout->addWidget(texts);
   // Custom windowing.
   // Set the custom title bar for the Debug window
   titleBar = new CustomTitleBar(this);

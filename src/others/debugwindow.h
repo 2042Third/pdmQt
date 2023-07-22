@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWidgets/QTextEdit>
-#include "CustomWindow.h"
+#include "CustomTitleBar.h"
 #include "qgraphicseffect.h"
 #include "shadowFrameWidget.h"
 #include <QGraphicsDropShadowEffect>

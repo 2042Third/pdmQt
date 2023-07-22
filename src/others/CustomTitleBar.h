@@ -2,8 +2,8 @@
 // Created by Yi Yang on 3/14/2023.
 //
 
-#ifndef PDM_QT_CUSTOMWINDOW_H
-#define PDM_QT_CUSTOMWINDOW_H
+#ifndef PDM_QT_CUSTOMTITLEBAR_H
+#define PDM_QT_CUSTOMTITLEBAR_H
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
@@ -54,4 +54,4 @@ protected:
 };
 
 
-#endif //PDM_QT_CUSTOMWINDOW_H
+#endif //PDM_QT_CUSTOMTITLEBAR_H
