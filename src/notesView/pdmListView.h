@@ -9,8 +9,11 @@
 #include <QListView>
 #include <QMouseEvent>
 #include <QPropertyAnimation>
+#include <QProxyStyle>
 #include "PdmRuntimeRef.h"
 #include "NotesScrollDelegate.h"
+#include <QMenu>
+
 
 class pdmListView : public QListView, public PdmRuntimeRef
 {

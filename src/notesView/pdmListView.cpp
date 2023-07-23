@@ -4,7 +4,6 @@
 
 #include "pdmListView.h"
 #include "NotesScrollDelegate.h"
-#include <QMenu>
 
 pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
   QListView(parent)
@@ -16,6 +15,12 @@ pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
   firstAction = new QAction("Delete", this);
   secondAction = new QAction("More", this);
   contextMenu = new QMenu(this);
+  // Remove the space in front of each menu item
+  // , so that the icon is flush with the left edge.
+  contextMenu->setStyleSheet("QMenu::item { padding-left: 5px; padding-top: 3px; padding-right: 5px; padding-bottom: 3px; }"
+                             "QMenu::item:selected { background-color: #1787FF; }");  // Change to your preferred color
+
+
 
   contextMenu->addAction(firstAction);
   contextMenu->addAction(secondAction);
