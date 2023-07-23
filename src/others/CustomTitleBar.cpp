@@ -29,22 +29,39 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
 
   // Create the minimize, maximize, and close buttons
   if (QOperatingSystemVersion::currentType() == QOperatingSystemVersion::MacOS) {
-    minimizeButton = new QPushButton("", this); minimizeButton->setIcon(QIcon(":/images/icon/minus"));
-    minimizeButton->setFlat(true); minimizeButton->setStyleSheet(buttonStyleSheetDG);
-    maximizeButton = new QPushButton("", this); maximizeButton->setIcon(QIcon(":/images/icon/maximize"));
-    maximizeButton->setFlat(true); maximizeButton->setStyleSheet(buttonStyleSheetDG);
-    closeButton = new QPushButton(QIcon(":/images/icon/close"),"", this);
-    closeButton->setFlat(true); closeButton->setStyleSheet(buttonStyleSheetRD);
+    // Set the size of the buttons
+    QSize buttonSize(12, 12);
+
+    // Set the size of the icons
+    QSize iconSize(10, 10);  // Adjust as necessary
+
+    minimizeButton = new QPushButton("", this);
+    minimizeButton->setIcon(QIcon(":/images/icon/minus"));
+    minimizeButton->setIconSize(iconSize);
+    minimizeButton->setFlat(true);
+    minimizeButton->setStyleSheet(buttonStyleSheetYL);
+
+    maximizeButton = new QPushButton("", this);
+    maximizeButton->setIcon(QIcon(":/images/icon/maximize"));
+    maximizeButton->setIconSize(iconSize);
+    maximizeButton->setFlat(true);
+    maximizeButton->setStyleSheet(buttonStyleSheetGR);
+
+    closeButton = new QPushButton("", this);
+    closeButton->setIcon(QIcon(":/images/icon/close"));
+    closeButton->setIconSize(iconSize);
+    closeButton->setFlat(true);
+    closeButton->setStyleSheet(buttonStyleSheetRD);
+
     layout->addWidget(closeButton);
     layout->addWidget(minimizeButton);
     layout->addWidget(maximizeButton);
 
-    // Add spacer to push the custom button to the left side
+// Add spacer to push the custom button to the left side
     layout->addStretch(1);
 
     layout->addWidget(customButton);
     layout->addWidget(titleLabel);
-
   }
   else {
     layout->addWidget(customButton);
@@ -53,11 +70,11 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
     layout->addStretch(1);
 
     minimizeButton = new QPushButton("", this); minimizeButton->setIcon(QIcon(":/images/icon/minus"));
-    minimizeButton->setFlat(true); minimizeButton->setStyleSheet(buttonStyleSheetDG);
+    minimizeButton->setFlat(true); minimizeButton->setStyleSheet(buttonStyleSheetDG_sq);
     maximizeButton = new QPushButton("", this); maximizeButton->setIcon(QIcon(":/images/icon/maximize"));
-    maximizeButton->setFlat(true); maximizeButton->setStyleSheet(buttonStyleSheetDG);
+    maximizeButton->setFlat(true); maximizeButton->setStyleSheet(buttonStyleSheetDG_sq);
     closeButton = new QPushButton(QIcon(":/images/icon/close"),"", this);
-    closeButton->setFlat(true); closeButton->setStyleSheet(buttonStyleSheetRD);
+    closeButton->setFlat(true); closeButton->setStyleSheet(buttonStyleSheetRD_sq);
 
     layout->addWidget(minimizeButton);
     layout->addWidget(maximizeButton);

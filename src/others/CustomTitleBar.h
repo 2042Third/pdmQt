@@ -39,13 +39,39 @@ private:
   QPushButton *closeButton;
 
   // Dark gray button
-  QString buttonStyleSheetDG = "QPushButton { border: none;padding: 5px; }"
+  QString buttonStyleSheetDG_sq = "QPushButton { border: none;padding: 5px; }"
                                "QPushButton:hover { background-color: #C4C4C4; }"
                                "QPushButton:pressed { background-color: #B2B2B2; }";
-  // Red button
-  QString buttonStyleSheetRD = "QPushButton { border: none;padding: 5px; }"
-                               "QPushButton:hover { background-color: #F50000; }"
-                               "QPushButton:pressed { background-color: #DE1F1F; }";
+    // Red button
+    QString buttonStyleSheetRD_sq = "QPushButton { border: none;padding: 5px; }"
+                                 "QPushButton:hover { background-color: #ED6A5E; }"
+                                 "QPushButton:pressed { background-color: #F50000; }";
+    // Yellow button, using grb (244,191,81)
+    QString buttonStyleSheetYL_sq = "QPushButton { border: none;padding: 5px; }"
+                                 "QPushButton:hover { background-color:  #F4BF4F; }"
+                                 "QPushButton:pressed { background-color: #F5F500; }";
+    // Green button
+    QString buttonStyleSheetGR_sq = "QPushButton { border: none;padding: 5px; }"
+                                 "QPushButton:hover { background-color: #62C554; }"
+                                 "QPushButton:pressed { background-color: #5BC083; }";
+    QString buttonStyleSheetDG = "QPushButton { width: 30px; height: 30px; border-radius: 15px; border: none; padding: 5px; }"
+                                 "QPushButton:hover { background-color: #C4C4C4; }"
+                                 "QPushButton:pressed { background-color: #B2B2B2; }";
+// Red button
+    QString buttonStyleSheetRD = "QPushButton { width: 12px; height: 12px; border-radius: 6px; border: none; background-color: #FF5F57; margin: 4px; }"
+                                 "QPushButton:hover { background-color: #FF3B30; }"
+                                 "QPushButton:pressed { background-color: #CC3727; }";
+// Yellow button
+    QString buttonStyleSheetYL = "QPushButton { width: 12px; height: 12px; border-radius: 6px; border: none; background-color: #FFBD2E; margin: 4px; }"
+                                 "QPushButton:hover { background-color: #FFB627; }"
+                                 "QPushButton:pressed { background-color: #CC943A; }";
+// Green button
+    QString buttonStyleSheetGR = "QPushButton { width: 12px; height: 12px; border-radius: 6px; border: none; background-color: #27C93F; margin: 4px; }"
+                                 "QPushButton:hover { background-color: #15B233; }"
+                                 "QPushButton:pressed { background-color: #10922C; }";
+
+
+
 protected:
   PdmUpdateTimer *moveTimer;
   void onMoveTimerTimeout();
