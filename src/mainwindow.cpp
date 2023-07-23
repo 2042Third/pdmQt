@@ -72,6 +72,9 @@ MainWindow::MainWindow(QWidget *parent)
   QTimer::singleShot(0, [this]() { debugWindow->checkAndShow(); });
   // Check existing user, if exist ask for decryption password
   QTimer::singleShot(0, rt, &PdmRunTime::checkExistingUser);
+
+  // Remove the default tab .
+  mainwindowTabCloseRequested(0);
 }
 
 MainWindow::~MainWindow()
