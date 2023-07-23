@@ -26,14 +26,8 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
 
   // Create a custom button for the title bar
   customButton = new QPushButton("", this);
-//  connect(customButton, &QPushButton::clicked, this, &CustomTitleBar::on_customButton_clicked);
-
 
   // Create the minimize, maximize, and close buttons
-  minimizeButton = new QPushButton("", this);
-  maximizeButton = new QPushButton("", this);
-  closeButton = new QPushButton("", this);
-
   if (QOperatingSystemVersion::currentType() == QOperatingSystemVersion::MacOS) {
     minimizeButton = new QPushButton("", this); minimizeButton->setIcon(QIcon(":/images/icon/minus"));
     minimizeButton->setFlat(true); minimizeButton->setStyleSheet(buttonStyleSheetDG);

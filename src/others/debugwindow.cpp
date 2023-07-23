@@ -23,9 +23,6 @@ DebugWindow::DebugWindow(QWidget *parent) :
   shadowWidgetLayout = new QVBoxLayout(shadowFrameWidget);
   setContentsMargins(5,5,5,5); // set the margin of the window that contains the shadow
   shadowWidgetLayout->setContentsMargins(5,5,5,5); // Adjust the margins to control the shadow size
-  shadowWidgetLayout->addWidget(titleBar); // custom titlebar
-  shadowWidgetLayout->addWidget(texts); // main content, the console
-  shadowFrameWidget->setLayout(shadowWidgetLayout);
 
   // Connect signals from the custom title bar to handle window actions
   connect(titleBar, &CustomTitleBar::minimizeWindow, this, &DebugWindow::showMinimized);
@@ -52,7 +49,6 @@ DebugWindow::DebugWindow(QWidget *parent) :
   shadowFrameWidget->setGraphicsEffect(shadowEffect);
 
   // Action buttons
-  QVBoxLayout* shadowContentLayout = new QVBoxLayout();
 
   button1 = new QPushButton();
   button1->setFixedSize(100, 50);  // Change these values to the size you want
@@ -63,13 +59,14 @@ DebugWindow::DebugWindow(QWidget *parent) :
   button3 = new QPushButton();
   button3->setFixedSize(100, 50);  // Change these values to the size you want
 
-  shadowContentLayout->addWidget(texts);
-  shadowContentLayout->addWidget(button1);
-  shadowContentLayout->addWidget(button2);
-  shadowContentLayout->addWidget(button3);
 
-  shadowWidgetLayout->addWidget(titleBar);
-  shadowWidgetLayout->addLayout(shadowContentLayout);
+  shadowWidgetLayout->addWidget(titleBar); // custom titlebar
+  shadowWidgetLayout->addWidget(texts); // main content, the console
+  shadowWidgetLayout->addWidget(button1);
+  shadowWidgetLayout->addWidget(button2);
+  shadowWidgetLayout->addWidget(button3);
+
+  shadowFrameWidget->setLayout(shadowWidgetLayout);
 
 
   // Set the textEdit background as gray
