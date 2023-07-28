@@ -17,7 +17,7 @@ pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
   contextMenu = new QMenu(this);
   // Remove the space in front of each menu item
   // , so that the icon is flush with the left edge.
-  contextMenu->setStyleSheet("QMenu::item { padding-left: 5px; padding-top: 3px; padding-right: 5px; padding-bottom: 3px; }"
+  contextMenu->setStyleSheet("QMenu::item { padding-left: 10px; padding-top: 3px; padding-right: 10px; padding-bottom: 3px; }"
                              "QMenu::item:selected { background-color: #1787FF; }");  // Change to your preferred color
 
 
