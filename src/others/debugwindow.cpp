@@ -1,6 +1,7 @@
 #include <QPushButton>
 #include <QSettings>
 #include "debugwindow.h"
+#include <QToolBar>
 
 DebugWindow::DebugWindow(QWidget *parent) :
   QMainWindow(parent, Qt::FramelessWindowHint)
@@ -66,6 +67,9 @@ DebugWindow::DebugWindow(QWidget *parent) :
   shadowWidgetLayout->addWidget(button2);
   shadowWidgetLayout->addWidget(button3);
 
+  button1->setText("Open Custom Window (native with custom titlebar)");
+  connect(button1, &QPushButton::clicked, this, &DebugWindow::openCustomWindow);
+
   shadowFrameWidget->setLayout(shadowWidgetLayout);
 
 
@@ -85,6 +89,24 @@ void DebugWindow::appendMessage(const QString &message, const QString &color)
 
 DebugWindow::~DebugWindow()
 {
+}
+
+void DebugWindow::openCustomWindow() {
+  QMainWindow *customWindow = new QMainWindow;
+  QToolBar *toolBar = new QToolBar(customWindow);
+  QLabel *label = new QLabel("Custom Title", customWindow);
+  QWidget *spacer = new QWidget();
+
+  // Set up spacer to expand in horizontal direction, pushing the label to the right
+  spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+  label->setAlignment(Qt::AlignRight);
+
+  toolBar->addWidget(spacer);  // Add the spacer to the toolbar first
+  toolBar->addWidget(label);   // Then add the label
+  customWindow->addToolBar(toolBar);
+  customWindow->setUnifiedTitleAndToolBarOnMac(true);
+
+  customWindow->show();
 }
 
 void DebugWindow::on_actionOpen_One_Note_Page_triggered()

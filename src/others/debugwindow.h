@@ -41,6 +41,8 @@ public:
   QPushButton* button1;
   QPushButton* button2;
   QPushButton* button3;
+
+    void openCustomWindow();
 };
 
 #endif // DEBUGWINDOW_H
