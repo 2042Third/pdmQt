@@ -2,7 +2,11 @@
 #include <QSettings>
 #include "debugwindow.h"
 #include <QToolBar>
+#include <QWindow>
 
+#ifdef Q_OS_MAC
+  extern "C" WId createNativeMacOSWindow();
+#endif
 DebugWindow::DebugWindow(QWidget *parent) :
   QMainWindow(parent, Qt::FramelessWindowHint)
 {
@@ -67,8 +71,13 @@ DebugWindow::DebugWindow(QWidget *parent) :
   shadowWidgetLayout->addWidget(button2);
   shadowWidgetLayout->addWidget(button3);
 
+  // qt implementation custom window
   button1->setText("Open Custom Window (native with custom titlebar)");
   connect(button1, &QPushButton::clicked, this, &DebugWindow::openCustomWindow);
+
+  // MacOS AppKit implementation of custom window
+  button2->setText("Open MacOS Window (native with custom titlebar) (MacOS)");
+  connect(button2, &QPushButton::clicked, this, &DebugWindow::openMacOSCustomWindow);
 
   shadowFrameWidget->setLayout(shadowWidgetLayout);
 
@@ -107,6 +116,24 @@ void DebugWindow::openCustomWindow() {
   customWindow->setUnifiedTitleAndToolBarOnMac(true);
 
   customWindow->show();
+}
+
+void DebugWindow::openMacOSCustomWindow() {
+#ifdef Q_OS_MACOS
+  WId nativeWinId = createNativeMacOSWindow();
+
+  QWindow *window = QWindow::fromWinId(nativeWinId);
+  if (!window) {
+    qDebug() << "Could not create QWindow from native window ID";
+    return;
+  }
+
+  window->setGeometry(QRect(100, 100, 800, 600));
+//  window->setScreen(QGuiApplication::primaryScreen());
+  window->show();
+#else
+  QMessageBox::information(this, "Not supported", "This feature is only supported on macOS");
+#endif // Q_OS_MACOS
 }
 
 void DebugWindow::on_actionOpen_One_Note_Page_triggered()

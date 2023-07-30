@@ -43,6 +43,8 @@ public:
   QPushButton* button3;
 
     void openCustomWindow();
+
+    void openMacOSCustomWindow();
 };
 
 #endif // DEBUGWINDOW_H
