@@ -45,6 +45,10 @@ public:
     void openCustomWindow();
 
     void openMacOSCustomWindow();
+private:
+#ifdef Q_OS_MACOS
+    void* m_nativeWindow = nullptr;
+#endif // Q_OS_MACOS
 };
 
 #endif // DEBUGWINDOW_H

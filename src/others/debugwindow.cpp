@@ -5,7 +5,10 @@
 #include <QWindow>
 
 #ifdef Q_OS_MAC
-  extern "C" WId createNativeMacOSWindow();
+#include "macOSWindowBridge.h"
+
+//WId winId = reinterpret_cast<WId>(createNativeMacOSWindow());
+//  extern "C" WId createNativeMacOSWindow();
 #endif
 DebugWindow::DebugWindow(QWidget *parent) :
   QMainWindow(parent, Qt::FramelessWindowHint)
@@ -98,6 +101,9 @@ void DebugWindow::appendMessage(const QString &message, const QString &color)
 
 DebugWindow::~DebugWindow()
 {
+#ifdef Q_OS_MACOS
+
+#endif // Q_OS_MACOS
 }
 
 void DebugWindow::openCustomWindow() {
@@ -120,17 +126,17 @@ void DebugWindow::openCustomWindow() {
 
 void DebugWindow::openMacOSCustomWindow() {
 #ifdef Q_OS_MACOS
-  WId nativeWinId = createNativeMacOSWindow();
+  WId nativeWinId = (WId)createNativeMacOSWindow();
 
   QWindow *window = QWindow::fromWinId(nativeWinId);
   if (!window) {
-    qDebug() << "Could not create QWindow from native window ID";
+    qWarning("Could not create QWindow from native window ID");
     return;
   }
 
-  window->setGeometry(QRect(100, 100, 800, 600));
-//  window->setScreen(QGuiApplication::primaryScreen());
-  window->show();
+  QWidget *container = QWidget::createWindowContainer(window, this);
+  container->setMinimumSize(480, 300);
+  container->show();
 #else
   QMessageBox::information(this, "Not supported", "This feature is only supported on macOS");
 #endif // Q_OS_MACOS
