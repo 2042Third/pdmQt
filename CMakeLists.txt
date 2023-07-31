@@ -26,11 +26,13 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
     Widgets
     LinguistTools
     Svg
+        qt6macextras
 )
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
     Widgets
     LinguistTools
     Svg
+
 )
 
 #find_library(SECUREMEM_LIB SecureMemory # PDM cryptoSQLite

@@ -6,13 +6,30 @@
 #include <QPalette>
 #include <QApplication>
 #include <QEvent>
+#include <QPainterPath>
+#include <QGraphicsDropShadowEffect>
 
-ShadowFrameWidget::ShadowFrameWidget(QWidget *parent) : QWidget(parent) {
-  QPalette palette = this->palette();
-  palette.setColor(QPalette::Window, Qt::white);
-  setPalette(palette);
-  setAutoFillBackground(true);
-//  setStyleSheet("border-radius: 10px;");
+ShadowFrameWidget::ShadowFrameWidget(QWidget *parent) : QWidget(parent, Qt::FramelessWindowHint | Qt::WindowSystemMenuHint) {
+  setAttribute(Qt::WA_TranslucentBackground);
+
+  QGraphicsDropShadowEffect* effect = new QGraphicsDropShadowEffect();
+  effect->setBlurRadius(10);
+  effect->setXOffset(0);
+  effect->setYOffset(0);
+  effect->setColor(Qt::black);
+  setGraphicsEffect(effect);
+
+  setAutoFillBackground(false);
+}
+
+void ShadowFrameWidget::paintEvent(QPaintEvent* event) {
+  QPainter painter(this);
+  painter.setRenderHint(QPainter::Antialiasing); // Enable anti-aliasing
+
+  QPainterPath path;
+  path.addRoundedRect(rect().adjusted(5, 5, -5, -5), 10, 10); // Adjust the rect so that the shadow effect won't be cut off
+
+  painter.fillPath(path, Qt::white); // Fill the path with color
 }
 
 bool ShadowFrameWidget::event(QEvent *event) {

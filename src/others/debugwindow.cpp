@@ -6,7 +6,6 @@
 
 #ifdef Q_OS_MAC
 #include "macOSWindowBridge.h"
-
 //WId winId = reinterpret_cast<WId>(createNativeMacOSWindow());
 //  extern "C" WId createNativeMacOSWindow();
 #endif
@@ -126,17 +125,17 @@ void DebugWindow::openCustomWindow() {
 
 void DebugWindow::openMacOSCustomWindow() {
 #ifdef Q_OS_MACOS
-  WId nativeWinId = (WId)createNativeMacOSWindow();
+  void* view = (void*)createNativeMacOSWindow();
 
-  QWindow *window = QWindow::fromWinId(nativeWinId);
-  if (!window) {
-    qWarning("Could not create QWindow from native window ID");
-    return;
-  }
+  QWidget* widget = QWidget::createWindowContainer(QWindow::fromWinId(WId(view)));
+  widget->setMinimumSize(480, 300);
 
-  QWidget *container = QWidget::createWindowContainer(window, this);
-  container->setMinimumSize(480, 300);
-  container->show();
+  // Add a QText with the word "Hello" to this native window
+  QTextEdit *textEdit = new QTextEdit(widget);
+  textEdit->setText("Hello");
+  textEdit->setGeometry(10, 10, 100, 30);
+
+  widget->show();
 #else
   QMessageBox::information(this, "Not supported", "This feature is only supported on macOS");
 #endif // Q_OS_MACOS
