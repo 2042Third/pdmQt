@@ -15,14 +15,12 @@ DebugWindow::DebugWindow(QWidget *parent) :
 
   setAttribute(Qt::WA_TranslucentBackground);
   mainContent = new QWidget(); // Basically central widget
-//  verticalLayout = new QVBoxLayout(mainContent);
   shadowFrameWidget = new ShadowFrameWidget(this); // init the shadow drop
 
   // After the setup of the designer;
   texts = new QTextEdit(mainContent);
   texts->setObjectName("textEdit");
   texts->setReadOnly(true);
-//  verticalLayout->addWidget(texts);
   // Custom windowing.
   // Set the custom title bar for the Debug window
   titleBar = new CustomTitleBar(this);
@@ -46,14 +44,6 @@ DebugWindow::DebugWindow(QWidget *parent) :
 
   // Set the layout for the custom title bar window
   setCentralWidget(shadowFrameWidget);
-
-  shadowEffect = new QGraphicsDropShadowEffect(this);
-  shadowEffect->setBlurRadius(10); // Adjust the blur radius for the desired shadow size
-  shadowEffect->setOffset(0); // Set the offset to control the shadow position
-  shadowEffect->setColor(QColor(0, 0, 0, 100)); // Adjust the color and opacity as needed
-
-  // Apply the shadow effect to the main content widget
-  shadowFrameWidget->setGraphicsEffect(shadowEffect);
 
   // Action buttons
 

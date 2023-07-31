@@ -16,7 +16,7 @@ ShadowFrameWidget::ShadowFrameWidget(QWidget *parent) : QWidget(parent, Qt::Fram
   effect->setBlurRadius(10);
   effect->setXOffset(0);
   effect->setYOffset(0);
-  effect->setColor(Qt::black);
+  effect->setColor(QColor(0, 0, 0, 100));
   setGraphicsEffect(effect);
 
   setAutoFillBackground(false);

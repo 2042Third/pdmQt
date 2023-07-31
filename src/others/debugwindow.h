@@ -33,7 +33,6 @@ public:
   CustomTitleBar *titleBar;
   ShadowFrameWidget* shadowFrameWidget;
   QVBoxLayout *shadowWidgetLayout;
-  QGraphicsDropShadowEffect *shadowEffect;
 
   QVBoxLayout *verticalLayout;
   QWidget *mainContent ; // Create the main content for your window
@@ -45,10 +44,7 @@ public:
     void openCustomWindow();
 
     void openMacOSCustomWindow();
-private:
-#ifdef Q_OS_MACOS
-    void* m_nativeWindow = nullptr;
-#endif // Q_OS_MACOS
+
 };
 
 #endif // DEBUGWINDOW_H
