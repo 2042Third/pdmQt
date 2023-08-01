@@ -19,21 +19,22 @@ if(APPLE)
     set(CMAKE_OSX_SYSROOT /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk)
     set(CMAKE_PREFIX_PATH "/Users/mikeyang/Qt/6.5.1/macos/lib/cmake")
     set(OPENSSL_ROOT_DIR /opt/homebrew/opt/openssl@3)
-
+    set(FramelessHelper_DIR ./lib/framelesshelperBuild/lib64/cmake/FramelessHelper)
 endif()
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
     Widgets
     LinguistTools
     Svg
-        qt6macextras
 )
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
     Widgets
     LinguistTools
     Svg
-
 )
+
+# Find FramelessHelper:
+find_package(FramelessHelper REQUIRED COMPONENTS Core Widgets)
 
 #find_library(SECUREMEM_LIB SecureMemory # PDM cryptoSQLite
 #    ${CMAKE_CURRENT_SOURCE_DIR}/lib/cryptoSQLite/external/securememorybin/bin)
@@ -145,6 +146,8 @@ target_link_libraries(pdm_qt PUBLIC
     cc20 # pdm encryption
     pdm-network # pdm network connectivity
     cryptosqlite # encrypted database interface
+    FramelessHelper::Core
+    FramelessHelper::Widgets
     )
 
 set_target_properties(pdm_qt PROPERTIES

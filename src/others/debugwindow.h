@@ -44,6 +44,7 @@ public:
     void openCustomWindow();
 
     void openMacOSCustomWindow();
+private:
 
 };
 

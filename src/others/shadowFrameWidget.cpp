@@ -29,7 +29,7 @@ void ShadowFrameWidget::paintEvent(QPaintEvent* event) {
   QPainterPath path;
   path.addRoundedRect(rect().adjusted(5, 5, -5, -5), 10, 10); // Adjust the rect so that the shadow effect won't be cut off
 
-  painter.fillPath(path, Qt::white); // Fill the path with color
+  painter.fillPath(path, this->palette().color(QPalette::Window)); // Fill the path with color
 }
 
 bool ShadowFrameWidget::event(QEvent *event) {
