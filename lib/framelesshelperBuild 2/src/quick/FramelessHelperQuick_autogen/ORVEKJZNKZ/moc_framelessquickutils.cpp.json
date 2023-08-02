@@ -1,0 +1,235 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "FramelessUtils"
+                },
+                {
+                    "name": "QML.Singleton",
+                    "value": "true"
+                }
+            ],
+            "className": "FramelessQuickUtils",
+            "interfaces": [
+                [
+                    {
+                        "className": "QQmlParserStatus",
+                        "id": "\"org.qt-project.Qt.QQmlParserStatus\""
+                    }
+                ]
+            ],
+            "methods": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "button",
+                            "type": "QuickGlobal::SystemButtonType"
+                        },
+                        {
+                            "name": "state",
+                            "type": "QuickGlobal::ButtonState"
+                        }
+                    ],
+                    "name": "getSystemButtonBackgroundColor",
+                    "returnType": "QColor"
+                }
+            ],
+            "object": true,
+            "properties": [
+                {
+                    "constant": true,
+                    "designable": true,
+                    "final": true,
+                    "index": 0,
+                    "name": "titleBarHeight",
+                    "read": "titleBarHeight",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "qreal",
+                    "user": false
+                },
+                {
+                    "constant": true,
+                    "designable": true,
+                    "final": true,
+                    "index": 1,
+                    "name": "frameBorderVisible",
+                    "read": "frameBorderVisible",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false
+                },
+                {
+                    "constant": true,
+                    "designable": true,
+                    "final": true,
+                    "index": 2,
+                    "name": "frameBorderThickness",
+                    "read": "frameBorderThickness",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "qreal",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 3,
+                    "name": "systemTheme",
+                    "notify": "systemThemeChanged",
+                    "read": "systemTheme",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QuickGlobal::SystemTheme",
+                    "user": false,
+                    "write": "setOverrideTheme"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 4,
+                    "name": "systemAccentColor",
+                    "notify": "systemAccentColorChanged",
+                    "read": "systemAccentColor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QColor",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 5,
+                    "name": "titleBarColorized",
+                    "notify": "titleBarColorizedChanged",
+                    "read": "titleBarColorized",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false
+                },
+                {
+                    "constant": true,
+                    "designable": true,
+                    "final": true,
+                    "index": 6,
+                    "name": "defaultSystemLightColor",
+                    "read": "defaultSystemLightColor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QColor",
+                    "user": false
+                },
+                {
+                    "constant": true,
+                    "designable": true,
+                    "final": true,
+                    "index": 7,
+                    "name": "defaultSystemDarkColor",
+                    "read": "defaultSystemDarkColor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QColor",
+                    "user": false
+                },
+                {
+                    "constant": true,
+                    "designable": true,
+                    "final": true,
+                    "index": 8,
+                    "name": "defaultSystemButtonSize",
+                    "read": "defaultSystemButtonSize",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QSizeF",
+                    "user": false
+                },
+                {
+                    "constant": true,
+                    "designable": true,
+                    "final": true,
+                    "index": 9,
+                    "name": "defaultSystemButtonIconSize",
+                    "read": "defaultSystemButtonIconSize",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QSizeF",
+                    "user": false
+                },
+                {
+                    "constant": true,
+                    "designable": true,
+                    "final": true,
+                    "index": 10,
+                    "name": "defaultSystemButtonBackgroundColor",
+                    "read": "defaultSystemButtonBackgroundColor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QColor",
+                    "user": false
+                },
+                {
+                    "constant": true,
+                    "designable": true,
+                    "final": true,
+                    "index": 11,
+                    "name": "defaultSystemCloseButtonBackgroundColor",
+                    "read": "defaultSystemCloseButtonBackgroundColor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QColor",
+                    "user": false
+                }
+            ],
+            "qualifiedClassName": "wangwenx190::FramelessHelper::FramelessQuickUtils",
+            "signals": [
+                {
+                    "access": "public",
+                    "name": "systemThemeChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "systemAccentColorChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "titleBarColorizedChanged",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                },
+                {
+                    "access": "public",
+                    "name": "QQmlParserStatus"
+                }
+            ]
+        }
+    ],
+    "inputFile": "framelessquickutils.h",
+    "outputRevision": 68
+}

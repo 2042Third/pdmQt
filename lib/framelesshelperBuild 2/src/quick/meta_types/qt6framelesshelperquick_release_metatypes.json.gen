@@ -1,0 +1,2231 @@
+[
+    {
+        "classes": [
+            {
+                "classInfos": [
+                    {
+                        "name": "QML.Element",
+                        "value": "FramelessApplicationWindow"
+                    }
+                ],
+                "className": "FramelessQuickApplicationWindow",
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 0,
+                        "name": "hidden",
+                        "notify": "hiddenChanged",
+                        "read": "isHidden",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 1,
+                        "name": "normal",
+                        "notify": "normalChanged",
+                        "read": "isNormal",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 2,
+                        "name": "minimized",
+                        "notify": "minimizedChanged",
+                        "read": "isMinimized",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 3,
+                        "name": "maximized",
+                        "notify": "maximizedChanged",
+                        "read": "isMaximized",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 4,
+                        "name": "zoomed",
+                        "notify": "zoomedChanged",
+                        "read": "isZoomed",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 5,
+                        "name": "fullScreen",
+                        "notify": "fullScreenChanged",
+                        "read": "isFullScreen",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    }
+                ],
+                "qualifiedClassName": "wangwenx190::FramelessHelper::FramelessQuickApplicationWindow",
+                "signals": [
+                    {
+                        "access": "public",
+                        "name": "hiddenChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "normalChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "minimizedChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "maximizedChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "zoomedChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "fullScreenChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "public",
+                        "name": "showMinimized2",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "toggleMaximized",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "toggleFullScreen",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QQuickApplicationWindow"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "framelessquickapplicationwindow_p.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "FramelessQuickApplicationWindowPrivate",
+                "methods": [
+                    {
+                        "access": "public",
+                        "name": "isHidden",
+                        "returnType": "bool"
+                    },
+                    {
+                        "access": "public",
+                        "name": "isNormal",
+                        "returnType": "bool"
+                    },
+                    {
+                        "access": "public",
+                        "name": "isMinimized",
+                        "returnType": "bool"
+                    },
+                    {
+                        "access": "public",
+                        "name": "isMaximized",
+                        "returnType": "bool"
+                    },
+                    {
+                        "access": "public",
+                        "name": "isZoomed",
+                        "returnType": "bool"
+                    },
+                    {
+                        "access": "public",
+                        "name": "isFullScreen",
+                        "returnType": "bool"
+                    }
+                ],
+                "object": true,
+                "qualifiedClassName": "wangwenx190::FramelessHelper::FramelessQuickApplicationWindowPrivate",
+                "slots": [
+                    {
+                        "access": "public",
+                        "name": "showMinimized2",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "toggleMaximized",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "toggleFullScreen",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "framelessquickapplicationwindow_p_p.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "FramelessQuickHelperPrivate",
+                "object": true,
+                "qualifiedClassName": "wangwenx190::FramelessHelper::FramelessQuickHelperPrivate",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "framelessquickhelper_p.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "classInfos": [
+                    {
+                        "name": "QML.Element",
+                        "value": "FramelessWindow"
+                    }
+                ],
+                "className": "FramelessQuickWindow",
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 0,
+                        "name": "hidden",
+                        "notify": "hiddenChanged",
+                        "read": "isHidden",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 1,
+                        "name": "normal",
+                        "notify": "normalChanged",
+                        "read": "isNormal",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 2,
+                        "name": "minimized",
+                        "notify": "minimizedChanged",
+                        "read": "isMinimized",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 3,
+                        "name": "maximized",
+                        "notify": "maximizedChanged",
+                        "read": "isMaximized",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 4,
+                        "name": "zoomed",
+                        "notify": "zoomedChanged",
+                        "read": "isZoomed",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 5,
+                        "name": "fullScreen",
+                        "notify": "fullScreenChanged",
+                        "read": "isFullScreen",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    }
+                ],
+                "qualifiedClassName": "wangwenx190::FramelessHelper::FramelessQuickWindow",
+                "signals": [
+                    {
+                        "access": "public",
+                        "name": "hiddenChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "normalChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "minimizedChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "maximizedChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "zoomedChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "fullScreenChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "public",
+                        "name": "showMinimized2",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "toggleMaximized",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "toggleFullScreen",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QQuickWindowQmlImpl"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "framelessquickwindow_p.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "FramelessQuickWindowPrivate",
+                "methods": [
+                    {
+                        "access": "public",
+                        "name": "isHidden",
+                        "returnType": "bool"
+                    },
+                    {
+                        "access": "public",
+                        "name": "isNormal",
+                        "returnType": "bool"
+                    },
+                    {
+                        "access": "public",
+                        "name": "isMinimized",
+                        "returnType": "bool"
+                    },
+                    {
+                        "access": "public",
+                        "name": "isMaximized",
+                        "returnType": "bool"
+                    },
+                    {
+                        "access": "public",
+                        "name": "isZoomed",
+                        "returnType": "bool"
+                    },
+                    {
+                        "access": "public",
+                        "name": "isFullScreen",
+                        "returnType": "bool"
+                    }
+                ],
+                "object": true,
+                "qualifiedClassName": "wangwenx190::FramelessHelper::FramelessQuickWindowPrivate",
+                "slots": [
+                    {
+                        "access": "public",
+                        "name": "showMinimized2",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "toggleMaximized",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "toggleFullScreen",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "framelessquickwindow_p_p.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "QuickImageItemPrivate",
+                "object": true,
+                "qualifiedClassName": "wangwenx190::FramelessHelper::QuickImageItemPrivate",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "quickimageitem_p.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "QuickMicaMaterialPrivate",
+                "object": true,
+                "qualifiedClassName": "wangwenx190::FramelessHelper::QuickMicaMaterialPrivate",
+                "slots": [
+                    {
+                        "access": "public",
+                        "name": "rebindWindow",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "forceRegenerateWallpaperImageCache",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "node",
+                                "type": "WallpaperImageNode*"
+                            }
+                        ],
+                        "name": "appendNode",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "node",
+                                "type": "WallpaperImageNode*"
+                            }
+                        ],
+                        "name": "removeNode",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "updateFallbackColor",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "quickmicamaterial_p.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "classInfos": [
+                    {
+                        "name": "QML.Element",
+                        "value": "StandardSystemButton"
+                    }
+                ],
+                "className": "QuickStandardSystemButton",
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 0,
+                        "name": "buttonType",
+                        "notify": "buttonTypeChanged",
+                        "read": "buttonType",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QuickGlobal::SystemButtonType",
+                        "user": false,
+                        "write": "setButtonType"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 1,
+                        "name": "glyph",
+                        "notify": "glyphChanged",
+                        "read": "glyph",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QString",
+                        "user": false,
+                        "write": "setGlyph"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 2,
+                        "name": "hoverColor",
+                        "notify": "hoverColorChanged",
+                        "read": "hoverColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false,
+                        "write": "setHoverColor"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 3,
+                        "name": "pressColor",
+                        "notify": "pressColorChanged",
+                        "read": "pressColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false,
+                        "write": "setPressColor"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 4,
+                        "name": "normalColor",
+                        "notify": "normalColorChanged",
+                        "read": "normalColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false,
+                        "write": "setNormalColor"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 5,
+                        "name": "activeForegroundColor",
+                        "notify": "activeForegroundColorChanged",
+                        "read": "activeForegroundColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false,
+                        "write": "setActiveForegroundColor"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 6,
+                        "name": "inactiveForegroundColor",
+                        "notify": "inactiveForegroundColorChanged",
+                        "read": "inactiveForegroundColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false,
+                        "write": "setInactiveForegroundColor"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 7,
+                        "name": "iconSize",
+                        "notify": "iconSizeChanged",
+                        "read": "iconSize",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "qreal",
+                        "user": false,
+                        "write": "setIconSize"
+                    }
+                ],
+                "qualifiedClassName": "wangwenx190::FramelessHelper::QuickStandardSystemButton",
+                "signals": [
+                    {
+                        "access": "public",
+                        "name": "buttonTypeChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "glyphChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "normalColorChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "hoverColorChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "pressColorChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "activeForegroundColorChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "inactiveForegroundColorChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "iconSizeChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "public",
+                        "name": "updateColor",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "type",
+                                "type": "QuickGlobal::SystemButtonType"
+                            }
+                        ],
+                        "name": "setButtonType",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "setGlyph",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "QColor"
+                            }
+                        ],
+                        "name": "setNormalColor",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "QColor"
+                            }
+                        ],
+                        "name": "setHoverColor",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "QColor"
+                            }
+                        ],
+                        "name": "setPressColor",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "QColor"
+                            }
+                        ],
+                        "name": "setActiveForegroundColor",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "QColor"
+                            }
+                        ],
+                        "name": "setInactiveForegroundColor",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "qreal"
+                            }
+                        ],
+                        "name": "setIconSize",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QQuickButton"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "quickstandardsystembutton_p.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "classInfos": [
+                    {
+                        "name": "QML.Element",
+                        "value": "StandardTitleBar"
+                    }
+                ],
+                "className": "QuickStandardTitleBar",
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 0,
+                        "name": "titleLabelAlignment",
+                        "notify": "titleLabelAlignmentChanged",
+                        "read": "titleLabelAlignment",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "Qt::Alignment",
+                        "user": false,
+                        "write": "setTitleLabelAlignment"
+                    },
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": true,
+                        "index": 1,
+                        "name": "titleLabel",
+                        "read": "titleLabel",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QQuickLabel*",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 2,
+                        "name": "extended",
+                        "notify": "extendedChanged",
+                        "read": "isExtended",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false,
+                        "write": "setExtended"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 3,
+                        "name": "hideWhenClose",
+                        "notify": "hideWhenCloseChanged",
+                        "read": "isHideWhenClose",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false,
+                        "write": "setHideWhenClose"
+                    },
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": true,
+                        "index": 4,
+                        "name": "chromePalette",
+                        "read": "chromePalette",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QuickChromePalette*",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 5,
+                        "name": "windowIconSize",
+                        "notify": "windowIconSizeChanged",
+                        "read": "windowIconSize",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QSizeF",
+                        "user": false,
+                        "write": "setWindowIconSize"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 6,
+                        "name": "windowIconVisible",
+                        "notify": "windowIconVisibleChanged",
+                        "read": "windowIconVisible",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false,
+                        "write": "setWindowIconVisible"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 7,
+                        "name": "windowIcon",
+                        "notify": "windowIconChanged",
+                        "read": "windowIcon",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QVariant",
+                        "user": false,
+                        "write": "setWindowIcon"
+                    }
+                ],
+                "qualifiedClassName": "wangwenx190::FramelessHelper::QuickStandardTitleBar",
+                "signals": [
+                    {
+                        "access": "public",
+                        "name": "titleLabelAlignmentChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "extendedChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "hideWhenCloseChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "windowIconSizeChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "windowIconVisibleChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "windowIconChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "private",
+                        "name": "updateMaximizeButton",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "name": "updateTitleLabelText",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "name": "updateTitleBarColor",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "name": "updateChromeButtonColor",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "name": "clickMinimizeButton",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "name": "clickMaximizeButton",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "name": "clickCloseButton",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "name": "retranslateUi",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "name": "updateWindowIcon",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QQuickRectangle"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "quickstandardtitlebar_p.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "QuickWindowBorderPrivate",
+                "object": true,
+                "qualifiedClassName": "wangwenx190::FramelessHelper::QuickWindowBorderPrivate",
+                "slots": [
+                    {
+                        "access": "public",
+                        "name": "update",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "quickwindowborder_p.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "classInfos": [
+                    {
+                        "name": "QML.Element",
+                        "value": "FramelessHelperConstants"
+                    },
+                    {
+                        "name": "QML.Creatable",
+                        "value": "false"
+                    },
+                    {
+                        "name": "QML.UncreatableReason",
+                        "value": "The FramelessHelperConstants namespace is not creatable, you can only use it to access it's enums."
+                    }
+                ],
+                "className": "QuickGlobal",
+                "enums": [
+                    {
+                        "isClass": true,
+                        "isFlag": false,
+                        "name": "SystemTheme",
+                        "values": [
+                            "Unknown",
+                            "Light",
+                            "Dark",
+                            "HighContrast"
+                        ]
+                    },
+                    {
+                        "isClass": true,
+                        "isFlag": false,
+                        "name": "SystemButtonType",
+                        "values": [
+                            "Unknown",
+                            "WindowIcon",
+                            "Help",
+                            "Minimize",
+                            "Maximize",
+                            "Restore",
+                            "Close"
+                        ]
+                    },
+                    {
+                        "isClass": true,
+                        "isFlag": false,
+                        "name": "ButtonState",
+                        "values": [
+                            "Normal",
+                            "Hovered",
+                            "Pressed",
+                            "Released"
+                        ]
+                    },
+                    {
+                        "isClass": true,
+                        "isFlag": false,
+                        "name": "BlurMode",
+                        "values": [
+                            "Disable",
+                            "Default",
+                            "Windows_Aero",
+                            "Windows_Acrylic",
+                            "Windows_Mica",
+                            "Windows_MicaAlt"
+                        ]
+                    },
+                    {
+                        "isClass": true,
+                        "isFlag": false,
+                        "name": "WindowEdge",
+                        "values": [
+                            "Left",
+                            "Top",
+                            "Right",
+                            "Bottom"
+                        ]
+                    },
+                    {
+                        "alias": "WindowEdge",
+                        "isClass": true,
+                        "isFlag": true,
+                        "name": "WindowEdges",
+                        "values": [
+                            "Left",
+                            "Top",
+                            "Right",
+                            "Bottom"
+                        ]
+                    }
+                ],
+                "object": true,
+                "qualifiedClassName": "wangwenx190::FramelessHelper::QuickGlobal",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "framelesshelperquick_global.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "classInfos": [
+                    {
+                        "name": "QML.Element",
+                        "value": "FramelessHelper"
+                    },
+                    {
+                        "name": "QML.Attached",
+                        "value": "FramelessQuickHelper"
+                    }
+                ],
+                "className": "FramelessQuickHelper",
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 0,
+                        "name": "titleBarItem",
+                        "notify": "titleBarItemChanged",
+                        "read": "titleBarItem",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QQuickItem*",
+                        "user": false,
+                        "write": "setTitleBarItem"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 1,
+                        "name": "windowFixedSize",
+                        "notify": "windowFixedSizeChanged",
+                        "read": "isWindowFixedSize",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false,
+                        "write": "setWindowFixedSize"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 2,
+                        "name": "blurBehindWindowEnabled",
+                        "notify": "blurBehindWindowEnabledChanged",
+                        "read": "isBlurBehindWindowEnabled",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false,
+                        "write": "setBlurBehindWindowEnabled"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 3,
+                        "name": "window",
+                        "notify": "windowChanged2",
+                        "read": "window",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QQuickWindow*",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 4,
+                        "name": "extendsContentIntoTitleBar",
+                        "notify": "extendsContentIntoTitleBarChanged",
+                        "read": "isContentExtendedIntoTitleBar",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false,
+                        "write": "extendsContentIntoTitleBar"
+                    }
+                ],
+                "qualifiedClassName": "wangwenx190::FramelessHelper::FramelessQuickHelper",
+                "signals": [
+                    {
+                        "access": "public",
+                        "name": "extendsContentIntoTitleBarChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "titleBarItemChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "windowFixedSizeChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "blurBehindWindowEnabledChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "windowChanged2",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "ready",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "extendsContentIntoTitleBar",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "isCloned": true,
+                        "name": "extendsContentIntoTitleBar",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "QQuickItem*"
+                            }
+                        ],
+                        "name": "setTitleBarItem",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "item",
+                                "type": "QQuickItem*"
+                            },
+                            {
+                                "name": "buttonType",
+                                "type": "QuickGlobal::SystemButtonType"
+                            }
+                        ],
+                        "name": "setSystemButton",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "item",
+                                "type": "QQuickItem*"
+                            },
+                            {
+                                "name": "visible",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "setHitTestVisible",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "item",
+                                "type": "QQuickItem*"
+                            }
+                        ],
+                        "isCloned": true,
+                        "name": "setHitTestVisible",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "rect",
+                                "type": "QRect"
+                            },
+                            {
+                                "name": "visible",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "setHitTestVisible_rect",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "rect",
+                                "type": "QRect"
+                            }
+                        ],
+                        "isCloned": true,
+                        "name": "setHitTestVisible_rect",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "object",
+                                "type": "QObject*"
+                            },
+                            {
+                                "name": "visible",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "setHitTestVisible_object",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "object",
+                                "type": "QObject*"
+                            }
+                        ],
+                        "isCloned": true,
+                        "name": "setHitTestVisible_object",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "item",
+                                "type": "QQuickItem*"
+                            },
+                            {
+                                "name": "visible",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "setHitTestVisible_item",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "item",
+                                "type": "QQuickItem*"
+                            }
+                        ],
+                        "isCloned": true,
+                        "name": "setHitTestVisible_item",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "pos",
+                                "type": "QPoint"
+                            }
+                        ],
+                        "name": "showSystemMenu",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "pos",
+                                "type": "QPoint"
+                            }
+                        ],
+                        "name": "windowStartSystemMove2",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "edges",
+                                "type": "Qt::Edges"
+                            },
+                            {
+                                "name": "pos",
+                                "type": "QPoint"
+                            }
+                        ],
+                        "name": "windowStartSystemResize2",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "moveWindowToDesktopCenter",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "bringWindowToFront",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "setWindowFixedSize",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "setBlurBehindWindowEnabled",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QQuickItem"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "framelessquickhelper.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "classInfos": [
+                    {
+                        "name": "QML.Element",
+                        "value": "FramelessUtils"
+                    },
+                    {
+                        "name": "QML.Singleton",
+                        "value": "true"
+                    }
+                ],
+                "className": "FramelessQuickUtils",
+                "interfaces": [
+                    [
+                        {
+                            "className": "QQmlParserStatus",
+                            "id": "\"org.qt-project.Qt.QQmlParserStatus\""
+                        }
+                    ]
+                ],
+                "methods": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "button",
+                                "type": "QuickGlobal::SystemButtonType"
+                            },
+                            {
+                                "name": "state",
+                                "type": "QuickGlobal::ButtonState"
+                            }
+                        ],
+                        "name": "getSystemButtonBackgroundColor",
+                        "returnType": "QColor"
+                    }
+                ],
+                "object": true,
+                "properties": [
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": true,
+                        "index": 0,
+                        "name": "titleBarHeight",
+                        "read": "titleBarHeight",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "qreal",
+                        "user": false
+                    },
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": true,
+                        "index": 1,
+                        "name": "frameBorderVisible",
+                        "read": "frameBorderVisible",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": true,
+                        "index": 2,
+                        "name": "frameBorderThickness",
+                        "read": "frameBorderThickness",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "qreal",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 3,
+                        "name": "systemTheme",
+                        "notify": "systemThemeChanged",
+                        "read": "systemTheme",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QuickGlobal::SystemTheme",
+                        "user": false,
+                        "write": "setOverrideTheme"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 4,
+                        "name": "systemAccentColor",
+                        "notify": "systemAccentColorChanged",
+                        "read": "systemAccentColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 5,
+                        "name": "titleBarColorized",
+                        "notify": "titleBarColorizedChanged",
+                        "read": "titleBarColorized",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": true,
+                        "index": 6,
+                        "name": "defaultSystemLightColor",
+                        "read": "defaultSystemLightColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false
+                    },
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": true,
+                        "index": 7,
+                        "name": "defaultSystemDarkColor",
+                        "read": "defaultSystemDarkColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false
+                    },
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": true,
+                        "index": 8,
+                        "name": "defaultSystemButtonSize",
+                        "read": "defaultSystemButtonSize",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QSizeF",
+                        "user": false
+                    },
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": true,
+                        "index": 9,
+                        "name": "defaultSystemButtonIconSize",
+                        "read": "defaultSystemButtonIconSize",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QSizeF",
+                        "user": false
+                    },
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": true,
+                        "index": 10,
+                        "name": "defaultSystemButtonBackgroundColor",
+                        "read": "defaultSystemButtonBackgroundColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false
+                    },
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": true,
+                        "index": 11,
+                        "name": "defaultSystemCloseButtonBackgroundColor",
+                        "read": "defaultSystemCloseButtonBackgroundColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false
+                    }
+                ],
+                "qualifiedClassName": "wangwenx190::FramelessHelper::FramelessQuickUtils",
+                "signals": [
+                    {
+                        "access": "public",
+                        "name": "systemThemeChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "systemAccentColorChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "titleBarColorizedChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    },
+                    {
+                        "access": "public",
+                        "name": "QQmlParserStatus"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "framelessquickutils.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "classInfos": [
+                    {
+                        "name": "QML.Element",
+                        "value": "anonymous"
+                    }
+                ],
+                "className": "QuickChromePalette",
+                "interfaces": [
+                    [
+                        {
+                            "className": "QQmlParserStatus",
+                            "id": "\"org.qt-project.Qt.QQmlParserStatus\""
+                        }
+                    ]
+                ],
+                "object": true,
+                "qualifiedClassName": "wangwenx190::FramelessHelper::QuickChromePalette",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "ChromePalette"
+                    },
+                    {
+                        "access": "public",
+                        "name": "QQmlParserStatus"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "quickchromepalette.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "classInfos": [
+                    {
+                        "name": "QML.Element",
+                        "value": "ImageItem"
+                    }
+                ],
+                "className": "QuickImageItem",
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 0,
+                        "name": "source",
+                        "notify": "sourceChanged",
+                        "read": "source",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QVariant",
+                        "user": false,
+                        "write": "setSource"
+                    }
+                ],
+                "qualifiedClassName": "wangwenx190::FramelessHelper::QuickImageItem",
+                "signals": [
+                    {
+                        "access": "public",
+                        "name": "sourceChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QQuickPaintedItem"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "quickimageitem.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "classInfos": [
+                    {
+                        "name": "QML.Element",
+                        "value": "MicaMaterial"
+                    }
+                ],
+                "className": "QuickMicaMaterial",
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 0,
+                        "name": "tintColor",
+                        "notify": "tintColorChanged",
+                        "read": "tintColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false,
+                        "write": "setTintColor"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 1,
+                        "name": "tintOpacity",
+                        "notify": "tintOpacityChanged",
+                        "read": "tintOpacity",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "qreal",
+                        "user": false,
+                        "write": "setTintOpacity"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 2,
+                        "name": "fallbackColor",
+                        "notify": "fallbackColorChanged",
+                        "read": "fallbackColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false,
+                        "write": "setFallbackColor"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 3,
+                        "name": "noiseOpacity",
+                        "notify": "noiseOpacityChanged",
+                        "read": "noiseOpacity",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "qreal",
+                        "user": false,
+                        "write": "setNoiseOpacity"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 4,
+                        "name": "fallbackEnabled",
+                        "notify": "fallbackEnabledChanged",
+                        "read": "isFallbackEnabled",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false,
+                        "write": "setFallbackEnabled"
+                    }
+                ],
+                "qualifiedClassName": "wangwenx190::FramelessHelper::QuickMicaMaterial",
+                "signals": [
+                    {
+                        "access": "public",
+                        "name": "tintColorChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "tintOpacityChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "fallbackColorChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "noiseOpacityChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "fallbackEnabledChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QQuickItem"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "quickmicamaterial.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "classInfos": [
+                    {
+                        "name": "QML.Element",
+                        "value": "WindowBorder"
+                    }
+                ],
+                "className": "QuickWindowBorder",
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 0,
+                        "name": "thickness",
+                        "notify": "thicknessChanged",
+                        "read": "thickness",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "qreal",
+                        "user": false,
+                        "write": "setThickness"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 1,
+                        "name": "edges",
+                        "notify": "edgesChanged",
+                        "read": "edges",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QuickGlobal::WindowEdges",
+                        "user": false,
+                        "write": "setEdges"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 2,
+                        "name": "activeColor",
+                        "notify": "activeColorChanged",
+                        "read": "activeColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false,
+                        "write": "setActiveColor"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 3,
+                        "name": "inactiveColor",
+                        "notify": "inactiveColorChanged",
+                        "read": "inactiveColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false,
+                        "write": "setInactiveColor"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 4,
+                        "name": "nativeThickness",
+                        "notify": "nativeBorderChanged",
+                        "read": "nativeThickness",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "qreal",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 5,
+                        "name": "nativeEdges",
+                        "notify": "nativeBorderChanged",
+                        "read": "nativeEdges",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QuickGlobal::WindowEdges",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 6,
+                        "name": "nativeActiveColor",
+                        "notify": "nativeBorderChanged",
+                        "read": "nativeActiveColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 7,
+                        "name": "nativeInactiveColor",
+                        "notify": "nativeBorderChanged",
+                        "read": "nativeInactiveColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false
+                    }
+                ],
+                "qualifiedClassName": "wangwenx190::FramelessHelper::QuickWindowBorder",
+                "signals": [
+                    {
+                        "access": "public",
+                        "name": "thicknessChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "edgesChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "activeColorChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "inactiveColorChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "nativeBorderChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "qreal"
+                            }
+                        ],
+                        "name": "setThickness",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "QuickGlobal::WindowEdges"
+                            }
+                        ],
+                        "name": "setEdges",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "QColor"
+                            }
+                        ],
+                        "name": "setActiveColor",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "value",
+                                "type": "QColor"
+                            }
+                        ],
+                        "name": "setInactiveColor",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QQuickPaintedItem"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "quickwindowborder.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "WallpaperImageNode",
+                "object": true,
+                "qualifiedClassName": "wangwenx190::FramelessHelper::WallpaperImageNode",
+                "slots": [
+                    {
+                        "access": "public",
+                        "name": "maybeUpdateWallpaperImageClipRect",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "force",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "maybeGenerateWallpaperImageCache",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "isCloned": true,
+                        "name": "maybeGenerateWallpaperImageCache",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    },
+                    {
+                        "access": "public",
+                        "name": "QSGTransformNode"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "quickmicamaterial.cpp",
+        "outputRevision": 68
+    }
+]

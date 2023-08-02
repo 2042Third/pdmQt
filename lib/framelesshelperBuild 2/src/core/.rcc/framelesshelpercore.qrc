@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="/org.wangwenx190.FramelessHelper">
+    <file alias="resources/fonts/iconfont.ttf">/Users/mikeyang/Documents/pdm/pdmQt/lib/framelesshelper/src/core/resources/fonts/iconfont.ttf</file>
+    <file alias="resources/images/noise.png">/Users/mikeyang/Documents/pdm/pdmQt/lib/framelesshelper/src/core/resources/images/noise.png</file>
+  </qresource>
+</RCC>
+

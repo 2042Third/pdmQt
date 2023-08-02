@@ -1,0 +1,17 @@
+{
+    "classes": [
+        {
+            "className": "FramelessQuickHelperPrivate",
+            "object": true,
+            "qualifiedClassName": "wangwenx190::FramelessHelper::FramelessQuickHelperPrivate",
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "framelessquickhelper_p.h",
+    "outputRevision": 68
+}

@@ -1,0 +1,357 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "FramelessHelper"
+                },
+                {
+                    "name": "QML.Attached",
+                    "value": "FramelessQuickHelper"
+                }
+            ],
+            "className": "FramelessQuickHelper",
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 0,
+                    "name": "titleBarItem",
+                    "notify": "titleBarItemChanged",
+                    "read": "titleBarItem",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QQuickItem*",
+                    "user": false,
+                    "write": "setTitleBarItem"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 1,
+                    "name": "windowFixedSize",
+                    "notify": "windowFixedSizeChanged",
+                    "read": "isWindowFixedSize",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "write": "setWindowFixedSize"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 2,
+                    "name": "blurBehindWindowEnabled",
+                    "notify": "blurBehindWindowEnabledChanged",
+                    "read": "isBlurBehindWindowEnabled",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "write": "setBlurBehindWindowEnabled"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 3,
+                    "name": "window",
+                    "notify": "windowChanged2",
+                    "read": "window",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QQuickWindow*",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 4,
+                    "name": "extendsContentIntoTitleBar",
+                    "notify": "extendsContentIntoTitleBarChanged",
+                    "read": "isContentExtendedIntoTitleBar",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "write": "extendsContentIntoTitleBar"
+                }
+            ],
+            "qualifiedClassName": "wangwenx190::FramelessHelper::FramelessQuickHelper",
+            "signals": [
+                {
+                    "access": "public",
+                    "name": "extendsContentIntoTitleBarChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "titleBarItemChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "windowFixedSizeChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "blurBehindWindowEnabledChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "windowChanged2",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "ready",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "value",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "extendsContentIntoTitleBar",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "isCloned": true,
+                    "name": "extendsContentIntoTitleBar",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "value",
+                            "type": "QQuickItem*"
+                        }
+                    ],
+                    "name": "setTitleBarItem",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "item",
+                            "type": "QQuickItem*"
+                        },
+                        {
+                            "name": "buttonType",
+                            "type": "QuickGlobal::SystemButtonType"
+                        }
+                    ],
+                    "name": "setSystemButton",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "item",
+                            "type": "QQuickItem*"
+                        },
+                        {
+                            "name": "visible",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "setHitTestVisible",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "item",
+                            "type": "QQuickItem*"
+                        }
+                    ],
+                    "isCloned": true,
+                    "name": "setHitTestVisible",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "rect",
+                            "type": "QRect"
+                        },
+                        {
+                            "name": "visible",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "setHitTestVisible_rect",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "rect",
+                            "type": "QRect"
+                        }
+                    ],
+                    "isCloned": true,
+                    "name": "setHitTestVisible_rect",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "object",
+                            "type": "QObject*"
+                        },
+                        {
+                            "name": "visible",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "setHitTestVisible_object",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "object",
+                            "type": "QObject*"
+                        }
+                    ],
+                    "isCloned": true,
+                    "name": "setHitTestVisible_object",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "item",
+                            "type": "QQuickItem*"
+                        },
+                        {
+                            "name": "visible",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "setHitTestVisible_item",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "item",
+                            "type": "QQuickItem*"
+                        }
+                    ],
+                    "isCloned": true,
+                    "name": "setHitTestVisible_item",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "pos",
+                            "type": "QPoint"
+                        }
+                    ],
+                    "name": "showSystemMenu",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "pos",
+                            "type": "QPoint"
+                        }
+                    ],
+                    "name": "windowStartSystemMove2",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "edges",
+                            "type": "Qt::Edges"
+                        },
+                        {
+                            "name": "pos",
+                            "type": "QPoint"
+                        }
+                    ],
+                    "name": "windowStartSystemResize2",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "moveWindowToDesktopCenter",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "bringWindowToFront",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "value",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "setWindowFixedSize",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "value",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "setBlurBehindWindowEnabled",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QQuickItem"
+                }
+            ]
+        }
+    ],
+    "inputFile": "framelessquickhelper.h",
+    "outputRevision": 68
+}

@@ -1,0 +1,282 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "StandardSystemButton"
+                }
+            ],
+            "className": "QuickStandardSystemButton",
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 0,
+                    "name": "buttonType",
+                    "notify": "buttonTypeChanged",
+                    "read": "buttonType",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QuickGlobal::SystemButtonType",
+                    "user": false,
+                    "write": "setButtonType"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 1,
+                    "name": "glyph",
+                    "notify": "glyphChanged",
+                    "read": "glyph",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QString",
+                    "user": false,
+                    "write": "setGlyph"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 2,
+                    "name": "hoverColor",
+                    "notify": "hoverColorChanged",
+                    "read": "hoverColor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QColor",
+                    "user": false,
+                    "write": "setHoverColor"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 3,
+                    "name": "pressColor",
+                    "notify": "pressColorChanged",
+                    "read": "pressColor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QColor",
+                    "user": false,
+                    "write": "setPressColor"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 4,
+                    "name": "normalColor",
+                    "notify": "normalColorChanged",
+                    "read": "normalColor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QColor",
+                    "user": false,
+                    "write": "setNormalColor"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 5,
+                    "name": "activeForegroundColor",
+                    "notify": "activeForegroundColorChanged",
+                    "read": "activeForegroundColor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QColor",
+                    "user": false,
+                    "write": "setActiveForegroundColor"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 6,
+                    "name": "inactiveForegroundColor",
+                    "notify": "inactiveForegroundColorChanged",
+                    "read": "inactiveForegroundColor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QColor",
+                    "user": false,
+                    "write": "setInactiveForegroundColor"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 7,
+                    "name": "iconSize",
+                    "notify": "iconSizeChanged",
+                    "read": "iconSize",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "qreal",
+                    "user": false,
+                    "write": "setIconSize"
+                }
+            ],
+            "qualifiedClassName": "wangwenx190::FramelessHelper::QuickStandardSystemButton",
+            "signals": [
+                {
+                    "access": "public",
+                    "name": "buttonTypeChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "glyphChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "normalColorChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "hoverColorChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "pressColorChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "activeForegroundColorChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "inactiveForegroundColorChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "iconSizeChanged",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "name": "updateColor",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "type",
+                            "type": "QuickGlobal::SystemButtonType"
+                        }
+                    ],
+                    "name": "setButtonType",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "value",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "setGlyph",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "value",
+                            "type": "QColor"
+                        }
+                    ],
+                    "name": "setNormalColor",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "value",
+                            "type": "QColor"
+                        }
+                    ],
+                    "name": "setHoverColor",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "value",
+                            "type": "QColor"
+                        }
+                    ],
+                    "name": "setPressColor",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "value",
+                            "type": "QColor"
+                        }
+                    ],
+                    "name": "setActiveForegroundColor",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "value",
+                            "type": "QColor"
+                        }
+                    ],
+                    "name": "setInactiveForegroundColor",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "value",
+                            "type": "qreal"
+                        }
+                    ],
+                    "name": "setIconSize",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QQuickButton"
+                }
+            ]
+        }
+    ],
+    "inputFile": "quickstandardsystembutton_p.h",
+    "outputRevision": 68
+}

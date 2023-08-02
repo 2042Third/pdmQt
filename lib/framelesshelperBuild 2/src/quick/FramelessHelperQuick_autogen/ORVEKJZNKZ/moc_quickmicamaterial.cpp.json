@@ -1,0 +1,127 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "MicaMaterial"
+                }
+            ],
+            "className": "QuickMicaMaterial",
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 0,
+                    "name": "tintColor",
+                    "notify": "tintColorChanged",
+                    "read": "tintColor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QColor",
+                    "user": false,
+                    "write": "setTintColor"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 1,
+                    "name": "tintOpacity",
+                    "notify": "tintOpacityChanged",
+                    "read": "tintOpacity",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "qreal",
+                    "user": false,
+                    "write": "setTintOpacity"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 2,
+                    "name": "fallbackColor",
+                    "notify": "fallbackColorChanged",
+                    "read": "fallbackColor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QColor",
+                    "user": false,
+                    "write": "setFallbackColor"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 3,
+                    "name": "noiseOpacity",
+                    "notify": "noiseOpacityChanged",
+                    "read": "noiseOpacity",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "qreal",
+                    "user": false,
+                    "write": "setNoiseOpacity"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 4,
+                    "name": "fallbackEnabled",
+                    "notify": "fallbackEnabledChanged",
+                    "read": "isFallbackEnabled",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "write": "setFallbackEnabled"
+                }
+            ],
+            "qualifiedClassName": "wangwenx190::FramelessHelper::QuickMicaMaterial",
+            "signals": [
+                {
+                    "access": "public",
+                    "name": "tintColorChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "tintOpacityChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "fallbackColorChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "noiseOpacityChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "fallbackEnabledChanged",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QQuickItem"
+                }
+            ]
+        }
+    ],
+    "inputFile": "quickmicamaterial.h",
+    "outputRevision": 68
+}

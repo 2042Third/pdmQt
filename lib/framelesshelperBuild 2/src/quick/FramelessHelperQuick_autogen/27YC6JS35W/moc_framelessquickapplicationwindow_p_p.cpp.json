@@ -1,0 +1,66 @@
+{
+    "classes": [
+        {
+            "className": "FramelessQuickApplicationWindowPrivate",
+            "methods": [
+                {
+                    "access": "public",
+                    "name": "isHidden",
+                    "returnType": "bool"
+                },
+                {
+                    "access": "public",
+                    "name": "isNormal",
+                    "returnType": "bool"
+                },
+                {
+                    "access": "public",
+                    "name": "isMinimized",
+                    "returnType": "bool"
+                },
+                {
+                    "access": "public",
+                    "name": "isMaximized",
+                    "returnType": "bool"
+                },
+                {
+                    "access": "public",
+                    "name": "isZoomed",
+                    "returnType": "bool"
+                },
+                {
+                    "access": "public",
+                    "name": "isFullScreen",
+                    "returnType": "bool"
+                }
+            ],
+            "object": true,
+            "qualifiedClassName": "wangwenx190::FramelessHelper::FramelessQuickApplicationWindowPrivate",
+            "slots": [
+                {
+                    "access": "public",
+                    "name": "showMinimized2",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "toggleMaximized",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "toggleFullScreen",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "framelessquickapplicationwindow_p_p.h",
+    "outputRevision": 68
+}

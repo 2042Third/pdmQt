@@ -1,0 +1,105 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "FramelessHelperConstants"
+                },
+                {
+                    "name": "QML.Creatable",
+                    "value": "false"
+                },
+                {
+                    "name": "QML.UncreatableReason",
+                    "value": "The FramelessHelperConstants namespace is not creatable, you can only use it to access it's enums."
+                }
+            ],
+            "className": "QuickGlobal",
+            "enums": [
+                {
+                    "isClass": true,
+                    "isFlag": false,
+                    "name": "SystemTheme",
+                    "values": [
+                        "Unknown",
+                        "Light",
+                        "Dark",
+                        "HighContrast"
+                    ]
+                },
+                {
+                    "isClass": true,
+                    "isFlag": false,
+                    "name": "SystemButtonType",
+                    "values": [
+                        "Unknown",
+                        "WindowIcon",
+                        "Help",
+                        "Minimize",
+                        "Maximize",
+                        "Restore",
+                        "Close"
+                    ]
+                },
+                {
+                    "isClass": true,
+                    "isFlag": false,
+                    "name": "ButtonState",
+                    "values": [
+                        "Normal",
+                        "Hovered",
+                        "Pressed",
+                        "Released"
+                    ]
+                },
+                {
+                    "isClass": true,
+                    "isFlag": false,
+                    "name": "BlurMode",
+                    "values": [
+                        "Disable",
+                        "Default",
+                        "Windows_Aero",
+                        "Windows_Acrylic",
+                        "Windows_Mica",
+                        "Windows_MicaAlt"
+                    ]
+                },
+                {
+                    "isClass": true,
+                    "isFlag": false,
+                    "name": "WindowEdge",
+                    "values": [
+                        "Left",
+                        "Top",
+                        "Right",
+                        "Bottom"
+                    ]
+                },
+                {
+                    "alias": "WindowEdge",
+                    "isClass": true,
+                    "isFlag": true,
+                    "name": "WindowEdges",
+                    "values": [
+                        "Left",
+                        "Top",
+                        "Right",
+                        "Bottom"
+                    ]
+                }
+            ],
+            "object": true,
+            "qualifiedClassName": "wangwenx190::FramelessHelper::QuickGlobal",
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "framelesshelperquick_global.h",
+    "outputRevision": 68
+}

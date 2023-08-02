@@ -1,0 +1,220 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "StandardTitleBar"
+                }
+            ],
+            "className": "QuickStandardTitleBar",
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 0,
+                    "name": "titleLabelAlignment",
+                    "notify": "titleLabelAlignmentChanged",
+                    "read": "titleLabelAlignment",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "Qt::Alignment",
+                    "user": false,
+                    "write": "setTitleLabelAlignment"
+                },
+                {
+                    "constant": true,
+                    "designable": true,
+                    "final": true,
+                    "index": 1,
+                    "name": "titleLabel",
+                    "read": "titleLabel",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QQuickLabel*",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 2,
+                    "name": "extended",
+                    "notify": "extendedChanged",
+                    "read": "isExtended",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "write": "setExtended"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 3,
+                    "name": "hideWhenClose",
+                    "notify": "hideWhenCloseChanged",
+                    "read": "isHideWhenClose",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "write": "setHideWhenClose"
+                },
+                {
+                    "constant": true,
+                    "designable": true,
+                    "final": true,
+                    "index": 4,
+                    "name": "chromePalette",
+                    "read": "chromePalette",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QuickChromePalette*",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 5,
+                    "name": "windowIconSize",
+                    "notify": "windowIconSizeChanged",
+                    "read": "windowIconSize",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QSizeF",
+                    "user": false,
+                    "write": "setWindowIconSize"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 6,
+                    "name": "windowIconVisible",
+                    "notify": "windowIconVisibleChanged",
+                    "read": "windowIconVisible",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "write": "setWindowIconVisible"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": true,
+                    "index": 7,
+                    "name": "windowIcon",
+                    "notify": "windowIconChanged",
+                    "read": "windowIcon",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QVariant",
+                    "user": false,
+                    "write": "setWindowIcon"
+                }
+            ],
+            "qualifiedClassName": "wangwenx190::FramelessHelper::QuickStandardTitleBar",
+            "signals": [
+                {
+                    "access": "public",
+                    "name": "titleLabelAlignmentChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "extendedChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "hideWhenCloseChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "windowIconSizeChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "windowIconVisibleChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "windowIconChanged",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "private",
+                    "name": "updateMaximizeButton",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "name": "updateTitleLabelText",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "name": "updateTitleBarColor",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "name": "updateChromeButtonColor",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "name": "clickMinimizeButton",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "name": "clickMaximizeButton",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "name": "clickCloseButton",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "name": "retranslateUi",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "name": "updateWindowIcon",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QQuickRectangle"
+                }
+            ]
+        }
+    ],
+    "inputFile": "quickstandardtitlebar_p.h",
+    "outputRevision": 68
+}

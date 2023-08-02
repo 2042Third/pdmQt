@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/org/wangwenx190/FramelessHelper">
+    <file alias="qmldir">/Users/mikeyang/Documents/pdm/pdmQt/lib/framelesshelperBuild/imports/org/wangwenx190/FramelessHelper/qmldir</file>
+  </qresource>
+</RCC>
+

@@ -1,0 +1,45 @@
+{
+    "classes": [
+        {
+            "className": "WallpaperImageNode",
+            "object": true,
+            "qualifiedClassName": "wangwenx190::FramelessHelper::WallpaperImageNode",
+            "slots": [
+                {
+                    "access": "public",
+                    "name": "maybeUpdateWallpaperImageClipRect",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "force",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "maybeGenerateWallpaperImageCache",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "isCloned": true,
+                    "name": "maybeGenerateWallpaperImageCache",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                },
+                {
+                    "access": "public",
+                    "name": "QSGTransformNode"
+                }
+            ]
+        }
+    ],
+    "inputFile": "quickmicamaterial.cpp",
+    "outputRevision": 68
+}

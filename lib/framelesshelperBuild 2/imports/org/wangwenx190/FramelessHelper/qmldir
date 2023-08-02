@@ -1,0 +1,10 @@
+module org.wangwenx190.FramelessHelper
+linktarget FramelessHelperQuickplugin
+optional plugin FramelessHelperQuickplugin
+classname org_wangwenx190_FramelessHelperPlugin
+typeinfo plugins.qmltypes
+import QtQml auto
+import QtQuick auto
+import QtQuick.Controls.Basic auto
+prefer :/org/wangwenx190/FramelessHelper/
+

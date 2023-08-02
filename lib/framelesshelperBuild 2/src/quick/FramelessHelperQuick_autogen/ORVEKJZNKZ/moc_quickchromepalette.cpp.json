@@ -1,0 +1,35 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "anonymous"
+                }
+            ],
+            "className": "QuickChromePalette",
+            "interfaces": [
+                [
+                    {
+                        "className": "QQmlParserStatus",
+                        "id": "\"org.qt-project.Qt.QQmlParserStatus\""
+                    }
+                ]
+            ],
+            "object": true,
+            "qualifiedClassName": "wangwenx190::FramelessHelper::QuickChromePalette",
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "ChromePalette"
+                },
+                {
+                    "access": "public",
+                    "name": "QQmlParserStatus"
+                }
+            ]
+        }
+    ],
+    "inputFile": "quickchromepalette.h",
+    "outputRevision": 68
+}
