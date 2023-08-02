@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/">
-    <file alias="/org/wangwenx190/FramelessHelper">/Users/mikeyang/Documents/pdm/pdmQt/lib/framelesshelperBuild/imports/org/wangwenx190/FramelessHelper</file>
-
-  </qresource>
-</RCC>
