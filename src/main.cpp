@@ -12,12 +12,12 @@
 #include <QTranslator>
 #include <QSvgRenderer>
 
-#include <FramelessHelper/Widgets/framelessmainwindow.h>
+//#include <FramelessHelper/Widgets/framelessmainwindow.h>
 
 int main(int argc, char *argv[])
 {
 
-  wangwenx190::FramelessHelper::FramelessHelper::Widgets::initialize();
+//  wangwenx190::FramelessHelper::FramelessHelper::Widgets::initialize();
   QApplication a(argc, argv);
 
   QCoreApplication::setOrganizationName("pdm");

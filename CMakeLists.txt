@@ -19,7 +19,7 @@ if(APPLE)
     set(CMAKE_OSX_SYSROOT /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk)
     set(CMAKE_PREFIX_PATH "/Users/mikeyang/Qt/6.5.1/macos/lib/cmake")
     set(OPENSSL_ROOT_DIR /opt/homebrew/opt/openssl@3)
-    set(FramelessHelper_DIR /Users/mikeyang/Documents/pdm/pdmQt/lib/framelesshelperBuild/lib64/cmake/FramelessHelper)
+#    set(FramelessHelper_DIR /Users/mikeyang/Documents/pdm/pdmQt/lib/framelesshelperBuild/lib64/cmake/FramelessHelper)
 endif()
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
@@ -34,7 +34,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
 )
 
 # Find FramelessHelper:
-find_package(FramelessHelper REQUIRED COMPONENTS Core Widgets)
+#find_package(FramelessHelper REQUIRED COMPONENTS Core Widgets)
 
 # check if we are on windows
 if(WIN32)
@@ -128,8 +128,8 @@ target_include_directories(pdm_qt PUBLIC
     lib/pdm-crypt-module/src/lib
     lib/cryptoSQLite
     lib/pdm_network
-    lib/framelesshelperBuild/include
-    lib/framelesshelperBuild/lib64
+#    lib/framelesshelperBuild/include
+#    lib/framelesshelperBuild/lib64
 
 )
 
@@ -138,14 +138,14 @@ add_subdirectory(lib/pdm_network) # pdm network connectivity
 add_subdirectory(lib/cryptoSQLite) # encrypted database
 
 install(FILES PDM_CURL_LOCATION DESTINATION ${PROJECT_BINARY_DIR} )
-target_link_libraries(pdm_qt PUBLIC
+target_link_libraries(pdm_qt PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt6::Svg
     cc20 # pdm encryption
     pdm-network # pdm network connectivity
     cryptosqlite # encrypted database interface
-    FramelessHelper::Core
-    FramelessHelper::Widgets
+#    FramelessHelper::Core
+#    FramelessHelper::Widgets
     )
 
 set_target_properties(pdm_qt PROPERTIES
