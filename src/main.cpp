@@ -14,6 +14,7 @@
 
 #include <FramelessHelper/Widgets/framelessmainwindow.h>
 
+#include <FramelessHelper/Core/private/framelessconfig_p.h>
 int main(int argc, char *argv[])
 {
 
@@ -46,7 +47,15 @@ int main(int argc, char *argv[])
       break;
     }
   }
+  {
+    FRAMELESSHELPER_USE_NAMESPACE
+    FramelessHelper::Core::setApplicationOSThemeAware();
+
+    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
+  }
+  // Initialization done, start app.
   MainWindow w;
   w.show();
+
   return a.exec();
 }

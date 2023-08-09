@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <Global>
 
 #include "src/settings/settingsmainwindow.h"
 #include "src/settings/accountwidget.h"
@@ -9,6 +10,7 @@
 #include "PdmRunTime.h"
 #include "notesView/NotesScroll.h"
 #include "notesView/NoteEdit.h"
+#include <FramelessHelper/Widgets/framelessmainwindow.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -53,6 +55,8 @@ private:
   PdmUpdateTimer * resizeTimer;
   Ui::MainWindow *ui;
   QMap<std::string, NoteEdit*> noteEditMap;
+
+
 
   void newSettingsWindow();
 
