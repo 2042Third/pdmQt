@@ -58,6 +58,7 @@ private:
     FRAMELESSHELPER_PREPEND_NAMESPACE(StandardTitleBar) *m_titleBar = nullptr;
     QMainWindow *m_mainWindow = nullptr;
 
+    void makeCustomWindow();
 };
 
 #endif // DEBUGWINDOW_H

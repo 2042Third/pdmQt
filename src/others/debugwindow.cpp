@@ -75,6 +75,10 @@ DebugWindow::DebugWindow(QWidget *parent) :
   button2->setText("Open MacOS Window (native with custom titlebar) (MacOS)");
   connect(button2, &QPushButton::clicked, this, &DebugWindow::openMacOSCustomWindow);
 
+  // Convert current window to frameless helper
+  button3->setText("Convert current window to frameless helper");
+  connect(button3, &QPushButton::clicked, this, &DebugWindow::makeCustomWindow);
+
   shadowFrameWidget->setLayout(shadowWidgetLayout);
 
 
@@ -157,6 +161,65 @@ QMenuBar::item:pressed {
   m_mainWindow->show();
 }
 
+void DebugWindow::makeCustomWindow() {
+  m_titleBar = new StandardTitleBar(this);
+  m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
+//  m_mainWindow = new QMainWindow();
+  resize(800, 600);
+  setWindowTitle("FramelessHelper demo application - QMainWindow");
+
+  QMenuBar * const mb = menuBar();
+  mb->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+  mb->setStyleSheet(FRAMELESSHELPER_STRING_LITERAL(R"(
+QMenuBar {
+    background-color: transparent;
+}
+
+QMenuBar::item {
+    background: transparent;
+}
+
+QMenuBar::item:selected {
+    background: #a8a8a8;
+}
+
+QMenuBar::item:pressed {
+    background: #888888;
+}
+    )"));
+  const auto titleBarLayout = static_cast<QHBoxLayout *>(m_titleBar->layout());
+  titleBarLayout->insertWidget(0, mb);
+  auto titlebarButton = new QPushButton(this);
+  titlebarButton->setObjectName(QStringLiteral("action"));
+  titlebarButton->setText(tr("Action"));
+  titleBarLayout->insertWidget(1, titlebarButton);
+  // If windows or linux insert stretch at 2, macos insert stretch at 0.
+  if(QSysInfo::productType() == "windows" || QSysInfo::productType() == "linux"){
+    titleBarLayout->insertStretch(2,1);
+  }else{
+    titleBarLayout->insertStretch(0,1);
+  }
+
+  // setMenuWidget(): make the menu widget become the first row of the window.
+ setMenuWidget(m_titleBar);
+
+  FramelessWidgetsHelper *helper = FramelessWidgetsHelper::get(this);
+  helper->setTitleBarWidget(m_titleBar);
+#ifndef Q_OS_MACOS
+  helper->setSystemButton(m_titleBar->minimizeButton(), SystemButtonType::Minimize);
+    helper->setSystemButton(m_titleBar->maximizeButton(), SystemButtonType::Maximize);
+    helper->setSystemButton(m_titleBar->closeButton(), SystemButtonType::Close);
+#endif // Q_OS_MACOS
+  helper->setHitTestVisible(mb); // IMPORTANT!
+  helper->setHitTestVisible(titlebarButton); // IMPORTANT!
+  setWindowTitle("FramelessHelper demo application - QMainWindow");
+  mb->setWindowTitle("FramelessHelper demo application - QMenuBar");
+  setWindowIcon(QFileIconProvider().icon(QFileIconProvider::Computer));
+  // Unset the frameless flag
+  setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
+  show();
+
+}
 
 void DebugWindow::openMacOSCustomWindow() {
 #ifdef Q_OS_MACOS
