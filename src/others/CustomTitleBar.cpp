@@ -12,6 +12,8 @@
 #include <QPalette>
 #include <QOperatingSystemVersion>
 
+#define USING_MACOS_FRAMELESS_HELPER 1
+
 CustomTitleBar::CustomTitleBar(QWidget *parent)
     : QWidget(parent) {
 
@@ -28,7 +30,7 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
   customButton = new QPushButton("", this);
 
   // Create the minimize, maximize, and close buttons
-  if (QOperatingSystemVersion::currentType() == QOperatingSystemVersion::MacOS) {
+  if (QOperatingSystemVersion::currentType() == QOperatingSystemVersion::MacOS && !USING_MACOS_FRAMELESS_HELPER) {
     // Set the size of the buttons
     QSize buttonSize(12, 12);
 
@@ -59,31 +61,39 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
 
 // Add spacer to push the custom button to the left side
     layout->addStretch(1);
-
     layout->addWidget(customButton);
     layout->addWidget(titleLabel);
-  }
-  else {
+  } else if (USING_MACOS_FRAMELESS_HELPER) {
+    layout->addStretch(1);
+    layout->addWidget(customButton);
+    layout->addWidget(titleLabel);
+  } else {
     layout->addWidget(customButton);
 
     // Add spacer to push the custom button to the right side
     layout->addStretch(1);
 
-    minimizeButton = new QPushButton("", this); minimizeButton->setIcon(QIcon(":/images/icon/minus"));
-    minimizeButton->setFlat(true); minimizeButton->setStyleSheet(buttonStyleSheetDG_sq);
-    maximizeButton = new QPushButton("", this); maximizeButton->setIcon(QIcon(":/images/icon/maximize"));
-    maximizeButton->setFlat(true); maximizeButton->setStyleSheet(buttonStyleSheetDG_sq);
-    closeButton = new QPushButton(QIcon(":/images/icon/close"),"", this);
-    closeButton->setFlat(true); closeButton->setStyleSheet(buttonStyleSheetRD_sq);
+    minimizeButton = new QPushButton("", this);
+    minimizeButton->setIcon(QIcon(":/images/icon/minus"));
+    minimizeButton->setFlat(true);
+    minimizeButton->setStyleSheet(buttonStyleSheetDG_sq);
+    maximizeButton = new QPushButton("", this);
+    maximizeButton->setIcon(QIcon(":/images/icon/maximize"));
+    maximizeButton->setFlat(true);
+    maximizeButton->setStyleSheet(buttonStyleSheetDG_sq);
+    closeButton = new QPushButton(QIcon(":/images/icon/close"), "", this);
+    closeButton->setFlat(true);
+    closeButton->setStyleSheet(buttonStyleSheetRD_sq);
 
     layout->addWidget(minimizeButton);
     layout->addWidget(maximizeButton);
     layout->addWidget(closeButton);
   }
-
-  connect(minimizeButton, &QPushButton::clicked, this, &CustomTitleBar::minimizeWindow);
-  connect(maximizeButton, &QPushButton::clicked, this, &CustomTitleBar::maximizeWindow);
-  connect(closeButton, &QPushButton::clicked, this, &CustomTitleBar::closeWindow);
+  if(!USING_MACOS_FRAMELESS_HELPER){
+    connect(minimizeButton, &QPushButton::clicked, this, &CustomTitleBar::minimizeWindow);
+    connect(maximizeButton, &QPushButton::clicked, this, &CustomTitleBar::maximizeWindow);
+    connect(closeButton, &QPushButton::clicked, this, &CustomTitleBar::closeWindow);
+  }
 
 
 

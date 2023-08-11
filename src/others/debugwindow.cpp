@@ -61,7 +61,7 @@ DebugWindow::DebugWindow(QWidget *parent) :
   button3->setFixedSize(100, 50);  // Change these values to the size you want
 
 
-  shadowWidgetLayout->addWidget(titleBar); // custom titlebar
+//  shadowWidgetLayout->addWidget(titleBar); // custom titlebar
   shadowWidgetLayout->addWidget(texts); // main content, the console
   shadowWidgetLayout->addWidget(button1);
   shadowWidgetLayout->addWidget(button2);
@@ -84,9 +84,7 @@ DebugWindow::DebugWindow(QWidget *parent) :
 
   // Set the textEdit background as gray
   texts->setStyleSheet("background-color: #FFFFFF;");
-
-  // Set the init size.
-  resize(500, 500);
+  makeCustomWindow();
 }
 
 void DebugWindow::appendMessage(const QString &message, const QString &color)
@@ -165,7 +163,7 @@ void DebugWindow::makeCustomWindow() {
   m_titleBar = new StandardTitleBar(this);
   m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
 //  m_mainWindow = new QMainWindow();
-  resize(800, 600);
+  resize(500, 500);
   setWindowTitle("FramelessHelper demo application - QMainWindow");
 
   QMenuBar * const mb = menuBar();
@@ -189,10 +187,10 @@ QMenuBar::item:pressed {
     )"));
   const auto titleBarLayout = static_cast<QHBoxLayout *>(m_titleBar->layout());
   titleBarLayout->insertWidget(0, mb);
-  auto titlebarButton = new QPushButton(this);
-  titlebarButton->setObjectName(QStringLiteral("action"));
-  titlebarButton->setText(tr("Action"));
-  titleBarLayout->insertWidget(1, titlebarButton);
+//  auto titlebarButton = new QPushButton(this);
+//  titlebarButton->setObjectName(QStringLiteral("action"));
+//  titlebarButton->setText(tr("Action"));
+  titleBarLayout->insertWidget(1, titleBar);
   // If windows or linux insert stretch at 2, macos insert stretch at 0.
   if(QSysInfo::productType() == "windows" || QSysInfo::productType() == "linux"){
     titleBarLayout->insertStretch(2,1);
@@ -211,8 +209,8 @@ QMenuBar::item:pressed {
     helper->setSystemButton(m_titleBar->closeButton(), SystemButtonType::Close);
 #endif // Q_OS_MACOS
   helper->setHitTestVisible(mb); // IMPORTANT!
-  helper->setHitTestVisible(titlebarButton); // IMPORTANT!
-  setWindowTitle("FramelessHelper demo application - QMainWindow");
+  helper->setHitTestVisible(titleBar); // IMPORTANT!
+  setWindowTitle("Debug Window");
   mb->setWindowTitle("FramelessHelper demo application - QMenuBar");
   setWindowIcon(QFileIconProvider().icon(QFileIconProvider::Computer));
   // Unset the frameless flag
