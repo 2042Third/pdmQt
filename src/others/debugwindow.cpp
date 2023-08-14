@@ -93,7 +93,6 @@ void DebugWindow::appendMessage(const QString &message, const QString &color)
   texts->append(html);
 }
 
-
 DebugWindow::~DebugWindow()
 {
   delete m_mainWindow;
