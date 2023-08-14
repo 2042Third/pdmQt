@@ -11,6 +11,7 @@
 #include <QTimer>
 #include <QPalette>
 #include <QOperatingSystemVersion>
+#include <Global>
 
 #define USING_MACOS_FRAMELESS_HELPER 1
 
@@ -20,7 +21,7 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
   // Create a horizontal layout for the custom title bar
   layout = new QHBoxLayout(this);
   layout->setContentsMargins(0, 0, 0, 0);
-  layout->setSpacing(0);
+  layout->setSpacing(5);
 
   // Create a QLabel for the window title
   titleLabel = new QLabel("Custom Window", this);
@@ -64,9 +65,26 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
     layout->addWidget(customButton);
     layout->addWidget(titleLabel);
   } else if (USING_MACOS_FRAMELESS_HELPER) {
-    layout->addStretch(1);
+//    layout->addStretch(1);
     layout->addWidget(customButton);
-    layout->addWidget(titleLabel);
+    setStyleSheet(FRAMELESSHELPER_STRING_LITERAL(R"(
+QMenuBar {
+    background-color: transparent;
+}
+
+QMenuBar::item {
+    background: transparent;
+}
+
+QMenuBar::item:selected {
+    background: #a8a8a8;
+}
+
+QMenuBar::item:pressed {
+    background: #888888;
+}
+    )"));
+//    layout->addWidget(titleLabel);
   } else {
     layout->addWidget(customButton);
 

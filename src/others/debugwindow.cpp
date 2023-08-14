@@ -161,12 +161,13 @@ QMenuBar::item:pressed {
 void DebugWindow::makeCustomWindow() {
   m_titleBar = new StandardTitleBar(this);
   m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
+  m_titleBar->setStyleSheet("background-color: #transparent;");
+  setContentsMargins(0,0,0,0); // set the margin of the window that contains the shadow
 //  m_mainWindow = new QMainWindow();
   resize(500, 500);
-  setWindowTitle("FramelessHelper demo application - QMainWindow");
 
   QMenuBar * const mb = menuBar();
-  mb->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+//  mb->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
   mb->setStyleSheet(FRAMELESSHELPER_STRING_LITERAL(R"(
 QMenuBar {
     background-color: transparent;
@@ -186,13 +187,11 @@ QMenuBar::item:pressed {
     )"));
   const auto titleBarLayout = static_cast<QHBoxLayout *>(m_titleBar->layout());
   titleBarLayout->insertWidget(0, mb);
-//  auto titlebarButton = new QPushButton(this);
-//  titlebarButton->setObjectName(QStringLiteral("action"));
-//  titlebarButton->setText(tr("Action"));
   titleBarLayout->insertWidget(1, titleBar);
+
   // If windows or linux insert stretch at 2, macos insert stretch at 0.
   if(QSysInfo::productType() == "windows" || QSysInfo::productType() == "linux"){
-    titleBarLayout->insertStretch(2,1);
+    titleBarLayout->insertStretch(1,1);
   }else{
     titleBarLayout->insertStretch(0,1);
   }
@@ -210,8 +209,7 @@ QMenuBar::item:pressed {
   helper->setHitTestVisible(mb); // IMPORTANT!
   helper->setHitTestVisible(titleBar); // IMPORTANT!
   setWindowTitle("Debug Window");
-  mb->setWindowTitle("FramelessHelper demo application - QMenuBar");
-  setWindowIcon(QFileIconProvider().icon(QFileIconProvider::Computer));
+//  setWindowIcon(QFileIconProvider().icon(QFileIconProvider::Computer));
   // Unset the frameless flag
   setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
   show();

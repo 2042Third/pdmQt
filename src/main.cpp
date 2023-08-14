@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
   {
     FRAMELESSHELPER_USE_NAMESPACE
     FramelessHelper::Core::setApplicationOSThemeAware();
-
+    // Not setting the blur behind due to inconsistency.
     FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
   }
   // Initialization done, start app.
