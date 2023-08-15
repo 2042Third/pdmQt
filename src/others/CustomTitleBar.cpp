@@ -20,12 +20,8 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
 
   // Create a horizontal layout for the custom title bar
   layout = new QHBoxLayout(this);
-  layout->setContentsMargins(0, 0, 0, 0);
+  layout->setContentsMargins(5, 0, 5, 0);
   layout->setSpacing(5);
-
-  // Create a QLabel for the window title
-  titleLabel = new QLabel("Custom Window", this);
-  titleLabel->setContentsMargins(5, 5, 5, 5);
 
   // Create a custom button for the title bar
   customButton = new QPushButton("", this);
