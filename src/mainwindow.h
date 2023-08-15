@@ -53,9 +53,9 @@ private slots:
 private:
   PdmUpdateTimer * moveTimer;
   PdmUpdateTimer * resizeTimer;
-  Ui::MainWindow *ui;
+  Ui::MainWindow * ui;
   QMap<std::string, NoteEdit*> noteEditMap;
-  StandardTitleBar *m_titleBar = nullptr;
+  StandardTitleBar * m_titleBar = nullptr;
 
 
   void newSettingsWindow();

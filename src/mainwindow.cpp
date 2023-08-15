@@ -4,6 +4,8 @@
 #include "notesView/NotesScroll.h"
 #include "notesView/pdmListView.h"
 #include "notesView/NoteEdit.h"
+#include "helpers/FlashingCircle.h"
+#include "helpers/Animated.h"
 #include <QObject>
 #include <QFileDialog>
 #include <QProcess>
@@ -202,11 +204,19 @@ void MainWindow::makeCustomTitleBar(){
   m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
   setContentsMargins(0,0,0,0); // set the margin of the window that contains the shadow
 
-  auto *titleBar = new QWidget(this);
-  auto *layout = new QHBoxLayout(this);
+  auto * titleBar = new QWidget(this);
+  auto * layout = new QHBoxLayout(this);
   layout->setContentsMargins(5, 0, 5, 0);
   layout->setSpacing(5);
   titleBar->setLayout(layout);
+
+  auto *circle = new FlashingCircle(this);
+  Animated::makeAnimateAlpha(circle, this);
+  layout->addWidget(circle);
+
+//  auto * titleBarLabel = new QLabel(this);
+//  titleBarLabel->setText("<--");
+//  layout->addWidget(titleBarLabel);
 
   QMenuBar *const mb = menuBar();
   mb->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);

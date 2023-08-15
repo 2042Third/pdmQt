@@ -86,6 +86,8 @@ set(PROJECT_SOURCES
         src/others/CustomTitleBar.h src/others/CustomTitleBar.cpp src/others/shadowFrameWidget.h src/others/shadowFrameWidget.cpp src/handler/pdm_qt_helpers.h src/handler/pdm_qt_helpers.cpp src/handler/pdm_settings.h src/handler/pdm_settings.cpp src/handler/dao/pdmLocalDao.h src/handler/dao/pdmLocalDao.cpp src/handler/db/PdmDBType.h src/handler/pdmqt/pdm_qt_net.h src/handler/pdmqt/pdm_qt_net.cpp src/notesView/NotesScroll.h src/notesView/NotesScroll.cpp src/notesView/Note.h src/notesView/pdmListView.h src/notesView/pdmListView.cpp src/handler/dao/pdmNotesCache.h src/handler/dao/pdmNotesCache.cpp src/notesView/NoteEdit.cpp src/notesView/NoteEdit.h src/helpers/PdmUpdateTimer.h src/helpers/PdmUpdateTimer.cpp src/settings/settingsmenuWidget.h src/settings/settingsmenuWidget.cpp src/notesView/NotesScrollDelegate.h src/others/PasswordDialog.h
         src/others/MacCustomWindow.h
         src/others/macOSWindowBridge.h
+    src/helpers/FlashingCircle.h
+    src/helpers/Animated.h
 )
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
