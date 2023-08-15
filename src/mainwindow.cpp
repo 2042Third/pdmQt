@@ -9,14 +9,15 @@
 #include <QProcess>
 #include <QSettings>
 #include <QListView>
+#include <FramelessWidgetsHelper>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+    : QMainWindow(parent,Qt::FramelessWindowHint)
     , ui(new Ui::MainWindow) {
 
   ui->setupUi(this);
   ui->tabWidget->setTabsClosable(true);
-  debugWindow = new DebugWindow(ui->centralwidget);
+  debugWindow = new DebugWindow();
   rt = new PdmRunTime();
   rt->main_window = this;
   connect(rt, &PdmRunTime::log, debugWindow, &DebugWindow::appendMessage);
@@ -50,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
   // Finish settings up the settings
   rt->setup_settings();
 
+
   //Default geometry for the main window
   QWidget tempWidget;
   tempWidget.setGeometry(847, 236, defaultWidth, 905);
@@ -72,7 +74,8 @@ MainWindow::MainWindow(QWidget *parent)
   QTimer::singleShot(0, [this]() { debugWindow->checkAndShow(); });
   // Check existing user, if exist ask for decryption password
   QTimer::singleShot(0, rt, &PdmRunTime::checkExistingUser);
-
+  // Setup frameless window.
+  QTimer::singleShot(0, this, &MainWindow::makeCustomTitleBar);
   // Remove the default tab .
   mainwindowTabCloseRequested(0);
 }
@@ -84,6 +87,7 @@ MainWindow::~MainWindow()
   delete rt;
   delete moveTimer;
   delete resizeTimer;
+  delete debugWindow;
 //  delete rt->noteList;
 }
 
@@ -193,6 +197,67 @@ void MainWindow::open_user_database_location() {
 #endif
 }
 
+void MainWindow::makeCustomTitleBar(){
+  m_titleBar = new StandardTitleBar(this);
+  m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
+  setContentsMargins(0,0,0,0); // set the margin of the window that contains the shadow
+
+  auto *titleBar = new QWidget(this);
+  auto *layout = new QHBoxLayout(this);
+  layout->setContentsMargins(5, 0, 5, 0);
+  layout->setSpacing(5);
+  titleBar->setLayout(layout);
+
+  QMenuBar *const mb = menuBar();
+  mb->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+  mb->setStyleSheet(FRAMELESSHELPER_STRING_LITERAL(R"(
+QMenuBar {
+  background-color: transparent;
+}
+
+QMenuBar::item {
+  background: transparent;
+}
+
+QMenuBar::item:selected {
+  background: #a8a8a8;
+}
+
+QMenuBar::item:pressed {
+  background: #888888;
+}
+  )"));
+  const auto titleBarLayout = static_cast<QHBoxLayout *>(m_titleBar->layout());
+  titleBarLayout->insertWidget(0, mb);
+  titleBarLayout->insertWidget(1, titleBar);
+
+  // If windows or linux insert stretch at 2, macos insert stretch at 0.
+  if (QSysInfo::productType() == "windows" || QSysInfo::productType() == "linux") {
+    titleBarLayout->insertStretch(1, 1);
+  } else {
+    titleBarLayout->insertStretch(0, 1);
+  }
+
+  // setMenuWidget(): make the menu widget become the first row of the window.
+  setMenuWidget(m_titleBar);
+
+  FramelessWidgetsHelper *helper = FramelessWidgetsHelper::get(this);
+  helper->setTitleBarWidget(m_titleBar);
+#ifndef Q_OS_MACOS
+  helper->setSystemButton(m_titleBar->minimizeButton(), SystemButtonType::Minimize);
+    helper->setSystemButton(m_titleBar->maximizeButton(), SystemButtonType::Maximize);
+    helper->setSystemButton(m_titleBar->closeButton(), SystemButtonType::Close);
+#endif // Q_OS_MACOS
+  helper->setHitTestVisible(mb); // IMPORTANT!
+  helper->setHitTestVisible(titleBar); // IMPORTANT!
+
+  setWindowTitle("PDM Notes");
+//  setWindowIcon(QFileIconProvider().icon(QFileIconProvider::Computer));
+  // Unset the frameless flag
+  setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
+  show();
+
+}
 
 void MainWindow::moveEvent(QMoveEvent *event) {
   QMainWindow::moveEvent(event);

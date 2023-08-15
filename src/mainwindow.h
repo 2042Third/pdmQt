@@ -55,11 +55,13 @@ private:
   PdmUpdateTimer * resizeTimer;
   Ui::MainWindow *ui;
   QMap<std::string, NoteEdit*> noteEditMap;
-
+  StandardTitleBar *m_titleBar = nullptr;
 
 
   void newSettingsWindow();
 
   int defaultWidth = 866;
+
+  void makeCustomTitleBar();
 };
 #endif // MAINWINDOW_H

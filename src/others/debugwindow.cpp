@@ -80,7 +80,8 @@ DebugWindow::DebugWindow(QWidget *parent) :
 
   // Set the textEdit background as gray
   texts->setStyleSheet("background-color: #FFFFFF;");
-  makeCustomWindow();
+  // Setup frameless window.
+  QTimer::singleShot(0, this, &DebugWindow::makeCustomWindow);
 }
 
 void DebugWindow::appendMessage(const QString &message, const QString &color)
@@ -157,7 +158,6 @@ QMenuBar::item:pressed {
 void DebugWindow::makeCustomWindow() {
   m_titleBar = new StandardTitleBar(this);
   m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
-  m_titleBar->setStyleSheet("background-color: #transparent;");
   setContentsMargins(0,0,0,0); // set the margin of the window that contains the shadow
 //  m_mainWindow = new QMainWindow();
   resize(500, 500);
