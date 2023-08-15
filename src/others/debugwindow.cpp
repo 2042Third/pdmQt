@@ -50,15 +50,11 @@ DebugWindow::DebugWindow(QWidget *parent) :
   setCentralWidget(shadowFrameWidget);
 
   // Action buttons
-
   button1 = new QPushButton();
-  button1->setFixedSize(100, 50);  // Change these values to the size you want
-
   button2 = new QPushButton();
-  button2->setFixedSize(100, 50);  // Change these values to the size you want
-
   button3 = new QPushButton();
-  button3->setFixedSize(100, 50);  // Change these values to the size you want
+
+
 
 
 //  shadowWidgetLayout->addWidget(titleBar); // custom titlebar
