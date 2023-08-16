@@ -361,7 +361,7 @@ void MainWindow::mainwindowNoteListRightClicked(const QModelIndex &index) {
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-  debugWindow->close();
+  if(debugWindow->isVisible()) debugWindow->close();
 
   // If you want to proceed with the close action:
   event->accept();

@@ -10,15 +10,28 @@
 
 class Animated {
 public:
-    static void makeAnimateAlpha(QObject * wgt, QObject * parent = nullptr){
-      auto *animation = new QPropertyAnimation(wgt, "alpha",parent);
-      animation->setDuration(4000); // Duration of 2 seconds
-      animation->setStartValue(0);  // Starting from fully transparent
-      animation->setEndValue(0);  // Going to fully transparent
-      animation->setKeyValueAt(0.5, 255); // At halfway point, be fully opaque
+    static QPropertyAnimation* makeAnimateAlpha(QObject * wgt, QObject * parent = nullptr
+        , int startValue = 0, int endValue = 0, int duration = 4000, int loopCount = -1
+            , int midValue = 255
+        ){
+      QPropertyAnimation *animation = new QPropertyAnimation(wgt, "alpha", parent);
+      animation->setStartValue(startValue);
+      animation->setEndValue(endValue);
+      animation->setDuration(duration);
+      animation->setKeyValueAt(0.5, midValue); // At halfway point, be fully opaque
       animation->setEasingCurve(QEasingCurve::InOutSine); // Smooth easing curve
       animation->setLoopCount(-1); // Loop indefinitely
-      animation->start();
+      animation->setLoopCount(loopCount);
+      return animation;
     }
+
+    static QPropertyAnimation* animationStop(QPropertyAnimation* animation){
+      animation->stop();
+      return animation;
+    }
+
+
+
+
 };
 #endif //PDM_QT_ANIMATED_H
