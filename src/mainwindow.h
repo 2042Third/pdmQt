@@ -49,6 +49,7 @@ private slots:
   protected:
   void moveEvent(QMoveEvent *event) override;
   void resizeEvent(QResizeEvent *event) override;
+  void closeEvent(QCloseEvent *event) override;
 
 private:
   PdmUpdateTimer * moveTimer;
@@ -63,5 +64,6 @@ private:
   int defaultWidth = 866;
 
   void makeCustomTitleBar();
+
 };
 #endif // MAINWINDOW_H

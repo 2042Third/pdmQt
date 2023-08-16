@@ -89,8 +89,6 @@ MainWindow::~MainWindow()
   delete rt;
   delete moveTimer;
   delete resizeTimer;
-  delete debugWindow;
-//  delete rt->noteList;
 }
 
 
@@ -361,3 +359,13 @@ void MainWindow::mainwindowNoteListRightClicked(const QModelIndex &index) {
 
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+  debugWindow->close();
+
+  // If you want to proceed with the close action:
+  event->accept();
+
+  // If you want to prevent the window from closing:
+  // event->ignore();
+}
