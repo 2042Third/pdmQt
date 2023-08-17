@@ -7,6 +7,11 @@
 #include <FramelessWidgetsHelper>
 
 #include <QtWidgets/qfileiconprovider.h>
+#include <QSplitter>
+#include <QListWidget>
+#include <QStackedWidget>
+#include <QAbstractButton>
+#include <QToolButton>
 
 #ifdef Q_OS_MAC
 #include "macOSWindowBridge.h"
@@ -49,34 +54,15 @@ DebugWindow::DebugWindow(QWidget *parent) :
   // Set the layout for the custom title bar window
   setCentralWidget(shadowFrameWidget);
 
-  // Action buttons
-  button1 = new QPushButton();
-  button2 = new QPushButton();
-  button3 = new QPushButton();
-
-
 
 
 //  shadowWidgetLayout->addWidget(titleBar); // custom titlebar
   shadowWidgetLayout->addWidget(texts); // main content, the console
-  shadowWidgetLayout->addWidget(button1);
-  shadowWidgetLayout->addWidget(button2);
-  shadowWidgetLayout->addWidget(button3);
 
-  // qt implementation custom window
-  button1->setText("Open Custom Window (native with custom titlebar)");
-  connect(button1, &QPushButton::clicked, this, &DebugWindow::openCustomWindow);
-
-  // MacOS AppKit implementation of custom window
-  button2->setText("Open MacOS Window (native with custom titlebar) (MacOS)");
-  connect(button2, &QPushButton::clicked, this, &DebugWindow::openMacOSCustomWindow);
-
-  // Convert current window to frameless helper
-  button3->setText("Convert current window to frameless helper");
-  connect(button3, &QPushButton::clicked, this, &DebugWindow::makeCustomWindow);
+  // add the splitter settings
+  auto splitterSettings= makeDebugSettings(shadowFrameWidget,shadowWidgetLayout);
 
   shadowFrameWidget->setLayout(shadowWidgetLayout);
-
 
   // Set the textEdit background as gray
   texts->setStyleSheet("background-color: #FFFFFF;");
@@ -96,6 +82,71 @@ DebugWindow::~DebugWindow()
 #ifdef Q_OS_MACOS
 
 #endif // Q_OS_MACOS
+}
+
+QWidget* DebugWindow::makeDebugSettings(QWidget* widget, QLayout* layout){
+
+
+  // Create a tool button for toggling collapse
+  auto *toggleButton = new QToolButton(widget);
+  toggleButton->setArrowType(Qt::ArrowType::DownArrow);
+  toggleButton->setMaximumSize(10,10);
+
+
+  auto *labelWidget = new QWidget(widget);
+  auto *labelLayout = new QHBoxLayout(labelWidget);
+  auto *buttonLabel = new QLabel("More Debug Settings",widget);
+  labelLayout->addWidget(buttonLabel);
+  labelLayout->addWidget(toggleButton);
+  layout->addWidget(labelWidget);
+
+  // Create a frame as the collapsible content
+  auto *collapsibleFrame = new QFrame(widget);
+  collapsibleFrame->setFrameShape(QFrame::Panel);
+  collapsibleFrame->setFrameShadow(QFrame::Sunken);
+  layout->addWidget(collapsibleFrame);
+
+  // By default, the content is visible
+  collapsibleFrame->setVisible(false);
+
+  // Connect the button's signal to toggle visibility
+  connect(toggleButton, &QToolButton::clicked, [toggleButton, collapsibleFrame](){
+      collapsibleFrame->setVisible(!collapsibleFrame->isVisible());
+      if(collapsibleFrame->isVisible()) {
+        toggleButton->setArrowType(Qt::ArrowType::DownArrow);
+      } else {
+        toggleButton->setArrowType(Qt::ArrowType::RightArrow);
+      }
+  });
+
+  // Create a vertical splitter
+  auto *splitter = new QSplitter(Qt::Horizontal, widget);
+  QVBoxLayout *frameLayout = new QVBoxLayout(collapsibleFrame);
+  frameLayout->addWidget(splitter);
+
+  // Create the left widget for settings types
+  auto *listWidget = new QListWidget(splitter);
+  listWidget->addItem("General");
+  listWidget->addItem("Network");
+  listWidget->addItem("Display");
+
+  // Create the right stacked widget for settings
+  auto *stackedWidget = new QStackedWidget(splitter);
+  stackedWidget->addWidget(new QLabel("General Settings"));
+  stackedWidget->addWidget(new QLabel("Network Settings"));
+  stackedWidget->addWidget(getMoreSettingsWidget(widget));
+
+
+
+
+  splitter->addWidget(listWidget);
+  splitter->addWidget(stackedWidget);
+
+  // Link the left and right side so the right shows the correct page
+  connect(listWidget, &QListWidget::currentRowChanged,
+          stackedWidget, &QStackedWidget::setCurrentIndex);
+
+  return splitter;
 }
 
 void DebugWindow::openCustomWindow() {
@@ -284,6 +335,34 @@ void DebugWindow::checkAndShow() {
                 , settings.value("debugwindow/positionY",500).toInt()));
     raise(); // Bring the window to the front
   }
+}
+
+QWidget *DebugWindow::getMoreSettingsWidget(QWidget *pWidget) {
+  auto *widget = new QWidget(pWidget);
+  auto* layout = new QVBoxLayout(widget);
+
+  // Action buttons
+  button1 = new QPushButton();
+  button2 = new QPushButton();
+  button3 = new QPushButton();
+
+  layout->addWidget(button1);
+  layout->addWidget(button2);
+  layout->addWidget(button3);
+
+  // qt implementation custom window
+  button1->setText("Open Custom Window (native with custom titlebar)");
+  connect(button1, &QPushButton::clicked, this, &DebugWindow::openCustomWindow);
+
+  // MacOS AppKit implementation of custom window
+  button2->setText("Open MacOS Window (native with custom titlebar) (MacOS)");
+  connect(button2, &QPushButton::clicked, this, &DebugWindow::openMacOSCustomWindow);
+
+  // Convert current window to frameless helper
+  button3->setText("Convert current window to frameless helper");
+  connect(button3, &QPushButton::clicked, this, &DebugWindow::makeCustomWindow);
+
+  return widget;
 }
 
 

@@ -59,6 +59,11 @@ private:
     QMainWindow *m_mainWindow = nullptr;
 
     void makeCustomWindow();
+
+
+    QWidget *makeDebugSettings(QWidget *widget, QLayout *layout);
+
+    QWidget *getMoreSettingsWidget(QWidget *pWidget);
 };
 
 #endif // DEBUGWINDOW_H
