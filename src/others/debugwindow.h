@@ -64,6 +64,8 @@ private:
     QWidget *makeDebugSettings(QWidget *widget, QLayout *layout);
 
     QWidget *getMoreSettingsWidget(QWidget *pWidget);
+
+    QWidget *getStatusWidget(QWidget *pWidget);
 };
 
 #endif // DEBUGWINDOW_H

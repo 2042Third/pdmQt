@@ -208,9 +208,10 @@ void MainWindow::makeCustomTitleBar(){
   layout->setSpacing(5);
   titleBar->setLayout(layout);
 
-  auto *circle = new FlashingCircle(this);
-  Animated::makeAnimateAlpha(circle, this);
-  layout->addWidget(circle);
+  statusCircle = new FlashingCircle(this);
+  auto * anima = Animated::makeAnimateAlpha(static_cast<FlashingCircle *>(statusCircle), this);
+  anima->start();
+  layout->addWidget(static_cast<FlashingCircle *>(statusCircle));
 
 //  auto * titleBarLabel = new QLabel(this);
 //  titleBarLabel->setText("<--");

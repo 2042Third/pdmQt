@@ -15,6 +15,7 @@
 
 #ifdef Q_OS_MAC
 #include "macOSWindowBridge.h"
+#include "pdmQtWidgets.h"
 //WId winId = reinterpret_cast<WId>(createNativeMacOSWindow());
 //  extern "C" WId createNativeMacOSWindow();
 #endif
@@ -54,8 +55,6 @@ DebugWindow::DebugWindow(QWidget *parent) :
   // Set the layout for the custom title bar window
   setCentralWidget(shadowFrameWidget);
 
-
-
 //  shadowWidgetLayout->addWidget(titleBar); // custom titlebar
   shadowWidgetLayout->addWidget(texts); // main content, the console
 
@@ -86,38 +85,7 @@ DebugWindow::~DebugWindow()
 
 QWidget* DebugWindow::makeDebugSettings(QWidget* widget, QLayout* layout){
 
-
-  // Create a tool button for toggling collapse
-  auto *toggleButton = new QToolButton(widget);
-  toggleButton->setArrowType(Qt::ArrowType::DownArrow);
-  toggleButton->setMaximumSize(10,10);
-
-
-  auto *labelWidget = new QWidget(widget);
-  auto *labelLayout = new QHBoxLayout(labelWidget);
-  auto *buttonLabel = new QLabel("More Debug Settings",widget);
-  labelLayout->addWidget(buttonLabel);
-  labelLayout->addWidget(toggleButton);
-  layout->addWidget(labelWidget);
-
-  // Create a frame as the collapsible content
-  auto *collapsibleFrame = new QFrame(widget);
-  collapsibleFrame->setFrameShape(QFrame::Panel);
-  collapsibleFrame->setFrameShadow(QFrame::Sunken);
-  layout->addWidget(collapsibleFrame);
-
-  // By default, the content is visible
-  collapsibleFrame->setVisible(false);
-
-  // Connect the button's signal to toggle visibility
-  connect(toggleButton, &QToolButton::clicked, [toggleButton, collapsibleFrame](){
-      collapsibleFrame->setVisible(!collapsibleFrame->isVisible());
-      if(collapsibleFrame->isVisible()) {
-        toggleButton->setArrowType(Qt::ArrowType::DownArrow);
-      } else {
-        toggleButton->setArrowType(Qt::ArrowType::RightArrow);
-      }
-  });
+  auto *collapsibleFrame= PDM::addCollapsibleFrame("More Debug Settings", layout,widget);
 
   // Create a vertical splitter
   auto *splitter = new QSplitter(Qt::Horizontal, widget);
@@ -127,17 +95,14 @@ QWidget* DebugWindow::makeDebugSettings(QWidget* widget, QLayout* layout){
   // Create the left widget for settings types
   auto *listWidget = new QListWidget(splitter);
   listWidget->addItem("General");
-  listWidget->addItem("Network");
-  listWidget->addItem("Display");
+  listWidget->addItem("Status");
+  listWidget->addItem("Window");
 
   // Create the right stacked widget for settings
   auto *stackedWidget = new QStackedWidget(splitter);
   stackedWidget->addWidget(new QLabel("General Settings"));
-  stackedWidget->addWidget(new QLabel("Network Settings"));
+  stackedWidget->addWidget(getStatusWidget(widget));
   stackedWidget->addWidget(getMoreSettingsWidget(widget));
-
-
-
 
   splitter->addWidget(listWidget);
   splitter->addWidget(stackedWidget);
@@ -361,6 +326,13 @@ QWidget *DebugWindow::getMoreSettingsWidget(QWidget *pWidget) {
   // Convert current window to frameless helper
   button3->setText("Convert current window to frameless helper");
   connect(button3, &QPushButton::clicked, this, &DebugWindow::makeCustomWindow);
+
+  return widget;
+}
+
+QWidget *DebugWindow::getStatusWidget(QWidget *pWidget) {
+  auto *widget = new QWidget(pWidget);
+  auto* layout = new QVBoxLayout(widget);
 
   return widget;
 }

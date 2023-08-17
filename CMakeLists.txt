@@ -88,6 +88,10 @@ set(PROJECT_SOURCES
         src/others/macOSWindowBridge.h
     src/helpers/FlashingCircle.h
     src/helpers/Animated.h
+    src/others/pdmQtWidgets.h
+    src/others/pdmQtHelpers.cpp
+    src/others/pdmQtHelpers.h
+    src/helpers/FlashingCircle.cpp
 )
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")

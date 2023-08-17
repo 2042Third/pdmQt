@@ -8,6 +8,7 @@
 
 #include <QWidget>
 #include <QPainter>
+#include "others/pdmQtHelpers.h"
 
 class FlashingCircle : public QWidget
 {
@@ -15,37 +16,23 @@ class FlashingCircle : public QWidget
     Q_PROPERTY(int alpha READ alpha WRITE setAlpha)
 
 public:
-    explicit FlashingCircle(QWidget *parent = nullptr, int w=10, int h=10)
-        : QWidget(parent), m_alpha(255) {
-      setAttribute(Qt::WA_TranslucentBackground);
-      setAttribute(Qt::WA_NoSystemBackground);
-      setMinimumSize(QSize(w, h));
-      setMaximumSize(QSize(w, h));
-      show();
-    }
+    explicit FlashingCircle(QWidget *parent = nullptr, int w=10, int h=10);
+    ~FlashingCircle() override;
 
-    int alpha() const { return m_alpha; }
+    int alpha() const { return color->alpha(); }
 
 public slots:
-        void setAlpha(int value)
-    {
-      m_alpha = value;
-      update(); // Update the widget to redraw with the new alpha value
-    }
+    void setAlpha(int value);
+    void setColor(int qt_global_color);
+    void setColor(const QString &colorName);
 
 protected:
-    void paintEvent(QPaintEvent *)
-    {
-      QPainter painter(this);
-      painter.setRenderHint(QPainter::Antialiasing);  // Enable anti-aliasing
-      QColor color(255, 0, 0, m_alpha); // Red color with current alpha value
-      painter.setBrush(color);
-      painter.setPen(Qt::NoPen);  // Ensure there's no border pen
-      painter.drawEllipse(rect()); // Draw a circle covering the entire widget's rectangle
-    }
+    void paintEvent(QPaintEvent *) override;
 
 private:
-    int m_alpha;
+    static QStringList colorNames;
+    QColor *color = nullptr;
+
 };
 
 

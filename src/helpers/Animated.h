@@ -14,7 +14,7 @@ public:
         , int startValue = 0, int endValue = 0, int duration = 4000, int loopCount = -1
             , int midValue = 255
         ){
-      QPropertyAnimation *animation = new QPropertyAnimation(wgt, "alpha", parent);
+      auto *animation = new QPropertyAnimation(wgt, "alpha", parent);
       animation->setStartValue(startValue);
       animation->setEndValue(endValue);
       animation->setDuration(duration);

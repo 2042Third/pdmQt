@@ -26,6 +26,7 @@ public:
   DebugWindow * debugWindow;
   SettingsMainWindow * settingsWindow=nullptr;
   PdmRunTime* rt;
+  void*statusCircle; // FlashingCircle
 
 private slots:
   void on_actionSettings_triggered();
@@ -60,9 +61,7 @@ private:
 
 
   void newSettingsWindow();
-
   int defaultWidth = 866;
-
   void makeCustomTitleBar();
 
 };
