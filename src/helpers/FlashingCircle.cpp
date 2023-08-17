@@ -55,3 +55,5 @@ void FlashingCircle::paintEvent(QPaintEvent *)
   painter.drawEllipse(rect()); // Draw a statusCircle covering the entire widget's rectangle
 }
 
+
+

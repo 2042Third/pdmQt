@@ -6,6 +6,7 @@
 #include "CustomTitleBar.h"
 #include "qgraphicseffect.h"
 #include "shadowFrameWidget.h"
+#include "PdmRuntimeRef.h"
 #include <QGraphicsDropShadowEffect>
 #include <Global>
 
@@ -19,12 +20,13 @@ FRAMELESSHELPER_BEGIN_NAMESPACE
 FRAMELESSHELPER_END_NAMESPACE
 
 class DebugWindow :
-        public QMainWindow
+        public QMainWindow,
+        public PdmRuntimeRef
 {
   Q_OBJECT
 
 public:
-  explicit DebugWindow(QWidget *parent = nullptr);
+  explicit DebugWindow(QWidget *parent = nullptr, PdmRunTime *r= nullptr);
   ~DebugWindow();
 
   void toggleMaximize();

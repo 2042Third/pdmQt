@@ -19,8 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
 
   ui->setupUi(this);
   ui->tabWidget->setTabsClosable(true);
-  debugWindow = new DebugWindow();
   rt = new PdmRunTime();
+  debugWindow = new DebugWindow(nullptr, rt);
   rt->main_window = this;
   connect(rt, &PdmRunTime::log, debugWindow, &DebugWindow::appendMessage);
   connect(rt, &PdmRunTime::loginSuccess, this, &MainWindow::mainwindowLoginSuccess);
@@ -89,6 +89,7 @@ MainWindow::~MainWindow()
   delete rt;
   delete moveTimer;
   delete resizeTimer;
+  delete static_cast<QPropertyAnimation*>( animation);
 }
 
 
@@ -209,8 +210,8 @@ void MainWindow::makeCustomTitleBar(){
   titleBar->setLayout(layout);
 
   statusCircle = new FlashingCircle(this);
-  auto * anima = Animated::makeAnimateAlpha(static_cast<FlashingCircle *>(statusCircle), this);
-  anima->start();
+  animation = Animated::makeAnimateAlpha(static_cast<FlashingCircle *>(statusCircle), this);
+  static_cast<QPropertyAnimation*>(animation)->start();
   layout->addWidget(static_cast<FlashingCircle *>(statusCircle));
 
 //  auto * titleBarLabel = new QLabel(this);

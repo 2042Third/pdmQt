@@ -5,6 +5,7 @@
 #include "others/PasswordDialog.h"
 #include "mainwindow.h"
 #include "handler/pdm_net_type.h"
+#include "helpers/FlashingCircle.h"
 #include <QObject>
 #include <QMessageBox>
 #include <QStandardPaths>
@@ -198,4 +199,9 @@ void PdmRunTime::checkExistingUser() {
 
 int PdmRunTime::isLoginSuccessful() const {
   return hasLogIn;
+}
+
+void PdmRunTime::changeMainwindowStatusColor(const QString&txt) const{
+  static_cast<FlashingCircle*>(static_cast<MainWindow*>(main_window)->statusCircle)
+  ->setColor(txt);
 }

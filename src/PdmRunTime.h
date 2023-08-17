@@ -107,5 +107,7 @@ public: // network callbacks
       return callback_out; /* we copied this many bytes */
     }
   };
+
+    void changeMainwindowStatusColor(const QString &txt) const;
 };
 #endif // PDMRUNTIME_H

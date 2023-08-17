@@ -16,11 +16,16 @@
 #ifdef Q_OS_MAC
 #include "macOSWindowBridge.h"
 #include "pdmQtWidgets.h"
+#include "PdmRunTime.h"
+#include "mainwindow.h"
+#include <QSpinBox>
+#include <QComboBox>
 //WId winId = reinterpret_cast<WId>(createNativeMacOSWindow());
 //  extern "C" WId createNativeMacOSWindow();
 #endif
-DebugWindow::DebugWindow(QWidget *parent) :
-  QMainWindow(parent, Qt::FramelessWindowHint)
+DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
+  QMainWindow(parent, Qt::FramelessWindowHint),
+  PdmRuntimeRef(r)
 {
 
   setAttribute(Qt::WA_TranslucentBackground);
@@ -333,6 +338,23 @@ QWidget *DebugWindow::getMoreSettingsWidget(QWidget *pWidget) {
 QWidget *DebugWindow::getStatusWidget(QWidget *pWidget) {
   auto *widget = new QWidget(pWidget);
   auto* layout = new QVBoxLayout(widget);
+
+  auto* colorSelectWidget = new QWidget(pWidget);
+  QVBoxLayout *colorSelectLayout = new QVBoxLayout(colorSelectWidget);       // Use QVBoxLayout to place widgets vertically
+
+  QLabel *label = new QLabel("Change Status Color:"); // Create a QLabel
+  colorSelectLayout->addWidget(label);                    // Add QLabel to the layout
+
+  QComboBox *nameSelect = new QComboBox();
+  nameSelect->addItems(QColor::colorNames());
+  colorSelectLayout->addWidget(nameSelect);
+
+  QObject::connect(nameSelect, &QComboBox::currentTextChanged,
+                   [ this](const QString &text){
+                        this->rt->changeMainwindowStatusColor(text);
+  });
+
+  layout->addWidget(colorSelectWidget);
 
   return widget;
 }
