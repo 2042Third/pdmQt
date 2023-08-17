@@ -68,6 +68,8 @@ private:
     QWidget *getMoreSettingsWidget(QWidget *pWidget);
 
     QWidget *getStatusWidget(QWidget *pWidget);
+
+    QWidget *getStatusColorWidget( QWidget *pWidget) const;
 };
 
 #endif // DEBUGWINDOW_H

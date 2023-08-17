@@ -121,7 +121,6 @@ void MainWindow::on_actionDebug_Messages_triggered()
     int height = activeWindowGeometry.height();
 
     debugWindow->move(QPoint(x+width,y)); // Put the debug window to the right of the active window if possible.
-    debugWindow->titleBar->changeName("Debug Messages");
   }
   debugWindow->show();
 //  debugWindow->setFocus();

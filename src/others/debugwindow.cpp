@@ -15,7 +15,7 @@
 
 #ifdef Q_OS_MAC
 #include "macOSWindowBridge.h"
-#include "pdmQtWidgets.h"
+#include "src/others/tools/pdmQtWidgets.h"
 #include "PdmRunTime.h"
 #include "mainwindow.h"
 #include <QSpinBox>
@@ -338,7 +338,12 @@ QWidget *DebugWindow::getMoreSettingsWidget(QWidget *pWidget) {
 QWidget *DebugWindow::getStatusWidget(QWidget *pWidget) {
   auto *widget = new QWidget(pWidget);
   auto* layout = new QVBoxLayout(widget);
+  QWidget *colorSelectWidget = getStatusColorWidget(pWidget);
+  layout->addWidget(colorSelectWidget);
+  return widget;
+}
 
+QWidget *DebugWindow::getStatusColorWidget( QWidget *pWidget) const {
   auto* colorSelectWidget = new QWidget(pWidget);
   QVBoxLayout *colorSelectLayout = new QVBoxLayout(colorSelectWidget);       // Use QVBoxLayout to place widgets vertically
 
@@ -349,14 +354,11 @@ QWidget *DebugWindow::getStatusWidget(QWidget *pWidget) {
   nameSelect->addItems(QColor::colorNames());
   colorSelectLayout->addWidget(nameSelect);
 
-  QObject::connect(nameSelect, &QComboBox::currentTextChanged,
+  connect(nameSelect, &QComboBox::currentTextChanged,
                    [ this](const QString &text){
-                        this->rt->changeMainwindowStatusColor(text);
+                        rt->changeMainwindowStatusColor(text);
   });
-
-  layout->addWidget(colorSelectWidget);
-
-  return widget;
+  return colorSelectWidget;
 }
 
 

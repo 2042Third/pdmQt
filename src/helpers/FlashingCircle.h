@@ -8,7 +8,7 @@
 
 #include <QWidget>
 #include <QPainter>
-#include "others/pdmQtHelpers.h"
+#include "src/others/tools/pdmQtHelpers.h"
 
 class FlashingCircle : public QWidget
 {

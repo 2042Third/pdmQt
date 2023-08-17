@@ -12,8 +12,12 @@
 #include <QLabel>
 #include <QToolButton>
 #include <sys/socket.h>
+#include <QMouseEvent>
+#include "pdmExtraQtWidgets.h"
 
 namespace PDM{
+
+
     QListWidgetItem* listSeparator(){
       auto *separator = new QListWidgetItem();
       separator->setBackground(Qt::gray); // or any other color to make it look like a separator
@@ -28,8 +32,7 @@ namespace PDM{
       toggleButton->setArrowType(Qt::ArrowType::DownArrow);
       toggleButton->setMaximumSize(10,10);
 
-
-      auto *labelWidget = new QWidget(widget);
+      auto *labelWidget = new PDM::ExtraQt::ClickableWidget(widget);
       auto *labelLayout = new QHBoxLayout(labelWidget);
       auto *buttonLabel = new QLabel(name,widget);
       labelLayout->addWidget(buttonLabel);
@@ -46,7 +49,8 @@ namespace PDM{
       collapsibleFrame->setVisible(false);
 
       // Connect the button's signal to toggle visibility
-      QAbstractButton::connect(toggleButton, &QToolButton::clicked, [toggleButton, collapsibleFrame](){
+
+      QAbstractButton::connect(labelWidget, &ExtraQt::ClickableWidget::clicked, [toggleButton, collapsibleFrame](){
           collapsibleFrame->setVisible(!collapsibleFrame->isVisible());
           if(collapsibleFrame->isVisible()) {
             toggleButton->setArrowType(Qt::ArrowType::DownArrow);
@@ -54,6 +58,15 @@ namespace PDM{
             toggleButton->setArrowType(Qt::ArrowType::RightArrow);
           }
       });
+      QAbstractButton::connect(toggleButton, &QAbstractButton::clicked, [toggleButton, collapsibleFrame](){
+          collapsibleFrame->setVisible(!collapsibleFrame->isVisible());
+          if(collapsibleFrame->isVisible()) {
+            toggleButton->setArrowType(Qt::ArrowType::DownArrow);
+          } else {
+            toggleButton->setArrowType(Qt::ArrowType::RightArrow);
+          }
+      });
+
       return collapsibleFrame;
     }
 }
