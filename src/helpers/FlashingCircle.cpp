@@ -35,14 +35,17 @@ void FlashingCircle::setColor(int qt_global_color){
     PDM::Helpers::QtColor::copy_rgb(
         QColor::fromString(colorNames.at(qt_global_color)),
         color);
+    currentColorIndex = qt_global_color;
   }
 }
 
 void FlashingCircle::setColor(const QString&colorName){
-  if (colorNames.contains(colorName)) {
+  auto colorIndex = colorNames.indexOf(colorName);
+  if (colorIndex >-1) {
     PDM::Helpers::QtColor::copy_rgb(
         QColor::fromString(colorName),
         color);
+    currentColorIndex = colorIndex;
   }
 }
 
@@ -55,5 +58,7 @@ void FlashingCircle::paintEvent(QPaintEvent *)
   painter.drawEllipse(rect()); // Draw a statusCircle covering the entire widget's rectangle
 }
 
-
+const QString&  FlashingCircle::getColorName() const{
+  return colorNames.at(currentColorIndex);
+}
 

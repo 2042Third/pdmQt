@@ -25,12 +25,14 @@ public slots:
     void setAlpha(int value);
     void setColor(int qt_global_color);
     void setColor(const QString &colorName);
+    [[nodiscard]] const QString& getColorName() const;
 
 
 protected:
     void paintEvent(QPaintEvent *) override;
 
 private:
+    qsizetype currentColorIndex = 0;
     static QStringList colorNames;
     QColor *color = nullptr;
 
