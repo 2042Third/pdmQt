@@ -159,7 +159,7 @@ void PdmRunTime::checkExistingUser() {
   if (email) { // Check if a user has logged in before
     std::unique_ptr<PDM::Local> encd_ps = local_dao->find_by_key("email/"+email->val.val);
     std::unique_ptr<PDM::Local> encd_ps_ver = local_dao->find_by_key("email/"+email->val.val+"/verify");
-    if (!encd_ps) {
+    if (!encd_ps) { // No local data found
       emit log("No password found for stored account", "#FF0004");
       return;
     }
@@ -190,9 +190,9 @@ void PdmRunTime::checkExistingUser() {
           data= PDM::pdm_net_type::getSigninJsonStr(email->val.val.c_str(),ps.c_str());
       std::string j_str = PDM::network::get_json(data);
       signin_action(j_str,&wt,ps.c_str(),email->val.val.c_str(),SigninNetCallBack_::_callback);
-      emit log("Existing login send to the server ...", "#016C05");
+      emit log("Existing login info decrypted, sending to the server ...", "#016C05");
     } else {
-      emit log("Existing login failed to send to the server ...", "#016C05");
+      emit log("Existing login cancelled or failed to send to the server ...", "#016C05");
     }
   }
 }

@@ -18,6 +18,7 @@
 #include "src/others/tools/pdmQtWidgets.h"
 #include "PdmRunTime.h"
 #include "mainwindow.h"
+#include "helpers/FlashingCircle.h"
 #include <QSpinBox>
 #include <QComboBox>
 //WId winId = reinterpret_cast<WId>(createNativeMacOSWindow());
@@ -344,19 +345,30 @@ QWidget *DebugWindow::getStatusWidget(QWidget *pWidget) {
 }
 
 QWidget *DebugWindow::getStatusColorWidget( QWidget *pWidget) const {
-  auto* colorSelectWidget = new QWidget(pWidget);
-  QVBoxLayout *colorSelectLayout = new QVBoxLayout(colorSelectWidget);       // Use QVBoxLayout to place widgets vertically
+  auto *colorSelectWidget = new QWidget(pWidget);
+  auto *colorSelectLayout = new QVBoxLayout(colorSelectWidget);       // Use QVBoxLayout to place widgets vertically
 
-  QLabel *label = new QLabel("Change Status Color:"); // Create a QLabel
+  auto *label = new QLabel("Change Status Color:"); // Create a QLabel
   colorSelectLayout->addWidget(label);                    // Add QLabel to the layout
 
-  QComboBox *nameSelect = new QComboBox();
+  auto *nameSelect = new QComboBox();
   nameSelect->addItems(QColor::colorNames());
   colorSelectLayout->addWidget(nameSelect);
+
 
   connect(nameSelect, &QComboBox::currentTextChanged,
                    [ this](const QString &text){
                         rt->changeMainwindowStatusColor(text);
+  });
+
+  QTimer::singleShot(0, [this, nameSelect](){
+      if(static_cast<MainWindow*>(rt->main_window)->statusCircle){
+        nameSelect->setCurrentIndex(
+            static_cast<FlashingCircle *>(
+                static_cast<MainWindow *>(rt->main_window)->statusCircle
+            )->getColorIndex()
+        );
+      }
   });
   return colorSelectWidget;
 }

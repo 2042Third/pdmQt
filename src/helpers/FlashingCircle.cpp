@@ -59,6 +59,10 @@ void FlashingCircle::paintEvent(QPaintEvent *)
 }
 
 const QString&  FlashingCircle::getColorName() const{
-  return colorNames.at(currentColorIndex);
+  return colorNames.at(getColorIndex());
+}
+
+qsizetype FlashingCircle::getColorIndex() const {
+  return currentColorIndex;
 }
 

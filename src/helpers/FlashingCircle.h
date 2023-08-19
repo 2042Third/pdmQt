@@ -26,6 +26,7 @@ public slots:
     void setColor(int qt_global_color);
     void setColor(const QString &colorName);
     [[nodiscard]] const QString& getColorName() const;
+    [[nodiscard]] qsizetype getColorIndex() const;
 
 
 protected:

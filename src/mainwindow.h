@@ -26,7 +26,7 @@ public:
   DebugWindow * debugWindow;
   SettingsMainWindow * settingsWindow=nullptr;
   PdmRunTime* rt;
-  void*statusCircle=nullptr; // FlashingCircle
+  void * statusCircle=nullptr; // FlashingCircle
   void * animation=nullptr;
 private slots:
   void on_actionSettings_triggered();
