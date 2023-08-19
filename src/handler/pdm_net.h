@@ -25,14 +25,14 @@ namespace PDM {
   class network {
     using json = nlohmann::json;
   public:
-    struct notes{
+    struct _notes{
       const std::string GetHeadsType = "heads";
       const std::string GetNoteType = "retrieve";
       const std::string GetNewNoteType = "new";
       const std::string UpdateNoteType = "update";
       const std::string DeleteNoteType = "delete";
     };
-    struct actions {
+    struct _actions {
       const std::string pdmRootURL = "https://pdm.pw";
       const std::string signinURL = pdmRootURL+"/auth/signin";
       const std::string signupURL = pdmRootURL + "/auth/signup";
@@ -48,7 +48,7 @@ namespace PDM {
       return std::move(signin_data);
     }
 
-    int signin_post       (const std::string&a, NetWriter* wt_in,
+    static int signin_post       (const std::string&a, NetWriter* wt_in,
                            size_t _callback(char *, size_t , size_t , void *)=post_callback_signin );
 
     static void get_userinfo (const json &j,UserInfo& userinfo);
@@ -61,8 +61,8 @@ namespace PDM {
 
     void set_db (pdm_database * a){wt.db = a;}
 
-    const actions actions;
-    const notes notes;
+    static const _actions actions;
+    static const _notes notes;
     struct NetObj wt; // store the most recent network return callback
   private:
 

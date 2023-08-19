@@ -8,8 +8,28 @@
 #include "PdmRunTime.h"
 #include <iostream>
 
+namespace PDM{
+    const network::_actions network::actions = {
+        "https://pdm.pw",
+        "https://pdm.pw/auth/signin",
+        "https://pdm.pw/auth/signup",
+        "https://pdm.pw/auth/note"
+    };
+
+    const network::_notes network::notes = {
+        "heads",
+        "retrieve",
+        "new",
+        "update",
+        "delete"
+    };
+
+}
+
 namespace PDM {
   using json = nlohmann::json;
+
+
 
   size_t network::post_callback_signin( char *data, size_t size, size_t nmemb, void *userp){
     auto *wt = (struct NetObj *)userp;

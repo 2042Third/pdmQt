@@ -9,6 +9,7 @@
 #include <QObject>
 #include <QMessageBox>
 #include <QStandardPaths>
+#include <QtConcurrent/QtConcurrent>
 
 PdmRunTime::PdmRunTime(QObject *parent)
       : QObject(parent) {
@@ -94,7 +95,7 @@ int PdmRunTime::signin_action(const std::string &a, NetWriter *wt_in, const char
   user_conf->open_db(conf_loc.c_str(),"pdmnotes",8); // Make local user configurations
   wt_in->pdm_runtime = this;
   wt_in->data = ps;
-  signin_post(a,wt_in,_callback); // Call network post for Sign In action
+  QtConcurrent::run(signin_post,a,wt_in,_callback); // Call network post for Sign In action
 
   return 1;
 }
