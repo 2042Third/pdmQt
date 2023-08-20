@@ -336,6 +336,7 @@ void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
   ui->tabWidget->setCurrentIndex(tabIndex);
   noteEdit->idx=tabIndex;
   noteEdit->setFocus();
+
 }
 
 void MainWindow::mainwindowTabCloseRequested(int index){

@@ -25,8 +25,12 @@ public:
       return animation;
     }
 
-    static QPropertyAnimation* animationStop(QPropertyAnimation* animation){
-      animation->stop();
+    static void* animationStop(void* animation){
+      static_cast<QPropertyAnimation*>(animation)->stop();
+      return animation;
+    }
+    static void* animationStart(void* animation){
+      static_cast<QPropertyAnimation*>(animation)->start();
       return animation;
     }
 

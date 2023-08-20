@@ -6,6 +6,8 @@
 #include <QMenuBar>
 #include <FramelessWidgetsHelper>
 
+#include <QCheckBox>
+#include "helpers/Animated.h"
 #include <QtWidgets/qfileiconprovider.h>
 #include <QSplitter>
 #include <QListWidget>
@@ -355,7 +357,6 @@ QWidget *DebugWindow::getStatusColorWidget( QWidget *pWidget) const {
   nameSelect->addItems(QColor::colorNames());
   colorSelectLayout->addWidget(nameSelect);
 
-
   connect(nameSelect, &QComboBox::currentTextChanged,
                    [ this](const QString &text){
                         rt->changeMainwindowStatusColor(text);
@@ -370,6 +371,30 @@ QWidget *DebugWindow::getStatusColorWidget( QWidget *pWidget) const {
         );
       }
   });
+
+  auto *checkBoxLabel = new QLabel("Show Status Circle");
+  colorSelectLayout->addWidget(checkBoxLabel);
+  auto *checkBox = new QCheckBox("Status Flashing Animation");
+  colorSelectLayout->addWidget(checkBox);
+  checkBox->setCheckState(Qt::CheckState::Checked);
+  connect(checkBox, &QCheckBox::stateChanged, [this](int state){
+      if(state){ // Animated
+        if (static_cast<MainWindow *>(rt->main_window)->animation) {
+          Animated::animationStart(static_cast<MainWindow *>(rt->main_window)->animation);
+        }
+      }
+      else{ // not Animated
+        if (static_cast<MainWindow *>(rt->main_window)->animation) {
+          Animated::animationStop(static_cast<MainWindow *>(rt->main_window)->animation);
+        }
+        if(static_cast<MainWindow *>(rt->main_window)->statusCircle){
+          static_cast<FlashingCircle *>(
+              static_cast<MainWindow *>(rt->main_window)->statusCircle
+          )->setAlpha(255);
+        }
+      }
+  });
+
   return colorSelectWidget;
 }
 
