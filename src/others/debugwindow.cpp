@@ -348,8 +348,10 @@ QWidget *DebugWindow::getStatusWidget(QWidget *pWidget) {
 }
 
 QWidget *DebugWindow::getStatusColorWidget( QWidget *pWidget) const {
-  auto *colorSelectWidget = new QWidget(pWidget);
+  auto *colorSelectWidget = new PDM::ExtraQt::UpdatingWidget(pWidget);
   auto *colorSelectLayout = new QFormLayout(colorSelectWidget);       // Use QVBoxLayout to place widgets vertically
+
+
 
   auto *nameSelect = new QComboBox();
   nameSelect->addItems(QColor::colorNames());
@@ -388,6 +390,22 @@ QWidget *DebugWindow::getStatusColorWidget( QWidget *pWidget) const {
         Animated::animationDuration(value, static_cast<MainWindow *>(rt->main_window)->animation);
       }
   });
+
+  connect(colorSelectWidget,&PDM::ExtraQt::UpdatingWidget::widgetShown
+          , [this,nameSelect, checkBox, animationSpeedSpinBox](){
+            if (static_cast<MainWindow *>(rt->main_window) && static_cast<MainWindow *>(rt->main_window)->animation) {
+              nameSelect->setCurrentText(
+                  static_cast<FlashingCircle*>(static_cast<MainWindow *>(rt->main_window)->statusCircle)
+                  ->getColorName());
+              auto* ani = static_cast<QPropertyAnimation*>(static_cast<MainWindow *>(rt->main_window)->animation);
+              if(ani->state() == QAbstractAnimation::Running) {
+                checkBox->setCheckState(Qt::CheckState::Checked);
+              } else {
+                checkBox->setCheckState(Qt::CheckState::Unchecked);
+              }
+              animationSpeedSpinBox->setValue(ani->duration());
+            }
+          });
 
   return colorSelectWidget;
 }

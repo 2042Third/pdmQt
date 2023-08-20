@@ -26,5 +26,23 @@ namespace PDM::ExtraQt{
           QWidget::mousePressEvent(event);
         }
     };
+
+    class UpdatingWidget : public QWidget
+    {
+    Q_OBJECT
+    public:
+        explicit UpdatingWidget(QWidget* parent = nullptr) : QWidget(parent) {}
+
+    signals:
+        void widgetShown();
+
+    protected:
+        void showEvent(QShowEvent *event) override {
+          // You can emit a signal here
+          emit widgetShown();
+          QWidget::showEvent(event);
+        }
+    };
+
 }
 #endif //PDM_QT_PDMEXTRAQTWIDGETS_H
