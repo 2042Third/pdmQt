@@ -15,14 +15,23 @@ public:
             , int midValue = 255
         ){
       auto *animation = new QPropertyAnimation(wgt, "alpha", parent);
-      animation->setStartValue(startValue);
-      animation->setEndValue(endValue);
-      animation->setDuration(duration);
-      animation->setKeyValueAt(0.5, midValue); // At halfway point, be fully opaque
+      animateAlpha(startValue, midValue, endValue, animation);
+      animationDuration(duration, animation);
       animation->setEasingCurve(QEasingCurve::InOutSine); // Smooth easing curve
       animation->setLoopCount(-1); // Loop indefinitely
       animation->setLoopCount(loopCount);
       return animation;
+    }
+
+    static void animateAlpha(int startValue, int midValue, int endValue, void *animation) {
+      auto * ani = static_cast<QPropertyAnimation*>(animation);
+      ani->setStartValue(startValue);
+      ani->setEndValue(endValue);
+      ani->setKeyValueAt(0.5, midValue); // At halfway point, be fully opaque
+    }
+
+    static void animationDuration(int duration, void *animation) {
+      static_cast<QPropertyAnimation*>(animation)->setDuration(duration);
     }
 
     static void* animationStop(void* animation){
