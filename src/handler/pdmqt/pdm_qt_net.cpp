@@ -6,6 +6,7 @@
 
 #include "handler/pdm_net_type.h"
 #include "PdmRunTime.h"
+#include <QtConcurrent/QtConcurrent>
 
 /**
  * Pdm QT's get notes heads method.
@@ -36,7 +37,8 @@ int PDM::pdm_qt_net::client_action_note_heads(void *rtt) {
       data= PDM::pdm_net_type::getNoteHeadsJsonStr(rt->wt.userinfo.sess, rt->wt.userinfo.email, rt->notes.GetHeadsType);
   j_str = PDM::network::get_json(data);
 
-  PdmRunTime::post(j_str,rt->actions.notesGetHeadsURL,&rt->wt,NetCallBack_::_callback);
+
+  QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,&rt->wt,NetCallBack_::_callback);
   return 0;
 }
 
