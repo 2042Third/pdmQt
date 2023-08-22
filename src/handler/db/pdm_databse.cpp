@@ -56,7 +56,7 @@ int PDM::pdm_database::open_db(const char *name, const char*pas, int pas_size) {
   change(PDM::Status::OPEN);
   if( rc ){
     status_open = 0;
-    change(PDM::Status::PDM_ERROR);
+    change(PDM::Status::ERROR);
     fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
     sqlite3_close(db);
     return 0;
@@ -78,7 +78,7 @@ int PDM::pdm_database::execute(const char *input) {
   reset(&current_display_table);
   rc = sqlite3_exec(db, input, callback, &current_display_table, &zErrMsg);
   if( rc!=SQLITE_OK ){
-    change(PDM::Status::PDM_ERROR);
+    change(PDM::Status::ERROR);
     fprintf(stderr, "SQL error: %s\n", zErrMsg);
     sqlite3_free(zErrMsg);
     return 0;

@@ -87,7 +87,7 @@ int PDM::pdmNotesCache::execute_note_heads(const nlohmann::json&j, const UserInf
   char *zErrMsg = 0;  //  Can perhaps display the error message if rc != SQLITE_OK.
   rc = sqlite3_exec( db, "END TRANSACTION", 0, 0, &zErrMsg );   //  End the transaction.
   if( rc!=SQLITE_OK ){
-    change(PDM_ERROR);
+    change(ERROR);
     fprintf(stderr, "SQL error: %s\n", zErrMsg);
     sqlite3_free(zErrMsg);
     return 0;
