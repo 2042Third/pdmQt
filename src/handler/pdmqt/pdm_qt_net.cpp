@@ -78,6 +78,6 @@ int PDM::pdm_qt_net::client_action_note_retrieve(void *rtt, int noteId) {
                                                       , rt->notes.GetNoteType); // Should have note id
   j_str = PDM::network::get_json(data);
 
-  PdmRunTime::post(j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);
+  QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);
   return 0;
 }
