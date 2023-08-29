@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(rt, &PdmRunTime::noteListLeftClicked, this, &MainWindow::mainwindowNoteListLeftClicked);
   connect(rt, &PdmRunTime::noteListRightClicked, this, &MainWindow::mainwindowNoteListRightClicked);
   connect(rt, &PdmRunTime::noteRetrieveSuccess, this, &MainWindow::mainwindowNoteRetrieveSuccess);
+  connect(rt->statusQt, &StatusQt::statusChanged, this, &MainWindow::mainwindowRuntimeStatusChanged);
   connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &MainWindow::mainwindowTabCloseRequested);
 
   //Default Messages
@@ -52,7 +53,6 @@ MainWindow::MainWindow(QWidget *parent)
 
   // Finish settings up the settings
   rt->setup_settings();
-
 
   //Default geometry for the main window
   QWidget tempWidget;
@@ -370,4 +370,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
   // If you want to prevent the window from closing:
   // event->ignore();
+}
+
+void MainWindow::mainwindowRuntimeStatusChanged(const QString &status) {
+
 }

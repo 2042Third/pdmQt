@@ -23,7 +23,6 @@ int PDM::pdm_qt_net::client_action_note_heads(void *rtt) {
         emit rt->noteHeadsSuccess();
       } // End Success block
       else { // Begin Fail block
-
         emit rt->log("Unsuccessful notes callback. ", "#6C2501");
         emit rt->noteHeadsFail();
       } // End Fail block
@@ -36,7 +35,6 @@ int PDM::pdm_qt_net::client_action_note_heads(void *rtt) {
   std::map<std::string,std::string>
       data= PDM::pdm_net_type::getNoteHeadsJsonStr(rt->wt.userinfo.sess, rt->wt.userinfo.email, rt->notes.GetHeadsType);
   j_str = PDM::network::get_json(data);
-
 
   QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,&rt->wt,NetCallBack_::_callback);
   return 0;
@@ -61,7 +59,6 @@ int PDM::pdm_qt_net::client_action_note_retrieve(void *rtt, int noteId) {
       } // End Success block
       else { // Begin Fail block
         std::cout << "Note retrieve failure: " << std::endl;
-
         emit rt->log("Unsuccessful notes callback. ", "#6C2501");
         emit rt->noteRetrieveFail(net_convert::add_number(wt->js,"note_id"));
       } // End Fail block
@@ -77,7 +74,6 @@ int PDM::pdm_qt_net::client_action_note_retrieve(void *rtt, int noteId) {
                                                       , std::to_string(noteId)
                                                       , rt->notes.GetNoteType); // Should have note id
   j_str = PDM::network::get_json(data);
-
   QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);
   return 0;
 }

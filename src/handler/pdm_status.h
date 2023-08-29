@@ -19,15 +19,14 @@ namespace PDM {
             ERROR
         };
 
-    private:
+    protected:
         State current_status = State::NONE;
-
     public:
-        void change(State status) {
+        virtual void change(State status) {
           current_status = status;
         }
 
-        const char* text_status() const {
+        [[nodiscard]] virtual const char* text_status() const {
           switch(current_status) {
             case State::NONE:
               return "NONE";
@@ -44,7 +43,7 @@ namespace PDM {
           }
         }
 
-        State get_current_status() const {
+        [[nodiscard]] State get_current_status() const {
           return current_status;
         }
     };

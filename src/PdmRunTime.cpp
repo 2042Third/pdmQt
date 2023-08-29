@@ -6,6 +6,7 @@
 #include "mainwindow.h"
 #include "handler/pdm_net_type.h"
 #include "helpers/FlashingCircle.h"
+#include "handler/pdm_status_qt.h"
 #include <QObject>
 #include <QMessageBox>
 #include <QStandardPaths>
@@ -18,6 +19,7 @@ PdmRunTime::PdmRunTime(QObject *parent)
   local_dao = new PDM::LocalDao(); // Create the db that stores the configurations
   user_conf = new PDM::pdm_database(); // Create config db for user
   user_data = new PDM::pdmNotesCache(); // Create config db for user
+  statusQt = new StatusQt();
 
   set_db(user_data); // User local data.
 
@@ -82,6 +84,7 @@ PdmRunTime::~PdmRunTime() {
   delete local_dao;
   delete user_data;
   delete user_conf;
+  delete statusQt;
 }
 
 int PdmRunTime::signin_action(const std::string &a, NetWriter *wt_in, const char *password, const char *email,

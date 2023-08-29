@@ -10,6 +10,7 @@
 #include "handler/dao/pdmNotesCache.h"
 #include "notesView/NotesScroll.h"
 #include "misc/md5.h"
+#include "handler/pdm_status_qt.h"
 
 
 class PdmRunTime : public QObject,
@@ -27,6 +28,7 @@ public:
   PDM::pdm_database * user_conf; // User config
   PDM::pdmNotesCache * user_data; // User data
   NotesScroll* noteList;
+  StatusQt* statusQt;
 explicit PdmRunTime(QObject *parent = nullptr);
   ~PdmRunTime();
   std::string conf_loc;

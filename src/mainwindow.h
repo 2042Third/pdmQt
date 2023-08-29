@@ -42,9 +42,8 @@ private slots:
   void mainwindowNoteListLeftClicked(const QModelIndex &index);
   void mainwindowNoteListRightClicked(const QModelIndex &index);
   void mainwindowTabCloseRequested(int index);
-
+  void mainwindowRuntimeStatusChanged(const QString &status);
   void on_actionZoom_In_triggered();
-
   void on_actionZoom_Out_triggered();
 
   protected:
