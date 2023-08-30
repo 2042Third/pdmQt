@@ -53,6 +53,7 @@ explicit PdmRunTime(QObject *parent = nullptr);
 public slots:
   void on_loginSuccess();
   void on_loginFail();
+  void on_statusChanged(const QString &status);
 
   signals:
   void log(const QString &message, const QString &color);

@@ -47,6 +47,5 @@ namespace PDM {
           return current_status;
         }
     };
-
 } // namespace PDM
 #endif //PDM_PLATFORMS_UI_PDM_STATUS_H

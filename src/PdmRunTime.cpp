@@ -209,3 +209,20 @@ void PdmRunTime::changeMainwindowStatusColor(const QString&txt) const{
   static_cast<FlashingCircle*>(static_cast<MainWindow*>(main_window)->statusCircle)
   ->setColor(txt);
 }
+
+void PdmRunTime::on_statusChanged(const QString &status) {
+  if (!statusQt) return;
+  switch (statusQt->statusInstance.get_current_status()) {
+    case PDM::Status::NONE:
+
+      break;
+    case PDM::Status::LOADING:
+      break;
+    case PDM::Status::OPEN:
+      break;
+    case PDM::Status::CLOSED:
+      break;
+    case PDM::Status::ERROR:
+      break;
+  }
+}
