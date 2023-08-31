@@ -365,30 +365,14 @@ QWidget *DebugWindow::getStatusColorWidget( QWidget *pWidget) const {
   colorSelectLayout->addRow("Show Status Circle", checkBox);
   checkBox->setCheckState(Qt::CheckState::Checked);
   connect(checkBox, &QCheckBox::stateChanged, [this](int state){
-      if(state){ // Animated
-        if (static_cast<MainWindow *>(rt->main_window)->animation) {
-          Animated::animationStart(static_cast<MainWindow *>(rt->main_window)->animation);
-        }
-      }
-      else{ // not Animated
-        if (static_cast<MainWindow *>(rt->main_window)->animation) {
-          Animated::animationStop(static_cast<MainWindow *>(rt->main_window)->animation);
-        }
-        if(static_cast<MainWindow *>(rt->main_window)->statusCircle){
-          static_cast<FlashingCircle *>(
-              static_cast<MainWindow *>(rt->main_window)->statusCircle
-          )->setAlpha(255);
-        }
-      }
+//      PdmRunTime::toggleAnimation(rt, state);
   });
 
   auto *animationSpeedSpinBox = new QSpinBox();
   animationSpeedSpinBox->setRange(0, 5000);
   colorSelectLayout->addRow("Animation Speed", animationSpeedSpinBox);
   QObject::connect(animationSpeedSpinBox, &QSpinBox::valueChanged, [this](int value) {
-      if (static_cast<MainWindow *>(rt->main_window) && static_cast<MainWindow *>(rt->main_window)->animation) {
-        Animated::animationDuration(value, static_cast<MainWindow *>(rt->main_window)->animation);
-      }
+//      PdmRunTime::changeAnimationSpeed(rt, value);
   });
 
   connect(colorSelectWidget,&PDM::ExtraQt::UpdatingWidget::widgetShown

@@ -7,6 +7,7 @@
 #include "handler/pdm_net_type.h"
 #include "helpers/FlashingCircle.h"
 #include "handler/pdm_status_qt.h"
+#include "helpers/Animated.h"
 #include <QObject>
 #include <QMessageBox>
 #include <QStandardPaths>
@@ -224,5 +225,29 @@ void PdmRunTime::on_statusChanged(const QString &status) {
       break;
     case PDM::Status::ERROR:
       break;
+  }
+}
+
+void PdmRunTime::toggleAnimation(PdmRunTime* rt, int state) {
+  if(state){ // Animated
+    if (static_cast<MainWindow *>(rt->main_window)->animation) {
+      Animated::animationStart(static_cast<MainWindow *>(rt->main_window)->animation);
+    }
+  }
+  else{ // not Animated
+    if (static_cast<MainWindow *>(rt->main_window)->animation) {
+      Animated::animationStop(static_cast<MainWindow *>(rt->main_window)->animation);
+    }
+    if(static_cast<MainWindow *>(rt->main_window)->statusCircle){
+      static_cast<FlashingCircle *>(
+          static_cast<MainWindow *>(rt->main_window)->statusCircle
+      )->setAlpha(255);
+    }
+  }
+}
+
+void PdmRunTime::changeAnimationSpeed(PdmRunTime*rt, int value)  {
+  if (static_cast<MainWindow *>(rt->main_window) && static_cast<MainWindow *>(rt->main_window)->animation) {
+    Animated::animationDuration(value, static_cast<MainWindow *>(rt->main_window)->animation);
   }
 }

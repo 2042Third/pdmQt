@@ -1,6 +1,7 @@
 #ifndef PDMRUNTIME_H
 #define PDMRUNTIME_H
 
+
 #include <QObject>
 #include "src/handler/db/pdm_database.h"
 #include <src/handler/pdm_status.h>
@@ -41,6 +42,8 @@ explicit PdmRunTime(QObject *parent = nullptr);
   int setup_settings();
   static int setup_settings_check();
   void checkExistingUser();
+  static void toggleAnimation(PdmRunTime *rt, int state) ;
+  static void changeAnimationSpeed(PdmRunTime* rt, int value) ;
 
   // Data Handlers
   QString currentStatusBar ;
