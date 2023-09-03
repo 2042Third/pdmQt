@@ -20,6 +20,9 @@ if(APPLE)
     set(CMAKE_PREFIX_PATH "/Users/mikeyang/Qt/6.5.1/macos/lib/cmake")
     set(OPENSSL_ROOT_DIR /opt/homebrew/opt/openssl@3)
     set(FramelessHelper_DIR /Users/mikeyang/Documents/pdm/pdmQt/lib/framelesshelperBuild/lib64/cmake/FramelessHelper)
+elif(WIN32)
+    set(CMAKE_PREFIX_PATH "C:\\Qt\\6.4.2\\mingw_64\\lib\\cmake")
+    set(FramelessHelper_DIR "C:\\Users\\18604\\Documents\\pdm_qt\\lib\\framelesshelperBuild\\lib64\\cmake\\FramelessHelper")
 endif()
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
