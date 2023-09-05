@@ -37,8 +37,9 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
 )
 
 # Find FramelessHelper:
-find_package(FramelessHelper REQUIRED COMPONENTS Core Widgets)
-
+if(APPLE)
+    find_package(FramelessHelper REQUIRED COMPONENTS Core Widgets)
+endif()
 # check if we are on windows
 if(WIN32)
 
@@ -146,6 +147,8 @@ target_include_directories(pdm_qt PUBLIC
 
 )
 
+set(PDM_TEST_PLATFORM_DESKTOP 1)
+
 add_subdirectory(lib/pdm-crypt-module) # pdm encryption
 add_subdirectory(lib/pdm_network) # pdm network connectivity
 add_subdirectory(lib/cryptoSQLite) # encrypted database
@@ -157,8 +160,8 @@ target_link_libraries(pdm_qt PRIVATE
     cc20 # pdm encryption
     pdm-network # pdm network connectivity
     cryptosqlite # encrypted database interface
-    FramelessHelper::Core
-    FramelessHelper::Widgets
+#    FramelessHelper::Core
+#    FramelessHelper::Widgets
     )
 
 set_target_properties(pdm_qt PROPERTIES
