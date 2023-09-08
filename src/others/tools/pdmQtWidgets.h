@@ -11,10 +11,11 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QToolButton>
-#include <sys/socket.h>
 #include <QMouseEvent>
 #include "pdmExtraQtWidgets.h"
-
+#ifdef __APPLE__
+#include <sys/socket.h>
+#endif // __APPLE__
 namespace PDM{
 
 

@@ -8,6 +8,8 @@
 #include "shadowFrameWidget.h"
 #include "PdmRuntimeRef.h"
 #include <QGraphicsDropShadowEffect>
+
+#ifdef __APPLE__
 #include <Global>
 
 #include <FramelessHelper/Widgets/framelessmainwindow.h>
@@ -18,6 +20,7 @@ FRAMELESSHELPER_USE_NAMESPACE
 FRAMELESSHELPER_BEGIN_NAMESPACE
     class StandardTitleBar;
 FRAMELESSHELPER_END_NAMESPACE
+#endif // __APPLE__
 
 class DebugWindow :
         public QMainWindow,
@@ -57,7 +60,9 @@ public:
 
     void openMacOSCustomWindow();
 private:
+#ifdef __APPLE__
     FRAMELESSHELPER_PREPEND_NAMESPACE(StandardTitleBar) *m_titleBar = nullptr;
+#endif // __APPLE__
     QMainWindow *m_mainWindow = nullptr;
 
     void makeCustomWindow();

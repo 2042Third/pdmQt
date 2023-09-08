@@ -11,14 +11,17 @@
 #include <QLocale>
 #include <QTranslator>
 #include <QSvgRenderer>
-
+#ifdef __APPLE__
 #include <FramelessHelper/Widgets/framelessmainwindow.h>
-
 #include <FramelessHelper/Core/private/framelessconfig_p.h>
+#endif
+
 int main(int argc, char *argv[])
 {
 
+#ifdef __APPLE__
   wangwenx190::FramelessHelper::FramelessHelper::Widgets::initialize();
+#endif
   QApplication a(argc, argv);
 
   QCoreApplication::setOrganizationName("pdm");
@@ -47,12 +50,14 @@ int main(int argc, char *argv[])
       break;
     }
   }
+#ifdef __APPLE__
   {
     FRAMELESSHELPER_USE_NAMESPACE
     FramelessHelper::Core::setApplicationOSThemeAware();
     // Not setting the blur behind due to inconsistency.
     FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
   }
+#endif
   // Initialization done, start app.
   MainWindow w;
   w.show();

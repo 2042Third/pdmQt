@@ -11,9 +11,15 @@
 #include <QTimer>
 #include <QPalette>
 #include <QOperatingSystemVersion>
-#include <Global>
 
+#ifdef __APPLE__
+#include <Global>
 #define USING_MACOS_FRAMELESS_HELPER 1
+#elif defined(_WIN32) // For Windows platform
+#define USING_MACOS_FRAMELESS_HELPER 0
+#else // For other platforms
+#define USING_MACOS_FRAMELESS_HELPER 0
+#endif
 
 CustomTitleBar::CustomTitleBar(QWidget *parent)
     : QWidget(parent) {
@@ -61,7 +67,7 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
     layout->addWidget(customButton);
     layout->addWidget(titleLabel);
   } else if (USING_MACOS_FRAMELESS_HELPER) {
-//    layout->addStretch(1);
+#ifdef __APPLE__
     layout->addWidget(customButton);
     setStyleSheet(FRAMELESSHELPER_STRING_LITERAL(R"(
 QMenuBar {
@@ -81,6 +87,7 @@ QMenuBar::item:pressed {
 }
     )"));
 //    layout->addWidget(titleLabel);
+#endif
   } else {
     layout->addWidget(customButton);
 

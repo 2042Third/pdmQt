@@ -4,7 +4,6 @@
 #include <QToolBar>
 #include <QWindow>
 #include <QMenuBar>
-#include <FramelessWidgetsHelper>
 
 #include <QCheckBox>
 #include "helpers/Animated.h"
@@ -14,8 +13,9 @@
 #include <QStackedWidget>
 #include <QAbstractButton>
 #include <QToolButton>
-
-#ifdef Q_OS_MAC
+#ifdef __APPLE__
+#include <FramelessWidgetsHelper>
+#endif // __APPLE__
 #include "macOSWindowBridge.h"
 #include "src/others/tools/pdmQtWidgets.h"
 #include "PdmRunTime.h"
@@ -26,7 +26,6 @@
 #include <QFormLayout>
 //WId winId = reinterpret_cast<WId>(createNativeMacOSWindow());
 //  extern "C" WId createNativeMacOSWindow();
-#endif
 DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
   QMainWindow(parent, Qt::FramelessWindowHint),
   PdmRuntimeRef(r)
@@ -64,7 +63,9 @@ DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
   // Set the layout for the custom title bar window
   setCentralWidget(shadowFrameWidget);
 
-//  shadowWidgetLayout->addWidget(titleBar); // custom titlebar
+#ifndef __APPLE__
+  shadowWidgetLayout->addWidget(titleBar); // custom titlebar
+#endif
   shadowWidgetLayout->addWidget(texts); // main content, the console
 
   // add the splitter settings
@@ -74,8 +75,10 @@ DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
 
   // Set the textEdit background as gray
   texts->setStyleSheet("background-color: #FFFFFF;");
-  // Setup frameless window.
+  // Setup frameless window if on macOS
+#ifdef __APPLE__
   QTimer::singleShot(0, this, &DebugWindow::makeCustomWindow);
+#endif
 }
 
 void DebugWindow::appendMessage(const QString &message, const QString &color)
@@ -124,6 +127,7 @@ QWidget* DebugWindow::makeDebugSettings(QWidget* widget, QLayout* layout){
 }
 
 void DebugWindow::openCustomWindow() {
+#ifdef __APPLE__
   m_titleBar = new StandardTitleBar(this);
   m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
   m_mainWindow = new QMainWindow();
@@ -178,9 +182,11 @@ QMenuBar::item:pressed {
   mb->setWindowTitle("FramelessHelper demo application - QMenuBar");
   m_mainWindow->setWindowIcon(QFileIconProvider().icon(QFileIconProvider::Computer));
   m_mainWindow->show();
+#endif // __APPLE__
 }
 
 void DebugWindow::makeCustomWindow() {
+#ifdef __APPLE__
   m_titleBar = new StandardTitleBar(this);
   m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
   setContentsMargins(0,0,0,0); // set the margin of the window that contains the shadow
@@ -234,7 +240,9 @@ QMenuBar::item:pressed {
   // Unset the frameless flag
   setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
   show();
-
+#elif defined(_WIN32) // Windows, show a red message
+  emit rt->log("Calling macOS specific code \"void DebugWindow::makeCustomWindow()\" Ignored.", "#FF0000");
+#endif
 }
 
 void DebugWindow::openMacOSCustomWindow() {
@@ -322,8 +330,9 @@ QWidget *DebugWindow::getMoreSettingsWidget(QWidget *pWidget) {
 
   layout->addWidget(button1);
   layout->addWidget(button2);
+#ifdef __APPLE__
   layout->addWidget(button3);
-
+#endif
   // qt implementation custom window
   button1->setText("Open Custom Window (native with custom titlebar)");
   connect(button1, &QPushButton::clicked, this, &DebugWindow::openCustomWindow);
@@ -332,10 +341,11 @@ QWidget *DebugWindow::getMoreSettingsWidget(QWidget *pWidget) {
   button2->setText("Open MacOS Window (native with custom titlebar) (MacOS)");
   connect(button2, &QPushButton::clicked, this, &DebugWindow::openMacOSCustomWindow);
 
+#ifdef __APPLE__
   // Convert current window to frameless helper
   button3->setText("Convert current window to frameless helper");
   connect(button3, &QPushButton::clicked, this, &DebugWindow::makeCustomWindow);
-
+#endif
   return widget;
 }
 

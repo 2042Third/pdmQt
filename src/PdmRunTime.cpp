@@ -223,7 +223,7 @@ void PdmRunTime::on_statusChanged(const QString &status) {
       break;
     case PDM::Status::CLOSED:
       break;
-    case PDM::Status::ERROR:
+    case PDM::Status::ERROR_STATE:
       break;
   }
 }

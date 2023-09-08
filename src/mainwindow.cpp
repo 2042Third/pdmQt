@@ -11,10 +11,15 @@
 #include <QProcess>
 #include <QSettings>
 #include <QListView>
+#ifdef __APPLE__
 #include <FramelessWidgetsHelper>
-
+#endif // __APPLE__
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent,Qt::FramelessWindowHint)
+#ifdef __APPLE__
+  : QMainWindow(parent,Qt::FramelessWindowHint)
+#else
+  : QMainWindow(parent)
+#endif
     , ui(new Ui::MainWindow) {
 
   ui->setupUi(this);
@@ -76,8 +81,10 @@ MainWindow::MainWindow(QWidget *parent)
   QTimer::singleShot(0, [this]() { debugWindow->checkAndShow(); });
   // Check existing user, if exist ask for decryption password
   QTimer::singleShot(0, rt, &PdmRunTime::checkExistingUser);
+#ifdef __APPLE__
   // Setup frameless window.
   QTimer::singleShot(0, this, &MainWindow::makeCustomTitleBar);
+#endif // __APPLE__
   // Remove the default tab .
   mainwindowTabCloseRequested(0);
 }
@@ -198,6 +205,7 @@ void MainWindow::open_user_database_location() {
 }
 
 void MainWindow::makeCustomTitleBar(){
+#ifdef __APPLE__
   m_titleBar = new StandardTitleBar(this);
   m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
   setContentsMargins(0,0,0,0); // set the margin of the window that contains the shadow
@@ -265,7 +273,7 @@ QMenuBar::item:pressed {
   // Unset the frameless flag
   setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
   show();
-
+#endif // __APPLE__
 }
 
 void MainWindow::moveEvent(QMoveEvent *event) {

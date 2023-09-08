@@ -20,9 +20,7 @@ if(APPLE)
     set(CMAKE_PREFIX_PATH "/Users/mikeyang/Qt/6.5.1/macos/lib/cmake")
     set(OPENSSL_ROOT_DIR /opt/homebrew/opt/openssl@3)
     set(FramelessHelper_DIR /Users/mikeyang/Documents/pdm/pdmQt/lib/framelesshelperBuild/lib64/cmake/FramelessHelper)
-elif(WIN32)
-    set(CMAKE_PREFIX_PATH "C:\\Qt\\6.4.2\\mingw_64\\lib\\cmake")
-    set(FramelessHelper_DIR "C:\\Users\\18604\\Documents\\pdm_qt\\lib\\framelesshelperBuild\\lib64\\cmake\\FramelessHelper")
+
 endif()
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
@@ -87,7 +85,15 @@ set(PROJECT_SOURCES
     src/handler/types.h
     src/crypto/pdmCryptoDB.hpp # encrypted database
 
-        src/others/CustomTitleBar.h src/others/CustomTitleBar.cpp src/others/shadowFrameWidget.h src/others/shadowFrameWidget.cpp src/handler/pdm_qt_helpers.h src/handler/pdm_qt_helpers.cpp src/handler/pdm_settings.h src/handler/pdm_settings.cpp src/handler/dao/pdmLocalDao.h src/handler/dao/pdmLocalDao.cpp src/handler/db/PdmDBType.h src/handler/pdmqt/pdm_qt_net.h src/handler/pdmqt/pdm_qt_net.cpp src/notesView/NotesScroll.h src/notesView/NotesScroll.cpp src/notesView/Note.h src/notesView/pdmListView.h src/notesView/pdmListView.cpp src/handler/dao/pdmNotesCache.h src/handler/dao/pdmNotesCache.cpp src/notesView/NoteEdit.cpp src/notesView/NoteEdit.h src/helpers/PdmUpdateTimer.h src/helpers/PdmUpdateTimer.cpp src/settings/settingsmenuWidget.h src/settings/settingsmenuWidget.cpp src/notesView/NotesScrollDelegate.h src/others/PasswordDialog.h
+        src/others/CustomTitleBar.h src/others/CustomTitleBar.cpp src/others/shadowFrameWidget.h
+    src/others/shadowFrameWidget.cpp src/handler/pdm_qt_helpers.h src/handler/pdm_qt_helpers.cpp
+    src/handler/pdm_settings.h src/handler/pdm_settings.cpp src/handler/dao/pdmLocalDao.h
+    src/handler/dao/pdmLocalDao.cpp src/handler/db/PdmDBType.h src/handler/pdmqt/pdm_qt_net.h
+    src/handler/pdmqt/pdm_qt_net.cpp src/notesView/NotesScroll.h src/notesView/NotesScroll.cpp
+    src/notesView/Note.h src/notesView/pdmListView.h src/notesView/pdmListView.cpp src/handler/dao/pdmNotesCache.h
+    src/handler/dao/pdmNotesCache.cpp src/notesView/NoteEdit.cpp src/notesView/NoteEdit.h src/helpers/PdmUpdateTimer.h
+    src/helpers/PdmUpdateTimer.cpp src/settings/settingsmenuWidget.h src/settings/settingsmenuWidget.cpp
+    src/notesView/NotesScrollDelegate.h src/others/PasswordDialog.h
         src/others/MacCustomWindow.h
         src/others/macOSWindowBridge.h
     src/helpers/FlashingCircle.h
@@ -142,10 +148,15 @@ target_include_directories(pdm_qt PUBLIC
     lib/pdm-crypt-module/src/lib
     lib/cryptoSQLite
     lib/pdm_network
-    lib/framelesshelperBuild/include
-    lib/framelesshelperBuild/lib64
-
 )
+
+if(APPLE)
+    target_include_directories(pdm_qt PUBLIC
+        lib/framelesshelperBuild/include
+        lib/framelesshelperBuild/lib64
+    )
+endif()
+
 
 set(PDM_TEST_PLATFORM_DESKTOP 1)
 
@@ -160,9 +171,15 @@ target_link_libraries(pdm_qt PRIVATE
     cc20 # pdm encryption
     pdm-network # pdm network connectivity
     cryptosqlite # encrypted database interface
-#    FramelessHelper::Core
-#    FramelessHelper::Widgets
+)
+
+if(APPLE)
+    target_link_libraries(pdm_qt PRIVATE
+        FramelessHelper::Core
+        FramelessHelper::Widgets
     )
+endif()
+
 
 set_target_properties(pdm_qt PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER pdm.notes.pw

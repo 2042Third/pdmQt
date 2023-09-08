@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <Global>
 
 #include "src/settings/settingsmainwindow.h"
 #include "src/settings/accountwidget.h"
@@ -10,8 +9,10 @@
 #include "PdmRunTime.h"
 #include "notesView/NotesScroll.h"
 #include "notesView/NoteEdit.h"
+#ifdef __APPLE__
 #include <FramelessHelper/Widgets/framelessmainwindow.h>
-
+#include <Global>
+#endif
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -56,8 +57,9 @@ private:
   PdmUpdateTimer * resizeTimer;
   Ui::MainWindow * ui;
   QMap<std::string, NoteEdit*> noteEditMap;
+#ifdef __APPLE__
   StandardTitleBar * m_titleBar = nullptr;
-
+#endif // __APPLE__
 
   void newSettingsWindow();
   int defaultWidth = 866;

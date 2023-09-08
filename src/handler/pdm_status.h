@@ -16,7 +16,7 @@ namespace PDM {
             LOADING,
             OPEN,
             CLOSED,
-            ERROR
+            ERROR_STATE
         };
 
     protected:
@@ -36,7 +36,7 @@ namespace PDM {
               return "OPEN";
             case State::CLOSED:
               return "CLOSED";
-            case State::ERROR:
+            case State::ERROR_STATE:
               return "ERROR";
             default:
               return "UNKNOWN"; // This case shouldn't be reached, but it's here as a fallback
