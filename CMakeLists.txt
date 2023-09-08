@@ -13,14 +13,15 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DVK_PROTOTYPES")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVK_PROTOTYPES")
-#set(CMAKE_PREFIX_PATH "C:\\Qt\\6.4.2\\mingw_64\\lib\\cmake")
+
 
 if(APPLE)
     set(CMAKE_OSX_SYSROOT /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk)
     set(CMAKE_PREFIX_PATH "/Users/mikeyang/Qt/6.5.1/macos/lib/cmake")
     set(OPENSSL_ROOT_DIR /opt/homebrew/opt/openssl@3)
     set(FramelessHelper_DIR /Users/mikeyang/Documents/pdm/pdmQt/lib/framelesshelperBuild/lib64/cmake/FramelessHelper)
-
+elseif (WIN32)
+    set(CMAKE_PREFIX_PATH "C:\\Qt\\6.5.2\\mingw_64\\lib\\cmake")
 endif()
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
