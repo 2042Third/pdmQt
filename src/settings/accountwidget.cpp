@@ -11,6 +11,8 @@ AccountWidget::AccountWidget(QWidget *parent, PdmRunTime* rtIn) :
   ui->gridLayout->addWidget(loginWidget);
 
   informationWidget = new UserInformation(this, rt); // Ready the user information widget for use.
+  informationWidget->hide(); // Hide the user information widget until the user logs in.
+
   connect(rt, &PdmRunTime::loginSuccess, this, &AccountWidget::accountLoginSuccess);
   // If the login is already successful, change the widget to the user information widget.
   if (rt->isLoginSuccessful()) {
