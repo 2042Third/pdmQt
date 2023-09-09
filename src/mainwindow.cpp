@@ -351,14 +351,7 @@ void MainWindow::mainwindowNoteHeadsSuccess() {
 
 void MainWindow::mainwindowNoteListLeftClicked(const QModelIndex &index) {
   emit rt->log("Note list left clicked: " + QString::number(index.row()), "#C22A1C");
-//  int _note_id = stoi(rt->noteList->getNote(index)->note_id);
-//  std::string _note_id_str = std::to_string(_note_id);
-//  auto has =noteEditMap.contains(_note_id_str);
-//  if(has) { // Check if this already exists in the tab widget.
-//    ui->tabWidget->setCurrentIndex(noteEditMap[_note_id_str]->idx);
-//    noteEditMap[_note_id_str]->setFocus();
-//    return;
-//  }
+
   PDM::pdm_qt_net::client_action_note_retrieve(rt, stoi(rt->noteList->getNote(index)->note_id)); // Get the note from the server
 }
 
@@ -385,6 +378,7 @@ void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
   auto * noteEdit= new NoteEdit(note, this, rt);
   noteEditMap.insert(note.note_id, noteEdit); // Add to the map
   noteEdit->setNote();
+  noteEdit->setProperty("dataKey", note.note_id.c_str());
   // If the note has a title, use that. Otherwise, use the note id.
   std::string tmpTitle =  !note.head.empty()? note.head: "Unnamed Note "+std::to_string(noteId);
 
@@ -398,7 +392,9 @@ void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
 void MainWindow::mainwindowTabCloseRequested(int index){
   emit rt->log("Tab close requested: " + QString::number(index), "#C22A1C");
   QWidget *widget = ui->tabWidget->widget(index);
+  auto dataKey = widget->property("dataKey").toString();
   ui->tabWidget->removeTab(index);
+  noteEditMap.remove(dataKey.toStdString().c_str());
   delete widget;
 }
 
