@@ -285,13 +285,14 @@ QMenuBar::item:pressed {
   static_cast<QPropertyAnimation*>(animation)->start();
 
 // Layout for the custom status circle
-  QHBoxLayout *statusLayout = new QHBoxLayout;
-  statusLayout->setContentsMargins(5, 0, 5, 0); // Set the margins of the status circle
-  statusLayout->addWidget(static_cast<FlashingCircle *>(statusCircle));
-
-  QWidget *statusContainerWidget = new QWidget(this);
-  statusContainerWidget->setLayout(statusLayout);
-  statusContainerWidget->setStyleSheet("background-color: transparent;"); // Set the background color of the status circle
+//  QHBoxLayout *statusLayout = new QHBoxLayout;
+//  statusLayout->setContentsMargins(5, 0, 5, 0); // Set the margins of the status circle
+//  statusLayout->setContentsMargins(0, 0, 0, 0); // Set the margins of the status circle
+//  statusLayout->addWidget(static_cast<FlashingCircle *>(statusCircle));
+//
+//  QWidget *statusContainerWidget = new QWidget(this);
+//  statusContainerWidget->setStyleSheet("background-color: transparent;"); // Set the background color of the status circle
+//  statusContainerWidget->setLayout(statusLayout);
 
 // New central layout which will hold everything
   QVBoxLayout *centralLayout = new QVBoxLayout;
@@ -301,7 +302,8 @@ QMenuBar::item:pressed {
 // Layout for the menubar and custom status circle
   QHBoxLayout *menuLayout = new QHBoxLayout;
   menuLayout->addWidget(ui->menubar);  // Your original menu bar
-  menuLayout->addWidget(statusContainerWidget);
+  menuLayout->setContentsMargins(4, 0, 4, 0);
+  menuLayout->addWidget(static_cast<FlashingCircle *>(statusCircle));
 
   centralLayout->addLayout(menuLayout);
   centralLayout->addWidget(ui->centralwidget);  // Your original central widget
@@ -349,6 +351,14 @@ void MainWindow::mainwindowNoteHeadsSuccess() {
 
 void MainWindow::mainwindowNoteListLeftClicked(const QModelIndex &index) {
   emit rt->log("Note list left clicked: " + QString::number(index.row()), "#C22A1C");
+//  int _note_id = stoi(rt->noteList->getNote(index)->note_id);
+//  std::string _note_id_str = std::to_string(_note_id);
+//  auto has =noteEditMap.contains(_note_id_str);
+//  if(has) { // Check if this already exists in the tab widget.
+//    ui->tabWidget->setCurrentIndex(noteEditMap[_note_id_str]->idx);
+//    noteEditMap[_note_id_str]->setFocus();
+//    return;
+//  }
   PDM::pdm_qt_net::client_action_note_retrieve(rt, stoi(rt->noteList->getNote(index)->note_id)); // Get the note from the server
 }
 
