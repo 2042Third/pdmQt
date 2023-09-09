@@ -106,12 +106,12 @@ public:
     return QSize(200, 50);
   }
 
-    void setFontSize(double primary, double secondary){
-      primaryFontSizeCache = primary;
-      if (primaryFontSizeCache >= 5) primaryFontSize = primaryFontSizeCache;
-      secondaryFontSizeCache = secondary;
-      if (secondaryFontSizeCache >= 5) secondaryFontSize = secondaryFontSizeCache;
-    }
+  void setFontSize(double primary, double secondary){
+    primaryFontSizeCache = primary;
+    if (primaryFontSizeCache >= 5) primaryFontSize = primaryFontSizeCache;
+    secondaryFontSizeCache = secondary;
+    if (secondaryFontSizeCache >= 5) secondaryFontSize = secondaryFontSizeCache;
+  }
 
   // List item settings
   double primaryFontSize = 12;

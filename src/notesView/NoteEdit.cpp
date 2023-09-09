@@ -5,6 +5,7 @@
 #include "NoteEdit.h"
 
 #include <utility>
+#include <QSettings>
 
 NoteEdit::NoteEdit(PDM::NoteMsg note, QWidget *parent, PdmRunTime* rtIn):
 QTextEdit(parent)
@@ -18,6 +19,12 @@ QTextEdit(parent)
   connect(rt, &PdmRunTime::onZoomIn, this, &NoteEdit::zoomingIn);
   connect(rt, &PdmRunTime::onZoomOut, this, &NoteEdit::zoomingOut);
 
+  // Get the font size from the settings
+  QSettings settings;
+  fontSize=settings.value("NoteEdit/fontSize", 12).toDouble();
+  QFont font = this->font();
+  font.setPointSize(fontSize);
+  this->setFont(font);
 }
 
 NoteEdit::NoteEdit(QWidget *parent, PdmRunTime* rtIn) :QTextEdit(parent){
@@ -57,12 +64,24 @@ void NoteEdit::clearEditText() {
 
 void NoteEdit::zoomingIn() {
   this->zoomIn(2);
-  fontSize=this->fontPointSize();
+  updateFontSize();
+  QFont font = this->font();
+  font.setPointSize(fontSize);
+  this->setFont(font);
 }
 
 void NoteEdit::zoomingOut() {
   this->zoomOut(2);
-  fontSize=this->fontPointSize();
+  updateFontSize();
+  QFont font = this->font();
+  font.setPointSize(fontSize);
+  this->setFont(font);
+}
+
+void NoteEdit::updateFontSize() {
+  fontSize = fontPointSize();
+  QSettings settings;
+  settings.setValue("NoteEdit/fontSize", fontSize);
 }
 
 

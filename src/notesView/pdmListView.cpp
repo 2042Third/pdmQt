@@ -2,6 +2,7 @@
 // Created by Yi Yang on 4/29/2023.
 //
 
+#include <QSettings>
 #include "pdmListView.h"
 #include "NotesScrollDelegate.h"
 
@@ -50,6 +51,13 @@ pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
 
   connect(rt, &PdmRunTime::onZoomIn, this, &pdmListView::zoomingIn);
   connect(rt, &PdmRunTime::onZoomOut, this, &pdmListView::zoomingOut);
+
+  // Get the font size from the settings
+  QSettings settings;
+  scrollDelegate->primaryFontSizeCache=settings.value("pdmListView/primaryFontSize", 12).toDouble();
+  scrollDelegate->secondaryFontSizeCache=settings.value("pdmListView/secondaryFontSize", 12).toDouble();
+  scrollDelegate->setFontSize(scrollDelegate->primaryFontSizeCache,scrollDelegate->secondaryFontSizeCache);
+  viewport()->update();
 }
 
 void pdmListView::mousePressEvent(QMouseEvent *event)
@@ -120,9 +128,15 @@ void pdmListView::clearHover()
 void pdmListView::zoomingIn() {
   scrollDelegate->setFontSize(scrollDelegate->primaryFontSizeCache+2,scrollDelegate->secondaryFontSizeCache+2);
   viewport()->update();
+  QSettings settings;
+  settings.setValue("pdmListView/primaryFontSize", scrollDelegate->primaryFontSizeCache);
+  settings.setValue("pdmListView/secondaryFontSize", scrollDelegate->secondaryFontSizeCache);
 }
 
 void pdmListView::zoomingOut() {
   scrollDelegate->setFontSize(scrollDelegate->primaryFontSizeCache-2,scrollDelegate->secondaryFontSizeCache-2);
   viewport()->update();
+  QSettings settings;
+  settings.setValue("pdmListView/primaryFontSize", scrollDelegate->primaryFontSizeCache);
+  settings.setValue("pdmListView/secondaryFontSize", scrollDelegate->secondaryFontSizeCache);
 }

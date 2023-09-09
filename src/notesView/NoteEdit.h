@@ -41,6 +41,8 @@ public:
 private:
 
   void clearEditText();
+
+  void updateFontSize();
 };
 
 
