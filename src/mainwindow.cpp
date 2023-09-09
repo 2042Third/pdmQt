@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "./ui_mainwindow.h"
+#include "mainwindowui.h"
 #include "handler/pdmqt/pdm_qt_net.h"
 #include "notesView/NotesScroll.h"
 #include "notesView/pdmListView.h"
@@ -11,6 +11,8 @@
 #include <QProcess>
 #include <QSettings>
 #include <QListView>
+#include <QWidgetAction>
+
 #ifdef __APPLE__
 #include <FramelessWidgetsHelper>
 #endif // __APPLE__
@@ -35,6 +37,10 @@ MainWindow::MainWindow(QWidget *parent)
   connect(rt, &PdmRunTime::noteRetrieveSuccess, this, &MainWindow::mainwindowNoteRetrieveSuccess);
   connect(rt->statusQt, &StatusQt::statusChanged, this, &MainWindow::mainwindowRuntimeStatusChanged);
   connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &MainWindow::mainwindowTabCloseRequested);
+
+  connect(ui->menubar, &QObject::destroyed, []() {
+    qDebug() << "MenuBar was destroyed!";
+  });
 
   //Default Messages
   statusBar()->showMessage("No Login"); rt->currentStatusBar = QString("No Login");
@@ -81,10 +87,8 @@ MainWindow::MainWindow(QWidget *parent)
   QTimer::singleShot(0, [this]() { debugWindow->checkAndShow(); });
   // Check existing user, if exist ask for decryption password
   QTimer::singleShot(0, rt, &PdmRunTime::checkExistingUser);
-#ifdef __APPLE__
-  // Setup frameless window.
+  // Setup menubar.
   QTimer::singleShot(0, this, &MainWindow::makeCustomTitleBar);
-#endif // __APPLE__
   // Remove the default tab .
   mainwindowTabCloseRequested(0);
 }
@@ -273,6 +277,40 @@ QMenuBar::item:pressed {
   // Unset the frameless flag
   setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
   show();
+#else
+
+// Create the custom status circle and animation
+  statusCircle = new FlashingCircle(this);
+  animation = Animated::makeAnimateAlpha(static_cast<FlashingCircle *>(statusCircle), this);
+  static_cast<QPropertyAnimation*>(animation)->start();
+
+// Layout for the custom status circle
+  QHBoxLayout *statusLayout = new QHBoxLayout;
+  statusLayout->setContentsMargins(5, 0, 5, 0); // Set the margins of the status circle
+  statusLayout->addWidget(static_cast<FlashingCircle *>(statusCircle));
+
+  QWidget *statusContainerWidget = new QWidget(this);
+  statusContainerWidget->setLayout(statusLayout);
+  statusContainerWidget->setStyleSheet("background-color: transparent;"); // Set the background color of the status circle
+
+// New central layout which will hold everything
+  QVBoxLayout *centralLayout = new QVBoxLayout;
+  centralLayout->setContentsMargins(0, 0, 0, 0);
+  centralLayout->setSpacing(0);
+
+// Layout for the menubar and custom status circle
+  QHBoxLayout *menuLayout = new QHBoxLayout;
+  menuLayout->addWidget(ui->menubar);  // Your original menu bar
+  menuLayout->addWidget(statusContainerWidget);
+
+  centralLayout->addLayout(menuLayout);
+  centralLayout->addWidget(ui->centralwidget);  // Your original central widget
+
+// Create a new central widget and set the layout to it
+  QWidget *newCentralWidget = new QWidget(this);
+  newCentralWidget->setLayout(centralLayout);
+  setCentralWidget(newCentralWidget);
+
 #endif // __APPLE__
 }
 
