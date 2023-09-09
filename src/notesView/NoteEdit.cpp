@@ -57,10 +57,12 @@ void NoteEdit::clearEditText() {
 
 void NoteEdit::zoomingIn() {
   this->zoomIn(2);
+  fontSize=this->fontPointSize();
 }
 
 void NoteEdit::zoomingOut() {
   this->zoomOut(2);
+  fontSize=this->fontPointSize();
 }
 
 

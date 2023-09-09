@@ -21,6 +21,10 @@ class pdmListView : public QListView, public PdmRuntimeRef
   public:
   explicit pdmListView(QWidget *parent = nullptr, PdmRunTime* rtIn=nullptr);
 
+private slots:
+  void zoomingIn();
+  void zoomingOut();
+
   protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;

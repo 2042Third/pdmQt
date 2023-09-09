@@ -383,3 +383,5 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::mainwindowRuntimeStatusChanged(const QString &status) {
 
 }
+
+

@@ -31,7 +31,8 @@ public:
   PDM::NoteMsg m_note;
 
   int idx=0;
-
+  double getFontSize(){return fontSize;}
+  double fontSize=12;
 
   private slots:
   void zoomingIn();

@@ -44,8 +44,8 @@ private slots:
   void mainwindowNoteListRightClicked(const QModelIndex &index);
   void mainwindowTabCloseRequested(int index);
   void mainwindowRuntimeStatusChanged(const QString &status);
-  void on_actionZoom_In_triggered();
-  void on_actionZoom_Out_triggered();
+  void on_actionZoom_In_triggered(); // Defined in menu bar from QT creator
+  void on_actionZoom_Out_triggered(); // Defined in menu bar from QT creator
 
   protected:
   void moveEvent(QMoveEvent *event) override;

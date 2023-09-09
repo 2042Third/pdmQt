@@ -85,12 +85,12 @@ public:
 
     QFont font = painter->font();
     int originalPointSize = font.pointSize();
-    font.setPointSize(14);
+    font.setPointSize(primaryFontSize);
     painter->setFont(font);
 
     painter->drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter, noteParts[0]);
 
-    font.setPointSize(10);  // Change the size back or to a different value
+    font.setPointSize(secondaryFontSize);  // Change the size back or to a different value
 
     painter->setFont(font);
     painter->setPen(Qt::gray);
@@ -103,8 +103,21 @@ public:
 
   QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override
   {
-    return QSize(200, 50);  // Change the size to your preferred values
+    return QSize(200, 50);
   }
+
+    void setFontSize(double primary, double secondary){
+      primaryFontSizeCache = primary;
+      if (primaryFontSizeCache >= 5) primaryFontSize = primaryFontSizeCache;
+      secondaryFontSizeCache = secondary;
+      if (secondaryFontSizeCache >= 5) secondaryFontSize = secondaryFontSizeCache;
+    }
+
+  // List item settings
+  double primaryFontSize = 12;
+  double primaryFontSizeCache = 12;
+  double secondaryFontSize = 10;
+  double secondaryFontSizeCache = 10;
 };
 
 
