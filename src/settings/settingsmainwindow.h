@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include "accountwidget.h"
 #include "informationwidget.h"
-#include "PdmRunTime.h"
 #include "PdmRuntimeRef.h"
 #include "settingsmenuWidget.h"
 

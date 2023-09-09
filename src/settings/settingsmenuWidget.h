@@ -16,6 +16,7 @@ public:
   explicit settingsmenuWidget(QWidget *parent = nullptr, PdmRunTime* rtIn=nullptr);
   ~settingsmenuWidget();
 
+  QWidget *settingsGeneralSettings(settingsmenuWidget *pWidget);
 };
 
 

@@ -10,12 +10,45 @@
 #include <QRadioButton>
 #include <QPushButton>
 #include <QAbstractButton>
+#include <QSplitter>
+#include <QStackedWidget>
 #include "settingsmenuWidget.h"
+#include "others/tools/pdmQtWidgets.h"
 
 settingsmenuWidget::settingsmenuWidget(QWidget *parent,PdmRunTime*rtIn ): QWidget(parent)
 , PdmRuntimeRef(rtIn)
 {
   QVBoxLayout* mainLayout = new QVBoxLayout(this);
+
+
+
+
+  auto *splitter = new QSplitter(Qt::Horizontal, this);
+  mainLayout->addWidget(splitter);
+
+  auto* listWidget = new QListWidget(splitter);
+
+  auto *stackedWidget = new QStackedWidget(splitter);
+
+  splitter->addWidget(listWidget);
+  splitter->addWidget(stackedWidget);
+  connect(listWidget, &QListWidget::currentRowChanged,
+          stackedWidget, &QStackedWidget::setCurrentIndex);
+
+  listWidget->addItem("General");
+  stackedWidget->addWidget(settingsGeneralSettings(this));
+
+}
+
+settingsmenuWidget::~settingsmenuWidget() {
+
+}
+
+QWidget *settingsmenuWidget::settingsGeneralSettings(settingsmenuWidget *pWidget) {
+
+  QWidget*  widget= new QWidget(pWidget);
+  QVBoxLayout* mainLayout = new QVBoxLayout(widget);
+
 
   QGridLayout* gridLayout = new QGridLayout;
   mainLayout->addLayout(gridLayout);
@@ -46,9 +79,6 @@ settingsmenuWidget::settingsmenuWidget(QWidget *parent,PdmRunTime*rtIn ): QWidge
   QPushButton* okButton = new QPushButton("OK");
 //  connect(okButton, &QPushButton::clicked, this, &QDialog::accept);
   mainLayout->addWidget(okButton);
-}
-
-settingsmenuWidget::~settingsmenuWidget() {
-
+  return widget;
 }
 
