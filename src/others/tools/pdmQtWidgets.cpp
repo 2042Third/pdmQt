@@ -56,4 +56,12 @@ namespace PDM {
     return collapsibleFrame;
   }
 
+  QFrame *addGridLayoutSpacer(QGridLayout *layout, int row, int col, int rowSpan, int colSpan) {
+    QFrame* line2 = new QFrame;
+    line2->setFrameShape(QFrame::HLine);
+    line2->setFrameShadow(QFrame::Sunken);
+    layout->addWidget(line2,row,col,rowSpan,colSpan);
+    return line2;
+  }
+
 } // namespace PDM

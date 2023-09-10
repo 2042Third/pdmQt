@@ -17,6 +17,10 @@ public:
   ~settingsmenuWidget();
 
   QWidget *settingsGeneralSettings(settingsmenuWidget *pWidget);
+
+  QWidget *settingSecuritySettings(settingsmenuWidget *pWidget);
+
+  QWidget *settingsNoteEditor(settingsmenuWidget *pWidget);
 };
 
 

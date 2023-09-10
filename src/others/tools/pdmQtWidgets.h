@@ -24,6 +24,8 @@ namespace PDM {
 
   QWidget* addCollapsibleFrame(const QString& name, QLayout* layout, QWidget* widget);
 
+  QFrame* addGridLayoutSpacer(QGridLayout* layout, int row, int col, int rowSpan, int colSpan);
+
 } // namespace PDM
 
 #endif //PDM_QT_PDMQTWIDGETS_H

@@ -428,4 +428,17 @@ void MainWindow::mainwindowRuntimeStatusChanged(const QString &status) {
 
 }
 
+void MainWindow::showUsernameInStatusBar(int i) {
+  if (rt->wt.userinfo.username.empty()) return;
+  if (i==1) {
+    statusBar()->showMessage(rt->wt.userinfo.username.c_str()); // Show username in status bar.
+    rt->currentStatusBar = rt->wt.userinfo.username.c_str();
+  }
+  else {
+    statusBar()->showMessage(""); // Hide warning message.
+    rt->currentStatusBar = "";
+  }
+  statusBar()->setToolTip("");
+}
+
 

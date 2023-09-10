@@ -21,6 +21,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+
 public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
@@ -29,6 +30,7 @@ public:
   PdmRunTime* rt;
   void * statusCircle=nullptr; // FlashingCircle
   void * animation=nullptr;
+  void showUsernameInStatusBar(int i);
 private slots:
   void on_actionSettings_triggered();
   void on_actionAccount_triggered();
