@@ -45,6 +45,9 @@ explicit PdmRunTime(QObject *parent = nullptr);
   static void toggleAnimation(PdmRunTime *rt, int state) ;
   static void changeAnimationSpeed(PdmRunTime* rt, int value) ;
 
+  void showPendingAnimation();
+  void showSaveCompleteAnimation();
+
   // Data Handlers
   QString currentStatusBar ;
   void userDataCheck();

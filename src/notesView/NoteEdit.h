@@ -9,6 +9,7 @@
 #include <QTextEdit>
 #include "handler/types.h"
 #include "PdmRuntimeRef.h"
+#include "helpers/PdmUpdateTimer.h"
 
 // Your NoteHead and NoteMsg struct declarations here
 
@@ -39,6 +40,7 @@ public:
   void zoomingOut();
 
 private:
+  PdmUpdateTimer* updateTimer;
 
   void clearEditText();
 

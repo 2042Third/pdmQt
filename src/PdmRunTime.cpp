@@ -251,3 +251,13 @@ void PdmRunTime::changeAnimationSpeed(PdmRunTime*rt, int value)  {
     Animated::animationDuration(value, static_cast<MainWindow *>(rt->main_window)->animation);
   }
 }
+
+void PdmRunTime::showPendingAnimation() {
+  changeMainwindowStatusColor("yellow");
+  toggleAnimation(this, 1);
+}
+
+void PdmRunTime::showSaveCompleteAnimation() {
+  changeMainwindowStatusColor("green");
+  toggleAnimation(this, 0);
+}

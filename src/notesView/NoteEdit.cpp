@@ -25,16 +25,36 @@ QTextEdit(parent)
   QFont font = this->font();
   font.setPointSize(fontSize);
   this->setFont(font);
+
+  updateTimer = new PdmUpdateTimer(1300, rt);
+  connect(updateTimer, &PdmUpdateTimer::timeout, this, [this](){
+    // Update the note content when the text is changed
+    m_note.content = toPlainText().toStdString();
+    // Update the note content in the database
+//    rt->updateNoteContent(m_note);
+    // Show the save complete animation
+    rt->showSaveCompleteAnimation();
+  });
+
+  // Connect to the qtextedit text changed signal
+  connect(this, &QTextEdit::textChanged, this, [this](){
+    // Start the timer when the text is changed
+    updateTimer->start();
+    // Show pending animation
+    rt->showPendingAnimation();
+  });
+}
+
+NoteEdit::~NoteEdit() {
+  clearNoteMsg(m_note);
+  clearEditText();
+  delete updateTimer;
 }
 
 NoteEdit::NoteEdit(QWidget *parent, PdmRunTime* rtIn) :QTextEdit(parent){
 
 }
 
-NoteEdit::~NoteEdit(){
-  clearNoteMsg(m_note);
-  clearEditText();
-}
 
 void NoteEdit::clearNoteMsg(PDM::NoteMsg& noteMsg) {
   noteMsg.head.assign(noteMsg.head.length(), 0);

@@ -375,14 +375,14 @@ QWidget *DebugWindow::getStatusColorWidget( QWidget *pWidget) const {
   colorSelectLayout->addRow("Show Status Circle", checkBox);
   checkBox->setCheckState(Qt::CheckState::Checked);
   connect(checkBox, &QCheckBox::stateChanged, [this](int state){
-//      PdmRunTime::toggleAnimation(rt, state);
+      PdmRunTime::toggleAnimation(rt, state);
   });
 
   auto *animationSpeedSpinBox = new QSpinBox();
   animationSpeedSpinBox->setRange(0, 5000);
   colorSelectLayout->addRow("Animation Speed", animationSpeedSpinBox);
   QObject::connect(animationSpeedSpinBox, &QSpinBox::valueChanged, [this](int value) {
-//      PdmRunTime::changeAnimationSpeed(rt, value);
+      PdmRunTime::changeAnimationSpeed(rt, value);
   });
 
   connect(colorSelectWidget,&PDM::ExtraQt::UpdatingWidget::widgetShown
