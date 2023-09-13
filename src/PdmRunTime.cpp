@@ -258,6 +258,6 @@ void PdmRunTime::showPendingAnimation() {
 }
 
 void PdmRunTime::showSaveCompleteAnimation() {
-  changeMainwindowStatusColor("green");
+  changeMainwindowStatusColor("lightgreen");
   toggleAnimation(this, 0);
 }
