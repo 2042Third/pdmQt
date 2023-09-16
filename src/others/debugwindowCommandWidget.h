@@ -10,6 +10,7 @@
 #include <algorithm>
 #include "PdmRunTime.h"
 #include "PdmRuntimeRef.h"
+#include "handler/pdm_qt_helpers.h"
 
 class CommandWidget : public QWidget,
 public PdmRuntimeRef {
@@ -42,7 +43,7 @@ protected:
         if (keyEvent->key() == Qt::Key_Return) {
           QString command = lineEdit->text();
           if (rt){ // Runs command if it is in the command map
-            if(rt->run(command.toStdString())){
+            if(rt->run(PDM::pdm_qt_helpers::splitString(command.toStdString(),','))){
               emit rt->log(command, "#000000");
               lineEdit->clear();
               return true;

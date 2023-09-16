@@ -17,7 +17,7 @@ namespace PDM {
     static QDateTime unix_time_to_qtime(uint64_t a);
     static QString unix_time_to_qstr_sec(int64_t a);
 
-    std::vector<std::string> splitString(const std::string& s, char delimiter);
+    static std::vector<std::string> splitString(const std::string& s, char delimiter);
   };
 }
 
