@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 
 uint64_t PDM::pdm_qt_helpers::cstrToUint64(const char* str) {
   char* endptr;
@@ -42,3 +43,17 @@ QString PDM::pdm_qt_helpers::unix_time_to_qstr_sec(int64_t a) {
 QDateTime PDM::pdm_qt_helpers::unix_time_to_qtime(uint64_t a) {
   return QDateTime::fromMSecsSinceEpoch(a);
 }
+
+std::vector<std::string> PDM::pdm_qt_helpers::splitString(const std::string &s, char delimiter) {
+  std::vector<std::string> tokens;
+  std::string token;
+  std::istringstream tokenStream(s);
+
+  while (std::getline(tokenStream, token, delimiter)) {
+    tokens.push_back(token);
+  }
+
+  return tokens;
+
+}
+

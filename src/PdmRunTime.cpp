@@ -13,6 +13,10 @@
 #include <QStandardPaths>
 #include <QtConcurrent/QtConcurrent>
 
+#define SETTING_STRING_EMITTER_BLUE(x) \
+  emit log((std::string(#x "=")+std::to_string(x)).c_str(), "#0000FF");
+
+
 PdmRunTime::PdmRunTime(QObject *parent)
       : QObject(parent),
         PDM::Settings() {
@@ -267,7 +271,12 @@ void PdmRunTime::showSaveCompleteAnimation() {
 }
 
 void PdmRunTime::setupCommands() {
-  commandMap["showUsernameInStatusBar"] = std::make_unique<PDM::pdm_command>("showUsernameInStatusBar", [](){});
+  commandMap["showUsernameInStatusBar"] = std::make_unique<PDM::pdm_command>("showUsernameInStatusBar"
+      , [this](){
+    if (this->showUsernameInStatusBar){
+      SETTING_STRING_EMITTER_BLUE(showUsernameInStatusBar)
+    }
+  });
   commandMap["display_main_window_x"] = std::make_unique<PDM::pdm_command>("display_main_window_x", [](){});
   commandMap["display_main_window_y"] = std::make_unique<PDM::pdm_command>("display_main_window_y", [](){});
   commandMap["display_main_window_w"] = std::make_unique<PDM::pdm_command>("display_main_window_w", [](){});

@@ -14,6 +14,7 @@ public:
   Settings();
   // Run pdm_command
   int run(const std::string &commandName);
+  int run(std::vector<std::string> commands);
 
   int showUsernameInStatusBar = 1;
   // Display Settings
