@@ -23,18 +23,24 @@ public:
     layout->addWidget(lineEdit);
 
     popupView = new QListView(this);
-    popupView->setWindowFlags(Qt::Popup| Qt::FramelessWindowHint);
+    popupView->setWindowFlags(Qt::Popup| Qt::FramelessWindowHint |Qt::WindowStaysOnTopHint);
     model = new QStandardItemModel(this);
     popupView->setModel(model);
 
     connect(lineEdit, &QLineEdit::textChanged, this, &CommandWidget::onTextChanged);
     connect(popupView, &QListView::clicked, this, &CommandWidget::onItemClicked);
 
-    // Populate commandMap with commands.
-    // For example:
-    // commandMap["cmd1"] = std::make_unique<Command>();
-    // commandMap["cmd2"] = std::make_unique<Command>();
-    // ...
+    this->installEventFilter(this); // Install event filter on main widget
+
+  }
+protected:
+  bool eventFilter(QObject* watched, QEvent* event) override {
+    if (event->type() == QEvent::WindowDeactivate) {
+      if (!popupView->underMouse()) {
+        popupView->hide();
+      }
+    }
+    return QWidget::eventFilter(watched, event);
   }
 
 private slots:
@@ -66,6 +72,7 @@ private slots:
     QPoint pos = lineEdit->mapToGlobal(lineEdit->rect().bottomLeft());
     popupView->setMinimumWidth(lineEdit->width());
     popupView->move(pos);
+//    popupView->raise(); // Make sure it's above other widgets
     popupView->show();
   }
 
