@@ -4,9 +4,17 @@
 
 #ifndef PDM_QT_PDM_SETTINGS_H
 #define PDM_QT_PDM_SETTINGS_H
+
+#include <memory>
+#include <map>
+#include "pdm_command.h"
 namespace PDM{
 class Settings {
 public:
+  Settings();
+  // Run pdm_command
+  int run(const std::string &commandName);
+
   int showUsernameInStatusBar = 1;
   // Display Settings
   int display_main_window_x = 0;
@@ -17,6 +25,8 @@ public:
 
   // Debug Status
   int has_database_location = 0;
+
+  std::map<std::string, std::unique_ptr<pdm_command>> commandMap;
 };
 }
 #endif //PDM_QT_PDM_SETTINGS_H

@@ -14,7 +14,8 @@
 #include <QtConcurrent/QtConcurrent>
 
 PdmRunTime::PdmRunTime(QObject *parent)
-      : QObject(parent) {
+      : QObject(parent),
+        PDM::Settings() {
   db = new PDM::pdm_database(); // Create the db used for debug, also store the most recent data
   app_settings = new PDM::pdm_database(); // Create the db used for debug, also store the most recent data
   local_dao = new PDM::LocalDao(); // Create the db that stores the configurations
@@ -30,6 +31,9 @@ PdmRunTime::PdmRunTime(QObject *parent)
   // Slots
   connect (this, &PdmRunTime::loginSuccess, this, &PdmRunTime::on_loginSuccess);
   connect (this, &PdmRunTime::loginFail, this, &PdmRunTime::on_loginFail);
+
+  // Commands
+  setupCommands();
 }
 /**
    * Checks if user exists on this computer.
@@ -260,4 +264,13 @@ void PdmRunTime::showPendingAnimation() {
 void PdmRunTime::showSaveCompleteAnimation() {
   changeMainwindowStatusColor("lightgreen");
   toggleAnimation(this, 0);
+}
+
+void PdmRunTime::setupCommands() {
+  commandMap["showUsernameInStatusBar"] = std::make_unique<PDM::pdm_command>("showUsernameInStatusBar", [](){});
+  commandMap["display_main_window_x"] = std::make_unique<PDM::pdm_command>("display_main_window_x", [](){});
+  commandMap["display_main_window_y"] = std::make_unique<PDM::pdm_command>("display_main_window_y", [](){});
+  commandMap["display_main_window_w"] = std::make_unique<PDM::pdm_command>("display_main_window_w", [](){});
+  commandMap["display_main_window_h"] = std::make_unique<PDM::pdm_command>("display_main_window_h", [](){});
+  commandMap["has_database_location"] = std::make_unique<PDM::pdm_command>("has_database_location", [](){});
 }

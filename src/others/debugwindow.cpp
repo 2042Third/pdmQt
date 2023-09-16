@@ -21,6 +21,7 @@
 #include "PdmRunTime.h"
 #include "mainwindow.h"
 #include "helpers/FlashingCircle.h"
+#include "debugwindowCommandWidget.h"
 #include <QSpinBox>
 #include <QComboBox>
 #include <QFormLayout>
@@ -67,6 +68,10 @@ DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
   shadowWidgetLayout->addWidget(titleBar); // custom titlebar
 #endif
   shadowWidgetLayout->addWidget(texts); // main content, the console
+
+  // pdm_command line widget
+  auto *commandWidget = new CommandWidget(this, rt);
+  shadowWidgetLayout->addWidget(commandWidget);
 
   // add the splitter settings
   auto splitterSettings= makeDebugSettings(shadowFrameWidget,shadowWidgetLayout);

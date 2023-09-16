@@ -118,5 +118,7 @@ public: // network callbacks
   };
 
     void changeMainwindowStatusColor(const QString &txt) const;
+
+  void setupCommands();
 };
 #endif // PDMRUNTIME_H

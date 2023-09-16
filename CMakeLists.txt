@@ -108,6 +108,12 @@ set(PROJECT_SOURCES
     src/handler/pdm_status_qt.h
     src/mainwindowui.h
     src/others/tools/pdmQtWidgets.cpp
+    src/handler/pdm_commands.cpp
+    src/handler/pdm_commands.h
+    src/handler/pdm_command.cpp
+    src/handler/pdm_command.h
+    src/others/debugwindowCommandWidget.cpp
+    src/others/debugwindowCommandWidget.h
 )
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
