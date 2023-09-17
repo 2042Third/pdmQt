@@ -44,6 +44,10 @@ explicit PdmRunTime(QObject *parent = nullptr);
   void checkExistingUser();
   static void toggleAnimation(PdmRunTime *rt, int state) ;
   static void changeAnimationSpeed(PdmRunTime* rt, int value) ;
+  int getCmd(const std::string &cmd);
+  void setCmd(const std::string &cmd, double value);
+  void setCmd(const std::string &cmd, int value);
+  int runCmd(const std::string &cmd);
 
   void showPendingAnimation();
   void showSaveCompleteAnimation();

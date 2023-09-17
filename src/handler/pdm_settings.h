@@ -14,18 +14,17 @@ public:
   Settings();
   // Run pdm_command
   int run(const std::string &commandName);
-  int run(std::vector<std::string> commands);
-
-  int showUsernameInStatusBar = 1;
-  // Display Settings
-  int display_main_window_x = 0;
-  int display_main_window_y = 0;
-  int display_main_window_w = 0;
-  int display_main_window_h = 0;
-
-
-  // Debug Status
-  int has_database_location = 0;
+//
+//  int showUsernameInStatusBar = 1;
+//  // Display Settings
+//  int display_main_window_x = 0;
+//  int display_main_window_y = 0;
+//  int display_main_window_w = 0;
+//  int display_main_window_h = 0;
+//
+//
+//  // Debug Status
+//  int has_database_location = 0;
 
   std::map<std::string, std::unique_ptr<pdm_command>> commandMap;
 };

@@ -13,7 +13,7 @@
 #include <QStandardPaths>
 #include <QtConcurrent/QtConcurrent>
 
-#define SETTING_STRING_EMITTER_BLUE(x) \
+#define PdmRunTime_SETTING_STRING_EMITTER_BLUE(x) \
   emit log((std::string(#x "=")+std::to_string(x)).c_str(), "#0000FF");
 
 
@@ -273,13 +273,42 @@ void PdmRunTime::showSaveCompleteAnimation() {
 void PdmRunTime::setupCommands() {
   commandMap["showUsernameInStatusBar"] = std::make_unique<PDM::pdm_command>("showUsernameInStatusBar"
       , [this](){
-    if (this->showUsernameInStatusBar){
-      SETTING_STRING_EMITTER_BLUE(showUsernameInStatusBar)
-    }
+        if (getCmd("showUsernameInStatusBar")){
+          static_cast<MainWindow*>(this->main_window)->showUsernameInStatusBar(1);
+        } else {
+          static_cast<MainWindow*>(this->main_window)->showUsernameInStatusBar(0);
+        }
   });
   commandMap["display_main_window_x"] = std::make_unique<PDM::pdm_command>("display_main_window_x", [](){});
   commandMap["display_main_window_y"] = std::make_unique<PDM::pdm_command>("display_main_window_y", [](){});
   commandMap["display_main_window_w"] = std::make_unique<PDM::pdm_command>("display_main_window_w", [](){});
   commandMap["display_main_window_h"] = std::make_unique<PDM::pdm_command>("display_main_window_h", [](){});
   commandMap["has_database_location"] = std::make_unique<PDM::pdm_command>("has_database_location", [](){});
+}
+
+int PdmRunTime::getCmd(const std::string &cmd) {
+  if (commandMap.find(cmd) != commandMap.end()) {
+    return commandMap[cmd]->getValue();
+  }
+  return 0;
+}
+
+void PdmRunTime::setCmd(const std::string &cmd, double value) {
+  if (commandMap.find(cmd) != commandMap.end()) {
+    commandMap[cmd]->setValue(value);
+  }
+}
+
+void PdmRunTime::setCmd(const std::string &cmd, int value) {
+  if (commandMap.find(cmd) != commandMap.end()) {
+    commandMap[cmd]->setValue(value);
+  }
+}
+
+int PdmRunTime::runCmd(const std::string &cmd) {
+  if (commandMap.find(cmd) != commandMap.end()) {
+    commandMap[cmd]->execute();
+    return 1;
+  }
+  return 0;
 }

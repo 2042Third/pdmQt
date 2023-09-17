@@ -95,14 +95,10 @@ QWidget *settingsmenuWidget::settingSecuritySettings(settingsmenuWidget *pWidget
   gridLayout->addWidget(new QLabel("Username In Status Bar:"), 0, 0);
   QCheckBox* checkBox = new QCheckBox("Enable");
   gridLayout->addWidget(checkBox, 0, 1);
-  checkBox->setChecked(rt->showUsernameInStatusBar);
+  checkBox->setChecked(rt->getCmd("showUsernameInStatusBar"));
   connect(checkBox, &QCheckBox::clicked, [this](bool checked){
-    rt->showUsernameInStatusBar = checked;
-    if (rt->showUsernameInStatusBar){
-      static_cast<MainWindow*>(rt->main_window)->showUsernameInStatusBar(1);
-    } else {
-      static_cast<MainWindow*>(rt->main_window)->showUsernameInStatusBar(0);
-    }
+    rt->setCmd("showUsernameInStatusBar" ,checked); // Change the value
+    rt->runCmd("showUsernameInStatusBar"); // Update using the custom actions
   });
 
   return widget;

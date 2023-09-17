@@ -12,6 +12,9 @@
 #include "PdmRuntimeRef.h"
 #include "handler/pdm_qt_helpers.h"
 
+#define SETTING_STRING_EMITTER_BLUE(x) \
+  emit rt->log((x+"="+std::to_string(rt->commandMap[x]->getValue())).c_str(), "#0000FF");
+
 class CommandWidget : public QWidget,
 public PdmRuntimeRef {
   Q_OBJECT
@@ -43,17 +46,30 @@ protected:
         if (keyEvent->key() == Qt::Key_Return) {
           QString command = lineEdit->text();
           if (rt){ // Runs command if it is in the command map
-            if(rt->run(PDM::pdm_qt_helpers::splitString(command.toStdString(),','))){
+            if(runAllCommands(PDM::pdm_qt_helpers::splitString(command.toStdString(),','))){
               emit rt->log(command, "#000000");
               lineEdit->clear();
               return true;
             }
           }
-
         }
       }
     }
     return QObject::eventFilter(obj, event);
+  }
+
+  int runAllCommands(std::vector<std::string> commands){
+
+    for (const std::string& segment : commands) {
+      int rtr = rt->run(segment);
+      if ( rtr == -1){
+        SETTING_STRING_EMITTER_BLUE(segment);
+      }
+      if(rtr == 0 ){
+        emit rt->log("Command not found: "+QString::fromStdString(segment), "#FF0004");
+      }
+    }
+    return 1;
   }
 
 private:

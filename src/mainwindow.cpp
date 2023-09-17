@@ -162,7 +162,7 @@ void MainWindow::on_actionOpen_triggered()
 }
 
 void MainWindow::mainwindowLoginSuccess() {
-  if (rt->showUsernameInStatusBar) {
+  if (rt->getCmd("showUsernameInStatusBar")) {
     statusBar()->showMessage(rt->wt.userinfo.username.c_str()); // Show username in status bar.
     rt->currentStatusBar = rt->wt.userinfo.username.c_str();
   }
