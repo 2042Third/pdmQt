@@ -11,6 +11,3 @@
 	path = lib/json
 	url = https://github.com/nlohmann/json.git
 	branch = master
-[submodule "lib/framelesshelper"]
-	path = lib/framelesshelper
-	url = https://github.com/wangwenx190/framelesshelper.git
