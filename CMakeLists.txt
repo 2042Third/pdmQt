@@ -22,6 +22,8 @@ if(APPLE)
     set(FramelessHelper_DIR /Users/mikeyang/Documents/pdm/pdmQt/lib/framelesshelperBuild/lib64/cmake/FramelessHelper)
 elseif (WIN32)
     set(CMAKE_PREFIX_PATH "C:\\Qt\\6.5.2\\mingw_64\\lib\\cmake")
+    set(FramelessHelper_DIR "C:\\Users\\18604\\Documents\\pdm_qt\\lib\\framlesshelperBuild\\ci")
+
 endif()
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
@@ -41,12 +43,21 @@ if(APPLE)
 endif()
 # check if we are on windows
 if(WIN32)
+#    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/ci/lib)
 
-find_library(SSL_LIB ssl # Openssl
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/)
+#    find_library(FramelessHelperLib
+#        NAMES libFramelessHelperCore64.dll libFramelessHelperCore64.dll.a libFramelessHelperWidgets64.dll libFramelessHelperWidgets64.dll.a
+#        PATHS lib/framelesshelperBuild/ci/lib
+#    )
 
-find_library(CRYPTO_LIB crypto # Openssl
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/)
+
+#    find_package(FramelessHelper REQUIRED COMPONENTS Core Widgets)
+
+    find_library(SSL_LIB ssl # Openssl
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/)
+
+    find_library(CRYPTO_LIB crypto # Openssl
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/)
 
 elseif(APPLE)
 
@@ -126,10 +137,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
 
     )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET pdm_qt APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 
     qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 else()
@@ -137,8 +144,6 @@ else()
         add_library(pdm_qt SHARED
             ${PROJECT_SOURCES}
         )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         add_executable(pdm_qt
             ${PROJECT_SOURCES}
@@ -157,6 +162,7 @@ target_include_directories(pdm_qt PUBLIC
     lib/pdm-crypt-module/src/lib
     lib/cryptoSQLite
     lib/pdm_network
+
 )
 
 if(APPLE)
@@ -164,6 +170,14 @@ if(APPLE)
         lib/framelesshelperBuild/include
         lib/framelesshelperBuild/lib64
     )
+elseif(WIN32)
+    target_include_directories(pdm_qt PUBLIC
+        lib/framelesshelperBuild/ci
+        lib/framelesshelperBuild/ci/src/core
+        lib/framelesshelperBuild/ci/src/widgets
+        lib/framelesshelperBuild/ci/lib
+    )
+
 endif()
 
 
@@ -180,12 +194,28 @@ target_link_libraries(pdm_qt PRIVATE
     cc20 # pdm encryption
     pdm-network # pdm network connectivity
     cryptosqlite # encrypted database interface
+
 )
 
 if(APPLE)
-    target_link_libraries(pdm_qt PRIVATE
+    target_link_libraries(pdm_qt PUBLIC
         FramelessHelper::Core
         FramelessHelper::Widgets
+    )
+elseif(WIN32)
+    target_link_libraries(pdm_qt PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/ci/lib/libFramelessHelperCore.a
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/ci/lib/libFramelessHelperWidgets.a
+    )
+#    if(FramelessHelperLib)
+#        message(STATUS "FramelessHelperLib found at: ${FramelessHelperLib}")
+#        target_link_libraries(pdm_qt PUBLIC ${FramelessHelperLib})
+#    else()
+#        message(FATAL_ERROR "FramelessHelperLib not found!")
+#    endif()
+    target_include_directories(pdm_qt PUBLIC
+        lib/framelesshelperBuild/include
+        lib/framelesshelperBuild/ci/lib
     )
 endif()
 

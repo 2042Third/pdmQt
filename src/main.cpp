@@ -11,7 +11,10 @@
 #include <QLocale>
 #include <QTranslator>
 #include <QSvgRenderer>
-#ifdef __APPLE__
+
+#define PDM_USE_FRAMELESSHELPER
+
+#ifdef PDM_USE_FRAMELESSHELPER
 #include <FramelessHelper/Widgets/framelessmainwindow.h>
 #include <FramelessHelper/Core/private/framelessconfig_p.h>
 #endif
@@ -19,7 +22,7 @@
 int main(int argc, char *argv[])
 {
 
-#ifdef __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
   wangwenx190::FramelessHelper::FramelessHelper::Widgets::initialize();
 #endif
   QApplication a(argc, argv);
@@ -50,7 +53,7 @@ int main(int argc, char *argv[])
       break;
     }
   }
-#ifdef __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
   {
     FRAMELESSHELPER_USE_NAMESPACE
     FramelessHelper::Core::setApplicationOSThemeAware();
