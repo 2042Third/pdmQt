@@ -12,7 +12,7 @@
 #include <QTranslator>
 #include <QSvgRenderer>
 
-#define PDM_USE_FRAMELESSHELPER
+//#define PDM_USE_FRAMELESSHELPER
 
 #ifdef PDM_USE_FRAMELESSHELPER
 #include <FramelessHelper/Widgets/framelessmainwindow.h>

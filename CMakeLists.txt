@@ -22,7 +22,7 @@ if(APPLE)
     set(FramelessHelper_DIR /Users/mikeyang/Documents/pdm/pdmQt/lib/framelesshelperBuild/lib64/cmake/FramelessHelper)
 elseif (WIN32)
     set(CMAKE_PREFIX_PATH "C:\\Qt\\6.5.2\\mingw_64\\lib\\cmake")
-    set(FramelessHelper_DIR "C:\\Users\\18604\\Documents\\pdm_qt\\lib\\framlesshelperBuild\\ci")
+#    set(FramelessHelper_DIR "C:\\Users\\18604\\Documents\\pdm_qt\\lib\\framelesshelperBuild\\lib\\cmake\\FramelessHelper")
 
 endif()
 
@@ -43,13 +43,6 @@ if(APPLE)
 endif()
 # check if we are on windows
 if(WIN32)
-#    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/ci/lib)
-
-#    find_library(FramelessHelperLib
-#        NAMES libFramelessHelperCore64.dll libFramelessHelperCore64.dll.a libFramelessHelperWidgets64.dll libFramelessHelperWidgets64.dll.a
-#        PATHS lib/framelesshelperBuild/ci/lib
-#    )
-
 
 #    find_package(FramelessHelper REQUIRED COMPONENTS Core Widgets)
 
@@ -171,12 +164,13 @@ if(APPLE)
         lib/framelesshelperBuild/lib64
     )
 elseif(WIN32)
-    target_include_directories(pdm_qt PUBLIC
-        lib/framelesshelperBuild/ci
-        lib/framelesshelperBuild/ci/src/core
-        lib/framelesshelperBuild/ci/src/widgets
-        lib/framelesshelperBuild/ci/lib
-    )
+#    target_include_directories(pdm_qt PUBLIC
+#        lib/framelesshelperBuild
+#        lib/framelesshelperBuild/ci
+#        lib/framelesshelperBuild/ci/src/core
+#        lib/framelesshelperBuild/ci/src/widgets
+#        lib/framelesshelperBuild/ci/lib
+#    )
 
 endif()
 
@@ -203,20 +197,18 @@ if(APPLE)
         FramelessHelper::Widgets
     )
 elseif(WIN32)
-    target_link_libraries(pdm_qt PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/ci/lib/libFramelessHelperCore.a
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/ci/lib/libFramelessHelperWidgets.a
-    )
-#    if(FramelessHelperLib)
-#        message(STATUS "FramelessHelperLib found at: ${FramelessHelperLib}")
-#        target_link_libraries(pdm_qt PUBLIC ${FramelessHelperLib})
-#    else()
-#        message(FATAL_ERROR "FramelessHelperLib not found!")
-#    endif()
-    target_include_directories(pdm_qt PUBLIC
-        lib/framelesshelperBuild/include
-        lib/framelesshelperBuild/ci/lib
-    )
+#    target_link_libraries(pdm_qt PRIVATE
+#        ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/ci/lib/libFramelessHelperCore.a
+#        ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/ci/lib/libFramelessHelperWidgets.a
+#    )
+
+#    target_include_directories(pdm_qt PUBLIC
+#    lib/framelesshelperBuild
+#
+#    lib/framelesshelperBuild/lib/cmake/FramelessHelper
+#    lib/framelesshelperBuild/include
+#        lib/framelesshelperBuild/ci/lib
+#    )
 endif()
 
 
