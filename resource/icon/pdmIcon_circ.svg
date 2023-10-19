@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with Vectornator (http://vectornator.io/) -->
+<svg height="100%" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 1024 1024" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs/>
+
+<g clip-path="url(#ArtboardFrame)" id="icon">
+<path d="M30.1832 685.195C-65.4698 419.095 72.7048 125.836 338.805 30.1832C604.905-65.4698 898.164 72.7048 993.817 338.805C1089.47 604.905 951.295 898.164 685.195 993.817C419.095 1089.47 125.836 951.295 30.1832 685.195Z" fill="#727476" fill-rule="nonzero" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="miter" stroke-width="0"/>
+<path d="M952.219 512C659.822 512 422.781 704.726 422.781 942.469C422.781 968.055 425.673 993.078 430.938 1017.44C558.442 1037.9 693.713 1010.54 807.5 930.125C947.343 831.29 1022.49 675.12 1023.88 516.031C1000.43 513.45 976.538 512 952.219 512Z" fill="#c5c7c9" fill-rule="nonzero" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="miter" stroke-width="0"/>
+<path d="M655.294 182.756C495.795 146.34 337.056 245.808 300.724 404.937C292.588 440.57 291.319 476.163 295.98 510.37L212.192 592.211L118.529 683.752L249.26 675.969L369.791 668.774C409.22 712.432 461.973 744.89 523.728 758.99C683.228 795.407 841.966 695.939 878.298 536.809C914.631 377.68 814.793 219.173 655.294 182.756Z" fill="#ebedef" fill-rule="nonzero" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="miter" stroke-width="0"/>
+<path d="M583.35 430.181C583.35 395.215 611.696 366.869 646.662 366.869C681.628 366.869 709.974 395.215 709.974 430.181C709.974 465.147 681.628 493.493 646.662 493.493C611.696 493.493 583.35 465.147 583.35 430.181Z" fill="#343638" fill-rule="nonzero" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="miter" stroke-width="2.00131"/>
+</g>
+</svg>
