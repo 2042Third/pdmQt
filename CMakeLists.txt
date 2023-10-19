@@ -50,15 +50,15 @@ if(WIN32)
 
     find_library(FRAMELESS_HELPER_CORE_LIB
         NAMES FramelessHelperCore
-        PATHS "C:/Users/18604/Documents/framelesshelpers/framelesshelperBuild/lib")
+        PATHS "C:/Users/18604/Documents/pdm_qt/lib/framelesshelperBuild/lib")
 
     find_library(FRAMELESS_HELPER_QUICK_LIB
         NAMES FramelessHelperQuick
-        PATHS "C:/Users/18604/Documents/framelesshelpers/framelesshelperBuild/lib")
+        PATHS "C:/Users/18604/Documents/pdm_qt/lib/framelesshelperBuild/lib")
 
     find_library(FRAMELESS_HELPER_WIDGETS_LIB
         NAMES FramelessHelperWidgets
-        PATHS "C:/Users/18604/Documents/framelesshelpers/framelesshelperBuild/lib")
+        PATHS "C:/Users/18604/Documents/pdm_qt/lib/framelesshelperBuild/lib")
 
 
 
