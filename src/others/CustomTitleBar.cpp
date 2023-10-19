@@ -13,8 +13,10 @@
 #include <QOperatingSystemVersion>
 
 #ifdef PDM_USE_FRAMELESSHELPER
-#include <Global>
+#include <FramelessHelper/Core/framelesshelpercore_global.h>
+#ifdef Q_OS_MACOS
 #define USING_MACOS_FRAMELESS_HELPER 1
+#endif
 #elif defined(_WIN32) // For Windows platform
 #define USING_MACOS_FRAMELESS_HELPER 0
 #else // For other platforms
@@ -90,11 +92,29 @@ QMenuBar::item:pressed {
 #endif
   } else {
     layout->addWidget(customButton);
+    setStyleSheet(FRAMELESSHELPER_STRING_LITERAL(R"(
+QMenuBar {
+    background-color: transparent;
+}
 
+QMenuBar::item {
+    background: transparent;
+}
+
+QMenuBar::item:selected {
+    background: #a8a8a8;
+}
+
+QMenuBar::item:pressed {
+    background: #888888;
+}
+    )"));
     // Add spacer to push the custom button to the right side
     layout->addStretch(1);
 
-    minimizeButton = new QPushButton("", this);
+/**
+ * // Custom Windows interaction buttons
+ *  minimizeButton = new QPushButton("", this);
     minimizeButton->setIcon(QIcon(":/images/icon/minus"));
     minimizeButton->setFlat(true);
     minimizeButton->setStyleSheet(buttonStyleSheetDG_sq);
@@ -109,15 +129,19 @@ QMenuBar::item:pressed {
     layout->addWidget(minimizeButton);
     layout->addWidget(maximizeButton);
     layout->addWidget(closeButton);
+ *
+ * */
+
   }
   if(!USING_MACOS_FRAMELESS_HELPER){
-    connect(minimizeButton, &QPushButton::clicked, this, &CustomTitleBar::minimizeWindow);
-    connect(maximizeButton, &QPushButton::clicked, this, &CustomTitleBar::maximizeWindow);
-    connect(closeButton, &QPushButton::clicked, this, &CustomTitleBar::closeWindow);
+    /**
+     * // Custom Windows interaction buttons connect
+     *  connect(minimizeButton, &QPushButton::clicked, this, &CustomTitleBar::minimizeWindow);
+        connect(maximizeButton, &QPushButton::clicked, this, &CustomTitleBar::maximizeWindow);
+        connect(closeButton, &QPushButton::clicked, this, &CustomTitleBar::closeWindow);
+     * */
     titleLabel = new QLabel();
   }
-
-
 
   moveTimer = new PdmUpdateTimer(3000, this);
   connect(moveTimer, &PdmUpdateTimer::timeout, this, &CustomTitleBar::onMoveTimerTimeout);
@@ -168,26 +192,21 @@ bool CustomTitleBar::event(QEvent *event) {
   switch (event->type()) {
     case QEvent::PaletteChange: {
       // The application palette has changed
-      // Update your widget's colors here
-
       QPalette palette = QApplication::palette();
-      // You may want to use different color roles depending on what part of the widget you are updating
+      // may want to use different color roles depending on what part of the widget we are updating
       QColor backgroundColor = palette.color(QPalette::Window);
       QColor textColor = palette.color(QPalette::WindowText);
 
-      // Assuming your custom title bar has a solid background color, you can update it like this:
+      // Assuming our custom title bar has a solid background color, you can update it like this:
       QPalette titleBarPalette = this->palette();
       titleBarPalette.setColor(QPalette::Window, backgroundColor);
       this->setPalette(titleBarPalette);
       this->setAutoFillBackground(true);
 
-      // You can update the text color of the title label like this:
+      // We can update the text color of the title label like this:
       QPalette labelPalette = titleLabel->palette();
       labelPalette.setColor(QPalette::WindowText, textColor);
       titleLabel->setPalette(labelPalette);
-
-      // Similarly, you can update the colors of the buttons here
-      // ...
 
       break;
     }

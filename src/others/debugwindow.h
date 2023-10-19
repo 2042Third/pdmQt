@@ -8,7 +8,6 @@
 #include "shadowFrameWidget.h"
 #include "PdmRuntimeRef.h"
 #include <QGraphicsDropShadowEffect>
-#define PDM_USE_FRAMELESSHELPER
 #ifdef PDM_USE_FRAMELESSHELPER
 #include <FramelessHelper/Core/framelesshelpercore_global.h>
 

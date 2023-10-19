@@ -80,7 +80,7 @@ DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
 
   // Set the textEdit background as gray
   texts->setStyleSheet("background-color: #FFFFFF;");
-  // Setup frameless window if on macOS
+  // Setup frameless window if on using frameless helper
 #ifdef PDM_USE_FRAMELESSHELPER
   QTimer::singleShot(0, this, &DebugWindow::makeCustomWindow);
 #endif
@@ -178,8 +178,8 @@ QMenuBar::item:pressed {
   helper->setTitleBarWidget(m_titleBar);
 #ifndef Q_OS_MACOS
   helper->setSystemButton(m_titleBar->minimizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Minimize);
-    helper->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
-    helper->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
+  helper->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
+  helper->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
 #endif // Q_OS_MACOS
   helper->setHitTestVisible(mb); // IMPORTANT!
   helper->setHitTestVisible(titlebarButton); // IMPORTANT!
@@ -229,14 +229,14 @@ QMenuBar::item:pressed {
   }
 
   // setMenuWidget(): make the menu widget become the first row of the window.
- setMenuWidget(m_titleBar);
+  setMenuWidget(m_titleBar);
 
   FramelessWidgetsHelper *helper = FramelessWidgetsHelper::get(this);
   helper->setTitleBarWidget(m_titleBar);
 #ifndef Q_OS_MACOS
   helper->setSystemButton(m_titleBar->minimizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Minimize);
-    helper->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
-    helper->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
+  helper->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
+  helper->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
 #endif // Q_OS_MACOS
   helper->setHitTestVisible(mb); // IMPORTANT!
   helper->setHitTestVisible(titleBar); // IMPORTANT!
@@ -245,8 +245,6 @@ QMenuBar::item:pressed {
   // Unset the frameless flag
   setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
   show();
-#elif defined(_WIN32) // Windows, show a red message
-  emit rt->log("Calling macOS specific code \"void DebugWindow::makeCustomWindow()\" Ignored.", "#FF0000");
 #endif
 }
 

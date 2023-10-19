@@ -9,7 +9,6 @@
 #include "PdmRunTime.h"
 #include "notesView/NotesScroll.h"
 #include "notesView/NoteEdit.h"
-#define PDM_USE_FRAMELESSHELPER
 
 #ifdef PDM_USE_FRAMELESSHELPER
 #include <FramelessHelper/Widgets/framelessmainwindow.h>

@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 
 project(pdm_qt VERSION 0.1 LANGUAGES C CXX)
 
+option(PDM_USE_FRAMELESSHELPER "Using the framelesshelper library in PDM." ON)
+
 cmake_policy(SET CMP0079 NEW) # allow things from other directories
 #cmake_policy(SET CMP0135 NEW) # cryptoSqlite icu download prebuilt binary
 
@@ -14,6 +16,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DVK_PROTOTYPES")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVK_PROTOTYPES")
 
+set(PDM_QT_OPTIONS ${PDM_QT_OPTIONS} "PDM_DESKTOP_APPLICATION=1")
 
 if(APPLE)
 #    set(CMAKE_OSX_SYSROOT /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk)
@@ -42,12 +45,9 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
 if(APPLE)
     find_package(FramelessHelper REQUIRED COMPONENTS Core Widgets)
 endif()
+
 # check if we are on windows
 if(WIN32)
-
-
-#    find_package(FramelessHelper REQUIRED COMPONENTS Core Widgets)
-
     find_library(FRAMELESS_HELPER_CORE_LIB
         NAMES FramelessHelperCore
         PATHS "C:/Users/18604/Documents/pdm_qt/lib/framelesshelperBuild/lib")
@@ -59,8 +59,6 @@ if(WIN32)
     find_library(FRAMELESS_HELPER_WIDGETS_LIB
         NAMES FramelessHelperWidgets
         PATHS "C:/Users/18604/Documents/pdm_qt/lib/framelesshelperBuild/lib")
-
-
 
     find_library(SSL_LIB ssl # Openssl
         ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/)
@@ -75,6 +73,7 @@ elseif(APPLE)
     find_library(CRYPTO_LIB crypto )
 endif()
 
+# Translation files, currently disabled.
 set(TS_FILES
 #    pdm_qt_zh_CN.ts
     )
@@ -106,7 +105,7 @@ set(PROJECT_SOURCES
     src/handler/types.h
     src/crypto/pdmCryptoDB.hpp # encrypted database
 
-        src/others/CustomTitleBar.h src/others/CustomTitleBar.cpp src/others/shadowFrameWidget.h
+    src/others/CustomTitleBar.h src/others/CustomTitleBar.cpp src/others/shadowFrameWidget.h
     src/others/shadowFrameWidget.cpp src/handler/pdm_qt_helpers.h src/handler/pdm_qt_helpers.cpp
     src/handler/pdm_settings.h src/handler/pdm_settings.cpp src/handler/dao/pdmLocalDao.h
     src/handler/dao/pdmLocalDao.cpp src/handler/db/PdmDBType.h src/handler/pdmqt/pdm_qt_net.h
@@ -115,8 +114,8 @@ set(PROJECT_SOURCES
     src/handler/dao/pdmNotesCache.cpp src/notesView/NoteEdit.cpp src/notesView/NoteEdit.h src/helpers/PdmUpdateTimer.h
     src/helpers/PdmUpdateTimer.cpp src/settings/settingsmenuWidget.h src/settings/settingsmenuWidget.cpp
     src/notesView/NotesScrollDelegate.h src/others/PasswordDialog.h
-        src/others/MacCustomWindow.h
-        src/others/macOSWindowBridge.h
+    src/others/MacCustomWindow.h
+    src/others/macOSWindowBridge.h
     src/helpers/FlashingCircle.h
     src/helpers/Animated.h
     src/others/tools/pdmQtWidgets.h
@@ -136,6 +135,7 @@ set(PROJECT_SOURCES
     src/others/debugwindowCommandWidget.h
 )
 
+# Compile the macOS Objective-C bridge only on macOS
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     list(APPEND PROJECT_SOURCES src/others/macOSWindowBridge.mm)
 endif()
@@ -185,8 +185,12 @@ elseif(WIN32)
         lib/framelesshelperBuild/include
         lib/framelesshelperBuild/lib
     )
+    set(PDM_QT_OPTIONS ${PDM_QT_OPTIONS} "USING_MACOS_FRAMELESS_HELPER=0")
 endif()
 
+if(PDM_USE_FRAMELESSHELPER)
+    set(PDM_QT_OPTIONS ${PDM_QT_OPTIONS} "PDM_USE_FRAMELESSHELPER=1")
+endif()
 
 set(PDM_TEST_PLATFORM_DESKTOP 1)
 
@@ -195,6 +199,8 @@ add_subdirectory(lib/pdm_network) # pdm network connectivity
 add_subdirectory(lib/cryptoSQLite) # encrypted database
 
 install(FILES PDM_CURL_LOCATION DESTINATION ${PROJECT_BINARY_DIR} )
+target_compile_definitions(pdm_qt PRIVATE ${PDM_QT_OPTIONS})
+
 target_link_libraries(pdm_qt PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt6::Svg
@@ -211,15 +217,12 @@ if(APPLE)
     )
 elseif(WIN32)
     target_link_libraries(pdm_qt PUBLIC
-#        FramelessHelper::Core
-#        FramelessHelper::Widgets
         ${FRAMELESS_HELPER_CORE_LIB}
         ${FRAMELESS_HELPER_QUICK_LIB}
         ${FRAMELESS_HELPER_WIDGETS_LIB}
     )
 
 endif()
-
 
 set_target_properties(pdm_qt PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER pdm.notes.pw
@@ -228,7 +231,6 @@ set_target_properties(pdm_qt PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
-
 
 install(TARGETS pdm_qt
     BUNDLE DESTINATION .
