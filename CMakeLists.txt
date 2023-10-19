@@ -22,7 +22,8 @@ if(APPLE)
     set(FramelessHelper_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/lib64/cmake/FramelessHelper)
 elseif (WIN32)
     set(CMAKE_PREFIX_PATH "C:\\Qt\\6.5.2\\mingw_64\\lib\\cmake")
-#    set(FramelessHelper_DIR "C:\\Users\\18604\\Documents\\pdm_qt\\lib\\framelesshelperBuild\\lib\\cmake\\FramelessHelper")
+    set(FramelessHelper_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/lib/cmake/FramelessHelper)
+#    set(FramelessHelper_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/bin)
 
 endif()
 
@@ -44,7 +45,22 @@ endif()
 # check if we are on windows
 if(WIN32)
 
+
 #    find_package(FramelessHelper REQUIRED COMPONENTS Core Widgets)
+
+    find_library(FRAMELESS_HELPER_CORE_LIB
+        NAMES FramelessHelperCore
+        PATHS "C:/Users/18604/Documents/framelesshelpers/framelesshelperBuild/lib")
+
+    find_library(FRAMELESS_HELPER_QUICK_LIB
+        NAMES FramelessHelperQuick
+        PATHS "C:/Users/18604/Documents/framelesshelpers/framelesshelperBuild/lib")
+
+    find_library(FRAMELESS_HELPER_WIDGETS_LIB
+        NAMES FramelessHelperWidgets
+        PATHS "C:/Users/18604/Documents/framelesshelpers/framelesshelperBuild/lib")
+
+
 
     find_library(SSL_LIB ssl # Openssl
         ${CMAKE_CURRENT_SOURCE_DIR}/lib/pdm_network/lib/)
@@ -161,17 +177,14 @@ target_include_directories(pdm_qt PUBLIC
 if(APPLE)
     target_include_directories(pdm_qt PUBLIC
         lib/framelesshelperBuild/include
-        lib/framelesshelperBuild/lib64
+        lib/framelesshelperBuild/lib
+        lib/framelesshelperBuild/bin
     )
 elseif(WIN32)
-#    target_include_directories(pdm_qt PUBLIC
-#        lib/framelesshelperBuild
-#        lib/framelesshelperBuild/ci
-#        lib/framelesshelperBuild/ci/src/core
-#        lib/framelesshelperBuild/ci/src/widgets
-#        lib/framelesshelperBuild/ci/lib
-#    )
-
+    target_include_directories(pdm_qt PUBLIC
+        lib/framelesshelperBuild/include
+        lib/framelesshelperBuild/lib
+    )
 endif()
 
 
@@ -197,18 +210,14 @@ if(APPLE)
         FramelessHelper::Widgets
     )
 elseif(WIN32)
-#    target_link_libraries(pdm_qt PRIVATE
-#        ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/ci/lib/libFramelessHelperCore.a
-#        ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/ci/lib/libFramelessHelperWidgets.a
-#    )
+    target_link_libraries(pdm_qt PUBLIC
+#        FramelessHelper::Core
+#        FramelessHelper::Widgets
+        ${FRAMELESS_HELPER_CORE_LIB}
+        ${FRAMELESS_HELPER_QUICK_LIB}
+        ${FRAMELESS_HELPER_WIDGETS_LIB}
+    )
 
-#    target_include_directories(pdm_qt PUBLIC
-#    lib/framelesshelperBuild
-#
-#    lib/framelesshelperBuild/lib/cmake/FramelessHelper
-#    lib/framelesshelperBuild/include
-#        lib/framelesshelperBuild/ci/lib
-#    )
 endif()
 
 
@@ -219,12 +228,7 @@ set_target_properties(pdm_qt PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
-#add_custom_command(TARGET pdm_qt POST_BUILD
-#    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt${QT_VERSION_MAJOR}::Core> $<TARGET_FILE_DIR:pdm_qt>
-#    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt${QT_VERSION_MAJOR}::Gui> $<TARGET_FILE_DIR:pdm_qt>
-#    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt${QT_VERSION_MAJOR}::Widgets> $<TARGET_FILE_DIR:pdm_qt>
-#    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt6::Svg> $<TARGET_FILE_DIR:pdm_qt>
-#    )
+
 
 install(TARGETS pdm_qt
     BUNDLE DESTINATION .

@@ -13,9 +13,9 @@
 #include <QStackedWidget>
 #include <QAbstractButton>
 #include <QToolButton>
-#ifdef __APPLE__
-#include <FramelessWidgetsHelper>
-#endif // __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
+#include <FramelessHelper/Widgets/framelesswidgetshelper.h>
+#endif // PDM_USE_FRAMELESSHELPER
 #include "macOSWindowBridge.h"
 #include "src/others/tools/pdmQtWidgets.h"
 #include "PdmRunTime.h"
@@ -64,7 +64,7 @@ DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
   // Set the layout for the custom title bar window
   setCentralWidget(shadowFrameWidget);
 
-#ifndef __APPLE__
+#ifndef PDM_USE_FRAMELESSHELPER
   shadowWidgetLayout->addWidget(titleBar); // custom titlebar
 #endif
   shadowWidgetLayout->addWidget(texts); // main content, the console
@@ -81,7 +81,7 @@ DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
   // Set the textEdit background as gray
   texts->setStyleSheet("background-color: #FFFFFF;");
   // Setup frameless window if on macOS
-#ifdef __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
   QTimer::singleShot(0, this, &DebugWindow::makeCustomWindow);
 #endif
 }
@@ -132,7 +132,7 @@ QWidget* DebugWindow::makeDebugSettings(QWidget* widget, QLayout* layout){
 }
 
 void DebugWindow::openCustomWindow() {
-#ifdef __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
   m_titleBar = new StandardTitleBar(this);
   m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
   m_mainWindow = new QMainWindow();
@@ -177,9 +177,9 @@ QMenuBar::item:pressed {
   FramelessWidgetsHelper *helper = FramelessWidgetsHelper::get(m_mainWindow);
   helper->setTitleBarWidget(m_titleBar);
 #ifndef Q_OS_MACOS
-  helper->setSystemButton(m_titleBar->minimizeButton(), SystemButtonType::Minimize);
-    helper->setSystemButton(m_titleBar->maximizeButton(), SystemButtonType::Maximize);
-    helper->setSystemButton(m_titleBar->closeButton(), SystemButtonType::Close);
+  helper->setSystemButton(m_titleBar->minimizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Minimize);
+    helper->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
+    helper->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
 #endif // Q_OS_MACOS
   helper->setHitTestVisible(mb); // IMPORTANT!
   helper->setHitTestVisible(titlebarButton); // IMPORTANT!
@@ -187,11 +187,11 @@ QMenuBar::item:pressed {
   mb->setWindowTitle("FramelessHelper demo application - QMenuBar");
   m_mainWindow->setWindowIcon(QFileIconProvider().icon(QFileIconProvider::Computer));
   m_mainWindow->show();
-#endif // __APPLE__
+#endif // PDM_USE_FRAMELESSHELPER
 }
 
 void DebugWindow::makeCustomWindow() {
-#ifdef __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
   m_titleBar = new StandardTitleBar(this);
   m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
   setContentsMargins(0,0,0,0); // set the margin of the window that contains the shadow
@@ -234,9 +234,9 @@ QMenuBar::item:pressed {
   FramelessWidgetsHelper *helper = FramelessWidgetsHelper::get(this);
   helper->setTitleBarWidget(m_titleBar);
 #ifndef Q_OS_MACOS
-  helper->setSystemButton(m_titleBar->minimizeButton(), SystemButtonType::Minimize);
-    helper->setSystemButton(m_titleBar->maximizeButton(), SystemButtonType::Maximize);
-    helper->setSystemButton(m_titleBar->closeButton(), SystemButtonType::Close);
+  helper->setSystemButton(m_titleBar->minimizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Minimize);
+    helper->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
+    helper->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
 #endif // Q_OS_MACOS
   helper->setHitTestVisible(mb); // IMPORTANT!
   helper->setHitTestVisible(titleBar); // IMPORTANT!
@@ -335,7 +335,7 @@ QWidget *DebugWindow::getMoreSettingsWidget(QWidget *pWidget) {
 
   layout->addWidget(button1);
   layout->addWidget(button2);
-#ifdef __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
   layout->addWidget(button3);
 #endif
   // qt implementation custom window
@@ -346,7 +346,7 @@ QWidget *DebugWindow::getMoreSettingsWidget(QWidget *pWidget) {
   button2->setText("Open MacOS Window (native with custom titlebar) (MacOS)");
   connect(button2, &QPushButton::clicked, this, &DebugWindow::openMacOSCustomWindow);
 
-#ifdef __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
   // Convert current window to frameless helper
   button3->setText("Convert current window to frameless helper");
   connect(button3, &QPushButton::clicked, this, &DebugWindow::makeCustomWindow);

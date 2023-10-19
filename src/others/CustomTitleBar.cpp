@@ -12,7 +12,7 @@
 #include <QPalette>
 #include <QOperatingSystemVersion>
 
-#ifdef __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
 #include <Global>
 #define USING_MACOS_FRAMELESS_HELPER 1
 #elif defined(_WIN32) // For Windows platform
@@ -67,7 +67,7 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
     layout->addWidget(customButton);
     layout->addWidget(titleLabel);
   } else if (USING_MACOS_FRAMELESS_HELPER) {
-#ifdef __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
     layout->addWidget(customButton);
     setStyleSheet(FRAMELESSHELPER_STRING_LITERAL(R"(
 QMenuBar {
@@ -114,6 +114,7 @@ QMenuBar::item:pressed {
     connect(minimizeButton, &QPushButton::clicked, this, &CustomTitleBar::minimizeWindow);
     connect(maximizeButton, &QPushButton::clicked, this, &CustomTitleBar::maximizeWindow);
     connect(closeButton, &QPushButton::clicked, this, &CustomTitleBar::closeWindow);
+    titleLabel = new QLabel();
   }
 
 

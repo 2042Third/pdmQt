@@ -119,9 +119,9 @@ public:
 
     horizontalLayout->addWidget(splitter);
 
-#ifdef __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
     MainWindow->setCentralWidget(centralwidget);
-#endif // __APPLE__
+#endif // PDM_USE_FRAMELESSHELPER
     menubar = new QMenuBar(MainWindow);
     menubar->setObjectName("menubar");
     menubar->setGeometry(QRect(0, 0, 866, 37));
@@ -135,9 +135,9 @@ public:
     menuEditor->setObjectName("menuEditor");
     menuView = new QMenu(menuEditor);
     menuView->setObjectName("menuView");
-#ifdef __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
     MainWindow->setMenuBar(menubar);
-#endif // __APPLE__
+#endif // PDM_USE_FRAMELESSHELPER
     statusbar = new QStatusBar(MainWindow);
     statusbar->setObjectName("statusbar");
     MainWindow->setStatusBar(statusbar);

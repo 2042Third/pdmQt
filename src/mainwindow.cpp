@@ -13,11 +13,11 @@
 #include <QListView>
 #include <QWidgetAction>
 
-#ifdef __APPLE__
-#include <FramelessWidgetsHelper>
-#endif // __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
+#include <FramelessHelper/Widgets/framelesswidgetshelper.h>
+#endif // PDM_USE_FRAMELESSHELPER
 MainWindow::MainWindow(QWidget *parent)
-#ifdef __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
   : QMainWindow(parent,Qt::FramelessWindowHint)
 #else
   : QMainWindow(parent)
@@ -209,7 +209,7 @@ void MainWindow::open_user_database_location() {
 }
 
 void MainWindow::makeCustomTitleBar(){
-#ifdef __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
   m_titleBar = new StandardTitleBar(this);
   m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
   setContentsMargins(0,0,0,0); // set the margin of the window that contains the shadow
@@ -265,9 +265,9 @@ QMenuBar::item:pressed {
   FramelessWidgetsHelper *helper = FramelessWidgetsHelper::get(this);
   helper->setTitleBarWidget(m_titleBar);
 #ifndef Q_OS_MACOS
-  helper->setSystemButton(m_titleBar->minimizeButton(), SystemButtonType::Minimize);
-    helper->setSystemButton(m_titleBar->maximizeButton(), SystemButtonType::Maximize);
-    helper->setSystemButton(m_titleBar->closeButton(), SystemButtonType::Close);
+  helper->setSystemButton(m_titleBar->minimizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Minimize);
+    helper->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
+    helper->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
 #endif // Q_OS_MACOS
   helper->setHitTestVisible(mb); // IMPORTANT!
   helper->setHitTestVisible(titleBar); // IMPORTANT!
@@ -313,7 +313,7 @@ QMenuBar::item:pressed {
   newCentralWidget->setLayout(centralLayout);
   setCentralWidget(newCentralWidget);
 
-#endif // __APPLE__
+#endif // PDM_USE_FRAMELESSHELPER
 }
 
 void MainWindow::moveEvent(QMoveEvent *event) {

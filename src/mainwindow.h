@@ -9,9 +9,12 @@
 #include "PdmRunTime.h"
 #include "notesView/NotesScroll.h"
 #include "notesView/NoteEdit.h"
-#ifdef __APPLE__
+#define PDM_USE_FRAMELESSHELPER
+
+#ifdef PDM_USE_FRAMELESSHELPER
 #include <FramelessHelper/Widgets/framelessmainwindow.h>
-#include <Global>
+#include <FramelessHelper/Core/framelesshelpercore_global.h>
+#include <FramelessHelper/Widgets/standardtitlebar.h>
 #endif
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -59,9 +62,9 @@ private:
   PdmUpdateTimer * resizeTimer;
   Ui::MainWindow * ui;
   QMap<std::string, NoteEdit*> noteEditMap;
-#ifdef __APPLE__
+#ifdef PDM_USE_FRAMELESSHELPER
   StandardTitleBar * m_titleBar = nullptr;
-#endif // __APPLE__
+#endif // PDM_USE_FRAMELESSHELPER
 
   void newSettingsWindow();
   int defaultWidth = 866;
