@@ -8,6 +8,7 @@
 #include "helpers/FlashingCircle.h"
 #include "handler/pdm_status_qt.h"
 #include "helpers/Animated.h"
+#include "handler/pdmqt/pdm_qt_net.h"
 #include <QObject>
 #include <QMessageBox>
 #include <QStandardPaths>
@@ -284,6 +285,8 @@ void PdmRunTime::setupCommands() {
   commandMap["display_main_window_w"] = std::make_unique<PDM::pdm_command>("display_main_window_w", [](){});
   commandMap["display_main_window_h"] = std::make_unique<PDM::pdm_command>("display_main_window_h", [](){});
   commandMap["has_database_location"] = std::make_unique<PDM::pdm_command>("has_database_location", [](){});
+  commandMap["note_new_note"] = std::make_unique<PDM::pdm_command>("note_new_note", [this](){PDM::pdm_qt_net::client_action_note_create(this);});
+  commandMap["note_refresh_list"] = std::make_unique<PDM::pdm_command>("note_refresh_list", [this](){PDM::pdm_qt_net::client_action_note_heads(this);});
 }
 
 int PdmRunTime::getCmd(const std::string &cmd) {

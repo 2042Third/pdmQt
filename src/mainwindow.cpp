@@ -56,12 +56,12 @@ MainWindow::MainWindow(QWidget *parent)
   // Add the new note button
   auto *newNoteButton = new QPushButton("New Note", this);
   connect(newNoteButton, &QPushButton::clicked, [=]() {
-    PDM::pdm_qt_net::client_action_note_create(rt);
+    rt->runCmd("note_new_note");
   });
   // Add refresh button
   auto *refreshButton = new QPushButton("Refresh", this);
   connect(refreshButton, &QPushButton::clicked, [=]() {
-    PDM::pdm_qt_net::client_action_note_heads(rt);
+    rt->runCmd("note_refresh_list");
   });
 
   noteListActionLayout->addWidget(refreshButton);
@@ -244,6 +244,14 @@ void MainWindow::makeCustomTitleBar(){
 //  auto * titleBarLabel = new QLabel(this);
 //  titleBarLabel->setText("<--");
 //  layout->addWidget(titleBarLabel);
+  auto * pdmIcon = new QPushButton(this);
+  pdmIcon->setText("");
+  pdmIcon->setIcon(QIcon(":/images/icon/icon_small"));
+  pdmIcon->setIconSize(QSize(20, 20));
+  pdmIcon->setMinimumHeight(20);
+  pdmIcon->setMaximumHeight(20);
+  pdmIcon->setStyleSheet("QPushButton { background-color: none; border: none; } QPushButton:hover { background-color: none; border: none; }");
+
 
   QMenuBar *const mb = menuBar();
   mb->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
@@ -265,14 +273,15 @@ QMenuBar::item:pressed {
 }
   )"));
   const auto titleBarLayout = static_cast<QHBoxLayout *>(m_titleBar->layout());
-  titleBarLayout->insertWidget(0, mb);
-  titleBarLayout->insertWidget(1, titleBar);
+  titleBarLayout->insertWidget(0, pdmIcon);
+  titleBarLayout->insertWidget(1, mb);
+  titleBarLayout->insertWidget(2, titleBar);
 
   // If windows or linux insert stretch at 2, macos insert stretch at 0.
   if (QSysInfo::productType() == "windows" || QSysInfo::productType() == "linux") {
-    titleBarLayout->insertStretch(1, 1);
+    titleBarLayout->insertStretch(2, 1);
   } else {
-    titleBarLayout->insertStretch(0, 1);
+    titleBarLayout->insertStretch(1, 1);
   }
 
   // setMenuWidget(): make the menu widget become the first row of the window.

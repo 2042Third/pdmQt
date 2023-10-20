@@ -49,8 +49,8 @@ pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
       }
   });
 
-  connect(rt, &PdmRunTime::onZoomIn, this, &pdmListView::zoomingIn);
-  connect(rt, &PdmRunTime::onZoomOut, this, &pdmListView::zoomingOut);
+//  connect(rt, &PdmRunTime::onZoomIn, this, &pdmListView::zoomingIn);
+//  connect(rt, &PdmRunTime::onZoomOut, this, &pdmListView::zoomingOut);
 
   // Get the font size from the settings
   QSettings settings;
