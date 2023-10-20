@@ -57,6 +57,11 @@ pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
   scrollDelegate->primaryFontSizeCache=settings.value("pdmListView/primaryFontSize", 12).toDouble();
   scrollDelegate->secondaryFontSizeCache=settings.value("pdmListView/secondaryFontSize", 12).toDouble();
   scrollDelegate->setFontSize(scrollDelegate->primaryFontSizeCache,scrollDelegate->secondaryFontSizeCache);
+
+  // Set smooth scrolling
+  setVerticalScrollMode(QAbstractItemView::ScrollMode::ScrollPerPixel);
+
+
   viewport()->update();
 }
 

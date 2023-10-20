@@ -48,12 +48,12 @@ MainWindow::MainWindow(QWidget *parent)
 
   // Setup noteListWidget
   rt->noteList = new NotesScroll(ui->notesListTab);
-  auto *view = new pdmListView(this, rt);
-  view->setModel(rt->noteList);
-  auto *layout = new QVBoxLayout;
-  layout->addWidget(view);
+  auto *notelistview = new pdmListView(this, rt);
+  notelistview->setModel(rt->noteList);
+  auto *notelistlayout = new QVBoxLayout;
+  notelistlayout->addWidget(notelistview);
 
-  ui->notesListTab->setLayout(layout);
+  ui->notesListTab->setLayout(notelistlayout);
   ui->notesListTab->show();
 
   // Restore the previous status bar message once the tooltip is hidden
