@@ -78,7 +78,7 @@ public:
     painter->setBrush(textColor); // Added to draw the icon according to the system theme.
     painter->drawPixmap(iconRect, pixmap);
     // Adjust the rect for the text
-    QRect textRect = option.rect.adjusted(pixmap.width() + 18, 0, 0, 0); // Adjust the left margin
+    QRect textRect = option.rect.adjusted(pixmap.width() + 18, 8, -8, -8); // Adjust the margin
 
     auto note = index.data(Qt::DisplayRole).toString();
     auto noteParts = note.split("\n\n");
@@ -88,13 +88,13 @@ public:
     font.setPointSize(primaryFontSize);
     painter->setFont(font);
 
-    painter->drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter, noteParts[0]);
+    painter->drawText(textRect, Qt::AlignLeft | Qt::AlignTop, noteParts[0]);
 
     font.setPointSize(secondaryFontSize);  // Change the size back or to a different value
 
     painter->setFont(font);
     painter->setPen(Qt::gray);
-    painter->drawText(textRect, Qt::AlignRight | Qt::AlignVCenter, noteParts[1]);
+    painter->drawText(textRect, Qt::AlignRight | Qt::AlignBottom , noteParts[1]);
     painter->setPen(textColor);
 
     font.setPointSize(originalPointSize);
