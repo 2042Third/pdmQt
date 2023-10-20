@@ -51,8 +51,24 @@ MainWindow::MainWindow(QWidget *parent)
   auto *notelistview = new pdmListView(this, rt);
   notelistview->setModel(rt->noteList);
   auto *notelistlayout = new QVBoxLayout;
-  notelistlayout->addWidget(notelistview);
 
+  auto *noteListActionLayout = new QHBoxLayout;
+  // Add the new note button
+  auto *newNoteButton = new QPushButton("New Note", this);
+  connect(newNoteButton, &QPushButton::clicked, [=]() {
+    PDM::pdm_qt_net::client_action_note_create(rt);
+  });
+  // Add refresh button
+  auto *refreshButton = new QPushButton("Refresh", this);
+  connect(refreshButton, &QPushButton::clicked, [=]() {
+    PDM::pdm_qt_net::client_action_note_heads(rt);
+  });
+
+  noteListActionLayout->addWidget(refreshButton);
+  noteListActionLayout->addWidget(newNoteButton);
+
+  notelistlayout->addLayout(noteListActionLayout);
+  notelistlayout->addWidget(notelistview);
   ui->notesListTab->setLayout(notelistlayout);
   ui->notesListTab->show();
 

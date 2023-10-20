@@ -77,3 +77,7 @@ int PDM::pdm_qt_net::client_action_note_retrieve(void *rtt, int noteId) {
   QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);
   return 0;
 }
+
+void PDM::pdm_qt_net::client_action_note_create(PdmRunTime *rt) {
+  emit rt->log("Note create NOT IMPLEMENTED! ", "#FF0000");
+}
