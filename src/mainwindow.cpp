@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
   debugWindow = new DebugWindow(nullptr, rt);
   rt->main_window = this;
   connect(rt, &PdmRunTime::log, debugWindow, &DebugWindow::appendMessage);
+  connect(rt, &PdmRunTime::logc, debugWindow, &DebugWindow::appendMessageC);
   connect(rt, &PdmRunTime::loginSuccess, this, &MainWindow::mainwindowLoginSuccess);
   connect(rt, &PdmRunTime::noteHeadsSuccess, this, &MainWindow::mainwindowNoteHeadsSuccess);
   connect(rt, &PdmRunTime::noteListLeftClicked, this, &MainWindow::mainwindowNoteListLeftClicked);

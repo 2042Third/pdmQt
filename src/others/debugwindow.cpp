@@ -407,4 +407,9 @@ QWidget *DebugWindow::getStatusColorWidget( QWidget *pWidget) const {
   return colorSelectWidget;
 }
 
+void DebugWindow::appendMessageC(const QString &message, const QString &color) {
+  QString html = QString("<font color=%1>%2</font>").arg(PDM::Helpers::QtColor::get_color_rgb(color), message);
+  texts->append(html);
+}
+
 
