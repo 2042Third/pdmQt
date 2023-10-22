@@ -240,18 +240,16 @@ void MainWindow::makeCustomTitleBar(){
   animation = Animated::makeAnimateAlpha(static_cast<FlashingCircle *>(statusCircle), this);
   static_cast<QPropertyAnimation*>(animation)->start();
   layout->addWidget(static_cast<FlashingCircle *>(statusCircle));
-
-//  auto * titleBarLabel = new QLabel(this);
-//  titleBarLabel->setText("<--");
-//  layout->addWidget(titleBarLabel);
-  auto * pdmIcon = new QPushButton(this);
+#ifndef Q_OS_MACOS
+  auto *pdmIcon = new QPushButton(this);
   pdmIcon->setText("");
   pdmIcon->setIcon(QIcon(":/images/icon/icon_small"));
   pdmIcon->setIconSize(QSize(20, 20));
   pdmIcon->setMinimumHeight(20);
   pdmIcon->setMaximumHeight(20);
-  pdmIcon->setStyleSheet("QPushButton { background-color: none; border: none; } QPushButton:hover { background-color: none; border: none; }");
-
+  pdmIcon->setStyleSheet(
+      "QPushButton { background-color: none; border: none; } QPushButton:hover { background-color: none; border: none; }");
+#endif // Q_OS_MACOS
 
   QMenuBar *const mb = menuBar();
   mb->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
@@ -273,9 +271,14 @@ QMenuBar::item:pressed {
 }
   )"));
   const auto titleBarLayout = static_cast<QHBoxLayout *>(m_titleBar->layout());
+#ifndef Q_OS_MACOS
   titleBarLayout->insertWidget(0, pdmIcon);
   titleBarLayout->insertWidget(1, mb);
   titleBarLayout->insertWidget(2, titleBar);
+#else
+  titleBarLayout->insertWidget(0, mb);
+  titleBarLayout->insertWidget(1, titleBar);
+#endif //Q_OS_MACOS
 
   // If windows or linux insert stretch at 2, macos insert stretch at 0.
   if (QSysInfo::productType() == "windows" || QSysInfo::productType() == "linux") {
