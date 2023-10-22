@@ -10,11 +10,8 @@
 
 namespace PDM::Helpers {
     namespace QtColor {
-        static void copy_rgb(const QColor& from , QColor*to){
-          to->setRed(from.red());
-          to->setGreen(from.green());
-          to->setBlue(from.blue());
-        }
+        void copy_rgb(const QColor& from , QColor*to);
+        QString get_color_rgb(const QString&colorName);
     }
 }
 

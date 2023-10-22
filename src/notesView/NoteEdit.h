@@ -33,7 +33,7 @@ public:
 
   int idx=0;
   double getFontSize(){return fontSize;}
-  double fontSize=12;
+  int fontSize=12;
 
   private slots:
   void zoomingIn();

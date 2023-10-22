@@ -3,6 +3,7 @@
 //
 
 #include "NoteEdit.h"
+#include "others/tools/pdmQtHelpers.h"
 
 #include <utility>
 #include <QSettings>
@@ -21,7 +22,7 @@ QTextEdit(parent)
 
   // Get the font size from the settings
   QSettings settings;
-  fontSize=settings.value("NoteEdit/fontSize", 12).toDouble();
+  fontSize=settings.value("NoteEdit/fontSize", 12).toInt();
   QFont font = this->font();
   font.setPointSize(fontSize);
   this->setFont(font);
@@ -83,24 +84,29 @@ void NoteEdit::clearEditText() {
 }
 
 void NoteEdit::zoomingIn() {
-  this->zoomIn(2);
+  fontSize = fontSize + 1;
   updateFontSize();
   QFont font = this->font();
   font.setPointSize(fontSize);
+  emit rt->log("[NoteEdit Zoom In]  fontSize: " + QString::number(fontSize)
+      ,  PDM::Helpers::QtColor::get_color_rgb("red"));
   this->setFont(font);
 }
 
 void NoteEdit::zoomingOut() {
-  this->zoomOut(2);
+  fontSize = fontSize - 1;
   updateFontSize();
   QFont font = this->font();
   font.setPointSize(fontSize);
+  emit rt->log("[NoteEdit Zoom Out]  fontSize: " + QString::number(fontSize)
+      ,  PDM::Helpers::QtColor::get_color_rgb("red"));
   this->setFont(font);
 }
 
 void NoteEdit::updateFontSize() {
-  fontSize = fontPointSize();
   QSettings settings;
+  emit rt->log("[NoteEdit]  fontSize: " + QString::number(fontSize)
+               ,  PDM::Helpers::QtColor::get_color_rgb("red"));
   settings.setValue("NoteEdit/fontSize", fontSize);
 }
 
