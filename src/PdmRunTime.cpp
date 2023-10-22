@@ -224,7 +224,6 @@ void PdmRunTime::on_statusChanged(const QString &status) {
   if (!statusQt) return;
   switch (statusQt->statusInstance.get_current_status()) {
     case PDM::Status::NONE:
-
       break;
     case PDM::Status::LOADING:
       break;
