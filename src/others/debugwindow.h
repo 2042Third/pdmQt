@@ -40,7 +40,8 @@ public slots:
   void setWindowPosition(QPoint &a);
   void onKeepOnTopButtonClicked();
   void debugWindowCloseButton();
-
+protected:
+  bool event(QEvent *event) override;
 private slots:
   void on_actionOpen_One_Note_Page_triggered();
 public:

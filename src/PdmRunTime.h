@@ -60,6 +60,9 @@ explicit PdmRunTime(QObject *parent = nullptr);
   // Refs
   void * main_window;
 
+  // Windowing States
+  bool debugWindowFocusedState = false;
+
 public slots:
   void on_loginSuccess();
   void on_loginFail();
@@ -80,7 +83,12 @@ public slots:
   void noteListRightClicked(const QModelIndex &index);
   void onZoomIn();
   void onZoomOut();
-
+  // Debug Window
+  void debugWindowFocused();
+  void debugWindowBlurred();
+  // Main Window
+  void mainWindowFocused();
+  void mainWindowBlured();
 private:
     int hasLogIn = 0;
 

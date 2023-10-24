@@ -95,6 +95,19 @@ MainWindow::MainWindow(QWidget *parent)
   connect(moveTimer, &PdmUpdateTimer::timeout, this, &MainWindow::onMoveTimerTimeout);
   connect(resizeTimer, &PdmUpdateTimer::timeout, this, &MainWindow::onResizeTimerTimeout);
 
+  // Set focus to mainwindow and then back to debug window when clicked on debugwindow
+  connect(rt, &PdmRunTime::debugWindowFocused, [=]() {
+    if(debugWindow){
+      this->show();
+      this->raise();
+      this->activateWindow();
+      debugWindow->raise();
+      debugWindow->activateWindow();
+      debugWindow->setFocus();
+    }
+    emit rt->logc("Debug window focused.", "blue");
+  });
+
   // Set the initial position of the splitter's handle
   QList<int> initialSizes;
   initialSizes << defaultWidth/5*2 << defaultWidth-defaultWidth/5*2;

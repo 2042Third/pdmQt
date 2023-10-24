@@ -80,6 +80,7 @@ DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
 
   // Set the textEdit background as gray
   texts->setStyleSheet("background-color: #FFFFFF;");
+
   // Setup frameless window if on using frameless helper
 #ifdef PDM_USE_FRAMELESSHELPER
   QTimer::singleShot(0, this, &DebugWindow::makeCustomWindow);
@@ -410,6 +411,27 @@ QWidget *DebugWindow::getStatusColorWidget( QWidget *pWidget) const {
 void DebugWindow::appendMessageC(const QString &message, const QString &color) {
   QString html = QString("<font color=%1>%2</font>").arg(PDM::Helpers::QtColor::get_color_rgb(color), message);
   texts->append(html);
+}
+
+bool DebugWindow::event(QEvent *event) {
+  qDebug() << "Event type:" << event->type();
+  switch (event->type()) {
+    case QEvent::WindowActivate:
+      if (!rt->debugWindowFocusedState) {
+        rt->debugWindowFocusedState = true;
+        emit rt->debugWindowFocused();
+      }
+      else {
+        rt->debugWindowFocusedState = false;
+      }
+      break;
+    case QEvent::WindowDeactivate:
+      emit rt->debugWindowBlurred();
+      break;
+    default:
+      break;
+  }
+  return QMainWindow::event(event);
 }
 
 
