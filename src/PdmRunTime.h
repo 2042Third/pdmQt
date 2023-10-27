@@ -133,5 +133,7 @@ public: // network callbacks
     void changeMainwindowStatusColor(const QString &txt) const;
 
   void setupCommands();
+
+  void updateNoteContent(PDM::NoteMsg msg) const;
 };
 #endif // PDMRUNTIME_H

@@ -32,7 +32,7 @@ QTextEdit(parent)
     // Update the note content when the text is changed
     m_note.content = toPlainText().toStdString();
     // Update the note content in the database
-//    rt->updateNoteContent(m_note);
+    rt->updateNoteContent(m_note);
     // Show the save complete animation
     rt->showSaveCompleteAnimation();
   });
