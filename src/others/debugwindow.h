@@ -37,6 +37,8 @@ public:
 public slots:
   void appendMessage(const QString &message, const  QString &color = "#000000");
   void appendMessageC(const QString &message, const  QString &color = "black");
+  void appendMessage_std(const std::string &message, const  std::string &color = "#000000");
+  void appendMessageC_std(const std::string &message, const  std::string &color = "black");
   void setWindowPosition(QPoint &a);
   void onKeepOnTopButtonClicked();
   void debugWindowCloseButton();

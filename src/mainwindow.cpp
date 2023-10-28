@@ -31,11 +31,15 @@ MainWindow::MainWindow(QWidget *parent)
   rt->main_window = this;
   connect(rt, &PdmRunTime::log, debugWindow, &DebugWindow::appendMessage);
   connect(rt, &PdmRunTime::logc, debugWindow, &DebugWindow::appendMessageC);
+  connect(rt, &PdmRunTime::log_std, debugWindow, &DebugWindow::appendMessage_std);
+  connect(rt, &PdmRunTime::logc_std, debugWindow, &DebugWindow::appendMessageC_std);
   connect(rt, &PdmRunTime::loginSuccess, this, &MainWindow::mainwindowLoginSuccess);
   connect(rt, &PdmRunTime::noteHeadsSuccess, this, &MainWindow::mainwindowNoteHeadsSuccess);
   connect(rt, &PdmRunTime::noteListLeftClicked, this, &MainWindow::mainwindowNoteListLeftClicked);
   connect(rt, &PdmRunTime::noteListRightClicked, this, &MainWindow::mainwindowNoteListRightClicked);
   connect(rt, &PdmRunTime::noteRetrieveSuccess, this, &MainWindow::mainwindowNoteRetrieveSuccess);
+  connect(rt, &PdmRunTime::noteUpdateSuccess, this, &MainWindow::mainwindowNoteUpdateSuccess);
+
   connect(rt->statusQt, &StatusQt::statusChanged, this, &MainWindow::mainwindowRuntimeStatusChanged);
   connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &MainWindow::mainwindowTabCloseRequested);
 
@@ -429,6 +433,17 @@ void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
   noteEdit->idx=tabIndex;
   noteEdit->setFocus();
 
+}
+
+
+void MainWindow::mainwindowNoteUpdateSuccess(int noteId) {
+  emit rt->log("Note update received in mainwindow.", "#C22A1C");
+  PDM::NoteMsg note ;
+  rt->user_data->getNote(noteId,rt->wt.data, &note);
+  if(noteEditMap.contains(note.note_id)) { // Check if this already exists in the tab widget.
+    noteEditMap[note.note_id]->setNote();
+    return;
+  }
 }
 
 void MainWindow::mainwindowTabCloseRequested(int index){

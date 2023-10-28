@@ -22,6 +22,7 @@ namespace PDM {
     static std::string add_str (const json& j, const std::string & a);
     static uint64_t add_number (const json& j, const std::string & a);
     static int get_int (const json& j, const std::string & a);
+    static std::string get_str (const json& j, const std::string & a);
     static double add_double (const json& j, const std::string & a);
     static std::string add_bool (const json& j, const std::string & a);
   };

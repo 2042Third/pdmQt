@@ -46,5 +46,21 @@ namespace PDM {
         };
     return std::move(data);
   }
+  std::map<std::string, std::string> pdm_net_type::getNoteUpdateJsonStr(const std::string&sess,
+                                                                          const std::string&email,
+                                                                          const std::string&noteId,
+                                                                          const std::string& ntype,
+                                                                           const std::string& content) {
+    std::map<std::string,std::string> data
+        {
+             {"username" , "" }
+            ,{"content"  , content }
+            ,{"sess"     , sess } // use the stored session key for encryption
+            ,{"ntype"    , ntype }
+            ,{"email"    , email }
+            ,{"note_id"  , noteId}
+        };
+    return std::move(data);
+  }
 
 }

@@ -140,4 +140,18 @@ namespace PDM {
     return -1;
   }
 
+  std::string net_convert::get_str(const json &j, const std::string &a) {
+    try {
+      if (exists(j, a)) {
+        if(!j[a].is_null()) {
+          return j[a].get<std::string>();
+        }
+      }
+    } catch (int err) {
+      std::cout << "[ERROR] Adding str: " << a << " as " << j[a] << std::endl;
+      return "";
+    }
+    return "";
+  }
+
 }

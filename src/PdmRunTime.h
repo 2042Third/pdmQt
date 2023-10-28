@@ -71,12 +71,18 @@ public slots:
   signals:
   void log(const QString &message, const QString &color);
   void logc(const QString &message, const QString &color);
+  void log_std(const std::string &message, const std::string &color);
+  void logc_std(const std::string &message, const std::string &color);
   void loginSuccess();
   void loginFail();
   void noteHeadsSuccess();
   void noteHeadsFail();
   void noteRetrieveSuccess(int noteid);
   void noteRetrieveFail(int noteid);
+  void noteCreateSuccess(int noteid);
+  void noteCreateFail(int noteid);
+  void noteUpdateSuccess(int noteid);
+  void noteUpdateFail(int noteid);
   void databaseLocalReady();
   // Notes
   void noteListLeftClicked(const QModelIndex &index);
@@ -134,6 +140,6 @@ public: // network callbacks
 
   void setupCommands();
 
-  void updateNoteContent(PDM::NoteMsg msg) const;
+  void updateNoteContent(PDM::NoteMsg msg) ;
 };
 #endif // PDMRUNTIME_H

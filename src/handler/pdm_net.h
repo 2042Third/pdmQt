@@ -55,6 +55,7 @@ namespace PDM {
     static size_t post_callback_heads( char *data, size_t size, size_t nmemb, void *userp);
     static size_t post_callback_note( char *data, size_t size, size_t nmemb, void *userp);
     static size_t post_callback_signin( char *data, size_t size, size_t nmemb, void *userp);
+    static size_t post_callback_update( char *data, size_t size, size_t nmemb, void *userp);
 
     network();
     ~network();

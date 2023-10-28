@@ -412,6 +412,20 @@ void DebugWindow::appendMessageC(const QString &message, const QString &color) {
   QString html = QString("<font color=%1>%2</font>").arg(PDM::Helpers::QtColor::get_color_rgb(color), message);
   texts->append(html);
 }
+void DebugWindow::appendMessage_std(const std::string &message, const std::string &color) {
+  QString html = QString("<font color=%1>%2</font>")
+      .arg(PDM::Helpers::QtColor::get_color_rgb(QString::fromStdString(color))
+           , QString::fromStdString(message)
+          );
+  texts->append(message.c_str());
+}
+void DebugWindow::appendMessageC_std(const std::string &message, const std::string &color) {
+  QString html = QString("<font color=%1>%2</font>")
+      .arg(PDM::Helpers::QtColor::get_color_rgb(QString::fromStdString(color))
+          , QString::fromStdString(message)
+      );
+  texts->append(html);
+}
 
 bool DebugWindow::event(QEvent *event) {
   qDebug() << "Event type:" << event->type();

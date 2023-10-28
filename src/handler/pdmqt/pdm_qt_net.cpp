@@ -79,5 +79,40 @@ int PDM::pdm_qt_net::client_action_note_retrieve(void *rtt, int noteId) {
 }
 
 void PDM::pdm_qt_net::client_action_note_create(PdmRunTime *rt) {
-  emit rt->log("Note create NOT IMPLEMENTED! ", "#FF0000");
+  emit rt->logc("Note create NOT IMPLEMENTED! ", "red");
+}
+
+int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, PDM::NoteMsg msg) {
+  struct NetCallBack_ {
+    static size_t _callback(char *data, size_t size, size_t nmemb, void *userp) {
+      int callback_out = (int) PDM::network::post_callback_update(data,  size,  nmemb, userp);
+      auto *wt = (struct NetObj *)userp;
+      auto*rt = (PdmRunTime *)wt->pdm_runtime;
+      std::cout << "Note update callback finished and calling noteUpdateSuccess. " << std::endl;
+      if (rt->wt.userinfo.status == "success") {
+        int noteId = net_convert::get_int(wt->js,"note_id");
+        std::cout << "Note update success: "<<noteId << std::endl;
+        emit rt->noteUpdateSuccess(noteId );
+      } // End Success block
+      else { // Begin Fail block
+        std::cout << "Note update failure: " << std::endl;
+        emit rt->log("Unsuccessful notes callback. ", "#6C2501");
+        emit rt->noteUpdateFail(net_convert::add_number(wt->js,"note_id"));
+      } // End Fail block
+      return callback_out;
+    }
+  };
+
+  std::string j_str;
+  auto *rt = (PdmRunTime *) rtt;
+  std::map<std::string,std::string>
+      data= PDM::pdm_net_type::getNoteUpdateJsonStr(
+          rt->wt.userinfo.sess
+          , rt->wt.userinfo.email
+          , msg.note_id
+          , rt->notes.UpdateNoteType
+          , msg.content); // Should have note id
+  j_str = PDM::network::get_json(data);
+  QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);
+  return 0;
 }

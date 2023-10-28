@@ -19,6 +19,8 @@ namespace PDM {
     getNoteHeadsJsonStr(const std::string&sess, const std::string&email, const std::string& ntype);
     static std::map<std::string,std::string>
     getNoteRetrieveJsonStr(const std::string&sess, const std::string&email, const std::string&noteId, const std::string& ntype);
+    static std::map<std::string,std::string>
+    getNoteUpdateJsonStr(const std::string&sess, const std::string&email, const std::string&noteId, const std::string& ntype, const std::string& content);
   };
 }
 
