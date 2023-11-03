@@ -30,9 +30,10 @@ QTextEdit(parent)
   updateTimer = new PdmUpdateTimer(1300, rt);
   connect(updateTimer, &PdmUpdateTimer::timeout, this, [this](){
     // Update the note content when the text is changed
-    m_note.content = toPlainText().toStdString();
+//    m_note.content = toPlainText().toStdString();
     // Update the note content in the database
     rt->updateNoteContent(m_note); // TODO: fix this to be only updating when needed
+    emit rt->logc("NoteEdit: update note content", "red");
     // Show the save complete animation
     rt->showSaveCompleteAnimation();
   });
@@ -108,6 +109,13 @@ void NoteEdit::updateFontSize() {
   emit rt->log("[NoteEdit]  fontSize: " + QString::number(fontSize)
                ,  PDM::Helpers::QtColor::get_color_rgb("red"));
   settings.setValue("NoteEdit/fontSize", fontSize);
+}
+
+void NoteEdit::setNote() {
+  // Put the current content of the editor into a string
+  if (toPlainText() != m_note.content.c_str() ){
+    setPlainText(m_note.content.c_str());
+  }
 }
 
 

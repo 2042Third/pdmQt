@@ -318,6 +318,6 @@ int PdmRunTime::runCmd(const std::string &cmd) {
 void PdmRunTime::updateNoteContent(PDM::NoteMsg msg)  {
   user_data->updateNote(atoi(msg.note_id.c_str()), msg.content);
   // Update the note through network
-  emit logc_std("Updating note through network, noteid: "+msg.note_id, "blue");
+  emit logc_std("Updating note through network, noteid: "+std::to_string((int)(*msg.note_id.c_str())), "blue");
   PDM::pdm_qt_net::client_action_note_update(this, msg);
 }

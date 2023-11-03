@@ -28,7 +28,7 @@ public:
     setPlainText(QString::fromStdString(m_note.content));// Update the QTextEdit content when the note is changed
   }
 
-  void setNote(){ setPlainText(m_note.content.c_str());}
+  void setNote();
   PDM::NoteMsg m_note;
 
   int idx=0;

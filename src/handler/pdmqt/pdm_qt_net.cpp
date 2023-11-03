@@ -6,6 +6,7 @@
 
 #include "handler/pdm_net_type.h"
 #include "PdmRunTime.h"
+#include "empp.h"
 #include <QtConcurrent/QtConcurrent>
 
 /**
@@ -81,7 +82,10 @@ int PDM::pdm_qt_net::client_action_note_retrieve(void *rtt, int noteId) {
 void PDM::pdm_qt_net::client_action_note_create(PdmRunTime *rt) {
   emit rt->logc("Note create NOT IMPLEMENTED! ", "red");
 }
-
+/**
+ * Encrypts the current note to be sent to the server. Then send to server.
+ *
+ * */
 int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, PDM::NoteMsg msg) {
   struct NetCallBack_ {
     static size_t _callback(char *data, size_t size, size_t nmemb, void *userp) {
@@ -96,7 +100,7 @@ int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, PDM::NoteM
       } // End Success block
       else { // Begin Fail block
         std::cout << "Note update failure: " << std::endl;
-        emit rt->log("Unsuccessful notes callback. ", "#6C2501");
+        emit rt->logc("Unsuccessful notes callback. ", "red");
         emit rt->noteUpdateFail(net_convert::add_number(wt->js,"note_id"));
       } // End Fail block
       return callback_out;
@@ -109,9 +113,9 @@ int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, PDM::NoteM
       data= PDM::pdm_net_type::getNoteUpdateJsonStr(
           rt->wt.userinfo.sess
           , rt->wt.userinfo.email
-          , msg.note_id
+          , std::to_string((int)(*msg.note_id.c_str()))
           , rt->notes.UpdateNoteType
-          , msg.content); // Should have note id
+          , loader_check(rt->wt.data,msg.content));
   j_str = PDM::network::get_json(data);
   QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);
   return 0;
