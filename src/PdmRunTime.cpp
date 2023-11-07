@@ -262,11 +262,13 @@ void PdmRunTime::changeAnimationSpeed(PdmRunTime*rt, int value)  {
 }
 
 void PdmRunTime::showPendingAnimation() {
+  if(isClosing) return;
   changeMainwindowStatusColor("yellow");
   toggleAnimation(this, 1);
 }
 
 void PdmRunTime::showSaveCompleteAnimation() {
+  if(isClosing) return;
   changeMainwindowStatusColor("lightgreen");
   toggleAnimation(this, 0);
 }
@@ -309,6 +311,7 @@ void PdmRunTime::setCmd(const std::string &cmd, int value) {
 }
 
 int PdmRunTime::runCmd(const std::string &cmd) {
+  if(isClosing) return 0; // Shutdown guard
   if (commandMap.find(cmd) != commandMap.end()) {
     commandMap[cmd]->execute();
     return 1;
