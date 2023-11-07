@@ -80,7 +80,8 @@ MainWindow::MainWindow(QWidget *parent)
   // Restore the previous status bar message once the tooltip is hidden
   connect(qApp, &QGuiApplication::focusObjectChanged, [=](QObject *newFocusObject) {
     Q_UNUSED(newFocusObject);
-    statusBar()->showMessage(rt->currentStatusBar);
+
+    if(!rt->isClosing) statusBar()->showMessage(rt->currentStatusBar);
   });
 
   // Finish settings up the settings
@@ -476,7 +477,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
   // If you want to proceed with the close action:
   event->accept();
-
+  rt->isClosing = 1;
   // If you want to prevent the window from closing:
   // event->ignore();
 }

@@ -62,6 +62,8 @@ explicit PdmRunTime(QObject *parent = nullptr);
 
   // Windowing States
   bool debugWindowFocusedState = false;
+public:
+  int isClosing=0;
 
 public slots:
   void on_loginSuccess();

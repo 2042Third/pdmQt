@@ -33,7 +33,7 @@ private:
   bool m_dragging = false;
 
   QHBoxLayout *layout;
-  QLabel *titleLabel;
+  std::unique_ptr<QLabel >titleLabel;
   QPushButton *minimizeButton;
   QPushButton *maximizeButton;
   QPushButton *closeButton;

@@ -67,7 +67,7 @@ CustomTitleBar::CustomTitleBar(QWidget *parent)
 // Add spacer to push the custom button to the left side
     layout->addStretch(1);
     layout->addWidget(customButton);
-    layout->addWidget(titleLabel);
+    layout->addWidget(titleLabel.get());
   } else if (USING_MACOS_FRAMELESS_HELPER) {
 #ifdef PDM_USE_FRAMELESSHELPER
     layout->addWidget(customButton);
@@ -140,7 +140,7 @@ QMenuBar::item:pressed {
         connect(maximizeButton, &QPushButton::clicked, this, &CustomTitleBar::maximizeWindow);
         connect(closeButton, &QPushButton::clicked, this, &CustomTitleBar::closeWindow);
      * */
-    titleLabel = new QLabel();
+    titleLabel = std::make_unique< QLabel>();
   }
 
   moveTimer = new PdmUpdateTimer(3000, this);
@@ -148,12 +148,12 @@ QMenuBar::item:pressed {
 }
 
 CustomTitleBar::~CustomTitleBar() {
-  delete layout;
-  delete titleLabel;
-  delete customButton;
-  delete minimizeButton;
-  delete maximizeButton;
-  delete closeButton;
+//  delete layout;
+//  delete titleLabel;
+//  delete customButton;
+//  delete minimizeButton;
+//  delete maximizeButton;
+//  delete closeButton;
 }
 
 void CustomTitleBar::mousePressEvent(QMouseEvent *event) {
@@ -202,12 +202,11 @@ bool CustomTitleBar::event(QEvent *event) {
       titleBarPalette.setColor(QPalette::Window, backgroundColor);
       this->setPalette(titleBarPalette);
       this->setAutoFillBackground(true);
-
+      if (titleLabel == nullptr) break; // Exit if titleLabel is no longer initialized
       // We can update the text color of the title label like this:
       QPalette labelPalette = titleLabel->palette();
       labelPalette.setColor(QPalette::WindowText, textColor);
       titleLabel->setPalette(labelPalette);
-
       break;
     }
     default: {

@@ -216,6 +216,7 @@ int PdmRunTime::isLoginSuccessful() const {
 }
 
 void PdmRunTime::changeMainwindowStatusColor(const QString&txt) const{
+  if(isClosing) return;
   static_cast<FlashingCircle*>(static_cast<MainWindow*>(main_window)->statusCircle)
   ->setColor(txt);
 }

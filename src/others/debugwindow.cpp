@@ -95,7 +95,7 @@ void DebugWindow::appendMessage(const QString &message, const QString &color)
 
 DebugWindow::~DebugWindow()
 {
-  delete m_mainWindow;
+//  delete m_mainWindow;
 #ifdef Q_OS_MACOS
 
 #endif // Q_OS_MACOS
