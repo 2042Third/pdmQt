@@ -112,6 +112,7 @@ int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, PDM::NoteM
   emit rt->logc_std("[Note update call] email: "+rt->wt.userinfo.email
     + ", sess: "+rt->wt.userinfo.sess
     + ", note_id: "+std::to_string((int)(*msg.note_id.c_str()))
+    + ", head: "+msg.head
     + ", content: "+msg.content
     + ", update_type: "+rt->notes.UpdateNoteType
     + ", hash: "+get_hash(msg.content)
@@ -122,6 +123,8 @@ int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, PDM::NoteM
           , rt->wt.userinfo.email
           , std::to_string((int)(*msg.note_id.c_str()))
           , rt->notes.UpdateNoteType
+          , ""
+          // , loader_check(rt->wt.data,msg.head)
           , loader_check(rt->wt.data,msg.content)
           , get_hash(msg.content)
           );

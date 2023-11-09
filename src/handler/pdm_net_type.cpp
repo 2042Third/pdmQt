@@ -50,11 +50,13 @@ namespace PDM {
                                                                           const std::string&email,
                                                                           const std::string&noteId,
                                                                           const std::string& ntype,
+                                                                          const std::string& head,
                                                                            const std::string& content
                                                                            ,const std::string& hash) {
     std::map<std::string,std::string> data
         {
              {"username" , "" }
+            , {"head", head}
             ,{"content"  , content }
             ,{"sess"     , sess } // use the stored session key for encryption
             ,{"ntype"    , ntype }
