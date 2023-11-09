@@ -30,7 +30,7 @@ QTextEdit(parent)
   updateTimer = new PdmUpdateTimer(1300, rt);
   connect(updateTimer, &PdmUpdateTimer::timeout, this, [this](){
     // Update the note content when the text is changed
-//    m_note.content = toPlainText().toStdString(); // TODO: fix this whole update but change back to original situation.
+    m_note.content = toPlainText().toStdString(); // TODO: fix this whole update but change back to original situation.
     // Update the note content in the database
     rt->updateNoteContent(m_note);
     emit rt->logc("NoteEdit: update note content", "red");

@@ -109,13 +109,22 @@ int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, PDM::NoteM
 
   std::string j_str;
   auto *rt = (PdmRunTime *) rtt;
+  emit rt->logc_std("[Note update call] email: "+rt->wt.userinfo.email
+    + ", sess: "+rt->wt.userinfo.sess
+    + ", note_id: "+std::to_string((int)(*msg.note_id.c_str()))
+    + ", content: "+msg.content
+    + ", update_type: "+rt->notes.UpdateNoteType
+    + ", hash: "+get_hash(msg.content)
+    , "red");
   std::map<std::string,std::string>
       data= PDM::pdm_net_type::getNoteUpdateJsonStr(
           rt->wt.userinfo.sess
           , rt->wt.userinfo.email
           , std::to_string((int)(*msg.note_id.c_str()))
           , rt->notes.UpdateNoteType
-          , loader_check(rt->wt.data,msg.content));
+          , loader_check(rt->wt.data,msg.content)
+          , get_hash(msg.content)
+          );
   j_str = PDM::network::get_json(data);
   QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);
   return 0;
