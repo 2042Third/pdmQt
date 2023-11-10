@@ -40,6 +40,10 @@ namespace PDM {
     std::string utime ;
     std::string ctime ;
     uint64_t key=-1;
+    // Define the equality operator
+    friend bool operator==(const NoteHead &lhs, const NoteHead &rhs) {
+      return lhs.note_id == rhs.note_id; // Compare based on the note_id or any other suitable member
+    }
   };
 
   struct NoteMsg : NoteHead {

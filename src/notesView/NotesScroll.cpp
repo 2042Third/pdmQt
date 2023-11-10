@@ -10,14 +10,29 @@ NotesScroll::NotesScroll(QObject *parent) : QAbstractListModel(parent) {
 
 /**
  * Adds a note's copy to the list of notes.
- * If the note already exists, does nothing.
+ * If the note already exists, update using new data.
  * @param note The note to add
  * */
 void NotesScroll::addNote( PDM::NoteHead note)
 {
-  if (notesMap.contains(note.note_id))
-    return;
-  notesMap.insert(note.note_id,note);
+  if(notesMap.contains(note.note_id)){
+      notesMap.insert(note.note_id,note); // If the note already exists, replace it
+
+      // Find the index of the existing note in the list
+      int indexToUpdate = notesList.indexOf(note);
+
+      // Update the note in the list
+      if (indexToUpdate != -1) {
+        notesList[indexToUpdate] = note;
+
+        // Emit the dataChanged signal to update the view
+        QModelIndex topLeft = createIndex(indexToUpdate, 0);
+        QModelIndex bottomRight = createIndex(indexToUpdate, 0);
+        emit dataChanged(topLeft, bottomRight);
+      }
+      return;
+  }
+  notesMap.insert(note.note_id,note); // If the note already exists, replace it
   beginInsertRows(QModelIndex(), rowCount(), rowCount());
   notesList << note;
   endInsertRows();
