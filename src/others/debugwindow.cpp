@@ -34,7 +34,8 @@ DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
 
   setAttribute(Qt::WA_TranslucentBackground);
   mainContent = new QWidget(); // Basically central widget
-  shadowFrameWidget = new ShadowFrameWidget(this); // init the shadow drop
+  shadowFrameWidget = new QWidget(this); // init the shadow drop
+//  shadowFrameWidget = new ShadowFrameWidget(this); // init the shadow drop
 
   // After the setup of the designer;
   texts = new QTextEdit(mainContent);
@@ -193,7 +194,9 @@ QMenuBar::item:pressed {
 
 void DebugWindow::makeCustomWindow() {
 #ifdef PDM_USE_FRAMELESSHELPER
-  m_titleBar = new StandardTitleBar(this);
+  if (m_titleBar == nullptr) {
+    m_titleBar = new StandardTitleBar(this);
+  }
   m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
   setContentsMargins(0,0,0,0); // set the margin of the window that contains the shadow
 //  m_mainWindow = new QMainWindow();
@@ -499,6 +502,13 @@ bool DebugWindow::event(QEvent *event) {
       break;
   }
   return QMainWindow::event(event);
+}
+
+void DebugWindow::closeEvent(QCloseEvent *event) {
+//  QWidget::closeEvent(event);
+  debugWindowCloseButton();
+  event->ignore();
+  hide();
 }
 
 

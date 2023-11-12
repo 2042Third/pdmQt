@@ -51,7 +51,8 @@ private slots:
 public:
   QTextEdit* texts;
   CustomTitleBar *titleBar;
-  ShadowFrameWidget* shadowFrameWidget;
+  QWidget* shadowFrameWidget;
+//  ShadowFrameWidget* shadowFrameWidget;
   QVBoxLayout *shadowWidgetLayout;
 
   QVBoxLayout *verticalLayout;
@@ -60,17 +61,19 @@ public:
   QPushButton* button1;
   QPushButton* button2;
   QPushButton* button3;
+  void makeCustomWindow();
 
   void openCustomWindow();
   void reopenFrameless() ;
   void openMacOSCustomWindow();
+protected:
+  void closeEvent(QCloseEvent *event) override;
 private:
 #ifdef PDM_USE_FRAMELESSHELPER
     FRAMELESSHELPER_PREPEND_NAMESPACE(StandardTitleBar) *m_titleBar = nullptr;
 #endif // PDM_USE_FRAMELESSHELPER
     QMainWindow *m_mainWindow = nullptr;
 
-    void makeCustomWindow();
 
 
     QWidget *makeDebugSettings(QWidget *widget, QLayout *layout);
