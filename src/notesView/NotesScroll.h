@@ -9,8 +9,7 @@
 #include <QAbstractListModel>
 #include "handler/types.h"
 
-class NotesScroll : public QAbstractListModel
-{
+class NotesScroll : public QAbstractListModel{
   Q_OBJECT
 
 public:

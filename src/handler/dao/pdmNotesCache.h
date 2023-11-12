@@ -22,6 +22,8 @@ namespace PDM {
 
     void create_table();
     void updateNote( int noteid, const std::string& content);
+    void updateNoteEnc( const std::string &key,int noteid, const std::string& content);
+    void updateNoteHead( const std::string &key,int noteid, const std::string& head);
     int getNote(int noteid, const std::string& data, NoteMsg* note);
     int insert(const std::string &key, const std::string &val, const std::string &data = "");
     int execute_note_heads(const nlohmann::json&j, const UserInfo&userinfo, const std::string& data);

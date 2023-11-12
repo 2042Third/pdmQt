@@ -7,6 +7,7 @@
 #include "qgraphicseffect.h"
 #include "shadowFrameWidget.h"
 #include "PdmRuntimeRef.h"
+#include "FramelessHelper/Widgets/framelesswidgetshelper.h"
 #include <QGraphicsDropShadowEffect>
 #ifdef PDM_USE_FRAMELESSHELPER
 #include <FramelessHelper/Core/framelesshelpercore_global.h>
@@ -26,6 +27,7 @@ class DebugWindow :
         public PdmRuntimeRef
 {
   Q_OBJECT
+
 
 public:
   explicit DebugWindow(QWidget *parent = nullptr, PdmRunTime *r= nullptr);
@@ -59,9 +61,9 @@ public:
   QPushButton* button2;
   QPushButton* button3;
 
-    void openCustomWindow();
-
-    void openMacOSCustomWindow();
+  void openCustomWindow();
+  void reopenFrameless() ;
+  void openMacOSCustomWindow();
 private:
 #ifdef PDM_USE_FRAMELESSHELPER
     FRAMELESSHELPER_PREPEND_NAMESPACE(StandardTitleBar) *m_titleBar = nullptr;

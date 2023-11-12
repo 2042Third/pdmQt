@@ -249,6 +249,59 @@ QMenuBar::item:pressed {
 #endif
 }
 
+void DebugWindow::reopenFrameless()  {
+  setContentsMargins(0,0,0,0); // set the margin of the window that contains the shadow
+//  m_mainWindow = new QMainWindow();
+  resize(500, 500);
+
+  QMenuBar * const mb = menuBar();
+//  mb->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+  mb->setStyleSheet(FRAMELESSHELPER_STRING_LITERAL(R"(
+QMenuBar {
+    background-color: transparent;
+}
+
+QMenuBar::item {
+    background: transparent;
+}
+
+QMenuBar::item:selected {
+    background: #a8a8a8;
+}
+
+QMenuBar::item:pressed {
+    background: #888888;
+}
+    )"));
+  const auto titleBarLayout = static_cast<QHBoxLayout *>(m_titleBar->layout());
+  titleBarLayout->insertWidget(0, mb);
+  titleBarLayout->insertWidget(1, titleBar);
+
+  // If windows or linux insert stretch at 2, macos insert stretch at 0.
+  if(QSysInfo::productType() == "windows" || QSysInfo::productType() == "linux"){
+    titleBarLayout->insertStretch(1,1);
+  }else{
+    titleBarLayout->insertStretch(0,1);
+  }
+
+  // setMenuWidget(): make the menu widget become the first row of the window.
+  setMenuWidget(m_titleBar);
+
+  FramelessWidgetsHelper *helper = FramelessWidgetsHelper::get(this);
+  helper->setTitleBarWidget(m_titleBar);
+#ifndef Q_OS_MACOS
+  helper->setSystemButton(m_titleBar->minimizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Minimize);
+  helper->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
+  helper->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
+#endif // Q_OS_MACOS
+  helper->setHitTestVisible(mb); // IMPORTANT!
+  helper->setHitTestVisible(titleBar); // IMPORTANT!
+  setWindowTitle("Debug Window");
+//  setWindowIcon(QFileIconProvider().icon(QFileIconProvider::Computer));
+  // Unset the frameless flag
+  setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
+}
+
 void DebugWindow::openMacOSCustomWindow() {
 #ifdef Q_OS_MACOS
   void* view = (void*)createNativeMacOSWindow();

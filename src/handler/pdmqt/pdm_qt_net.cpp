@@ -123,8 +123,7 @@ int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, PDM::NoteM
           , rt->wt.userinfo.email
           , std::to_string((int)(*msg.note_id.c_str()))
           , rt->notes.UpdateNoteType
-          , ""
-          // , loader_check(rt->wt.data,msg.head)
+          , loader_check(rt->wt.data,msg.head)
           , loader_check(rt->wt.data,msg.content)
           , get_hash(msg.content)
           );

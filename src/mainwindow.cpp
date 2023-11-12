@@ -168,6 +168,8 @@ void MainWindow::on_actionDebug_Messages_triggered()
 
     debugWindow->move(QPoint(x+width,y)); // Put the debug window to the right of the active window if possible.
   }
+
+  debugWindow->reopenFrameless();
   debugWindow->show();
 //  debugWindow->setFocus();
 }
@@ -432,6 +434,7 @@ void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
   int tabIndex = ui->tabWidget->addTab(noteEdit, tmpTitle.c_str());
   ui->tabWidget->setCurrentIndex(tabIndex);
   noteEdit->idx=tabIndex;
+  noteEdit->openedNoteId = noteId;
   noteEdit->setFocus();
 
 }

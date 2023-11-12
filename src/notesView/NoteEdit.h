@@ -34,6 +34,7 @@ public:
   int idx=0;
   double getFontSize(){return fontSize;}
   int fontSize=12;
+  int openedNoteId = -1;
 
   private slots:
   void zoomingIn();
@@ -45,6 +46,7 @@ private:
   void clearEditText();
 
   void updateFontSize();
+
 };
 
 
