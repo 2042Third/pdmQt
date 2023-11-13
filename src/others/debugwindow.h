@@ -67,8 +67,14 @@ public:
   void reopenFrameless() ;
   void openMacOSCustomWindow();
 protected:
+  void moveEvent(QMoveEvent *event) override;
+  void resizeEvent(QResizeEvent *event) override;
   void closeEvent(QCloseEvent *event) override;
 private:
+    PdmUpdateTimer * moveTimer;
+    PdmUpdateTimer * resizeTimer;
+    void onMoveTimerTimeout();
+    void onResizeTimerTimeout();
 #ifdef PDM_USE_FRAMELESSHELPER
     FRAMELESSHELPER_PREPEND_NAMESPACE(StandardTitleBar) *m_titleBar = nullptr;
 #endif // PDM_USE_FRAMELESSHELPER

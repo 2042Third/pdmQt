@@ -55,6 +55,10 @@ DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
   connect(titleBar, &CustomTitleBar::closeWindow, this, &DebugWindow::close);
   connect(titleBar, &CustomTitleBar::closeWindow, this, &DebugWindow::debugWindowCloseButton);
 
+  moveTimer = new PdmUpdateTimer(3000,this);
+  resizeTimer = new PdmUpdateTimer(3000,this);
+  connect(moveTimer, &PdmUpdateTimer::timeout, this, &DebugWindow::onMoveTimerTimeout);
+  connect(resizeTimer, &PdmUpdateTimer::timeout, this, &DebugWindow::onResizeTimerTimeout);
 
 
   // Connect the custom button to staying this debug window on top.
@@ -81,6 +85,7 @@ DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
 
   // Set the textEdit background as gray
   texts->setStyleSheet("background-color: #FFFFFF;");
+
 
   // Setup frameless window if on using frameless helper
 #ifdef PDM_USE_FRAMELESSHELPER
@@ -373,8 +378,17 @@ void DebugWindow::checkAndShow() {
   // After everything is settled, restore windows
   if (settings.value("debugwindow/isopen", false).toBool()){
     QWidget::show();
-    move(QPoint(settings.value("debugwindow/positionX",500).toInt()
-                , settings.value("debugwindow/positionY",500).toInt()));
+    //Default geometry for the main window
+    QWidget tempWidget;
+    tempWidget.setGeometry(500, 500, 600, 500);
+
+    QSettings settings;
+    // Restore the previous window geometry
+    restoreGeometry(settings.value("debugwindow/geometry",tempWidget.saveGeometry()).toByteArray());
+
+
+//    move(QPoint(settings.value("debugwindow/positionX",500).toInt()
+//                , settings.value("debugwindow/positionY",500).toInt()));
     raise(); // Bring the window to the front
   }
 }
@@ -484,7 +498,7 @@ void DebugWindow::appendMessageC_std(const std::string &message, const std::stri
 }
 
 bool DebugWindow::event(QEvent *event) {
-  qDebug() << "Event type:" << event->type();
+//  qDebug() << "Event type:" << event->type();
   switch (event->type()) {
     case QEvent::WindowActivate:
       if (!rt->debugWindowFocusedState) {
@@ -509,6 +523,32 @@ void DebugWindow::closeEvent(QCloseEvent *event) {
   debugWindowCloseButton();
   event->ignore();
   hide();
+}
+
+void DebugWindow::moveEvent(QMoveEvent *event) {
+  QMainWindow::moveEvent(event);
+  // Start the timer when the window is moved
+  moveTimer->start();
+}
+void DebugWindow::resizeEvent(QResizeEvent *event) {
+  QMainWindow::resizeEvent(event);
+  // Start the timer when the window is resized
+  resizeTimer->start();
+}
+
+void DebugWindow::onMoveTimerTimeout() {
+  emit rt->logc("Debug window stopped moving: ", "red");
+  emit rt->log("  Final position: " + QString::number(this->x()) + ", " + QString::number(this->y())
+               , "red");
+  QSettings settings;
+  settings.setValue("debugwindow/geometry", saveGeometry());
+}
+
+void DebugWindow::onResizeTimerTimeout() {
+  emit rt->log("Debug window stopped resizing: ", "#C22A1C");
+  emit rt->log("  Final size: " + QString::number(this->width()) + ", " + QString::number(this->height()), "#C22A1C");
+  QSettings settings;
+  settings.setValue("debugwindow/geometry", saveGeometry());
 }
 
 

@@ -170,9 +170,7 @@ void MainWindow::on_actionDebug_Messages_triggered()
     debugWindow->move(QPoint(x+width,y)); // Put the debug window to the right of the active window if possible.
   }
 
-//  QTimer::singleShot(0, debugWindow, &DebugWindow::makeCustomWindow);
   debugWindow->show();
-//  debugWindow->setFocus();
 }
 
 // Helpers
