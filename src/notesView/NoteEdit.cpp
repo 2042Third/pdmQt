@@ -33,7 +33,7 @@ QTextEdit(parent)
     m_note.content = toPlainText().toStdString(); // TODO: Update the note head as well.
 
     // Update the note content in the database
-    rt->updateNoteContent(m_note);
+    rt->updateNoteContent((int)(*m_note.note_id.c_str()), m_note.content );
     emit rt->logc("NoteEdit: update note content", "red");
     // Show the save complete animation
     rt->showSaveCompleteAnimation();

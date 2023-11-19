@@ -319,11 +319,11 @@ int PdmRunTime::runCmd(const std::string &cmd) {
   return 0;
 }
 
-void PdmRunTime::updateNoteContent(PDM::NoteMsg msg)  {
-  user_data->updateNoteEnc(wt.data, (int)(*msg.note_id.c_str()), msg.content);
+void PdmRunTime::updateNoteContent(int noteid, const std::string &content)  {
+  user_data->updateNoteEnc(wt.data, noteid, content);
   // Update the note through network
-  emit logc_std("Updating note through network, noteid: "+std::to_string((int)(*msg.note_id.c_str())), "blue");
-  std::unique_ptr<PDM::NoteMsg> n = std::make_unique<PDM::NoteMsg>();
-  user_data->getNote((int)(*msg.note_id.c_str()),wt.data,n.get());
-  PDM::pdm_qt_net::client_action_note_update(this, *n); // passing reference to the note, PdmRunTime still owns the object
+  emit logc_std("Updating note through network, noteid: "+std::to_string(noteid), "blue");
+  PDM::NoteMsg n ;
+  user_data->getNote(noteid,wt.data,&n);
+  PDM::pdm_qt_net::client_action_note_update(this, std::move(n)); // passing reference to the note, PdmRunTime still owns the object
 }

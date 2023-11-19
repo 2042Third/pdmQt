@@ -51,7 +51,7 @@ void PDM::pdmNotesCache::updateNote(int noteid, const std::string &content) {
 void PDM::pdmNotesCache::updateNoteEnc(const std::string &key,int noteid, const std::string &content) {
   std::fprintf(stdout, "Note retrieve Encrypted updating database: note id=%d\n", noteid);
   sqlite3_stmt* stmt;
-  const char* sql = "UPDATE notes SET content = ?, h=? WHERE noteid = ?;";
+  const char* sql = "UPDATE notes SET content = ?, hash=? WHERE noteid = ?;";
 
   int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
   if (rc != SQLITE_OK) {
@@ -159,14 +159,14 @@ int PDM::pdmNotesCache::getNote(int noteid, const std::string& data, NoteMsg* no
   while (sqlite3_step(stmt) == SQLITE_ROW) {
     std::string headstr = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 0));
     std::string title = (headstr.size()?loader_out(data,headstr).c_str():"");
-    std::string subtitle =  (reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
+    std::string hash =  (reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
     size_t date = sqlite3_column_int(stmt, 2);
     std::string content = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
 
     note->head=title;
     note->note_id=noteid;
     note->time = date;
-    note->h = subtitle;
+    note->h = hash;
     note->content = content.size()?loader_out(data,content).c_str():"";
   }
   // Clean up
@@ -210,7 +210,7 @@ int PDM::pdmNotesCache::addAllToNoteList(const string &data, const std::string& 
 void PDM::pdmNotesCache::updateNoteHead(const string &key, int noteid, const string &head) {
   std::fprintf(stdout, "Note retrieve updating database: note id=%d\n", noteid);
   sqlite3_stmt* stmt;
-  const char* sql = "UPDATE notes SET head = ? WHERE noteid = ?;";
+  const char* sql = "UPDATE notes SET h = ? WHERE noteid = ?;";
 
   int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
   if (rc != SQLITE_OK) {
@@ -226,7 +226,7 @@ void PDM::pdmNotesCache::updateNoteHead(const string &key, int noteid, const str
     return;
   }
 
-  // Bind noteid (second parameter)
+  // Bind plaintext hash (second parameter)
   rc = sqlite3_bind_int(stmt, 2, noteid);
   if (rc != SQLITE_OK) {
     std::cerr << "SQL error (bind noteid): " << sqlite3_errmsg(db) << std::endl;

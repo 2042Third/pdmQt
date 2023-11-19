@@ -142,6 +142,6 @@ public: // network callbacks
 
   void setupCommands();
 
-  void updateNoteContent(PDM::NoteMsg msg) ;
+  void updateNoteContent(int noteid, const std::string &content) ;
 };
 #endif // PDMRUNTIME_H

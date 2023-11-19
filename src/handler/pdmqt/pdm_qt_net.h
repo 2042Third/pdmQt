@@ -16,7 +16,7 @@ namespace PDM {
     static int client_action_note_retrieve(void *rtt, int noteId); // retrieve note
     static void client_action_note_create(PdmRunTime *rt);
 
-    static int client_action_note_update(const PdmRunTime *rtt, NoteMsg msg);
+    static int client_action_note_update(const PdmRunTime *rtt, PDM::NoteMsg msg);
   };
 }
 
