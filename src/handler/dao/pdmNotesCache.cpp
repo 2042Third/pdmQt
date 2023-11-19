@@ -13,10 +13,10 @@ PDM::pdmNotesCache::pdmNotesCache():pdm_database() {
 
 }
 
-void PDM::pdmNotesCache::updateNote(int noteid, const std::string &content) {
+void PDM::pdmNotesCache::updateNote(int noteid, const std::string &content, const std::string &hash) {
   std::fprintf(stdout, "Note retrieve updating database: note id=%d\n", noteid);
   sqlite3_stmt* stmt;
-  const char* sql = "UPDATE notes SET content = ? WHERE noteid = ?;";
+  const char* sql = "UPDATE notes SET content = ?, hash=? WHERE noteid = ?;";
 
   int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
   if (rc != SQLITE_OK) {
@@ -32,8 +32,15 @@ void PDM::pdmNotesCache::updateNote(int noteid, const std::string &content) {
     return;
   }
 
+  // Bind hash (Second parameter)
+  rc = sqlite3_bind_text(stmt, 2, hash.c_str(), -1, SQLITE_TRANSIENT);
+  if (rc != SQLITE_OK) {
+    std::cerr << "SQL error (bind content): " << sqlite3_errmsg(db) << std::endl;
+    sqlite3_finalize(stmt);
+    return;
+  }
   // Bind noteid (second parameter)
-  rc = sqlite3_bind_int(stmt, 2, noteid);
+  rc = sqlite3_bind_int(stmt, 3, noteid);
   if (rc != SQLITE_OK) {
     std::cerr << "SQL error (bind noteid): " << sqlite3_errmsg(db) << std::endl;
     sqlite3_finalize(stmt);
@@ -66,7 +73,7 @@ void PDM::pdmNotesCache::updateNoteEnc(const std::string &key,int noteid, const 
     sqlite3_finalize(stmt);
     return;
   }
-  // Bind content (Second parameter)
+  // Bind hash (Second parameter)
   rc = sqlite3_bind_text(stmt, 2, !content.empty()?get_hash(content).c_str():get_hash("").c_str(), -1, SQLITE_TRANSIENT);
   if (rc != SQLITE_OK) {
     std::cerr << "SQL error (bind content): " << sqlite3_errmsg(db) << std::endl;
@@ -142,7 +149,7 @@ int PDM::pdmNotesCache::execute_note_heads(const nlohmann::json&j, const UserInf
 int PDM::pdmNotesCache::getNote(int noteid, const std::string& data, NoteMsg* note) {
   // Add note heads to the note list.
   sqlite3_stmt* stmt = nullptr;
-  const char* query = "SELECT head, h, time, content FROM notes WHERE noteid = ?"; // Adjust the SQL to fit your schema
+  const char* query = "SELECT head, hash, time, content FROM notes WHERE noteid = ?"; // Adjust the SQL to fit your schema
   int rc = sqlite3_prepare_v2(db, query, -1, &stmt, nullptr);
   if (rc != SQLITE_OK) {
     std::cout<< "Error preparing statement: " << sqlite3_errmsg(db) << std::endl;
@@ -177,7 +184,7 @@ int PDM::pdmNotesCache::getNote(int noteid, const std::string& data, NoteMsg* no
 int PDM::pdmNotesCache::addAllToNoteList(const string &data, const std::string& email, NotesScroll *noteList) {
   // Add note heads to the note list.
   sqlite3_stmt* stmt = nullptr;
-  const char* query = "SELECT head, h, time, noteid FROM notes WHERE useremail = ?"; // Adjust the SQL to fit your schema
+  const char* query = "SELECT head, hash, time, noteid FROM notes WHERE useremail = ?"; // Adjust the SQL to fit your schema
   int rc = sqlite3_prepare_v2(db, query, -1, &stmt, nullptr);
   if (rc != SQLITE_OK) {
     std::cout<< "Error preparing statement: " << sqlite3_errmsg(db) << std::endl;
@@ -210,7 +217,7 @@ int PDM::pdmNotesCache::addAllToNoteList(const string &data, const std::string& 
 void PDM::pdmNotesCache::updateNoteHead(const string &key, int noteid, const string &head) {
   std::fprintf(stdout, "Note retrieve updating database: note id=%d\n", noteid);
   sqlite3_stmt* stmt;
-  const char* sql = "UPDATE notes SET h = ? WHERE noteid = ?;";
+  const char* sql = "UPDATE notes SET hash = ? WHERE noteid = ?;";
 
   int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
   if (rc != SQLITE_OK) {

@@ -319,7 +319,7 @@ int PdmRunTime::runCmd(const std::string &cmd) {
   return 0;
 }
 
-void PdmRunTime::updateNoteContent(int noteid, const std::string &content)  {
+void PdmRunTime::updateNoteContent(int noteid, std::string content)  {
   user_data->updateNoteEnc(wt.data, noteid, content);
   // Update the note through network
   emit logc_std("Updating note through network, noteid: "+std::to_string(noteid), "blue");
