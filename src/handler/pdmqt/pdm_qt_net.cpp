@@ -115,7 +115,7 @@ int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, PDM::NoteM
     + ", head: "+msg.head
     + ", content: "+msg.content
     + ", update_type: "+rt->notes.UpdateNoteType
-    + ", hash: "+get_hash(msg.content)
+    + ", h: "+msg.h
     , "red");
   std::map<std::string,std::string>
       data= PDM::pdm_net_type::getNoteUpdateJsonStr(
@@ -123,9 +123,9 @@ int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, PDM::NoteM
           , rt->wt.userinfo.email
           , std::to_string((int)(*msg.note_id.c_str()))
           , rt->notes.UpdateNoteType
-          , loader_check(rt->wt.data,msg.head)
-          , loader_check(rt->wt.data,msg.content)
-          , get_hash(msg.content)
+          , msg.head.empty()?loader_check(rt->wt.data,msg.head):""
+          , msg.content
+          , msg.h
           );
   j_str = PDM::network::get_json(data);
   QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);

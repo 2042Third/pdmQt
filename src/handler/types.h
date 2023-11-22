@@ -57,7 +57,7 @@ namespace PDM {
     std::string status;
     std::string statusInfo;
     std::string encry;
-    std::string hash; // User this instead of "h".
+//    std::string hash; // Don't use this, use "h" instead.
   };
   struct NoteHeads {
     std::vector<NoteHead> v;

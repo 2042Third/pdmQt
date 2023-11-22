@@ -22,7 +22,7 @@ namespace PDM {
     static std::map<std::string,std::string>
     getNoteUpdateJsonStr(const std::string&sess, const std::string&email, const std::string&noteId,
       const std::string& ntype,
-      const std::string& head,const std::string& content, const std::string& hash
+      const std::string& head,const std::string& content, const std::string& h
       );
   };
 }

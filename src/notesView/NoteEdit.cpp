@@ -78,7 +78,7 @@ void NoteEdit::clearNoteMsg(PDM::NoteMsg& noteMsg) {
   noteMsg.status.assign(noteMsg.status.length(), 0);
   noteMsg.statusInfo.assign(noteMsg.statusInfo.length(), 0);
   noteMsg.encry.assign(noteMsg.encry.length(), 0);
-  noteMsg.hash.assign(noteMsg.hash.length(), 0);
+  noteMsg.h.assign(noteMsg.h.length(), 0);
 }
 
 void NoteEdit::clearEditText() {

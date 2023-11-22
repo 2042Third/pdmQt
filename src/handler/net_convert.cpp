@@ -51,7 +51,7 @@ namespace PDM {
     notemsg.status       = add_str(j,"status");
     notemsg.statusInfo   = add_str(j,"statusInfo");
     notemsg.encry        = add_str(j,"encry");
-    notemsg.hash         = add_str(j,"hash");
+//    notemsg.hash         = add_str(j,"hash");
     return 0;
   }
 

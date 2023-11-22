@@ -52,7 +52,7 @@ namespace PDM {
                                                                           const std::string& ntype,
                                                                           const std::string& head,
                                                                            const std::string& content
-                                                                           ,const std::string& hash) {
+                                                                           ,const std::string& h) {
     std::map<std::string,std::string> data
         {
              {"username" , "" }
@@ -62,7 +62,7 @@ namespace PDM {
             ,{"ntype"    , ntype }
             ,{"email"    , email }
             ,{"note_id"  , noteId}
-            , {"hash", hash}
+            , {"h", h}
         };
     return std::move(data);
   }
