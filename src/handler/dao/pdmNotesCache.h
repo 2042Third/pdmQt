@@ -22,15 +22,16 @@ namespace PDM {
 
     void create_table();
     void updateNote( int noteid, const std::string& content, const std::string &h);
-    void updateNoteEnc( const std::string &key,int noteid, const std::string& content);
+    void updateNoteDec( const std::string &key,int noteid, const std::string& content);
     void updateNoteHead( const std::string &key,int noteid, const std::string& head);
     int getNote(int noteid, const std::string& data, NoteMsg* note);
     int insert(const std::string &key, const std::string &val, const std::string &data = "");
     int execute_note_heads(const nlohmann::json&j, const UserInfo&userinfo, const std::string& data);
     int addAllToNoteList(const std::string& data, const std::string& email, NotesScroll* noteList);
     // Static queries
-    const std::string add_note_head = "insert or replace into notes(noteid, useremail, content, h, intgrh,time, head)"
-                                      " values(?,?,?,?,?,?,?);";
+    const std::string add_note_head = "insert or replace into notes("
+                                      "noteid, useremail, content, h, intgrh,time, head"
+                                      ") values(?,?,?,?,?,?,?);";
     const char* note_table_create_query = "CREATE TABLE IF NOT EXISTS notes (noteid INTEGER PRIMARY KEY, "
                                           "useremail text not null,"
                                           "content TEXT,"

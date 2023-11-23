@@ -55,7 +55,7 @@ void PDM::pdmNotesCache::updateNote(int noteid, const std::string &content, cons
 
   sqlite3_finalize(stmt);
 }
-void PDM::pdmNotesCache::updateNoteEnc(const std::string &key,int noteid, const std::string &content) {
+void PDM::pdmNotesCache::updateNoteDec(const std::string &key,int noteid, const std::string &content) {
   std::fprintf(stdout, "Note retrieve Encrypted updating database: note id=%d\n", noteid);
   sqlite3_stmt* stmt;
   const char* sql = "UPDATE notes SET content = ?, h=? WHERE noteid = ?;";
@@ -69,7 +69,7 @@ void PDM::pdmNotesCache::updateNoteEnc(const std::string &key,int noteid, const 
   // Bind content (first parameter)
   std::string content_copy = content;
 
-  std::string processedContent = !content_copy.empty() ? loader_check(key, content_copy) : "";
+  std::string processedContent = !content_copy.empty() ? loader_out(key, content_copy) : "";
   rc = sqlite3_bind_text(stmt, 1, processedContent.c_str(), -1, SQLITE_TRANSIENT);
   cc20_utility::gen_byte_rand_cc20((uint8_t*)content_copy.data(),content_copy.size());
 //  rc = sqlite3_bind_text(stmt, 1, !content.empty()?loader_check(key,content).c_str():"", -1, SQLITE_TRANSIENT);
@@ -127,7 +127,10 @@ int PDM::pdmNotesCache::execute_note_heads(const nlohmann::json&j, const UserInf
     rc = sqlite3_bind_text(stmt, 4, j["h"].get<string>().c_str(), -1, SQLITE_TRANSIENT);
     rc = sqlite3_bind_text( stmt, 5, "\0", -1, SQLITE_TRANSIENT);
     rc = sqlite3_bind_double(  stmt, 6, head.time );
-    rc = sqlite3_bind_text( stmt, 7, head.head.c_str(), -1, SQLITE_TRANSIENT);
+    rc = sqlite3_bind_text( stmt, 7,  head.head.size()?loader_out(data,head.head).c_str():"", -1, SQLITE_TRANSIENT);
+    std::printf("[execute_note_heads] noteid=\"%s\" , head=\"%s\" \n",head.note_id.c_str(),head.head.size()?loader_out(data,head.head).c_str():"");
+    // Flush the stdout buffer to make sure the above prints before the program crashes.
+    std::fflush(stdout);
     while ( sqlite3_step( stmt ) == SQLITE_ROW ) { // While query has result-rows.
       for ( int colIndex = 0; colIndex < sqlite3_column_count( stmt ); colIndex++ ) {
         int result = sqlite3_column_int( stmt, colIndex );
@@ -170,7 +173,7 @@ int PDM::pdmNotesCache::getNote(int noteid, const std::string& data, NoteMsg* no
   // Execute the query and display the note to the tab
   while (sqlite3_step(stmt) == SQLITE_ROW) {
     std::string headstr = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 0));
-    std::string title = (headstr.size()?loader_out(data,headstr).c_str():"");
+    std::string title = headstr.c_str();
     std::string h =  (reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
     size_t date = sqlite3_column_int(stmt, 2);
     std::string content = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
@@ -179,7 +182,8 @@ int PDM::pdmNotesCache::getNote(int noteid, const std::string& data, NoteMsg* no
     note->note_id=noteid;
     note->time = date;
     note->h = h;
-    note->content = content.size()?loader_out(data,content).c_str():"";
+    note->content = content;
+
   }
   // Clean up
   sqlite3_finalize(stmt);
@@ -205,12 +209,12 @@ int PDM::pdmNotesCache::addAllToNoteList(const string &data, const std::string& 
   // Execute the query and add each result to the model
   while (sqlite3_step(stmt) == SQLITE_ROW) {
     NoteHead head;
-    std::string headstr = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 0));
-    head.head = headstr.size()?loader_out(data,headstr):"";
+    head.head = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 0));
     head.time = sqlite3_column_double(stmt, 2);
     uint64_t tmp = uint64_t(head.time);
     head.ctime = PDM::pdm_qt_helpers::unix_time_to_qstr_sec(tmp).toStdString();
     head.note_id = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 3));
+
 
     noteList->addNote(head);
   }
@@ -222,7 +226,7 @@ int PDM::pdmNotesCache::addAllToNoteList(const string &data, const std::string& 
 void PDM::pdmNotesCache::updateNoteHead(const string &key, int noteid, const string &head) {
   std::fprintf(stdout, "Note retrieve updating database: note id=%d\n", noteid);
   sqlite3_stmt* stmt;
-  const char* sql = "UPDATE notes SET h = ? WHERE noteid = ?;";
+  const char* sql = "UPDATE notes SET head = ? WHERE noteid = ?;";
 
   int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
   if (rc != SQLITE_OK) {
@@ -231,7 +235,7 @@ void PDM::pdmNotesCache::updateNoteHead(const string &key, int noteid, const str
   }
 
   // Bind content (first parameter)
-  rc = sqlite3_bind_text(stmt, 1, head.size()?loader_check(key,head).c_str():"", -1, SQLITE_TRANSIENT);
+  rc = sqlite3_bind_text(stmt, 1, head.c_str(), -1, SQLITE_TRANSIENT);
   if (rc != SQLITE_OK) {
     std::cerr << "SQL error (bind content): " << sqlite3_errmsg(db) << std::endl;
     sqlite3_finalize(stmt);
