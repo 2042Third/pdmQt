@@ -83,3 +83,14 @@ bool NotesScroll::setData(const QModelIndex &index, const QVariant &value, int r
   }
   return QAbstractListModel::setData(index, value, role);
 }
+
+void NotesScroll::clear() {
+  beginResetModel();
+  notesList.clear();
+  notesMap.clear();
+  endResetModel();
+}
+
+size_t NotesScroll::size() const {
+  return notesList.size();
+}

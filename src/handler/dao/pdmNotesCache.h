@@ -24,7 +24,7 @@ namespace PDM {
     void updateNote( int noteid, const std::string& content, const std::string &h);
     void updateNoteDec( const std::string &key,int noteid, const std::string& content);
     void updateNoteHead( const std::string &key,int noteid, const std::string& head);
-    int getNote(int noteid, const std::string& data, NoteMsg* note);
+    int getNote(int noteid, NoteMsg* note);
     int insert(const std::string &key, const std::string &val, const std::string &data = "");
     int execute_note_heads(const nlohmann::json&j, const UserInfo&userinfo, const std::string& data);
     int addAllToNoteList(const std::string& data, const std::string& email, NotesScroll* noteList);

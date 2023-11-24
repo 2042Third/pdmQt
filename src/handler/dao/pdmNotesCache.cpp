@@ -154,7 +154,7 @@ int PDM::pdmNotesCache::execute_note_heads(const nlohmann::json&j, const UserInf
   return 0;
 }
 
-int PDM::pdmNotesCache::getNote(int noteid, const std::string& data, NoteMsg* note) {
+int PDM::pdmNotesCache::getNote(int noteid,  NoteMsg* note) {
   // Add note heads to the note list.
   sqlite3_stmt* stmt = nullptr;
   const char* query = "SELECT head, h, time, content FROM notes WHERE noteid = ?"; // Adjust the SQL to fit your schema
@@ -206,6 +206,12 @@ int PDM::pdmNotesCache::addAllToNoteList(const string &data, const std::string& 
     std::cout<< "Error executing statement: " << sqlite3_errmsg(db) << std::endl;
     return 0;
   }
+
+  // clear the list if it is not empty
+  if (noteList->size() > 0) {
+    noteList->clear();
+  }
+
   // Execute the query and add each result to the model
   while (sqlite3_step(stmt) == SQLITE_ROW) {
     NoteHead head;
@@ -214,7 +220,6 @@ int PDM::pdmNotesCache::addAllToNoteList(const string &data, const std::string& 
     uint64_t tmp = uint64_t(head.time);
     head.ctime = PDM::pdm_qt_helpers::unix_time_to_qstr_sec(tmp).toStdString();
     head.note_id = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 3));
-
 
     noteList->addNote(head);
   }

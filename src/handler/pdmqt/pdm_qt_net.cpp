@@ -75,6 +75,7 @@ int PDM::pdm_qt_net::client_action_note_retrieve(void *rtt, int noteId) {
                                                       , std::to_string(noteId)
                                                       , rt->notes.GetNoteType); // Should have note id
   j_str = PDM::network::get_json(data);
+  emit rt->logc_std("[Note Get call] => "+j_str, "red");
   QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);
   return 0;
 }
@@ -120,7 +121,8 @@ int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, PDM::NoteM
           , msg.h
           );
   j_str = PDM::network::get_json(data);
-  emit rt->logc_std("[Note update call] email: "+j_str, "red");
-  QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);
+  emit rt->logc_std("[Note update call] => "+j_str, "red");
+  emit rt->logc_std("[Note update call] Update disabled.", "darkred");
+//  QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);
   return 0;
 }

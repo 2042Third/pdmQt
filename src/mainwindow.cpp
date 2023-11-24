@@ -417,7 +417,7 @@ void MainWindow::mainwindowNoteListLeftClicked(const QModelIndex &index) {
 void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
   emit rt->log("Note open/retrieve received.", "#C22A1C");
   PDM::NoteMsg note ;
-  rt->user_data->getNote(noteId,rt->wt.data, &note);
+  rt->user_data->getNote(noteId,&note);
   if(noteEditMap.contains(note.note_id)) { // Check if this already exists in the tab widget.
     ui->tabWidget->setCurrentIndex(noteEditMap[note.note_id]->idx);
     noteEditMap[note.note_id]->setFocus();
@@ -442,7 +442,7 @@ void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
 void MainWindow::mainwindowNoteUpdateSuccess(int noteId) {
   emit rt->log("Note update received in mainwindow.", "#C22A1C");
   PDM::NoteMsg note ;
-  rt->user_data->getNote(noteId,rt->wt.data, &note);
+  rt->user_data->getNote(noteId, &note);
   if(noteEditMap.contains(note.note_id)) { // Check if this already exists in the tab widget.
     noteEditMap[note.note_id]->setNote();
     return;
