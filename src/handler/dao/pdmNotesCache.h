@@ -28,6 +28,7 @@ namespace PDM {
     int insert(const std::string &key, const std::string &val, const std::string &data = "");
     int execute_note_heads(const nlohmann::json&j, const UserInfo&userinfo, const std::string& data);
     int addAllToNoteList(const std::string& data, const std::string& email, NotesScroll* noteList);
+    int removeAllFromNoteList( const std::string& email);
     // Static queries
     const std::string add_note_head = "insert or replace into notes("
                                       "noteid, useremail, content, h, intgrh,time, head"

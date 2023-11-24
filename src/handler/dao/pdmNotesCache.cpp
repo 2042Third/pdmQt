@@ -210,6 +210,7 @@ int PDM::pdmNotesCache::addAllToNoteList(const string &data, const std::string& 
   // clear the list if it is not empty
   if (noteList->size() > 0) {
     noteList->clear();
+    std::cout<< "[addAllToNoteList] Cleared. " << std::endl;
   }
 
   // Execute the query and add each result to the model
@@ -264,5 +265,34 @@ void PDM::pdmNotesCache::updateNoteHead(const string &key, int noteid, const str
   sqlite3_finalize(stmt);
 
 }
+
+int PDM::pdmNotesCache::removeAllFromNoteList(const std::string &email) {
+  sqlite3_stmt* stmt = nullptr;
+  const char* query = "DELETE FROM notes WHERE useremail = ?";
+
+  int rc = sqlite3_prepare_v2(db, query, -1, &stmt, nullptr);
+  if (rc != SQLITE_OK) {
+    std::cout << "Error preparing statement: " << sqlite3_errmsg(db) << std::endl;
+    return 0;
+  }
+
+  rc = sqlite3_bind_text(stmt, 1, email.c_str(), -1, SQLITE_TRANSIENT);
+  if (rc != SQLITE_OK) {
+    std::cout << "Error binding parameter: " << sqlite3_errmsg(db) << std::endl;
+    sqlite3_finalize(stmt); // Clean up
+    return 0;
+  }
+
+  rc = sqlite3_step(stmt);
+  if (rc != SQLITE_DONE) {
+    std::cout << "Error executing DELETE statement: " << sqlite3_errmsg(db) << std::endl;
+    sqlite3_finalize(stmt); // Clean up
+    return 0;
+  }
+
+  sqlite3_finalize(stmt); // Clean up
+  return 1;
+}
+
 
 

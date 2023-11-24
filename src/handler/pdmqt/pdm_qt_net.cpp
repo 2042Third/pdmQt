@@ -122,7 +122,6 @@ int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, const PDM:
           );
   j_str = PDM::network::get_json(data);
   emit rt->logc_std("[Note update call] => "+j_str, "red");
-  emit rt->logc_std("[Note update call] Update disabled.", "darkred");
   QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);
   return 0;
 }
