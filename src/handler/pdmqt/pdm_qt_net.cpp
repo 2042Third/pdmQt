@@ -87,7 +87,7 @@ void PDM::pdm_qt_net::client_action_note_create(PdmRunTime *rt) {
  * Encrypts the current note to be sent to the server. Then send to server.
  *
  * */
-int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, PDM::NoteMsg msg) {
+int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, const PDM::NoteMsg& msg) {
   struct NetCallBack_ {
     static size_t _callback(char *data, size_t size, size_t nmemb, void *userp) {
       int callback_out = (int) PDM::network::post_callback_update(data,  size,  nmemb, userp);
@@ -116,13 +116,13 @@ int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, PDM::NoteM
           , rt->wt.userinfo.email
           , std::to_string((int)(*msg.note_id.c_str()))
           , rt->notes.UpdateNoteType
-          , msg.head.empty()?loader_check(rt->wt.data,msg.head):""
-          , msg.content.empty()?loader_check(rt->wt.data,msg.content):""
+          , msg.head.empty()?"":loader_check(rt->wt.data,msg.head)
+          , msg.content.empty()?"":loader_check(rt->wt.data,msg.content)
           , msg.h
           );
   j_str = PDM::network::get_json(data);
   emit rt->logc_std("[Note update call] => "+j_str, "red");
   emit rt->logc_std("[Note update call] Update disabled.", "darkred");
-//  QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);
+  QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);
   return 0;
 }

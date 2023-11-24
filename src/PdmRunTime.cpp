@@ -325,5 +325,5 @@ void PdmRunTime::updateNoteContent(int noteid, std::string content)  {
   emit logc_std("Updating note through network, noteid: "+std::to_string(noteid), "blue");
   PDM::NoteMsg n ;
   user_data->getNote(noteid,&n);
-  PDM::pdm_qt_net::client_action_note_update(this, std::move(n)); // passing reference to the note, PdmRunTime still owns the object
+  PDM::pdm_qt_net::client_action_note_update(this, n); // passing reference to the note, PdmRunTime still owns the object
 }
