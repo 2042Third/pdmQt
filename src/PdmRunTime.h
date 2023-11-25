@@ -81,10 +81,12 @@ public slots:
   void noteHeadsFail();
   void noteRetrieveSuccess(int noteid);
   void noteRetrieveFail(int noteid);
-  void noteCreateSuccess(int noteid);
-  void noteCreateFail(int noteid);
+  void noteCreateSuccess();
+  void noteCreateFail();
   void noteUpdateSuccess(int noteid);
   void noteUpdateFail(int noteid);
+  void noteDeleteSuccess(int noteid);
+  void noteDeleteFail(int noteid);
   void databaseLocalReady();
   // Notes
   void noteListLeftClicked(const QModelIndex &index);

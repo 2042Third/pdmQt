@@ -42,6 +42,7 @@ private slots:
   void mainwindowNoteHeadsSuccess();
   void mainwindowNoteRetrieveSuccess(int noteId);
   void mainwindowNoteUpdateSuccess(int noteId);
+  void mainwindowNoteCreateSuccess();
   void open_user_database_location();
   void onMoveTimerTimeout();
   void onResizeTimerTimeout();

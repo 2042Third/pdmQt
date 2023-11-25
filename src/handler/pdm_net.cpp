@@ -85,13 +85,17 @@ namespace PDM {
 
   size_t network::post_callback_update(char *data, size_t size, size_t nmemb, void *userp) {
     auto *wt = (struct NetObj *)userp;
-//    wt->readptr = std::move(std::string(data,nmemb));
     wt->js = json::parse(wt->readptr);
     std::cout<< "Note update Return: "<< wt->js<<std::endl;
     std::cout<< "Note update try noteid: "<<net_convert::get_int(wt->js,"note_id")<<std::endl;
     std::cout<< "Note update status: "<< net_convert::get_str(wt->js,"status") <<std::endl;
     std::cout<< "Note update status info: "<< net_convert::get_str(wt->js,"statusInfo") <<std::endl;
-//    ((PDM::pdmNotesCache*)wt->db)->updateNote(net_convert::get_int(wt->js,"note_id"),net_convert::add_str(wt->js,"content") );
+    return nmemb; /* we copied this many bytes */
+  }
+
+  size_t network::post_callback_new(char *data, size_t size, size_t nmemb, void *userp) {
+    auto *wt = (struct NetObj *)userp;
+    wt->js = json::parse(wt->readptr);
     return nmemb; /* we copied this many bytes */
   }
 

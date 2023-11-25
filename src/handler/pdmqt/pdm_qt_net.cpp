@@ -80,8 +80,36 @@ int PDM::pdm_qt_net::client_action_note_retrieve(void *rtt, int noteId) {
   return 0;
 }
 
-void PDM::pdm_qt_net::client_action_note_create(PdmRunTime *rt) {
-  emit rt->logc("Note create NOT IMPLEMENTED! ", "red");
+void PDM::pdm_qt_net::client_action_note_create(PdmRunTime *rtt) {
+  struct NetCallBack_ {
+    static size_t _callback(char *data, size_t size, size_t nmemb, void *userp) {
+      int callback_out = (int) PDM::network::post_callback_new(data,  size,  nmemb, userp);
+      auto *wt = (struct NetObj *)userp;
+      auto*rt = (PdmRunTime *)wt->pdm_runtime;
+      std::cout << "Note create new callback finished and calling noteUpdateSuccess. " << std::endl;
+      if (rt->wt.userinfo.status == "success") {
+        emit rt->noteCreateSuccess();
+      } // End Success block
+      else { // Begin Fail block
+        std::cout << "Note update failure: " << std::endl;
+        emit rt->logc("Unsuccessful notes callback. ", "red");
+        emit rt->noteCreateFail();
+      } // End Fail block
+      return callback_out;
+    }
+  };
+
+  std::string j_str;
+  auto *rt = (PdmRunTime *) rtt;
+  std::map<std::string,std::string>
+      data= PDM::pdm_net_type::getNoteNewJsonStr(
+      rt->wt.userinfo.sess
+      , rt->wt.userinfo.email
+      , rt->notes.GetNewNoteType
+  );
+  j_str = PDM::network::get_json(data);
+  emit rt->logc_std("[Note create new note call] => "+j_str, "red");
+  QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesHeaderURL,  &rt->wt,NetCallBack_::_callback);
 }
 /**
  * Encrypts the current note to be sent to the server. Then send to server.

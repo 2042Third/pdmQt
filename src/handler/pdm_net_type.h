@@ -15,15 +15,21 @@ namespace PDM {
   public:
     static std::map<std::string,std::string>
     getSigninJsonStr(const char* email, const char* password);
+
     static std::map<std::string,std::string>
     getNoteHeadsJsonStr(const std::string&sess, const std::string&email, const std::string& ntype);
+
     static std::map<std::string,std::string>
     getNoteRetrieveJsonStr(const std::string&sess, const std::string&email, const std::string&noteId, const std::string& ntype);
+
     static std::map<std::string,std::string>
     getNoteUpdateJsonStr(const std::string&sess, const std::string&email, const std::string&noteId,
       const std::string& ntype,
       const std::string& head,const std::string& content, const std::string& h
       );
+
+    static std::map<std::string,std::string>
+    getNoteNewJsonStr(const std::string&sess, const std::string&email, const std::string& ntype);
   };
 }
 

@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(rt, &PdmRunTime::noteListRightClicked, this, &MainWindow::mainwindowNoteListRightClicked);
   connect(rt, &PdmRunTime::noteRetrieveSuccess, this, &MainWindow::mainwindowNoteRetrieveSuccess);
   connect(rt, &PdmRunTime::noteUpdateSuccess, this, &MainWindow::mainwindowNoteUpdateSuccess);
+  connect(rt, &PdmRunTime::noteCreateSuccess, this, &MainWindow::mainwindowNoteCreateSuccess);
 
   connect(rt->statusQt, &StatusQt::statusChanged, this, &MainWindow::mainwindowRuntimeStatusChanged);
   connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &MainWindow::mainwindowTabCloseRequested);
@@ -171,6 +172,10 @@ void MainWindow::on_actionDebug_Messages_triggered()
   }
 
   debugWindow->show();
+}
+
+void MainWindow::mainwindowNoteCreateSuccess() {
+  rt->runCmd("note_refresh_list");
 }
 
 // Helpers

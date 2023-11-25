@@ -37,6 +37,7 @@ namespace PDM {
       const std::string signinURL = pdmRootURL+"/auth/signin";
       const std::string signupURL = pdmRootURL + "/auth/signup";
       const std::string notesGetHeadsURL = pdmRootURL + "/auth/note";
+      const std::string notesHeaderURL = pdmRootURL + "/auth/note";
     };
 
 
@@ -56,6 +57,7 @@ namespace PDM {
     static size_t post_callback_note( char *data, size_t size, size_t nmemb, void *userp);
     static size_t post_callback_signin( char *data, size_t size, size_t nmemb, void *userp);
     static size_t post_callback_update( char *data, size_t size, size_t nmemb, void *userp);
+    static size_t post_callback_new( char *data, size_t size, size_t nmemb, void *userp);
 
     network();
     ~network();
