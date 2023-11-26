@@ -21,6 +21,7 @@ public:
   bool setData(const QModelIndex &index, const QVariant &value, int role) override;
   void clear();
   size_t size() const;
+  void locateNote(const std::string& noteId);
 
   QList<PDM::NoteHead> notesList;
   QMap<std::string,PDM::NoteHead> notesMap;

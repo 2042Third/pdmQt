@@ -2,6 +2,7 @@
 // Created by Yi Yang on 4/27/2023.
 //
 
+#include <QAbstractItemView>
 #include "NotesScroll.h"
 
 NotesScroll::NotesScroll(QObject *parent) :
@@ -76,7 +77,6 @@ const PDM::NoteHead* NotesScroll::getNote(const QModelIndex &index) const {
 bool NotesScroll::setData(const QModelIndex &index, const QVariant &value, int role) {
   if (role == Qt::UserRole + 1) {
     // Set the data for UserRole + 1
-    // replace with the appropriate code to set your data
     alphaProgress.insert(index.row(), value);
     emit dataChanged(index, index, {role});
     return true;
@@ -94,3 +94,19 @@ void NotesScroll::clear() {
 size_t NotesScroll::size() const {
   return notesList.size();
 }
+
+void NotesScroll::locateNote(const std::string &noteId) {
+  // Find the note in the list
+  int index = notesList.indexOf(notesMap[noteId]);
+
+  // If the note is found, emit the dataChanged signal to update the view
+  if (index != -1) {
+    QModelIndex topLeft = createIndex(index, 0);
+    QModelIndex bottomRight = createIndex(index, 0);
+//    QModelIndex index = listModel->index(row, column); // row and column of the item
+    scrollTo(index, QListView::PositionAtTop); // Scroll to make the item at the top
+
+    emit dataChanged(topLeft, bottomRight);
+  }
+}
+
