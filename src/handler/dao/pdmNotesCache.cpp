@@ -223,6 +223,7 @@ int PDM::pdmNotesCache::addAllToNoteList(const string &data, const std::string& 
     head.note_id = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 3));
 
     noteList->addNote(head);
+//    noteList->locateNote(head.note_id); // Scroll to the note
   }
   // Clean up
   sqlite3_finalize(stmt);

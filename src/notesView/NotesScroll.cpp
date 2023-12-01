@@ -31,6 +31,9 @@ void NotesScroll::addNote( PDM::NoteHead note)
       // Emit the dataChanged signal to update the view
       QModelIndex topLeft = createIndex(indexToUpdate, 0);
       QModelIndex bottomRight = createIndex(indexToUpdate, 0);
+      // Scroll to the note
+      QAbstractItemView *view = qobject_cast<QAbstractItemView *>(parent());
+      view->scrollTo(topLeft);
       emit dataChanged(topLeft, bottomRight);
     }
     return;
