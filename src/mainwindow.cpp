@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   connect(rt->statusQt, &StatusQt::statusChanged, this, &MainWindow::mainwindowRuntimeStatusChanged);
   connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &MainWindow::mainwindowTabCloseRequested);
+  connect(rt->noteList, &NotesScroll::noteAdded, this, &MainWindow::onNoteAdded);
 
   connect(ui->menubar, &QObject::destroyed, []() {
     qDebug() << "MenuBar was destroyed!";
@@ -54,8 +55,8 @@ MainWindow::MainWindow(QWidget *parent)
 
   // Setup noteListWidget
   rt->noteList = new NotesScroll(ui->notesListTab);
-  auto *notelistview = new pdmListView(this, rt);
-  notelistview->setModel(rt->noteList);
+  notesListView = new pdmListView(this, rt);
+  notesListView->setModel(rt->noteList);
   auto *notelistlayout = new QVBoxLayout;
 
   auto *noteListActionLayout = new QHBoxLayout;
@@ -74,7 +75,7 @@ MainWindow::MainWindow(QWidget *parent)
   noteListActionLayout->addWidget(newNoteButton);
 
   notelistlayout->addLayout(noteListActionLayout);
-  notelistlayout->addWidget(notelistview);
+  notelistlayout->addWidget(notesListView);
   ui->notesListTab->setLayout(notelistlayout);
   ui->notesListTab->show();
 
@@ -504,6 +505,16 @@ void MainWindow::showUsernameInStatusBar(int i) {
     rt->currentStatusBar = "";
   }
   statusBar()->setToolTip("");
+}
+
+void MainWindow::onNoteAdded(int index) {
+  rt->logc_std("[MainWindow::onNoteAdded] notesListView->model()->rowCount()="+
+    std::to_string(notesListView->model()->rowCount())+
+    ", index="+std::to_string(index), "orange");
+  if (index >= 0 && index < notesListView->model()->rowCount()) {
+    QModelIndex modelIndex = notesListView->model()->index(index, 0);
+    notesListView->scrollTo(modelIndex);
+  }
 }
 
 

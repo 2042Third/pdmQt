@@ -9,6 +9,7 @@
 #include "PdmRunTime.h"
 #include "notesView/NotesScroll.h"
 #include "notesView/NoteEdit.h"
+#include "notesView/pdmListView.h"
 
 #ifdef PDM_USE_FRAMELESSHELPER
 #include <FramelessHelper/Widgets/framelessmainwindow.h>
@@ -30,6 +31,8 @@ public:
   DebugWindow * debugWindow;
   SettingsMainWindow * settingsWindow=nullptr;
   PdmRunTime* rt;
+  pdmListView * notesListView;
+
   void * statusCircle=nullptr; // FlashingCircle
   void * animation=nullptr;
   void showUsernameInStatusBar(int i);
@@ -52,6 +55,7 @@ private slots:
   void mainwindowRuntimeStatusChanged(const QString &status);
   void on_actionZoom_In_triggered(); // Defined in menu bar from QT creator
   void on_actionZoom_Out_triggered(); // Defined in menu bar from QT creator
+  void onNoteAdded(int index);
 
   protected:
   void moveEvent(QMoveEvent *event) override;

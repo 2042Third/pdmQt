@@ -26,6 +26,8 @@ public:
   QList<PDM::NoteHead> notesList;
   QMap<std::string,PDM::NoteHead> notesMap;
   QMap<int,QVariant>  alphaProgress ;
+signals:
+  void noteAdded(int index); // Signal to be emitted when a new note is added
 
 };
 

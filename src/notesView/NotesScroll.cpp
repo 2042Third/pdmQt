@@ -42,6 +42,9 @@ void NotesScroll::addNote( PDM::NoteHead note)
   beginInsertRows(QModelIndex(), rowCount(), rowCount());
   notesList << note;
   endInsertRows();
+  // Emit the noteAdded signal with the index of the new note
+  int newIndex = notesList.indexOf(note);
+  emit noteAdded(newIndex);
 }
 
 int NotesScroll::rowCount(const QModelIndex & parent) const
