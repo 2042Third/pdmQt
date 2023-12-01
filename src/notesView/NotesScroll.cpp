@@ -103,9 +103,9 @@ void NotesScroll::locateNote(const std::string &noteId) {
   if (index != -1) {
     QModelIndex topLeft = createIndex(index, 0);
     QModelIndex bottomRight = createIndex(index, 0);
-//    QModelIndex index = listModel->index(row, column); // row and column of the item
-    scrollTo(index, QListView::PositionAtTop); // Scroll to make the item at the top
-
+    // Scroll to the note
+    QAbstractItemView *view = qobject_cast<QAbstractItemView *>(parent());
+    view->scrollTo(topLeft);
     emit dataChanged(topLeft, bottomRight);
   }
 }
