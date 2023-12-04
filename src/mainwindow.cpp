@@ -43,7 +43,6 @@ MainWindow::MainWindow(QWidget *parent)
 
   connect(rt->statusQt, &StatusQt::statusChanged, this, &MainWindow::mainwindowRuntimeStatusChanged);
   connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &MainWindow::mainwindowTabCloseRequested);
-  connect(rt->noteList, &NotesScroll::noteAdded, this, &MainWindow::onNoteAdded);
 
   connect(ui->menubar, &QObject::destroyed, []() {
     qDebug() << "MenuBar was destroyed!";
@@ -58,26 +57,22 @@ MainWindow::MainWindow(QWidget *parent)
   notesListView = new pdmListView(this, rt);
   notesListView->setModel(rt->noteList);
   auto *notelistlayout = new QVBoxLayout;
-
   auto *noteListActionLayout = new QHBoxLayout;
-  // Add the new note button
-  auto *newNoteButton = new QPushButton("New Note", this);
+  auto *newNoteButton = new QPushButton("New Note", this);// Add the new note button
   connect(newNoteButton, &QPushButton::clicked, [=]() {
     rt->runCmd("note_new_note");
   });
-  // Add refresh button
-  auto *refreshButton = new QPushButton("Refresh", this);
+  auto *refreshButton = new QPushButton("Refresh", this);// Add refresh button
   connect(refreshButton, &QPushButton::clicked, [=]() {
     rt->runCmd("note_refresh_list");
   });
-
   noteListActionLayout->addWidget(refreshButton);
   noteListActionLayout->addWidget(newNoteButton);
-
   notelistlayout->addLayout(noteListActionLayout);
   notelistlayout->addWidget(notesListView);
   ui->notesListTab->setLayout(notelistlayout);
   ui->notesListTab->show();
+  connect(rt->noteList, &NotesScroll::noteAdded, this, &MainWindow::onNoteAdded); // Connect the noteAdded signal to the onNoteAdded slot
 
   // Restore the previous status bar message once the tooltip is hidden
   connect(qApp, &QGuiApplication::focusObjectChanged, [=](QObject *newFocusObject) {
