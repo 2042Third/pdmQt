@@ -24,7 +24,7 @@ if(APPLE)
     set(OPENSSL_ROOT_DIR /opt/homebrew/opt/openssl@3)
     set(FramelessHelper_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/lib64/cmake/FramelessHelper)
 elseif (WIN32)
-    set(CMAKE_PREFIX_PATH "C:\\Qt\\6.5.2\\mingw_64\\lib\\cmake")
+    set(CMAKE_PREFIX_PATH "C:\\Qt\\6.6.1\\mingw_64\\lib\\cmake")
     set(FramelessHelper_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/lib/cmake/FramelessHelper)
 #    set(FramelessHelper_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/bin)
 

@@ -73,6 +73,7 @@ private:
 
   void newSettingsWindow();
   int defaultWidth = 866;
+  int defaultHeight = 905;
   void setupFramelesshelperWindow();
 
 };

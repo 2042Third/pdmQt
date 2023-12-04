@@ -119,6 +119,11 @@ MainWindow::MainWindow(QWidget *parent)
   QTimer::singleShot(0, [this]() { debugWindow->checkAndShow(); });
   // Check existing user, if exist ask for decryption password
   QTimer::singleShot(0, rt, &PdmRunTime::checkExistingUser);
+//  QTimer::singleShot(2000, [this](){ // This is only for testing framelesshelper
+//   // resize the window to the default size
+//    resize(defaultWidth, defaultHeight);
+//    FramelessWidgetsHelper::get(this)->extendsContentIntoTitleBar();
+//  });
   // Setup framelesshelper menubar.
   QTimer::singleShot(0, this, &MainWindow::setupFramelesshelperWindow);
   // Remove the default tab .
@@ -250,6 +255,7 @@ void MainWindow::setupFramelesshelperWindow(){
   m_titleBar = new StandardTitleBar(this);
   m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
   setContentsMargins(0,0,0,0); // set the margin of the window that contains the shadow
+  FramelessWidgetsHelper::get(this)->extendsContentIntoTitleBar();
 
   auto * titleBar = new QWidget(this);
   auto * layout = new QHBoxLayout(this);
