@@ -74,10 +74,11 @@ MainWindow::MainWindow(QWidget *parent)
   ui->notesListTab->show();
   connect(rt->noteList, &NotesScroll::noteAdded, this, &MainWindow::onNoteAdded); // Connect the noteAdded signal to the onNoteAdded slot
 
+
+
   // Restore the previous status bar message once the tooltip is hidden
   connect(qApp, &QGuiApplication::focusObjectChanged, [=](QObject *newFocusObject) {
     Q_UNUSED(newFocusObject);
-
     if(!rt->isClosing) statusBar()->showMessage(rt->currentStatusBar);
   });
 
@@ -87,7 +88,6 @@ MainWindow::MainWindow(QWidget *parent)
   //Default geometry for the main window
   QWidget tempWidget;
   tempWidget.setGeometry(847, 236, defaultWidth, 905);
-
   QSettings settings;
   // Restore the previous window geometry
   restoreGeometry(settings.value("mainwindow/geometry",tempWidget.saveGeometry()).toByteArray());
@@ -119,8 +119,8 @@ MainWindow::MainWindow(QWidget *parent)
   QTimer::singleShot(0, [this]() { debugWindow->checkAndShow(); });
   // Check existing user, if exist ask for decryption password
   QTimer::singleShot(0, rt, &PdmRunTime::checkExistingUser);
-  // Setup menubar.
-  QTimer::singleShot(0, this, &MainWindow::makeCustomTitleBar);
+  // Setup framelesshelper menubar.
+  QTimer::singleShot(0, this, &MainWindow::setupFramelesshelperWindow);
   // Remove the default tab .
   mainwindowTabCloseRequested(0);
 }
@@ -245,7 +245,7 @@ void MainWindow::open_user_database_location() {
 #endif
 }
 
-void MainWindow::makeCustomTitleBar(){
+void MainWindow::setupFramelesshelperWindow(){
 #ifdef PDM_USE_FRAMELESSHELPER
   m_titleBar = new StandardTitleBar(this);
   m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
@@ -273,7 +273,7 @@ void MainWindow::makeCustomTitleBar(){
 #endif // Q_OS_MACOS
 
   QMenuBar *const mb = menuBar();
-  mb->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+//  mb->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
   mb->setStyleSheet(FRAMELESSHELPER_STRING_LITERAL(R"(
 QMenuBar {
   background-color: transparent;
@@ -311,54 +311,67 @@ QMenuBar::item:pressed {
   // setMenuWidget(): make the menu widget become the first row of the window.
   setMenuWidget(m_titleBar);
 
-  FramelessWidgetsHelper *helper = FramelessWidgetsHelper::get(this);
-  helper->setTitleBarWidget(m_titleBar);
+  FramelessWidgetsHelper::get(this)->setTitleBarWidget(m_titleBar);
 #ifndef Q_OS_MACOS
-  helper->setSystemButton(m_titleBar->minimizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Minimize);
-  helper->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
-  helper->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
+  FramelessWidgetsHelper::get(this)->setSystemButton(m_titleBar->minimizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Minimize);
+  FramelessWidgetsHelper::get(this)->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
+  FramelessWidgetsHelper::get(this)->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
 #endif // Q_OS_MACOS
-  helper->setHitTestVisible(mb); // IMPORTANT!
+  FramelessWidgetsHelper::get(this)->setHitTestVisible(mb); // IMPORTANT!
+  FramelessWidgetsHelper::get(this)->setHitTestVisible(titleBar); // IMPORTANT!
+#ifndef Q_OS_MACOS
+  FramelessWidgetsHelper::get(this)->setHitTestVisible(pdmIcon); // IMPORTANT!
+#endif // Q_OS_MACOS
 
   setWindowTitle("PDM Notes");
+
   // Unset the frameless flag
   setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
   show();
+
+  connect(FramelessWidgetsHelper::get(this), &wangwenx190::FramelessHelper::FramelessWidgetsHelper::ready, [=]() {
+    //Default geometry for the main window
+    QWidget tempWidget;
+    tempWidget.setGeometry(847, 236, defaultWidth, 905);
+    QSettings settings;
+    // Restore the previous window geometry
+    restoreGeometry(settings.value("mainwindow/geometry",tempWidget.saveGeometry()).toByteArray());
+  });
 #else
-
-// Create the custom status circle and animation
-  statusCircle = new FlashingCircle(this);
-  animation = Animated::makeAnimateAlpha(static_cast<FlashingCircle *>(statusCircle), this);
-  static_cast<QPropertyAnimation*>(animation)->start();
-
-// Layout for the custom status circle
-//  QHBoxLayout *statusLayout = new QHBoxLayout;
-//  statusLayout->setContentsMargins(5, 0, 5, 0); // Set the margins of the status circle
-//  statusLayout->setContentsMargins(0, 0, 0, 0); // Set the margins of the status circle
-//  statusLayout->addWidget(static_cast<FlashingCircle *>(statusCircle));
 //
-//  QWidget *statusContainerWidget = new QWidget(this);
-//  statusContainerWidget->setStyleSheet("background-color: transparent;"); // Set the background color of the status circle
-//  statusContainerWidget->setLayout(statusLayout);
-
-// New central layout which will hold everything
-  QVBoxLayout *centralLayout = new QVBoxLayout;
-  centralLayout->setContentsMargins(0, 0, 0, 0);
-  centralLayout->setSpacing(0);
-
-// Layout for the menubar and custom status circle
-  QHBoxLayout *menuLayout = new QHBoxLayout;
-  menuLayout->addWidget(ui->menubar);  // Your original menu bar
-  menuLayout->setContentsMargins(4, 0, 4, 0);
-  menuLayout->addWidget(static_cast<FlashingCircle *>(statusCircle));
-
-  centralLayout->addLayout(menuLayout);
-  centralLayout->addWidget(ui->centralwidget);  // Your original central widget
-
-// Create a new central widget and set the layout to it
-  QWidget *newCentralWidget = new QWidget(this);
-  newCentralWidget->setLayout(centralLayout);
-  setCentralWidget(newCentralWidget);
+//// Create the custom status circle and animation
+//  statusCircle = new FlashingCircle(this);
+//  animation = Animated::makeAnimateAlpha(static_cast<FlashingCircle *>(statusCircle), this);
+//  static_cast<QPropertyAnimation*>(animation)->start();
+//
+//// Layout for the custom status circle
+////  QHBoxLayout *statusLayout = new QHBoxLayout;
+////  statusLayout->setContentsMargins(5, 0, 5, 0); // Set the margins of the status circle
+////  statusLayout->setContentsMargins(0, 0, 0, 0); // Set the margins of the status circle
+////  statusLayout->addWidget(static_cast<FlashingCircle *>(statusCircle));
+////
+////  QWidget *statusContainerWidget = new QWidget(this);
+////  statusContainerWidget->setStyleSheet("background-color: transparent;"); // Set the background color of the status circle
+////  statusContainerWidget->setLayout(statusLayout);
+//
+//// New central layout which will hold everything
+//  QVBoxLayout *centralLayout = new QVBoxLayout;
+//  centralLayout->setContentsMargins(0, 0, 0, 0);
+//  centralLayout->setSpacing(0);
+//
+//// Layout for the menubar and custom status circle
+//  QHBoxLayout *menuLayout = new QHBoxLayout;
+//  menuLayout->addWidget(ui->menubar);  // Your original menu bar
+//  menuLayout->setContentsMargins(4, 0, 4, 0);
+//  menuLayout->addWidget(static_cast<FlashingCircle *>(statusCircle));
+//
+//  centralLayout->addLayout(menuLayout);
+//  centralLayout->addWidget(ui->centralwidget);  // Your original central widget
+//
+//// Create a new central widget and set the layout to it
+//  QWidget *newCentralWidget = new QWidget(this);
+//  newCentralWidget->setLayout(centralLayout);
+//  setCentralWidget(newCentralWidget);
 
 #endif // PDM_USE_FRAMELESSHELPER
 }

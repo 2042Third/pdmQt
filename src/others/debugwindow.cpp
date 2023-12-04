@@ -89,7 +89,7 @@ DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
 
   // Setup frameless window if on using frameless helper
 #ifdef PDM_USE_FRAMELESSHELPER
-  QTimer::singleShot(0, this, &DebugWindow::makeCustomWindow);
+  QTimer::singleShot(0, this, &DebugWindow::setupFramelesshelperWindow);
 #endif
 }
 
@@ -197,7 +197,7 @@ QMenuBar::item:pressed {
 #endif // PDM_USE_FRAMELESSHELPER
 }
 
-void DebugWindow::makeCustomWindow() {
+void DebugWindow::setupFramelesshelperWindow() {
 #ifdef PDM_USE_FRAMELESSHELPER
   if (m_titleBar == nullptr) {
     m_titleBar = new StandardTitleBar(this);
@@ -240,17 +240,17 @@ QMenuBar::item:pressed {
   // setMenuWidget(): make the menu widget become the first row of the window.
   setMenuWidget(m_titleBar);
 
-  FramelessWidgetsHelper *helper = FramelessWidgetsHelper::get(this);
-  helper->setTitleBarWidget(m_titleBar);
+  FramelessWidgetsHelper::get(this)->setTitleBarWidget(m_titleBar);
 #ifndef Q_OS_MACOS
-  helper->setSystemButton(m_titleBar->minimizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Minimize);
-  helper->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
-  helper->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
+  FramelessWidgetsHelper::get(this)->setSystemButton(m_titleBar->minimizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Minimize);
+  FramelessWidgetsHelper::get(this)->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
+  FramelessWidgetsHelper::get(this)->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
 #endif // Q_OS_MACOS
-  helper->setHitTestVisible(mb); // IMPORTANT!
-  helper->setHitTestVisible(titleBar); // IMPORTANT!
+  FramelessWidgetsHelper::get(this)->setHitTestVisible(mb); // IMPORTANT!
+  FramelessWidgetsHelper::get(this)->setHitTestVisible(titleBar); // IMPORTANT!
+
   setWindowTitle("Debug Window");
-//  setWindowIcon(QFileIconProvider().icon(QFileIconProvider::Computer));
+
   // Unset the frameless flag
   setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
   show();
@@ -418,7 +418,7 @@ QWidget *DebugWindow::getMoreSettingsWidget(QWidget *pWidget) {
 #ifdef PDM_USE_FRAMELESSHELPER
   // Convert current window to frameless helper
   button3->setText("Convert current window to frameless helper");
-  connect(button3, &QPushButton::clicked, this, &DebugWindow::makeCustomWindow);
+  connect(button3, &QPushButton::clicked, this, &DebugWindow::setupFramelesshelperWindow);
 #endif
   return widget;
 }

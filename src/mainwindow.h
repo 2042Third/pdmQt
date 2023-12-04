@@ -73,7 +73,7 @@ private:
 
   void newSettingsWindow();
   int defaultWidth = 866;
-  void makeCustomTitleBar();
+  void setupFramelesshelperWindow();
 
 };
 #endif // MAINWINDOW_H

@@ -61,7 +61,7 @@ public:
   QPushButton* button1;
   QPushButton* button2;
   QPushButton* button3;
-  void makeCustomWindow();
+  void setupFramelesshelperWindow();
 
   void openCustomWindow();
   void reopenFrameless() ;
