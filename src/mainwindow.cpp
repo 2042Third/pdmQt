@@ -94,8 +94,6 @@ MainWindow::MainWindow(QWidget *parent)
 
   moveTimer = new PdmUpdateTimer(3000,this);
   resizeTimer = new PdmUpdateTimer(3000,this);
-  connect(moveTimer, &PdmUpdateTimer::timeout, this, &MainWindow::onMoveTimerTimeout);
-  connect(resizeTimer, &PdmUpdateTimer::timeout, this, &MainWindow::onResizeTimerTimeout);
 
   // Set focus to mainwindow and then back to debug window when clicked on debugwindow
   connect(rt, &PdmRunTime::debugWindowFocused, [=]() {
@@ -110,22 +108,36 @@ MainWindow::MainWindow(QWidget *parent)
     emit rt->logc("Debug window focused.", "blue");
   });
 
-  // Set the initial position of the splitter's handle
-  QList<int> initialSizes;
-  initialSizes << defaultWidth/5*2 << defaultWidth-defaultWidth/5*2;
-  ui->splitter->setSizes(initialSizes);
 
-  // Restore previous sessions' windows opened and their geometry
-  QTimer::singleShot(0, [this]() { debugWindow->checkAndShow(); });
-  // Check existing user, if exist ask for decryption password
-  QTimer::singleShot(0, rt, &PdmRunTime::checkExistingUser);
-//  QTimer::singleShot(2000, [this](){ // This is only for testing framelesshelper
-//   // resize the window to the default size
-//    resize(defaultWidth, defaultHeight);
-//    FramelessWidgetsHelper::get(this)->extendsContentIntoTitleBar();
-//  });
+
+
   // Setup framelesshelper menubar.
   QTimer::singleShot(0, this, &MainWindow::setupFramelesshelperWindow);
+
+  connect(FramelessWidgetsHelper::get(this), &wangwenx190::FramelessHelper::FramelessWidgetsHelper::ready, [=]() {
+    connect(moveTimer, &PdmUpdateTimer::timeout, this, &MainWindow::onMoveTimerTimeout);
+    connect(resizeTimer, &PdmUpdateTimer::timeout, this, &MainWindow::onResizeTimerTimeout);
+
+    //Default geometry for the main window
+    QWidget tempWidget;
+    tempWidget.setGeometry(847, 236, defaultWidth, 905);
+    QSettings settings;
+    // Restore the previous window geometry
+    restoreGeometry(settings.value("mainwindow/geometry",tempWidget.saveGeometry()).toByteArray());
+
+    // Set the initial position of the splitter's handle
+    QList<int> initialSizes;
+    initialSizes << defaultWidth/5*2 << defaultWidth-defaultWidth/5*2;
+    ui->splitter->setSizes(initialSizes);
+
+    // Restore previous sessions' windows opened and their geometry
+    QTimer::singleShot(0, [this]() { debugWindow->checkAndShow(); });
+    // Check existing user, if exist ask for decryption password
+    QTimer::singleShot(0, rt, &PdmRunTime::checkExistingUser);
+
+
+  });
+
   // Remove the default tab .
   mainwindowTabCloseRequested(0);
 }
@@ -335,14 +347,7 @@ QMenuBar::item:pressed {
   setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
   show();
 
-  connect(FramelessWidgetsHelper::get(this), &wangwenx190::FramelessHelper::FramelessWidgetsHelper::ready, [=]() {
-    //Default geometry for the main window
-    QWidget tempWidget;
-    tempWidget.setGeometry(847, 236, defaultWidth, 905);
-    QSettings settings;
-    // Restore the previous window geometry
-    restoreGeometry(settings.value("mainwindow/geometry",tempWidget.saveGeometry()).toByteArray());
-  });
+
 #else
 //
 //// Create the custom status circle and animation
