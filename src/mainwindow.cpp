@@ -315,14 +315,12 @@ QMenuBar::item:pressed {
   helper->setTitleBarWidget(m_titleBar);
 #ifndef Q_OS_MACOS
   helper->setSystemButton(m_titleBar->minimizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Minimize);
-    helper->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
-    helper->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
+  helper->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
+  helper->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
 #endif // Q_OS_MACOS
   helper->setHitTestVisible(mb); // IMPORTANT!
-  helper->setHitTestVisible(titleBar); // IMPORTANT!
 
   setWindowTitle("PDM Notes");
-//  setWindowIcon(QFileIconProvider().icon(QFileIconProvider::Computer));
   // Unset the frameless flag
   setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
   show();
