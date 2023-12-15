@@ -13,16 +13,16 @@ pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
   setMouseTracking(true);
   scrollDelegate=new NotesScrollDelegate(this,rt); // Create the delegate (how the list items are drawn)
   setItemDelegate(scrollDelegate); // Sets this delegate as the painter for the list items
-  firstAction = new QAction("Delete", this); // Right click menu item delete
-  secondAction = new QAction("More", this); // Right click menu item more
+  deleteAction = new QAction("Delete", this); // Right click menu item delete
+  moreAction = new QAction("More", this); // Right click menu item more
   contextMenu = new QMenu(this); // The right click menu
   // Remove the space in front of each menu item
   // , so that the icon is flush with the left edge.
   contextMenu->setStyleSheet("QMenu::item { padding-left: 10px; padding-top: 3px; padding-right: 10px; padding-bottom: 3px; }"
                              "QMenu::item:selected { background-color: #1787FF; }");  // Change to your preferred color
 
-  contextMenu->addAction(firstAction);
-  contextMenu->addAction(secondAction);
+  contextMenu->addAction(deleteAction);
+  contextMenu->addAction(moreAction);
 
   // Mouse in hover animation
   inAnimation = new QVariantAnimation(this);
@@ -75,12 +75,12 @@ void pdmListView::mousePressEvent(QMouseEvent *event)
     QModelIndex index = indexAt(event->pos());
     if (index.isValid()) {
       emit rt->noteListRightClicked(index);
-      disconnect(firstAction, &QAction::triggered, 0, 0); // Disconnect from previous slots
-      disconnect(secondAction, &QAction::triggered, 0, 0); // Disconnect from previous slots
+      disconnect(deleteAction, &QAction::triggered, 0, 0); // Disconnect from previous slots
+      disconnect(moreAction, &QAction::triggered, 0, 0); // Disconnect from previous slots
 
       // Connect to the current index
-      connect(firstAction, &QAction::triggered, this, [this, index]() { handleDeleteAction(index); });
-      connect(secondAction, &QAction::triggered, this, [this, index]() { handleMoreAction(index); });
+      connect(deleteAction, &QAction::triggered, this, [this, index]() { handleDeleteAction(index); });
+      connect(moreAction, &QAction::triggered, this, [this, index]() { handleMoreAction(index); });
 
       // Show the context menu at the event position
       contextMenu->exec(event->globalPos());

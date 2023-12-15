@@ -32,8 +32,8 @@ private slots:
     void handleMoreAction(const QModelIndex &index);
     void leaveEvent(QEvent *event) override;
     QMenu *contextMenu;
-    QAction *firstAction;
-    QAction *secondAction;
+    QAction *deleteAction;
+    QAction *moreAction;
     NotesScrollDelegate *scrollDelegate;
 private:
     QModelIndex lastHovered;
