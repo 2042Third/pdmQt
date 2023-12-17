@@ -30,10 +30,12 @@ private slots:
     void mousePressEvent(QMouseEvent *event) override;
     void handleDeleteAction(const QModelIndex &index);
     void handleMoreAction(const QModelIndex &index);
+    void handleRenameAction(const QModelIndex &index);
     void leaveEvent(QEvent *event) override;
     QMenu *contextMenu;
     QAction *deleteAction;
     QAction *moreAction;
+    QAction *renameAction;
     NotesScrollDelegate *scrollDelegate;
 private:
     QModelIndex lastHovered;

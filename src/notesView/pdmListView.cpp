@@ -15,14 +15,16 @@ pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
   setItemDelegate(scrollDelegate); // Sets this delegate as the painter for the list items
   deleteAction = new QAction("Delete", this); // Right click menu item delete
   moreAction = new QAction("More", this); // Right click menu item more
+  renameAction = new QAction("Rename", this); // Right click menu item more
   contextMenu = new QMenu(this); // The right click menu
   // Remove the space in front of each menu item
   // , so that the icon is flush with the left edge.
   contextMenu->setStyleSheet("QMenu::item { padding-left: 10px; padding-top: 3px; padding-right: 10px; padding-bottom: 3px; }"
                              "QMenu::item:selected { background-color: #1787FF; }");  // Change to your preferred color
-
-  contextMenu->addAction(deleteAction);
+  contextMenu->addAction(renameAction);
   contextMenu->addAction(moreAction);
+  contextMenu->addSeparator();
+  contextMenu->addAction(deleteAction);
 
   // Mouse in hover animation
   inAnimation = new QVariantAnimation(this);
@@ -79,8 +81,12 @@ void pdmListView::mousePressEvent(QMouseEvent *event)
       disconnect(moreAction, &QAction::triggered, 0, 0); // Disconnect from previous slots
 
       // Connect to the current index
-      connect(deleteAction, &QAction::triggered, this, [this, index]() { handleDeleteAction(index); });
-      connect(moreAction, &QAction::triggered, this, [this, index]() { handleMoreAction(index); });
+      connect(deleteAction, &QAction::triggered,
+      this, [this, index]() { handleDeleteAction(index); });
+      connect(moreAction, &QAction::triggered,
+      this, [this, index]() { handleMoreAction(index); });
+      connect(renameAction, &QAction::triggered,
+        this, [this, index]() { handleRenameAction(index); });
 
       // Show the context menu at the event position
       contextMenu->exec(event->globalPos());
@@ -104,12 +110,14 @@ void pdmListView::mouseMoveEvent(QMouseEvent *event)
 }
 
 void pdmListView::handleDeleteAction(const QModelIndex &index) {
-  emit rt->log("[Note action delete]  called " ,  "#000000");
+  emit rt->log("[Note action] Delete called " ,  "#000000");
 }
 
 void pdmListView::handleMoreAction(const QModelIndex &index) {
-  emit rt->log("[Note action more]  called " ,  "#000000");
-
+  emit rt->log("[Note action] More called " ,  "#000000");
+}
+void pdmListView::handleRenameAction(const QModelIndex &index) {
+  emit rt->log("[Note action] Rename called " ,  "#000000");
 }
 
 void pdmListView::leaveEvent(QEvent *event)
