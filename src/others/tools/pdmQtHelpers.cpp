@@ -25,3 +25,14 @@ QString PDM::Helpers::QtColor::get_color_rgb(const QString&colorName) {
 
   return color_rgb;
 }
+
+/**
+ * Convert a std::string to lower case
+ * @param str the string to be converted
+ * @return the converted string
+ * */
+std::string PDM::Helpers::to_lower_std_string(const std::string &str) {
+  std::string str_lower = str;
+  std::transform(str_lower.begin(), str_lower.end(), str_lower.begin(), ::tolower);
+  return str_lower;
+}

@@ -9,12 +9,12 @@
 #include <QSettings>
 
 NoteEdit::NoteEdit(PDM::NoteMsg note, QWidget *parent, PdmRunTime* rtIn):
-QTextEdit(parent)
-, m_note(std::move(note))
+    QTextEdit(parent)
+, note_edit(std::move(note))
 , PdmRuntimeRef(rtIn)
 {
   // Initialize your QTextEdit with the note content if needed
-  setPlainText(QString::fromStdString(m_note.content));
+  setPlainText(QString::fromStdString(note_edit.content));
 
   // Connect to the PDM runtime zoom in and zoom out signals
   connect(rt, &PdmRunTime::onZoomIn, this, &NoteEdit::zoomingIn);
@@ -30,10 +30,9 @@ QTextEdit(parent)
   updateTimer = new PdmUpdateTimer(1300, rt);
   connect(updateTimer, &PdmUpdateTimer::timeout, this, [this](){
     // Update the note content when the text is changed
-    m_note.content = toPlainText().toStdString(); // TODO: Update the note head as well.
+    updateContentToStorage();
+    rt->updateNoteToServer((int)(*note_edit.note_id.c_str()));
 
-    // Update the note content in the database
-    rt->updateNoteContent((int)(*m_note.note_id.c_str()), m_note.content );
     emit rt->logc("NoteEdit: update note content", "red");
     // Show the save complete animation
     rt->showSaveCompleteAnimation();
@@ -49,7 +48,7 @@ QTextEdit(parent)
 }
 
 NoteEdit::~NoteEdit() {
-  clearNoteMsg(m_note);
+  clearNoteMsg(note_edit);
   clearEditText();
   delete updateTimer;
 }
@@ -114,9 +113,16 @@ void NoteEdit::updateFontSize() {
 
 void NoteEdit::setNote() {
   // Put the current content of the editor into a string
-  if (toPlainText() != m_note.content.c_str() ){
-    setPlainText(m_note.content.c_str());
+  if (toPlainText() != note_edit.content.c_str() ){
+    setPlainText(note_edit.content.c_str());
   }
+}
+
+void NoteEdit::updateContentToStorage() {
+  // Update the note content when the text is changed
+  note_edit.content = toPlainText().toStdString();
+  // Update the note content in the database
+  rt->updateNoteContent((int)(*note_edit.note_id.c_str()), note_edit.content );
 }
 
 

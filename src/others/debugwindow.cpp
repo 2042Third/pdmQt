@@ -491,7 +491,8 @@ void DebugWindow::appendMessage_std(const std::string &message, const std::strin
 }
 void DebugWindow::appendMessageC_std(const std::string &message, const std::string &color) {
   QString html = QString("<font color=%1>%2</font>")
-      .arg(PDM::Helpers::QtColor::get_color_rgb(QString::fromStdString(color))
+      .arg(PDM::Helpers::QtColor::get_color_rgb(
+          QString::fromStdString(PDM::Helpers::to_lower_std_string( color )))
           , QString::fromStdString(message)
       );
   texts->append(html);

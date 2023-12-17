@@ -117,7 +117,7 @@ void pdmListView::handleMoreAction(const QModelIndex &index) {
   emit rt->log("[Note action] More called " ,  "#000000");
 }
 void pdmListView::handleRenameAction(const QModelIndex &index) {
-  emit rt->log("[Note action] Rename called " ,  "#000000");
+  emit rt->logc_std("[Note action] Rename called " ,  "orange");
 }
 
 void pdmListView::leaveEvent(QEvent *event)

@@ -13,6 +13,7 @@ namespace PDM::Helpers {
         void copy_rgb(const QColor& from , QColor*to);
         QString get_color_rgb(const QString&colorName);
     }
+    std::string to_lower_std_string(const std::string &str);
 }
 
 

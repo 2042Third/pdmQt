@@ -22,14 +22,15 @@ public:
   ~NoteEdit() ;
 
   void clearNoteMsg(PDM::NoteMsg& noteMsg) ;
-  PDM::NoteMsg* getNote() {return &m_note;}// Accessor methods to get and set the NoteMsg object
+  PDM::NoteMsg* getNote() {return &note_edit;}// Accessor methods to get and set the NoteMsg object
   void setNote(const PDM::NoteMsg &note) {
-    m_note = note;
-    setPlainText(QString::fromStdString(m_note.content));// Update the QTextEdit content when the note is changed
+    note_edit = note;
+    setPlainText(QString::fromStdString(note_edit.content));// Update the QTextEdit content when the note is changed
   }
 
+  void updateContentToStorage();
   void setNote();
-  PDM::NoteMsg m_note;
+  PDM::NoteMsg note_edit;
 
   int idx=0;
   double getFontSize(){return fontSize;}
