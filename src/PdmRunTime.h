@@ -62,6 +62,7 @@ explicit PdmRunTime(QObject *parent = nullptr);
 
   // Windowing States
   bool debugWindowFocusedState = false;
+  bool mainWindowFocusedState = false;
 public:
   int isClosing=0;
 

@@ -3,6 +3,8 @@
 //
 
 #include <QSettings>
+#include <qinputdialog.h>
+#include <qdir.h>
 #include "pdmListView.h"
 #include "NotesScrollDelegate.h"
 
@@ -118,6 +120,11 @@ void pdmListView::handleMoreAction(const QModelIndex &index) {
 }
 void pdmListView::handleRenameAction(const QModelIndex &index) {
   emit rt->logc_std("[Note action] Rename called " ,  "orange");
+  // Open a dialog to rename the note
+  bool ok;
+  QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
+                                       tr("User name:"), QLineEdit::Normal,
+                                       QDir::home().dirName(), &ok);
 }
 
 void pdmListView::leaveEvent(QEvent *event)

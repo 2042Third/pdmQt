@@ -108,7 +108,18 @@ MainWindow::MainWindow(QWidget *parent)
     emit rt->logc("Debug window focused.", "blue");
   });
 
-
+  // Set focus to debug window when clicked on mainwindow
+  connect(rt, &PdmRunTime::mainWindowFocused, [=]() {
+    if(debugWindow){
+      debugWindow->raise();
+      debugWindow->activateWindow();
+      debugWindow->setFocus();
+      this->show();
+      this->raise();
+      this->activateWindow();
+    }
+    emit rt->logc("Main window focused.", "blue");
+  });
 
 
   // Setup framelesshelper menubar.
@@ -534,4 +545,22 @@ void MainWindow::onNoteAdded(int index) {
   }
 }
 
-
+bool MainWindow::event(QEvent *event) {
+  switch (event->type()) {
+    case QEvent::WindowActivate:
+      if (!rt->mainWindowFocusedState) {
+        rt->mainWindowFocusedState = true;
+        emit rt->mainWindowFocused();
+      }
+      else {
+        rt->mainWindowFocusedState = false;
+      }
+      break;
+    case QEvent::WindowDeactivate:
+      emit rt->mainWindowBlured();
+      break;
+    default:
+      break;
+  }
+  return QMainWindow::event(event);
+}

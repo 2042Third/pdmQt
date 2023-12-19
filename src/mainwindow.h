@@ -61,6 +61,7 @@ private slots:
   void moveEvent(QMoveEvent *event) override;
   void resizeEvent(QResizeEvent *event) override;
   void closeEvent(QCloseEvent *event) override;
+  bool event(QEvent *event) override;
 
 private:
   PdmUpdateTimer * moveTimer;
