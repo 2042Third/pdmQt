@@ -125,6 +125,8 @@ void pdmListView::handleRenameAction(const QModelIndex &index) {
   QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
                                        tr("User name:"), QLineEdit::Normal,
                                        QDir::home().dirName(), &ok);
+
+  emit rt->logc_std("[Note action] Rename value = \""+text.toStdString()+"\". " ,  "orange");
 }
 
 void pdmListView::leaveEvent(QEvent *event)

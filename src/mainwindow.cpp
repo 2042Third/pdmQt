@@ -102,8 +102,6 @@ MainWindow::MainWindow(QWidget *parent)
       this->raise();
       this->activateWindow();
       debugWindow->raise();
-      debugWindow->activateWindow();
-      debugWindow->setFocus();
     }
     emit rt->logc("Debug window focused.", "blue");
   });
@@ -112,11 +110,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(rt, &PdmRunTime::mainWindowFocused, [=]() {
     if(debugWindow){
       debugWindow->raise();
-      debugWindow->activateWindow();
-      debugWindow->setFocus();
-      this->show();
       this->raise();
-      this->activateWindow();
     }
     emit rt->logc("Main window focused.", "blue");
   });
