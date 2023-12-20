@@ -18,6 +18,8 @@ namespace PDM {
     static QString unix_time_to_qstr_sec(int64_t a);
 
     static std::vector<std::string> splitString(const std::string& s, char delimiter);
+
+    static std::string json_b(const std::string &s);
   };
 }
 

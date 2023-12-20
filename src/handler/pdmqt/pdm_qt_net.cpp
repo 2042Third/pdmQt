@@ -7,6 +7,7 @@
 #include "handler/pdm_net_type.h"
 #include "PdmRunTime.h"
 #include "empp.h"
+#include "handler/pdm_qt_helpers.h"
 #include <QtConcurrent/QtConcurrent>
 
 /**
@@ -149,7 +150,7 @@ int PDM::pdm_qt_net::client_action_note_update(const PdmRunTime *rtt, const PDM:
           , msg.h
           );
   j_str = PDM::network::get_json(data);
-  emit rt->logc_std("[Note update call] => "+j_str, "red");
+  emit rt->logc_std("[Note update call] => "+PDM::pdm_qt_helpers::json_b(j_str), "black");
   QtConcurrent::run(PdmRunTime::post,j_str,rt->actions.notesGetHeadsURL,  &rt->wt,NetCallBack_::_callback);
   return 0;
 }

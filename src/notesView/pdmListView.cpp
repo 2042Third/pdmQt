@@ -119,14 +119,21 @@ void pdmListView::handleMoreAction(const QModelIndex &index) {
   emit rt->log("[Note action] More called " ,  "#000000");
 }
 void pdmListView::handleRenameAction(const QModelIndex &index) {
-  emit rt->logc_std("[Note action] Rename called " ,  "orange");
+  const auto* note_head = rt->noteList->getNote(index);
+  emit rt->logc_std("[Note action] Rename called on "+ note_head->note_id ,  "orange");
   // Open a dialog to rename the note
   bool ok;
-  QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
-                                       tr("User name:"), QLineEdit::Normal,
-                                       QDir::home().dirName(), &ok);
+  QString text = QInputDialog::getText(this, tr("Rename Note"),
+                                       tr("Rename note to"), QLineEdit::Normal,
+                                       "", &ok);
 
-  emit rt->logc_std("[Note action] Rename value = \""+text.toStdString()+"\". " ,  "orange");
+  if (text.isEmpty()){
+    emit rt->logc_std("[Note action] Rename value is empty. " ,  "orange");
+  }
+  else {
+    emit rt->logc_std("[Note action] Rename value = \""+text.toStdString()+"\". " ,  "orange");
+
+  }
 }
 
 void pdmListView::leaveEvent(QEvent *event)

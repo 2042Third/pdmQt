@@ -4,6 +4,7 @@
 
 #include <QDateTime>
 #include "pdm_qt_helpers.h"
+#include "nlohmann/json.hpp"
 #include <cstdint>
 #include <cstdlib>
 #include <iostream>
@@ -54,6 +55,35 @@ std::vector<std::string> PDM::pdm_qt_helpers::splitString(const std::string &s, 
   }
 
   return tokens;
+}
+/**
+ * Beautify the json string.
+ * @param s the json string to be beautified.
+ * @return the beautified json string.
+ * */
+std::string PDM::pdm_qt_helpers::json_b (const std::string &s) {
+  std::string s_out;
+  using json = nlohmann::json;
+  json j = json::parse(s);
+  s_out = j.dump(4);
 
+  // Change newline symbol to <br>
+  size_t pos = 0;
+  while ((pos = s_out.find("\n", pos)) != std::string::npos) {
+    size_t start = pos;
+    while (s_out[++pos] == ' ');
+
+    std::string indent((pos - start - 1) * 4, ' '); // 4 spaces for each indentation level
+    for (size_t i = 0; i < indent.size(); ++i) {
+      if (indent[i] == ' ') {
+        indent.erase(i, 1);
+        indent.insert(i, "&nbsp;");
+      }
+    }
+
+    s_out.replace(start, pos - start, "<br>" + indent);
+  }
+
+  return s_out;
 }
 

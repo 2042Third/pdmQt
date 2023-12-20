@@ -28,7 +28,7 @@ NoteEdit::NoteEdit(PDM::NoteMsg note, QWidget *parent, PdmRunTime* rtIn):
   this->setFont(font);
 
   updateTimer = new PdmUpdateTimer(1300, rt);
-  connect(updateTimer, &PdmUpdateTimer::timeout, this, [this](){
+  connect(updateTimer, &PdmUpdateTimer::timeout, this, [this](){ // Auto update to server
     // Update the note content when the text is changed
     updateContentToStorage();
     rt->updateNoteToServer((int)(*note_edit.note_id.c_str()));

@@ -98,9 +98,9 @@ MainWindow::MainWindow(QWidget *parent)
   // Set focus to mainwindow and then back to debug window when clicked on debugwindow
   connect(rt, &PdmRunTime::debugWindowFocused, [=]() {
     if(debugWindow){
-      this->show();
+//      this->show();
       this->raise();
-      this->activateWindow();
+//      this->activateWindow();
       debugWindow->raise();
     }
     emit rt->logc("Debug window focused.", "blue");
