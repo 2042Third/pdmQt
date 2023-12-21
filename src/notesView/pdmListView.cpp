@@ -134,16 +134,12 @@ void pdmListView::handleRenameAction(const QModelIndex &index) {
   }
   else {
     emit rt->logc_std("[Note action] Rename value = \""+text.toStdString()+"\". " ,  "orange");
-    std::printf("[Note action] Rename noteid=\"%s\" , head=\"%s\" \n",rt->noteList->getNote(index)->note_id.c_str() ,text.toStdString().c_str());
     // Make a one-time connection for the note retrieve success signal; use it to push an update with the updated note name
     auto connection = new QMetaObject::Connection();
     *connection = connect(rt, &PdmRunTime::noteRetrieveSuccess, [=](int noteId) {
-      std::printf("[Note action] Rename in signal start noteid=\"%d\" , head=\"%s\" \n",noteId ,text.toStdString().c_str());
-      std::fflush(stdout);
+      // Update the note head to local storage
       rt->user_data->updateNoteHead(noteId, text.toStdString());
-      emit rt->logc_std("[Note action] Rename on noteId= "+std::to_string(noteId)+ ", head="+text.toStdString() ,  "green");
-      std::printf("[Note action] Rename in signal end noteid=\"%d\" , head=\"%s\" \n",noteId ,text.toStdString().c_str());
-      std::fflush(stdout);
+      // Update the note head to the server
       rt->updateNoteToServer(noteId);
       // Disconnect after slot is triggered
       disconnect(*connection);

@@ -35,6 +35,7 @@ void NotesScroll::addNote( PDM::NoteHead note)
       QAbstractItemView *view = qobject_cast<QAbstractItemView *>(parent());
       view->scrollTo(topLeft);
       emit dataChanged(topLeft, bottomRight);
+
     }
     return;
   }

@@ -448,6 +448,9 @@ void MainWindow::mainwindowNoteRetrieveSuccess(int noteId) {
   rt->user_data->getNote(noteId,&note);
   if(noteEditMap.contains(note.note_id)) { // Check if this already exists in the tab widget.
     ui->tabWidget->setCurrentIndex(noteEditMap[note.note_id]->idx);
+    // If the note has a title, use that. Otherwise, use the note id.
+    std::string tmpTitle =  !note.head.empty()? note.head: "Unnamed Note "+std::to_string(noteId);
+    ui->tabWidget->setTabText(noteEditMap[note.note_id]->idx, tmpTitle.c_str());
     noteEditMap[note.note_id]->setFocus();
     return;
   }
