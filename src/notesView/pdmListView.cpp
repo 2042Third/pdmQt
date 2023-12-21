@@ -7,6 +7,7 @@
 #include <qdir.h>
 #include "pdmListView.h"
 #include "NotesScrollDelegate.h"
+#include "handler/pdmqt/pdm_qt_net.h"
 
 pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
   QListView(parent)
@@ -81,6 +82,7 @@ void pdmListView::mousePressEvent(QMouseEvent *event)
       emit rt->noteListRightClicked(index);
       disconnect(deleteAction, &QAction::triggered, 0, 0); // Disconnect from previous slots
       disconnect(moreAction, &QAction::triggered, 0, 0); // Disconnect from previous slots
+      disconnect(renameAction, &QAction::triggered, 0, 0); // Disconnect from previous slots
 
       // Connect to the current index
       connect(deleteAction, &QAction::triggered,
@@ -132,6 +134,23 @@ void pdmListView::handleRenameAction(const QModelIndex &index) {
   }
   else {
     emit rt->logc_std("[Note action] Rename value = \""+text.toStdString()+"\". " ,  "orange");
+    std::printf("[Note action] Rename noteid=\"%s\" , head=\"%s\" \n",rt->noteList->getNote(index)->note_id.c_str() ,text.toStdString().c_str());
+    // Make a one-time connection for the note retrieve success signal; use it to push an update with the updated note name
+    auto connection = new QMetaObject::Connection();
+    *connection = connect(rt, &PdmRunTime::noteRetrieveSuccess, [=](int noteId) {
+      std::printf("[Note action] Rename in signal start noteid=\"%d\" , head=\"%s\" \n",noteId ,text.toStdString().c_str());
+      std::fflush(stdout);
+      rt->user_data->updateNoteHead(noteId, text.toStdString());
+      emit rt->logc_std("[Note action] Rename on noteId= "+std::to_string(noteId)+ ", head="+text.toStdString() ,  "green");
+      std::printf("[Note action] Rename in signal end noteid=\"%d\" , head=\"%s\" \n",noteId ,text.toStdString().c_str());
+      std::fflush(stdout);
+      rt->updateNoteToServer(noteId);
+      // Disconnect after slot is triggered
+      disconnect(*connection);
+      delete connection;
+    });
+    // Make and retrieval call to the server
+    PDM::pdm_qt_net::client_action_note_retrieve(rt, stoi(rt->noteList->getNote(index)->note_id)); // Get the note from the server
 
   }
 }

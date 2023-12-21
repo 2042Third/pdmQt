@@ -55,6 +55,44 @@ void PDM::pdmNotesCache::updateNote(int noteid, const std::string &content, cons
 
   sqlite3_finalize(stmt);
 }
+
+
+void PDM::pdmNotesCache::updateNoteHead(int noteid, const std::string &head) {
+  std::fprintf(stdout, "Note retrieve updating database: note id=%d\n", noteid);
+  sqlite3_stmt* stmt;
+  const char* sql = "UPDATE notes SET head = ? WHERE noteid = ?;";
+
+  int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+  if (rc != SQLITE_OK) {
+    std::cerr << "SQL error (prepare): " << sqlite3_errmsg(db) << std::endl;
+    return;
+  }
+
+  // Bind content (first parameter)
+  rc = sqlite3_bind_text(stmt, 1, head.c_str(), -1, SQLITE_TRANSIENT);
+  if (rc != SQLITE_OK) {
+    std::cerr << "SQL error (bind content): " << sqlite3_errmsg(db) << std::endl;
+    sqlite3_finalize(stmt);
+    return;
+  }
+
+  // Bind noteid (second parameter)
+  rc = sqlite3_bind_int(stmt, 2, noteid);
+  if (rc != SQLITE_OK) {
+    std::cerr << "SQL error (bind noteid): " << sqlite3_errmsg(db) << std::endl;
+    sqlite3_finalize(stmt);
+    return;
+  }
+
+  // Execute the statement
+  rc = sqlite3_step(stmt);
+  if (rc != SQLITE_DONE) {
+    std::cerr << "SQL error (step): " << sqlite3_errmsg(db) << std::endl;
+  }
+
+  sqlite3_finalize(stmt);
+}
+
 void PDM::pdmNotesCache::updateNoteDec(const std::string &key,int noteid, const std::string &content) {
   std::fprintf(stdout, "Note retrieve Encrypted updating database: note id=%d\n", noteid);
   sqlite3_stmt* stmt;

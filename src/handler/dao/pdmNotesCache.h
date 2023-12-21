@@ -22,6 +22,7 @@ namespace PDM {
 
     void create_table();
     void updateNote( int noteid, const std::string& content, const std::string &h);
+    void updateNoteHead( int noteid, const std::string& head);
     void updateNoteDec( const std::string &key,int noteid, const std::string& content);
     void updateNoteHead( const std::string &key,int noteid, const std::string& head);
     int getNote(int noteid, NoteMsg* note);
