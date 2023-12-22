@@ -2,13 +2,13 @@
 #define INFORMATIONWIDGET_H
 
 #include <QWidget>
-#include "PdmRuntimeRef.h"
+#include "PdmRunTimeRef.h"
 
 namespace Ui {
 class InformationWidget;
 }
 
-class InformationWidget : public QWidget,public PdmRuntimeRef
+class InformationWidget : public QWidget,public PdmRunTimeRef
 {
     Q_OBJECT
 

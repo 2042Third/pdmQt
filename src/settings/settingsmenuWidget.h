@@ -7,9 +7,9 @@
 
 
 #include <QWidget>
-#include "PdmRuntimeRef.h"
+#include "PdmRunTimeRef.h"
 
-class settingsmenuWidget : public QWidget, public PdmRuntimeRef
+class settingsmenuWidget : public QWidget, public PdmRunTimeRef
 {
   Q_OBJECT
 public:

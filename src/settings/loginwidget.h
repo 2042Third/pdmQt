@@ -8,9 +8,9 @@
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
-#include "PdmRuntimeRef.h"
+#include "PdmRunTimeRef.h"
 
-class LoginWidget: public QWidget, public PdmRuntimeRef
+class LoginWidget: public QWidget, public PdmRunTimeRef
 {
   Q_OBJECT
 public:

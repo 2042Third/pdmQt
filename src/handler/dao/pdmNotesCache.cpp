@@ -8,6 +8,7 @@
 #include "crypto/pdmCryptoDB.hpp"
 #include "pdmNotesCache.h"
 #include "handler/pdm_qt_helpers.h"
+#include "notesView/NotesScroll.h"
 
 PDM::pdmNotesCache::pdmNotesCache():pdm_database() {
 

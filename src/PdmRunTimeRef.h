@@ -5,9 +5,9 @@
 #ifndef PDM_QT_PDMRUNTIMEREF_H
 #define PDM_QT_PDMRUNTIMEREF_H
 #include "PdmRunTime.h"
-class PdmRuntimeRef {
+class PdmRunTimeRef {
 public:
-  explicit PdmRuntimeRef(PdmRunTime * rtIn = nullptr) {
+  explicit PdmRunTimeRef(PdmRunTime * rtIn = nullptr) {
     rt = rtIn;
   }
 

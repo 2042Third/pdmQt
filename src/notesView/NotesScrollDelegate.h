@@ -12,17 +12,17 @@
 #include <QPainterPath>
 #include <QFile>
 #include <QSvgRenderer>
-#include <PdmRuntimeRef.h>
+#include <PdmRunTimeRef.h>
 
 class NotesScrollDelegate :
     public QStyledItemDelegate
-    , public PdmRuntimeRef
+    , public PdmRunTimeRef
     {
 public:
   using QStyledItemDelegate::QStyledItemDelegate;
 
     explicit NotesScrollDelegate(QWidget *parent=nullptr, PdmRunTime* rtIn=nullptr)
-    : PdmRuntimeRef(rtIn) {}
+    : PdmRunTimeRef(rtIn) {}
 
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
   {

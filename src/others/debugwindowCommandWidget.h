@@ -9,18 +9,18 @@
 #include <memory>
 #include <algorithm>
 #include "PdmRunTime.h"
-#include "PdmRuntimeRef.h"
+#include "PdmRunTimeRef.h"
 #include "handler/pdm_qt_helpers.h"
 
 #define SETTING_STRING_EMITTER_BLUE(x) \
   emit rt->log((x+"="+std::to_string(rt->commandMap[x]->getValue())).c_str(), "#0000FF");
 
 class CommandWidget : public QWidget,
-public PdmRuntimeRef {
+public PdmRunTimeRef {
   Q_OBJECT
 public:
   CommandWidget(QWidget* parent = nullptr,PdmRunTime*r=nullptr)
-  : QWidget(parent),PdmRuntimeRef(r) {
+  : QWidget(parent), PdmRunTimeRef(r) {
     layout = new QVBoxLayout(this);
 
     lineEdit = new QLineEdit(this);

@@ -13,6 +13,7 @@
 #include <QMessageBox>
 #include <QStandardPaths>
 #include <QtConcurrent/QtConcurrent>
+#include "notesView/NotesScroll.h"
 
 #define PdmRunTime_SETTING_STRING_EMITTER_BLUE(x) \
   emit log((std::string(#x "=")+std::to_string(x)).c_str(), "#0000FF");

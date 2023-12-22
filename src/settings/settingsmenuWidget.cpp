@@ -17,7 +17,7 @@
 #include "mainwindow.h"
 
 settingsmenuWidget::settingsmenuWidget(QWidget *parent,PdmRunTime*rtIn ): QWidget(parent)
-, PdmRuntimeRef(rtIn)
+, PdmRunTimeRef(rtIn)
 {
   QVBoxLayout* mainLayout = new QVBoxLayout(this);
 

@@ -4,14 +4,14 @@
 #include <QWidget>
 
 #include "loginwidget.h"
-#include "PdmRuntimeRef.h"
+#include "PdmRunTimeRef.h"
 #include "userinformation.h"
 
 namespace Ui {
 class AccountWidget;
 }
 
-class AccountWidget : public QWidget, public PdmRuntimeRef
+class AccountWidget : public QWidget, public PdmRunTimeRef
 {
   Q_OBJECT
 

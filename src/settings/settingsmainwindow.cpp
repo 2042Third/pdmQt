@@ -6,7 +6,7 @@
 
 
 SettingsMainWindow::SettingsMainWindow(QWidget *parent, PdmRunTime* rtIn) :
-    QMainWindow(parent), PdmRuntimeRef(rtIn),
+    QMainWindow(parent), PdmRunTimeRef(rtIn),
     ui(new Ui::SettingsMainWindow)
 {
   ui->setupUi(this); // .ui file generated header setup

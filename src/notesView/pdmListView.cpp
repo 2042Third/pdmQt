@@ -8,10 +8,11 @@
 #include "pdmListView.h"
 #include "NotesScrollDelegate.h"
 #include "handler/pdmqt/pdm_qt_net.h"
+#include "notesView/NotesScroll.h"
 
 pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
-  QListView(parent)
-  , PdmRuntimeRef(rtIn)
+    QListView(parent)
+  , PdmRunTimeRef(rtIn)
 {
   setMouseTracking(true);
   scrollDelegate=new NotesScrollDelegate(this,rt); // Create the delegate (how the list items are drawn)
@@ -137,12 +138,10 @@ void pdmListView::handleRenameAction(const QModelIndex &index) {
     // Make a one-time connection for the note retrieve success signal; use it to push an update with the updated note name
     auto connection = new QMetaObject::Connection();
     *connection = connect(rt, &PdmRunTime::noteRetrieveSuccess, [=](int noteId) {
-      // Update the note head to local storage
-      rt->user_data->updateNoteHead(noteId, text.toStdString());
-      // Update the note head to the server
-      rt->updateNoteToServer(noteId);
-      // Disconnect after slot is triggered
-      disconnect(*connection);
+      rt->user_data->updateNoteHead(noteId, text.toStdString());// Update the note head to local storage
+      rt->updateNoteToServer(noteId);// Update the note head to the server
+      emit rt->noteRename(noteId);// Emit the note rename signal
+      disconnect(*connection);// Disconnect after slot is triggered
       delete connection;
     });
     // Make and retrieval call to the server

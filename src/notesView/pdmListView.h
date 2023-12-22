@@ -10,12 +10,12 @@
 #include <QMouseEvent>
 #include <QPropertyAnimation>
 #include <QProxyStyle>
-#include "PdmRuntimeRef.h"
+#include "PdmRunTimeRef.h"
 #include "NotesScrollDelegate.h"
 #include <QMenu>
 
 
-class pdmListView : public QListView, public PdmRuntimeRef
+class pdmListView : public QListView, public PdmRunTimeRef
 {
   Q_OBJECT
   public:

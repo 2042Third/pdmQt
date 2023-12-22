@@ -8,12 +8,12 @@
 
 #include <QTextEdit>
 #include "handler/types.h"
-#include "PdmRuntimeRef.h"
+#include "PdmRunTimeRef.h"
 #include "helpers/PdmUpdateTimer.h"
 
 // Your NoteHead and NoteMsg struct declarations here
 
-class NoteEdit : public QTextEdit , public PdmRuntimeRef{
+class NoteEdit : public QTextEdit , public PdmRunTimeRef{
 Q_OBJECT
 
 public:

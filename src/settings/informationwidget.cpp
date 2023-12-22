@@ -2,7 +2,7 @@
 #include "ui_informationwidget.h"
 
 InformationWidget::InformationWidget(QWidget *parent, PdmRunTime* rtIn) :
-    QWidget(parent),PdmRuntimeRef(rtIn),
+    QWidget(parent), PdmRunTimeRef(rtIn),
     ui(new Ui::InformationWidget)
 {
     ui->setupUi(this);

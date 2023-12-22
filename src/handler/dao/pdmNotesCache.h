@@ -11,7 +11,7 @@
 #include "sqlite3.h"
 #include "src/handler/pdm_status.h"
 #include "handler/db/pdm_database.h"
-#include "notesView/NotesScroll.h"
+class NotesScroll;
 
 namespace PDM {
 

@@ -8,12 +8,15 @@
 
 #include <QAbstractListModel>
 #include "handler/types.h"
+#include "PdmRunTimeRef.h"
 
-class NotesScroll : public QAbstractListModel{
+class NotesScroll : public QAbstractListModel, public PdmRunTimeRef
+{
   Q_OBJECT
 
 public:
-  explicit NotesScroll(QObject *parent = nullptr);
+  explicit NotesScroll(QWidget *parent = nullptr, PdmRunTime* rtIn=nullptr);
+
   void addNote( PDM::NoteHead note);
   const PDM::NoteHead* getNote(const QModelIndex &index)const ;
   int rowCount(const QModelIndex & parent = QModelIndex()) const override;
@@ -26,6 +29,10 @@ public:
   QList<PDM::NoteHead> notesList;
   QMap<std::string,PDM::NoteHead> notesMap;
   QMap<int,QVariant>  alphaProgress ;
+
+private slots:
+  void notesScrollNoteRename(int noteId);
+
 signals:
   void noteAdded(int index); // Signal to be emitted when a new note is added
 

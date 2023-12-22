@@ -4,11 +4,13 @@
 
 #include <QAbstractItemView>
 #include "NotesScroll.h"
+#include <QObject>
 
-NotesScroll::NotesScroll(QObject *parent) :
-  QAbstractListModel(parent)
+NotesScroll::NotesScroll(QWidget *parent, PdmRunTime* rtIn) :
+    QAbstractListModel(parent)
+    , PdmRunTimeRef(rtIn)
 {
-
+  connect (rt, &PdmRunTime::noteRename, this, &NotesScroll::notesScrollNoteRename);
 }
 
 /**
@@ -115,5 +117,14 @@ void NotesScroll::locateNote(const std::string &noteId) {
     view->scrollTo(topLeft);
     emit dataChanged(topLeft, bottomRight);
   }
+}
+
+void NotesScroll::notesScrollNoteRename(int noteId) {
+  PDM::NoteMsg note ;
+  rt->user_data->getNote(noteId, &note);
+  // Find the note in the list
+  int index = notesList.indexOf(notesMap[std::to_string(noteId)]);
+  // Change the note head in notesList
+  notesList[index].head = note.head;
 }
 

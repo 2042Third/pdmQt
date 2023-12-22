@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(rt, &PdmRunTime::noteRetrieveSuccess, this, &MainWindow::mainwindowNoteRetrieveSuccess);
   connect(rt, &PdmRunTime::noteUpdateSuccess, this, &MainWindow::mainwindowNoteUpdateSuccess);
   connect(rt, &PdmRunTime::noteCreateSuccess, this, &MainWindow::mainwindowNoteCreateSuccess);
+  connect(rt, &PdmRunTime::noteRename, this, &MainWindow::mainwindowNoteRename);
 
   connect(rt->statusQt, &StatusQt::statusChanged, this, &MainWindow::mainwindowRuntimeStatusChanged);
   connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &MainWindow::mainwindowTabCloseRequested);
@@ -53,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
   statusBar()->setToolTip("Login to your account in Settings->Account.");
 
   // Setup noteListWidget
-  rt->noteList = new NotesScroll(ui->notesListTab);
+  rt->noteList = new NotesScroll(ui->notesListTab, rt);
   notesListView = new pdmListView(this, rt);
   notesListView->setModel(rt->noteList);
   auto *notelistlayout = new QVBoxLayout;
@@ -560,4 +561,16 @@ bool MainWindow::event(QEvent *event) {
       break;
   }
   return QMainWindow::event(event);
+}
+
+void MainWindow::mainwindowNoteRename(int noteId) {
+  emit rt->logc_std("[MainWindow::mainwindowNoteRename] noteId="+std::to_string(noteId), "orange");
+  PDM::NoteMsg note ;
+  rt->user_data->getNote(noteId, &note);
+  if(noteEditMap.contains(note.note_id)) { // Check if this already exists in the tab widget.
+    // If the note has a title, use that. Otherwise, use the note id.
+    std::string tmpTitle =  !note.head.empty()? note.head: "Unnamed Note "+std::to_string(noteId);
+    ui->tabWidget->setTabText(noteEditMap[note.note_id]->idx, tmpTitle.c_str());
+    return;
+  }
 }

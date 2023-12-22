@@ -5,13 +5,13 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QVBoxLayout>
-#include "PdmRuntimeRef.h"
+#include "PdmRunTimeRef.h"
 
 namespace Ui {
 class UserInformation;
 }
 
-class UserInformation : public QWidget, public PdmRuntimeRef
+class UserInformation : public QWidget, public PdmRunTimeRef
 {
     Q_OBJECT
 

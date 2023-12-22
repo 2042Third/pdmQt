@@ -3,8 +3,8 @@
 #include <QObject>
 
 AccountWidget::AccountWidget(QWidget *parent, PdmRunTime* rtIn) :
-  QWidget(parent), PdmRuntimeRef(rtIn)
-  ,ui(new Ui::AccountWidget)
+    QWidget(parent), PdmRunTimeRef(rtIn)
+  , ui(new Ui::AccountWidget)
 {
   ui->setupUi(this);
   loginWidget = new LoginWidget( this, rt);

@@ -6,7 +6,7 @@
 #include "CustomTitleBar.h"
 #include "qgraphicseffect.h"
 #include "shadowFrameWidget.h"
-#include "PdmRuntimeRef.h"
+#include "PdmRunTimeRef.h"
 #include "FramelessHelper/Widgets/framelesswidgetshelper.h"
 #include <QGraphicsDropShadowEffect>
 #ifdef PDM_USE_FRAMELESSHELPER
@@ -24,7 +24,7 @@ FRAMELESSHELPER_END_NAMESPACE
 
 class DebugWindow :
         public QMainWindow,
-        public PdmRuntimeRef
+        public PdmRunTimeRef
 {
   Q_OBJECT
 

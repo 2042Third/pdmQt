@@ -5,7 +5,7 @@
 #include <QPushButton>
 
 UserInformation::UserInformation(QWidget *parent, PdmRunTime* rtIn  ) :
-    QWidget(parent), PdmRuntimeRef(rtIn),
+    QWidget(parent), PdmRunTimeRef(rtIn),
     ui(new Ui::UserInformation)
 {
   ui->setupUi(this);

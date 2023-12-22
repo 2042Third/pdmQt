@@ -10,7 +10,7 @@
 #include <QKeyEvent>
 
 LoginWidget::LoginWidget(QWidget *parent, PdmRunTime *rtIn)
-    : QWidget(parent),PdmRuntimeRef(rtIn)
+    : QWidget(parent), PdmRunTimeRef(rtIn)
 {
   m_emailEdit = new QLineEdit(this);
   m_passwordEdit = new QLineEdit(this);

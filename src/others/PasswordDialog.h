@@ -12,17 +12,17 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QMessageBox>
-#include "PdmRuntimeRef.h"
+#include "PdmRunTimeRef.h"
 #include "misc/md5.h"
 #include "empp.h"
 
-class PasswordDialog : public QDialog, public PdmRuntimeRef{
+class PasswordDialog : public QDialog, public PdmRunTimeRef{
 Q_OBJECT
 
 public:
 
   explicit PasswordDialog(QWidget *parent = nullptr, PdmRunTime*rtIn= nullptr)
-  : QDialog(parent) , PdmRuntimeRef(rtIn){
+  : QDialog(parent) , PdmRunTimeRef(rtIn){
     setWindowTitle(mTitle);
 
     auto *layout = new QVBoxLayout(this);

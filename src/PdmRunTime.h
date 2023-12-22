@@ -9,10 +9,9 @@
 #include "handler/pdm_settings.h"
 #include "handler/dao/pdmLocalDao.h"
 #include "handler/dao/pdmNotesCache.h"
-#include "notesView/NotesScroll.h"
 #include "misc/md5.h"
 #include "handler/pdm_status_qt.h"
-
+class NotesScroll;
 
 class PdmRunTime : public QObject,
   public PDM::Status,
@@ -89,6 +88,7 @@ public slots:
   void noteDeleteSuccess(int noteid);
   void noteDeleteFail(int noteid);
   void databaseLocalReady();
+  void noteRename(int noteId);
   // Notes
   void noteListLeftClicked(const QModelIndex &index);
   void noteListRightClicked(const QModelIndex &index);

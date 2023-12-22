@@ -28,8 +28,8 @@
 //WId winId = reinterpret_cast<WId>(createNativeMacOSWindow());
 //  extern "C" WId createNativeMacOSWindow();
 DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
-  QMainWindow(parent, Qt::FramelessWindowHint),
-  PdmRuntimeRef(r)
+    QMainWindow(parent, Qt::FramelessWindowHint),
+    PdmRunTimeRef(r)
 {
 
   setAttribute(Qt::WA_TranslucentBackground);

@@ -4,14 +4,14 @@
 #include <QMainWindow>
 #include "accountwidget.h"
 #include "informationwidget.h"
-#include "PdmRuntimeRef.h"
+#include "PdmRunTimeRef.h"
 #include "settingsmenuWidget.h"
 
 namespace Ui {
 class SettingsMainWindow;
 }
 
-class SettingsMainWindow : public QMainWindow, public PdmRuntimeRef
+class SettingsMainWindow : public QMainWindow, public PdmRunTimeRef
 {
     Q_OBJECT
 
