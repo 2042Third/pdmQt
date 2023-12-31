@@ -77,6 +77,7 @@ public slots:
   void logc_std(const std::string &message, const std::string &color);
   void loginSuccess();
   void loginFail();
+  // Notes
   void noteHeadsSuccess();
   void noteHeadsFail();
   void noteRetrieveSuccess(int noteid);
@@ -89,7 +90,7 @@ public slots:
   void noteDeleteFail(int noteid);
   void databaseLocalReady();
   void noteRename(int noteId);
-  // Notes
+  // Note List
   void noteListLeftClicked(const QModelIndex &index);
   void noteListRightClicked(const QModelIndex &index);
   void onZoomIn();
