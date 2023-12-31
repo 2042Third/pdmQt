@@ -133,6 +133,10 @@ set(PROJECT_SOURCES
     src/handler/pdm_command.h
     src/others/debugwindowCommandWidget.cpp
     src/others/debugwindowCommandWidget.h
+    src/notesView/pdmListViewSortFilterProxyModel.cpp
+    src/notesView/pdmListViewSortFilterProxyModel.h
+    src/notesView/pdmListSortingMenu.cpp
+    src/notesView/pdmListSortingMenu.h
 )
 
 # Compile the macOS Objective-C bridge only on macOS

@@ -9,12 +9,16 @@
 #include "NotesScrollDelegate.h"
 #include "handler/pdmqt/pdm_qt_net.h"
 #include "notesView/NotesScroll.h"
+#include "notesView/pdmListViewSortFilterProxyModel.h"
 
 pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
     QListView(parent)
   , PdmRunTimeRef(rtIn)
 {
   setMouseTracking(true);
+  proxyModel = new pdmListViewSortFilterProxyModel(this, rt); // Create the note list sorting model
+  proxyModel->setSourceModel(rt->noteList); // Set the source model to the note list
+  setModel(proxyModel); // Set the model to the proxy model
   scrollDelegate=new NotesScrollDelegate(this,rt); // Create the delegate (how the list items are drawn)
   setItemDelegate(scrollDelegate); // Sets this delegate as the painter for the list items
   deleteAction = new QAction("Delete", this); // Right click menu item delete

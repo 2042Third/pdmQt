@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
   statusBar()->setToolTip("Login to your account in Settings->Account.");
 
   // Setup noteListWidget
-  rt->noteList = new NotesScroll(ui->notesListTab, rt);
+  rt->noteList = new NotesScroll(ui->notesListTab, rt); // This NEEDS to be created before the pdmListView for proxy model to work
   notesListView = new pdmListView(this, rt);
   notesListView->setModel(rt->noteList);
   auto *notelistlayout = new QVBoxLayout;
@@ -67,8 +67,13 @@ MainWindow::MainWindow(QWidget *parent)
   connect(refreshButton, &QPushButton::clicked, [=]() {
     rt->runCmd("note_refresh_list");
   });
+  auto *sortingOptionButtom = new QPushButton("Sort", this);// Add refresh button
+  connect(refreshButton, &QPushButton::clicked, [=]() {
+
+  });
   noteListActionLayout->addWidget(refreshButton);
   noteListActionLayout->addWidget(newNoteButton);
+  noteListActionLayout->addWidget(sortingOptionButtom);
   notelistlayout->addLayout(noteListActionLayout);
   notelistlayout->addWidget(notesListView);
   ui->notesListTab->setLayout(notelistlayout);

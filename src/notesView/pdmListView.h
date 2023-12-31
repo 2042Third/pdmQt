@@ -13,7 +13,7 @@
 #include "PdmRunTimeRef.h"
 #include "NotesScrollDelegate.h"
 #include <QMenu>
-
+class pdmListViewSortFilterProxyModel;
 
 class pdmListView : public QListView, public PdmRunTimeRef
 {
@@ -41,6 +41,7 @@ private:
     QModelIndex lastHovered;
     QVariantAnimation *inAnimation;
     QVariantAnimation *outAnimation;
+    pdmListViewSortFilterProxyModel *proxyModel;
 
     void clearHover();
 };

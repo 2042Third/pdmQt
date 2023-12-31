@@ -27,7 +27,7 @@ public:
   PDM::LocalDao * local_dao; // Local Dao
   PDM::pdm_database * user_conf; // User config
   PDM::pdmNotesCache * user_data; // User data
-  NotesScroll* noteList;
+  NotesScroll* noteList; // Note List Model
   StatusQt* statusQt;
 explicit PdmRunTime(QObject *parent = nullptr);
   ~PdmRunTime();
