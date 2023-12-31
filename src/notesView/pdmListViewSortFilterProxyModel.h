@@ -26,6 +26,8 @@ public:
 protected:
   bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
 
+private slots:
+  void sortFilterNoteListSortingOption(const SortColumn &columnIn);
 private:
   bool comp(const std::string &left, const std::string &right) const;
   bool comp(const double left, const double right) const;

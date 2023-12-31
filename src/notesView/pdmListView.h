@@ -20,6 +20,8 @@ class pdmListView : public QListView, public PdmRunTimeRef
   Q_OBJECT
   public:
   explicit pdmListView(QWidget *parent = nullptr, PdmRunTime* rtIn=nullptr);
+public:
+  pdmListViewSortFilterProxyModel *proxyModel;
 
 private slots:
   void zoomingIn();
@@ -41,7 +43,6 @@ private:
     QModelIndex lastHovered;
     QVariantAnimation *inAnimation;
     QVariantAnimation *outAnimation;
-    pdmListViewSortFilterProxyModel *proxyModel;
 
     void clearHover();
 };

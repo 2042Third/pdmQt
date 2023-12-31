@@ -8,7 +8,9 @@
 #include "notesView/NotesScroll.h"
 
 pdmListViewSortFilterProxyModel::pdmListViewSortFilterProxyModel(QObject *parent, PdmRunTime* rtIn)
-    : QSortFilterProxyModel(parent), PdmRunTimeRef(rtIn), sortColumn(SortColumn::NoteCreateTime), sortOrder(Qt::AscendingOrder) {}
+    : QSortFilterProxyModel(parent), PdmRunTimeRef(rtIn), sortColumn(SortColumn::NoteCreateTime), sortOrder(Qt::AscendingOrder) {
+  connect(rt, &PdmRunTime::noteListSortingOption, this, &pdmListViewSortFilterProxyModel::sortFilterNoteListSortingOption);
+}
 
 void pdmListViewSortFilterProxyModel::setSortingCriteria(SortColumn column, Qt::SortOrder order) {
   sortColumn = column;
@@ -58,4 +60,19 @@ bool pdmListViewSortFilterProxyModel::comp(const double left, const double right
   } else {
     return left > right;
   }
+}
+
+void
+pdmListViewSortFilterProxyModel::sortFilterNoteListSortingOption(const SortColumn &columnIn) {
+
+
+  // Toggle the sort order if the same option is selected again
+  if (sortColumn == columnIn) {
+    sortOrder = (sortOrder == Qt::AscendingOrder) ? Qt::DescendingOrder : Qt::AscendingOrder;
+  } else {
+    sortOrder = Qt::AscendingOrder;
+    sortColumn = columnIn;
+  }
+  // Apply the sorting criteria to your model
+  setSortingCriteria(sortColumn, sortOrder);
 }

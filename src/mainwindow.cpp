@@ -68,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent)
     rt->runCmd("note_refresh_list");
   });
   auto *sortingOptionButtom = new QPushButton("Sort", this);// Add refresh button
-  connect(refreshButton, &QPushButton::clicked, [=]() {
+  connect(sortingOptionButtom, &QPushButton::clicked, [=]() {
 
   });
   noteListActionLayout->addWidget(refreshButton);

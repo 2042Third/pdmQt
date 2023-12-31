@@ -7,14 +7,17 @@
 
 
 #include <QWidget>
+#include "PdmRunTimeRef.h"
 
-class pdmListSortingMenu : public QWidget {
+class pdmListSortingMenu : public QWidget, public PdmRunTimeRef {
   Q_OBJECT
 public:
-  pdmListSortingMenu();
+  explicit pdmListSortingMenu( QWidget *parent = nullptr, PdmRunTime* rtIn = nullptr);
 
 private slots:
-      void onSortOptionTriggered(QAction* action);
+  void sortByName();
+  void sortByCreateTime();
+  void sortByUpdateTime();
 
 private:
   QMenu* sortMenu;
