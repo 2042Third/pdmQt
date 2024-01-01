@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
   wangwenx190::FramelessHelper::FramelessHelper::Widgets::initialize();
 #endif
   QApplication a(argc, argv);
+  qRegisterMetaType<PDM::NoteHead>();
 
   QCoreApplication::setOrganizationName("pdm");
   QCoreApplication::setOrganizationDomain("pdm.pw");

@@ -10,13 +10,15 @@
 #include "handler/pdmqt/pdm_qt_net.h"
 #include "notesView/NotesScroll.h"
 #include "notesView/pdmListViewSortFilterProxyModel.h"
+#include "PdmRunTime.h"
+#include "PdmRunTimeRef.h"
 
 pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
     QListView(parent)
   , PdmRunTimeRef(rtIn)
 {
   setMouseTracking(true);
-  proxyModel = new pdmListViewSortFilterProxyModel(this, rt); // Create the note list sorting model
+  proxyModel = new pdmListViewSortFilterProxyModel( rt); // Create the note list sorting model
   proxyModel->setSourceModel(rt->noteList); // Set the source model to the note list
   setModel(proxyModel); // Set the model to the proxy model
   scrollDelegate=new NotesScrollDelegate(this,rt); // Create the delegate (how the list items are drawn)
@@ -62,6 +64,10 @@ pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
 //  connect(rt, &PdmRunTime::onZoomIn, this, &pdmListView::zoomingIn);
 //  connect(rt, &PdmRunTime::onZoomOut, this, &pdmListView::zoomingOut);
 
+  connect (rt, &PdmRunTime::noteListUpdate, this, [this](){
+    updateView();
+  });
+
   // Get the font size from the settings
   QSettings settings;
   scrollDelegate->primaryFontSizeCache=settings.value("pdmListView/primaryFontSize", 12).toDouble();
@@ -73,6 +79,16 @@ pdmListView::pdmListView(QWidget *parent, PdmRunTime* rtIn) :
 
 
   viewport()->update();
+}
+
+pdmListView::~pdmListView() {
+  delete proxyModel;
+}
+void pdmListView::updateView() {
+//  proxyModel->invalidate();
+  reset();
+  viewport()->update();
+  emit rt->logc_std("[Note list] Note list updated. " ,  "orange");
 }
 
 void pdmListView::mousePressEvent(QMouseEvent *event)

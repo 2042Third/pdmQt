@@ -13,7 +13,7 @@ class pdmListSortingMenu : public QWidget, public PdmRunTimeRef {
   Q_OBJECT
 public:
   explicit pdmListSortingMenu( QWidget *parent = nullptr, PdmRunTime* rtIn = nullptr);
-
+  void displaySortingMenu(const QPoint& pos);
 private slots:
   void sortByName();
   void sortByCreateTime();

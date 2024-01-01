@@ -11,7 +11,6 @@
 #include "handler/dao/pdmNotesCache.h"
 #include "misc/md5.h"
 #include "handler/pdm_status_qt.h"
-#include "notesView/pdmListViewSortFilterProxyModel.h"
 
 class NotesScroll;
 
@@ -95,7 +94,8 @@ public slots:
   // Note List
   void noteListLeftClicked(const QModelIndex &index);
   void noteListRightClicked(const QModelIndex &index);
-  void noteListSortingOption(const pdmListViewSortFilterProxyModel::SortColumn &sortColumn);
+  void noteListSortingOption(const int sortColumn);
+  void noteListUpdate();
   void onZoomIn();
   void onZoomOut();
   // Debug Window

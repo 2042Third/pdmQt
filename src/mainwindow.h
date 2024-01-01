@@ -10,6 +10,7 @@
 #include "notesView/NotesScroll.h"
 #include "notesView/NoteEdit.h"
 #include "notesView/pdmListView.h"
+#include "notesView/pdmListSortingMenu.h"
 
 #ifdef PDM_USE_FRAMELESSHELPER
 #include <FramelessHelper/Widgets/framelessmainwindow.h>
@@ -32,6 +33,7 @@ public:
   SettingsMainWindow * settingsWindow=nullptr;
   PdmRunTime* rt;
   pdmListView * notesListView;
+  pdmListSortingMenu * sortingMenu;
 
   void * statusCircle=nullptr; // FlashingCircle
   void * animation=nullptr;

@@ -10,19 +10,21 @@
 #include <QMouseEvent>
 #include <QPropertyAnimation>
 #include <QProxyStyle>
-#include "PdmRunTimeRef.h"
 #include "NotesScrollDelegate.h"
 #include <QMenu>
 class pdmListViewSortFilterProxyModel;
+class PdmRunTime;
+class PdmRunTimeRef;
 
 class pdmListView : public QListView, public PdmRunTimeRef
 {
   Q_OBJECT
   public:
   explicit pdmListView(QWidget *parent = nullptr, PdmRunTime* rtIn=nullptr);
+  ~pdmListView() ;
 public:
   pdmListViewSortFilterProxyModel *proxyModel;
-
+  void updateView();
 private slots:
   void zoomingIn();
   void zoomingOut();

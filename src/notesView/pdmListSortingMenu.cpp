@@ -30,15 +30,19 @@ pdmListSortingMenu::pdmListSortingMenu(QWidget *parent, PdmRunTime *rtIn) :
   }
 
 void pdmListSortingMenu::sortByName() {
-  emit rt->noteListSortingOption(pdmListViewSortFilterProxyModel::NoteName);
+  emit rt->noteListSortingOption(1);
 }
 
 void pdmListSortingMenu::sortByCreateTime() {
-  emit rt->noteListSortingOption(pdmListViewSortFilterProxyModel::NoteCreateTime);
+  emit rt->noteListSortingOption(2);
 }
 
 void pdmListSortingMenu::sortByUpdateTime() {
-  emit rt->noteListSortingOption(pdmListViewSortFilterProxyModel::NoteUpdateTime);
+  emit rt->noteListSortingOption(3);
+}
+
+void pdmListSortingMenu::displaySortingMenu(const QPoint &pos) {
+  sortMenu->popup(pos);
 }
 
 

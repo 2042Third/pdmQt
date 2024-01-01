@@ -73,6 +73,9 @@ QVariant NotesScroll::data(const QModelIndex &index, int role) const
   else if (role == Qt::UserRole + 1) {
     return alphaProgress[index.row()];
   }
+  else if (role == Qt::UserRole + 2) {
+    return QVariant::fromValue(note);
+  }
   return QVariant();
 }
 

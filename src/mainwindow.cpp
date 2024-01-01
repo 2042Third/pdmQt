@@ -7,6 +7,7 @@
 #include "helpers/FlashingCircle.h"
 #include "helpers/Animated.h"
 #include <QObject>
+#include <QMenu>
 #include <QFileDialog>
 #include <QProcess>
 #include <QSettings>
@@ -60,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
   auto *notelistlayout = new QVBoxLayout;
   auto *noteListActionLayout = new QHBoxLayout;
   auto *newNoteButton = new QPushButton("New Note", this);// Add the new note button
+  sortingMenu = new pdmListSortingMenu(this, rt);
   connect(newNoteButton, &QPushButton::clicked, [=]() {
     rt->runCmd("note_new_note");
   });
@@ -69,7 +71,8 @@ MainWindow::MainWindow(QWidget *parent)
   });
   auto *sortingOptionButtom = new QPushButton("Sort", this);// Add refresh button
   connect(sortingOptionButtom, &QPushButton::clicked, [=]() {
-
+    sortingMenu->displaySortingMenu(sortingOptionButtom->mapToGlobal(QPoint(0, sortingOptionButtom->height())));
+    emit rt->logc("Opened Sorting Options Menu.", "blue");
   });
   noteListActionLayout->addWidget(refreshButton);
   noteListActionLayout->addWidget(newNoteButton);

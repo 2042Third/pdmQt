@@ -18,19 +18,19 @@ public:
     // Add other sorting criteria as needed
   };
 
-  explicit pdmListViewSortFilterProxyModel(QObject *parent = nullptr, PdmRunTime* rtIn = nullptr);
+  pdmListViewSortFilterProxyModel( PdmRunTime* rtIn = nullptr);
 
   // Update the method signature to use SortColumn
   void setSortingCriteria(SortColumn column, Qt::SortOrder order);
 
 protected:
-  bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
+  [[nodiscard]] bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
 
 private slots:
-  void sortFilterNoteListSortingOption(const SortColumn &columnIn);
+  void sortFilterNoteListSortingOption(int columnInt) ;
 private:
   bool comp(const std::string &left, const std::string &right) const;
-  bool comp(const double left, const double right) const;
+  bool comp(double left, double right) const;
   SortColumn sortColumn;
   Qt::SortOrder sortOrder;
 };

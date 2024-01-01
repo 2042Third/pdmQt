@@ -7,6 +7,7 @@
 
 #include <string>
 
+#include <QMetaType>
 namespace PDM {
   struct UserInfo {
     std::string msg;
@@ -63,4 +64,5 @@ namespace PDM {
     std::vector<NoteHead> v;
   };
 }
+Q_DECLARE_METATYPE(PDM::NoteHead)
 #endif //PDM_PLATFORMS_UI_TYPES_H
