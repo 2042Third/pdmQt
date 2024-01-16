@@ -20,7 +20,7 @@ set(PDM_QT_OPTIONS ${PDM_QT_OPTIONS} "PDM_DESKTOP_APPLICATION=1")
 
 if(APPLE)
 #    set(CMAKE_OSX_SYSROOT /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk)
-    set(CMAKE_PREFIX_PATH "/Users/mikeyang/Qt/6.5.1/macos/lib/cmake")
+    set(CMAKE_PREFIX_PATH "/Users/mikeyang/Qt/6.6.1/macos/lib/cmake")
     set(OPENSSL_ROOT_DIR /opt/homebrew/opt/openssl@3)
     set(FramelessHelper_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/lib64/cmake/FramelessHelper)
 elseif (WIN32)
