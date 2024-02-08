@@ -20,15 +20,16 @@ NotesScroll::NotesScroll(QWidget *parent, PdmRunTime* rtIn) :
  * */
 void NotesScroll::addNote( PDM::NoteHead note)
 {
-  if(notesMap.contains(note.note_id)){
+  if(notesMap.find(note.note_id)!=notesMap.end()){
     notesMap.insert(note.note_id,note); // If the note already exists, replace it
 
     // Find the index of the existing note in the list
-    int indexToUpdate = notesList.indexOf(note);
+    int indexToUpdate = notesList.indexOf(note.note_id);
 
     // Update the note in the list
     if (indexToUpdate != -1) {
-      notesList[indexToUpdate] = note;
+      notesList[indexToUpdate] = note.note_id;
+      notesMap.insert(note.note_id,note);// If the note already exists, replace it
 
       // Emit the dataChanged signal to update the view
       QModelIndex topLeft = createIndex(indexToUpdate, 0);
@@ -43,10 +44,10 @@ void NotesScroll::addNote( PDM::NoteHead note)
   }
   notesMap.insert(note.note_id,note); // If the note already exists, replace it
   beginInsertRows(QModelIndex(), rowCount(), rowCount());
-  notesList << note;
+  notesList << note.note_id;
   endInsertRows();
   // Emit the noteAdded signal with the index of the new note
-  int newIndex = notesList.indexOf(note);
+  int newIndex = notesList.indexOf(note.note_id);
   emit noteAdded(newIndex);
 }
 
@@ -55,12 +56,13 @@ int NotesScroll::rowCount(const QModelIndex & parent) const
   Q_UNUSED(parent)
   return notesList.count();
 }
+
 QVariant NotesScroll::data(const QModelIndex &index, int role) const
 {
   if (index.row() < 0 || index.row() >= notesList.count())
     return QVariant();
 
-  const PDM::NoteHead &note = notesList[index.row()];
+  const PDM::NoteHead &note = notesMap[notesList[index.row()]];
   if (role == Qt::DisplayRole) {
     if (note.head.empty()  ){
       return QString::fromStdString("Unnamed Note "+ note.note_id + "\n" + "\n" + note.ctime);
@@ -81,10 +83,18 @@ QVariant NotesScroll::data(const QModelIndex &index, int role) const
 
 const PDM::NoteHead* NotesScroll::getNote(const QModelIndex &index) const {
   if (index.row() < 0 || index.row() >= notesList.size())
-    return nullptr; // Return a nullptr if the index is invalid
+    return nullptr
+    ; // Return a nullptr if the index is invalid
 
-  return &notesList[index.row()];
+  const std::string& key = notesList[index.row()];
+  auto it = notesMap.find(key);
+  if (it != notesMap.end()) {
+    return &(it.value());
+  } else {
+    return nullptr;
+  }
 }
+
 
 bool NotesScroll::setData(const QModelIndex &index, const QVariant &value, int role) {
   if (role == Qt::UserRole + 1) {
@@ -109,7 +119,7 @@ size_t NotesScroll::size() const {
 
 void NotesScroll::locateNote(const std::string &noteId) {
   // Find the note in the list
-  int index = notesList.indexOf(notesMap[noteId]);
+  int index = notesList.indexOf(notesMap[noteId].note_id);
 
   // If the note is found, emit the dataChanged signal to update the view
   if (index != -1) {
@@ -126,8 +136,7 @@ void NotesScroll::notesScrollNoteRename(int noteId) {
   PDM::NoteMsg note ;
   rt->user_data->getNote(noteId, &note);
   // Find the note in the list
-  int index = notesList.indexOf(notesMap[std::to_string(noteId)]);
-  // Change the note head in notesList
-  notesList[index].head = note.head;
+  int index = notesList.indexOf(notesMap[std::to_string(noteId)].note_id);
+
 }
 

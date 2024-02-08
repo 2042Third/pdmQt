@@ -22,8 +22,8 @@ void pdmListViewSortFilterProxyModel::setSortingCriteria(SortColumn column, Qt::
 bool pdmListViewSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const {
   emit rt->logc_std("Comparison lessThan called", "blue");
 
-  const PDM::NoteHead &leftNote = rt->noteList->notesList[left.row()];
-  const PDM::NoteHead &rightNote = rt->noteList->notesList[right.row()];
+  const PDM::NoteHead &leftNote = rt->noteList->notesMap[rt->noteList->notesList[left.row()]];
+  const PDM::NoteHead &rightNote = rt->noteList->notesMap[rt->noteList->notesList[right.row()]];
   emit rt->logc_std("Comparison lessThan called, leftNote.head: " + leftNote.note_id + ", rightNote.head: " + rightNote.note_id, "blue");
 
   bool result = false;

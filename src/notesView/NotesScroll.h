@@ -26,7 +26,7 @@ public:
   size_t size() const;
   void locateNote(const std::string& noteId);
 
-  QList<PDM::NoteHead> notesList;
+  QList<std::string> notesList;
   QMap<std::string,PDM::NoteHead> notesMap;
   QMap<int,QVariant>  alphaProgress ;
 
