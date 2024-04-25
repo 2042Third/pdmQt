@@ -1,4 +1,4 @@
-# pdmQt
+# Cryptography Final Project: Password Storage Client
 
 PDM is an encrypted notebook app that uses pdm encryption core module.
 
@@ -12,7 +12,7 @@ Then, you can clone this repository and open the pdmQt.pro file in Qt Creator. B
 
 ## Usage
 
-pdmQt allows you to encrypt and decrypt files using pdm-core-module. You can select a file to encrypt or decrypt, choose a password, and specify an output file name. The application will show you the progress and status of the encryption or decryption process.
+Open the application, and login. A list of passwords will show up. You can modify, add, or delete the passwords.
 
 ## Credit
 cryptoSQLite, SQLite wrapper for custom encryption: https://github.com/viaduck/crypto_sqlite
@@ -25,4 +25,4 @@ Material design SVG icons: https://pictogrammers.com/libraries/
 
 ## License
 
-pdmQt is licensed under the GPL-3 License made by Yi Yang. See LICENSE file for more details.
+Cryptography Final Project Password Storage is modified from pdmQt, which is licensed under the GPL-3 License made by Yi Yang. See LICENSE file for more details.
