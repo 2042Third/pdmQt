@@ -7,24 +7,8 @@
         <entry key="Debug">
           <value>
             <PerProfileState>
-              <option name="myQmlPath" value="$PROJECT_DIR$/../../../../Qt/6.6.1/mingw_64/./qml" />
-              <option name="myQtBinPath" value="$PROJECT_DIR$/../../../../Qt/6.6.1/mingw_64/bin" />
-            </PerProfileState>
-          </value>
-        </entry>
-        <entry key="RelWithDebInfo">
-          <value>
-            <PerProfileState>
-              <option name="myQmlPath" value="$PROJECT_DIR$/../../../../Qt/6.6.1/mingw_64/./qml" />
-              <option name="myQtBinPath" value="$PROJECT_DIR$/../../../../Qt/6.6.1/mingw_64/bin" />
-            </PerProfileState>
-          </value>
-        </entry>
-        <entry key="Release">
-          <value>
-            <PerProfileState>
-              <option name="myQmlPath" value="$PROJECT_DIR$/../../../../Qt/6.6.1/mingw_64/./qml" />
-              <option name="myQtBinPath" value="$PROJECT_DIR$/../../../../Qt/6.6.1/mingw_64/bin" />
+              <option name="myQmlPath" value="$USER_HOME$/Qt/6.6.1/macos/./qml" />
+              <option name="myQtBinPath" value="$USER_HOME$/Qt/6.6.1/macos/bin" />
             </PerProfileState>
           </value>
         </entry>

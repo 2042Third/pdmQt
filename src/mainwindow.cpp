@@ -355,7 +355,7 @@ QMenuBar::item:pressed {
   FramelessWidgetsHelper::get(this)->setHitTestVisible(pdmIcon); // IMPORTANT!
 #endif // Q_OS_MACOS
 
-  setWindowTitle("PDM Notes");
+  setWindowTitle("Password Storage Client - Cryptography Final");
 
   // Unset the frameless flag
   setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
