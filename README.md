@@ -1,14 +1,12 @@
 # Cryptography Final Project: Password Storage Client
 
-PDM is an encrypted notebook app that uses pdm encryption core module.
+Client application for storing passwords securely for Cryptography 95-749 final . This application is a modified version of pdmQt, a encrypted note application. This application uses the pdm-crypt-module to encrypt and decrypt the passwords stored in the database.
 
 ## Building
 
 To install pdmQt, you need to have Qt installed on your system. You can download Qt from https://www.qt.io/download.
 
 You also need to clone the pdm-crypt-module repository from https://github.com/2042Third/pdm-crypt-module and follow the instructions there to build and install the module.
-
-Then, you can clone this repository and open the pdmQt.pro file in Qt Creator. Build and run the project to launch the application.
 
 ## Usage
 
