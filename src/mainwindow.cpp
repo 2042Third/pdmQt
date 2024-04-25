@@ -60,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent)
   notesListView->setModel(rt->noteList);
   auto *notelistlayout = new QVBoxLayout;
   auto *noteListActionLayout = new QHBoxLayout;
-  auto *newNoteButton = new QPushButton("New Note", this);// Add the new note button
+  auto *newNoteButton = new QPushButton("New Password", this);// Add the new note button
   sortingMenu = new pdmListSortingMenu(this, rt);
   connect(newNoteButton, &QPushButton::clicked, [=]() {
     rt->runCmd("note_new_note");
@@ -83,7 +83,7 @@ MainWindow::MainWindow(QWidget *parent)
   ui->notesListTab->show();
   connect(rt->noteList, &NotesScroll::noteAdded, this, &MainWindow::onNoteAdded); // Connect the noteAdded signal to the onNoteAdded slot
 
-
+  ui->tabWidget_2->setTabText(ui->tabWidget_2->indexOf(ui->notesListTab), "Passwords");
 
   // Restore the previous status bar message once the tooltip is hidden
   connect(qApp, &QGuiApplication::focusObjectChanged, [=](QObject *newFocusObject) {

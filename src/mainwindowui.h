@@ -196,7 +196,7 @@ public:
 #if QT_CONFIG(accessibility)
     tabWidget_2->setAccessibleName(QCoreApplication::translate("MainWindow", "notes", nullptr));
 #endif // QT_CONFIG(accessibility)
-    tabWidget_2->setTabText(tabWidget_2->indexOf(notesListTab), QCoreApplication::translate("MainWindow", "Notes", nullptr));
+    tabWidget_2->setTabText(tabWidget_2->indexOf(notesListTab), QCoreApplication::translate("MainWindow", "Passwords", nullptr));
     tabWidget->setTabText(tabWidget->indexOf(notesList), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
     menuFiles->setTitle(QCoreApplication::translate("MainWindow", "Files", nullptr));
     menuHelp->setTitle(QCoreApplication::translate("MainWindow", "Help", nullptr));

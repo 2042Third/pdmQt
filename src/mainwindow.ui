@@ -56,7 +56,7 @@
        </property>
        <widget class="QWidget" name="notesListTab">
         <attribute name="title">
-         <string>Notes</string>
+         <string>Passwords</string>
         </attribute>
        </widget>
       </widget>
@@ -109,7 +109,7 @@
      <x>0</x>
      <y>0</y>
      <width>866</width>
-     <height>37</height>
+     <height>43</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFiles">
@@ -161,8 +161,7 @@
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset theme="document-save">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset theme="document-save"/>
    </property>
    <property name="text">
     <string>Save</string>
