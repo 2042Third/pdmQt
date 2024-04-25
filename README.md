@@ -4,7 +4,7 @@ Client application for storing passwords securely for Cryptography 95-749 final 
 
 ## Building
 
-To install pdmQt, you need to have Qt installed on your system. You can download Qt from https://www.qt.io/download.
+Build using the CMakeList.txt in the root folder. Before that, make sure libraries are build and made available to the project.
 
 You also need to clone the pdm-crypt-module repository from https://github.com/2042Third/pdm-crypt-module and follow the instructions there to build and install the module.
 
