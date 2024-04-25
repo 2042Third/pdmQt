@@ -13,6 +13,9 @@ You also need to clone the pdm-crypt-module repository from https://github.com/2
 Open the application, and login. A list of passwords will show up. You can modify, add, or delete the passwords.
 
 ## Credit
+
+QT Framework: https://www.qt.io/
+
 cryptoSQLite, SQLite wrapper for custom encryption: https://github.com/viaduck/crypto_sqlite
 
 cryptoSQLite's secure memory: https://github.com/viaduck/secure_memory
