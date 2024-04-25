@@ -24,5 +24,5 @@ Material design SVG icons: https://pictogrammers.com/libraries/
 "date.h" date/time library: https://github.com/HowardHinnant/date
 
 ## License
-
+ 
 Cryptography Final Project Password Storage is modified from pdmQt, which is licensed under the GPL-3 License made by Yi Yang. See LICENSE file for more details.
