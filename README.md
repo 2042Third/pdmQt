@@ -10,6 +10,13 @@ You also need to clone the pdm-crypt-module repository from https://github.com/2
 
 Then, you can clone this repository and open the pdmQt.pro file in Qt Creator. Build and run the project to launch the application.
 
+### MacOS
+
+**Updated on: Jan 23, 2025**
+
+If you have issues building in cmake, make sure to build the cmake module of lib/cryptoSQLite and
+lib/cryptoSQLite/external/securememory first.
+
 ## Usage
 
 pdmQt allows you to encrypt and decrypt files using pdm-core-module. You can select a file to encrypt or decrypt, choose a password, and specify an output file name. The application will show you the progress and status of the encryption or decryption process.

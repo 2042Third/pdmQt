@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.19)
 
 project(pdm_qt VERSION 0.1 LANGUAGES C CXX)
 
@@ -19,10 +19,10 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVK_PROTOTYPES")
 set(PDM_QT_OPTIONS ${PDM_QT_OPTIONS} "PDM_DESKTOP_APPLICATION=1")
 
 if(APPLE)
-#    set(CMAKE_OSX_SYSROOT /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk)
-    set(CMAKE_PREFIX_PATH "/Users/mikeyang/Qt/6.6.1/macos/lib/cmake")
+    set(CMAKE_PREFIX_PATH "/Users/mikeyang/Qt/6.5.1/macos/lib/cmake")
     set(OPENSSL_ROOT_DIR /opt/homebrew/opt/openssl@3)
     set(FramelessHelper_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/lib64/cmake/FramelessHelper)
+#    set(QWindowKit_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/qwindowkit/lib/cmake/QWindowKit)
 elseif (WIN32)
     set(CMAKE_PREFIX_PATH "C:\\Qt\\6.6.1\\mingw_64\\lib\\cmake")
     set(FramelessHelper_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/framelesshelperBuild/lib/cmake/FramelessHelper)
@@ -31,11 +31,13 @@ elseif (WIN32)
 endif()
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
+    Core
     Widgets
     LinguistTools
     Svg
 )
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
+    Core
     Widgets
     LinguistTools
     Svg
@@ -44,6 +46,12 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
 # Find FramelessHelper:
 if(APPLE)
     find_package(FramelessHelper REQUIRED COMPONENTS Core Widgets)
+
+
+    add_subdirectory(lib/qwindowkit/qmsetup ) # For title bar
+    add_subdirectory(lib/qwindowkit/examples/shared ) # For title bar
+    add_subdirectory(lib/qwindowkit ) # For title bar
+#    find_package(QWindowKit COMPONENTS Core Widgets Quick REQUIRED)
 endif()
 
 # check if we are on windows
@@ -183,6 +191,9 @@ if(APPLE)
         lib/framelesshelperBuild/include
         lib/framelesshelperBuild/lib
         lib/framelesshelperBuild/bin
+        lib/qwindowkit/include
+        lib/qwindowkit/build/out-arm64-Release/lib
+        lib/qwindowkit/build/include
     )
 elseif(WIN32)
     target_include_directories(pdm_qt PUBLIC
@@ -206,18 +217,25 @@ install(FILES PDM_CURL_LOCATION DESTINATION ${PROJECT_BINARY_DIR} )
 target_compile_definitions(pdm_qt PRIVATE ${PDM_QT_OPTIONS})
 
 target_link_libraries(pdm_qt PRIVATE
+    Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt6::Svg
     cc20 # pdm encryption
     pdm-network # pdm network connectivity
     cryptosqlite # encrypted database interface
+    QWindowKit::Widgets
+    QWKWidgets
+    WidgetFrame
 
+#    QWindowKit::Quick
 )
 
 if(APPLE)
     target_link_libraries(pdm_qt PUBLIC
         FramelessHelper::Core
         FramelessHelper::Widgets
+        QWindowKit::Widgets
+#        QWindowKit::Quick
     )
 elseif(WIN32)
     target_link_libraries(pdm_qt PUBLIC

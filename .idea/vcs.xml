@@ -8,6 +8,8 @@
     <mapping directory="$PROJECT_DIR$/lib/json" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/pdm-crypt-module" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/pdm_network" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/lib/pdm_network/openssl-cmake" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/qwindowkit" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/qwindowkit/qmsetup" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/qwindowkit/qmsetup/src/syscmdline" vcs="Git" />
   </component>
 </project>

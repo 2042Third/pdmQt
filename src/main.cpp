@@ -13,15 +13,16 @@
 #include <QSvgRenderer>
 
 #ifdef PDM_USE_FRAMELESSHELPER
-#include <FramelessHelper/Widgets/framelessmainwindow.h>
-#include <FramelessHelper/Core/private/framelessconfig_p.h>
+#include <QWKWidgets/widgetwindowagent.h>
+//#include <FramelessHelper/Widgets/framelessmainwindow.h>
+//#include <FramelessHelper/Core/private/framelessconfig_p.h>
 #endif
 
 int main(int argc, char *argv[])
 {
 
 #ifdef PDM_USE_FRAMELESSHELPER
-  wangwenx190::FramelessHelper::FramelessHelper::Widgets::initialize();
+//  wangwenx190::FramelessHelper::FramelessHelper::Widgets::initialize();
 #endif
   QApplication a(argc, argv);
   qRegisterMetaType<PDM::NoteHead>();
@@ -54,10 +55,9 @@ int main(int argc, char *argv[])
   }
 #ifdef PDM_USE_FRAMELESSHELPER
   {
-    FRAMELESSHELPER_USE_NAMESPACE
-    FramelessHelper::Core::setApplicationOSThemeAware();
+//    FRAMELESSHELPER_USE_NAMESPACE
     // Not setting the blur behind due to inconsistency.
-    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
+//    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
   }
 #endif
   // Initialization done, start app.

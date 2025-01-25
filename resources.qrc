@@ -14,4 +14,8 @@
         <file alias="pdmIcon">resource/icon/pdmIcon.svg</file>
         <file alias="file.svg">resource/icon/file.svg</file>
     </qresource>
+    <qresource prefix="/qss">
+        <file>src/dark-style.qss</file>
+        <file>src/light-style.qss</file>
+    </qresource>
 </RCC>

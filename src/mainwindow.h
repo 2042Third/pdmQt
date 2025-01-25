@@ -13,9 +13,18 @@
 #include "notesView/pdmListSortingMenu.h"
 
 #ifdef PDM_USE_FRAMELESSHELPER
-#include <FramelessHelper/Widgets/framelessmainwindow.h>
-#include <FramelessHelper/Core/framelesshelpercore_global.h>
-#include <FramelessHelper/Widgets/standardtitlebar.h>
+#include <QtWidgets/QMainWindow>
+namespace QWK {
+  class WidgetWindowAgent;
+  class StyleAgent;
+  class WindowBar;
+}
+
+class FlashingCircle;
+
+//#include <FramelessHelper/Widgets/framelessmainwindow.h>
+//#include <FramelessHelper/Core/framelesshelpercore_global.h>
+//#include <FramelessHelper/Widgets/standardtitlebar.h>
 #endif
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -29,15 +38,26 @@ class MainWindow : public QMainWindow
 public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
+
+  enum Theme {
+    Dark,
+    Light,
+  };
+  Q_ENUM(Theme)
+
   DebugWindow * debugWindow;
   SettingsMainWindow * settingsWindow=nullptr;
   PdmRunTime* rt;
   pdmListView * notesListView;
   pdmListSortingMenu * sortingMenu;
 
-  void * statusCircle=nullptr; // FlashingCircle
+  FlashingCircle * statusCircle=nullptr; // FlashingCircle
   void * animation=nullptr;
   void showUsernameInStatusBar(int i);
+
+  void loadStyleSheet(Theme theme);
+
+
 private slots:
   void on_actionSettings_triggered();
   void on_actionAccount_triggered();
@@ -65,14 +85,26 @@ private slots:
   void resizeEvent(QResizeEvent *event) override;
   void closeEvent(QCloseEvent *event) override;
   bool event(QEvent *event) override;
+//  void showEvent(QShowEvent *event) override;
+
+Q_SIGNALS:
+  void themeChanged();
 
 private:
   PdmUpdateTimer * moveTimer;
   PdmUpdateTimer * resizeTimer;
   Ui::MainWindow * ui;
   QMap<std::string, NoteEdit*> noteEditMap;
+
+  Theme currentTheme = Dark;
+
+public:
+  QWK::WindowBar* windowBar;
+  QLabel* titleLabel;
+
 #ifdef PDM_USE_FRAMELESSHELPER
-  StandardTitleBar * m_titleBar = nullptr;
+  QWK::WidgetWindowAgent *windowAgent;
+//  StandardTitleBar * m_titleBar = nullptr;
 #endif // PDM_USE_FRAMELESSHELPER
 
   void newSettingsWindow();

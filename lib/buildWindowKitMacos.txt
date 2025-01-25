@@ -1,0 +1,6 @@
+# in the root of qwindowkit
+
+cmake -B build -S . -DCMAKE_PREFIX_PATH=/Users/mikeyang/Qt/6.8.1/macos -DQWINDOWKIT_BUILD_QUICK=TRUE -DCMAKE_INSTALL_PREFIX=./ -G "Ninja Multi-Config"
+
+cmake --build build --target install --config Debug
+cmake --build build --target install --config Release

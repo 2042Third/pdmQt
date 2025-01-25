@@ -6,6 +6,7 @@
 #include "notesView/NoteEdit.h"
 #include "helpers/FlashingCircle.h"
 #include "helpers/Animated.h"
+#include "qwindowkit/examples/shared/widgetframe/windowbar.h"
 #include <QObject>
 #include <QMenu>
 #include <QFileDialog>
@@ -15,15 +16,21 @@
 #include <QWidgetAction>
 
 #ifdef PDM_USE_FRAMELESSHELPER
-#include <FramelessHelper/Widgets/framelesswidgetshelper.h>
+//#include <FramelessHelper/Widgets/framelesswidgetshelper.h>
+#include <QWKWidgets/widgetwindowagent.h>
+#include <widgetframe/windowbar.h>
+#include <widgetframe/windowbutton.h>
 #endif // PDM_USE_FRAMELESSHELPER
+
 MainWindow::MainWindow(QWidget *parent)
 #ifdef PDM_USE_FRAMELESSHELPER
-  : QMainWindow(parent,Qt::FramelessWindowHint)
+  : QMainWindow(parent)
+//  : QMainWindow(parent,Qt::FramelessWindowHint)
 #else
   : QMainWindow(parent)
 #endif
     , ui(new Ui::MainWindow) {
+  setAttribute(Qt::WA_DontCreateNativeAncestors);
 
   ui->setupUi(this);
   ui->tabWidget->setTabsClosable(true);
@@ -126,6 +133,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 
   // Setup framelesshelper menubar.
+  QTimer::singleShot(0, this, [this] {
+    windowAgent = new QWK::WidgetWindowAgent(this);
+    windowAgent->setup(this);
+  });
   QTimer::singleShot(0, this, &MainWindow::setupFramelesshelperWindow);
 
   connect(FramelessWidgetsHelper::get(this), &wangwenx190::FramelessHelper::FramelessWidgetsHelper::ready, [=]() {
@@ -272,133 +283,105 @@ void MainWindow::open_user_database_location() {
   QProcess::execute(QLatin1String("/usr/bin/osascript"), scriptArgs);
 #else
     // Fallback to open the folder containing the file
-    QDesktopServices::openUrl(QUrl::fromLocalFile(dir.absolutePath()));
+//    QDesktopServices::openUrl(QUrl::fromLocalFile(dir.absolutePath()));
 #endif
 }
 
-void MainWindow::setupFramelesshelperWindow(){
-#ifdef PDM_USE_FRAMELESSHELPER
-  m_titleBar = new StandardTitleBar(this);
-  m_titleBar->setTitleLabelAlignment(Qt::AlignCenter);
-  setContentsMargins(0,0,0,0); // set the margin of the window that contains the shadow
-  FramelessWidgetsHelper::get(this)->extendsContentIntoTitleBar();
+void MainWindow::loadStyleSheet(Theme theme) {
+  if (!styleSheet().isEmpty() && theme == currentTheme)
+    return;
+  currentTheme = theme;
 
-  auto * titleBar = new QWidget(this);
-  auto * layout = new QHBoxLayout(this);
-  layout->setContentsMargins(5, 0, 5, 0);
-  layout->setSpacing(5);
-  titleBar->setLayout(layout);
-
-  statusCircle = new FlashingCircle(this);
-  animation = Animated::makeAnimateAlpha(static_cast<FlashingCircle *>(statusCircle), this);
-  static_cast<QPropertyAnimation*>(animation)->start();
-  layout->addWidget(static_cast<FlashingCircle *>(statusCircle));
-#ifndef Q_OS_MACOS
-  auto *pdmIcon = new QPushButton(this);
-  pdmIcon->setText("");
-  pdmIcon->setIcon(QIcon(":/images/icon/icon_small"));
-  pdmIcon->setIconSize(QSize(20, 20));
-  pdmIcon->setMinimumHeight(20);
-  pdmIcon->setMaximumHeight(20);
-  pdmIcon->setStyleSheet(
-      "QPushButton { background-color: none; border: none; } QPushButton:hover { background-color: none; border: none; }");
-#endif // Q_OS_MACOS
-
-  QMenuBar *const mb = menuBar();
-//  mb->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
-  mb->setStyleSheet(FRAMELESSHELPER_STRING_LITERAL(R"(
-QMenuBar {
-  background-color: transparent;
-}
-
-QMenuBar::item {
-  background: transparent;
-}
-
-QMenuBar::item:selected {
-  background: #a8a8a8;
-}
-
-QMenuBar::item:pressed {
-  background: #888888;
-}
-  )"));
-  const auto titleBarLayout = static_cast<QHBoxLayout *>(m_titleBar->layout());
-#ifndef Q_OS_MACOS
-  titleBarLayout->insertWidget(0, pdmIcon);
-  titleBarLayout->insertWidget(1, mb);
-  titleBarLayout->insertWidget(2, titleBar);
-#else
-  titleBarLayout->insertWidget(0, mb);
-  titleBarLayout->insertWidget(1, titleBar);
-#endif //Q_OS_MACOS
-
-  // If windows or linux insert stretch at 2, macos insert stretch at 0.
-  if (QSysInfo::productType() == "windows" || QSysInfo::productType() == "linux") {
-    titleBarLayout->insertStretch(2, 1);
-  } else {
-    titleBarLayout->insertStretch(1, 1);
+  if (QFile qss(theme == Dark ? QStringLiteral(":/qss/src/dark-style.qss")
+                              : QStringLiteral(":/qss/src/light-style.qss"));
+    qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    setStyleSheet(QString::fromUtf8(qss.readAll()));
+    Q_EMIT themeChanged();
   }
+}
 
-  // setMenuWidget(): make the menu widget become the first row of the window.
-  setMenuWidget(m_titleBar);
+void MainWindow::setupFramelesshelperWindow() {
+#ifdef PDM_USE_FRAMELESSHELPER
+  // Create and configure WindowBar
+  windowBar = new QWK::WindowBar();
+  windowBar->setStyleSheet("background: transparent; border: none;");
 
-  FramelessWidgetsHelper::get(this)->setTitleBarWidget(m_titleBar);
-#ifndef Q_OS_MACOS
-  FramelessWidgetsHelper::get(this)->setSystemButton(m_titleBar->minimizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Minimize);
-  FramelessWidgetsHelper::get(this)->setSystemButton(m_titleBar->maximizeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Maximize);
-  FramelessWidgetsHelper::get(this)->setSystemButton(m_titleBar->closeButton(), wangwenx190::FramelessHelper::Global::SystemButtonType::Close);
-#endif // Q_OS_MACOS
-  FramelessWidgetsHelper::get(this)->setHitTestVisible(mb); // IMPORTANT!
-  FramelessWidgetsHelper::get(this)->setHitTestVisible(titleBar); // IMPORTANT!
-#ifndef Q_OS_MACOS
-  FramelessWidgetsHelper::get(this)->setHitTestVisible(pdmIcon); // IMPORTANT!
-#endif // Q_OS_MACOS
+  // Create components
+  titleLabel = new QLabel(windowBar);
+  titleLabel->setAlignment(Qt::AlignCenter);
+  titleLabel->setText(windowTitle());
+  connect(this, &MainWindow::windowTitleChanged, titleLabel, &QLabel::setText);
 
-  setWindowTitle("PDM Notes");
+  statusCircle = new FlashingCircle(windowBar);
+  animation = Animated::makeAnimateAlpha(statusCircle, this);
+  static_cast<QPropertyAnimation*>(animation)->start();
 
-  // Unset the frameless flag
-  setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
-  show();
+  // Configure layout
+  QHBoxLayout* barLayout = static_cast<QHBoxLayout*>(windowBar->layout());
+  barLayout->setContentsMargins(5, 5, 5, 5);
+  barLayout->setSpacing(8);
 
+#ifdef Q_OS_MAC
+  // macOS specific configuration
+  // 1. Define system button area
+  windowAgent->setSystemButtonAreaCallback([](const QSize &size) {
+    return QRect(QPoint(0, 0), QSize(72, size.height())); // Standard macOS traffic light size
+  });
 
+  // 2. Add widgets after system buttons
+  barLayout->addSpacerItem(new QSpacerItem(72, 0, QSizePolicy::Fixed, QSizePolicy::Minimum));
+  barLayout->addWidget(titleLabel, 1); // Stretchable center
+  barLayout->addWidget(statusCircle);
 #else
-//
-//// Create the custom status circle and animation
-//  statusCircle = new FlashingCircle(this);
-//  animation = Animated::makeAnimateAlpha(static_cast<FlashingCircle *>(statusCircle), this);
-//  static_cast<QPropertyAnimation*>(animation)->start();
-//
-//// Layout for the custom status circle
-////  QHBoxLayout *statusLayout = new QHBoxLayout;
-////  statusLayout->setContentsMargins(5, 0, 5, 0); // Set the margins of the status circle
-////  statusLayout->setContentsMargins(0, 0, 0, 0); // Set the margins of the status circle
-////  statusLayout->addWidget(static_cast<FlashingCircle *>(statusCircle));
-////
-////  QWidget *statusContainerWidget = new QWidget(this);
-////  statusContainerWidget->setStyleSheet("background-color: transparent;"); // Set the background color of the status circle
-////  statusContainerWidget->setLayout(statusLayout);
-//
-//// New central layout which will hold everything
-//  QVBoxLayout *centralLayout = new QVBoxLayout;
-//  centralLayout->setContentsMargins(0, 0, 0, 0);
-//  centralLayout->setSpacing(0);
-//
-//// Layout for the menubar and custom status circle
-//  QHBoxLayout *menuLayout = new QHBoxLayout;
-//  menuLayout->addWidget(ui->menubar);  // Your original menu bar
-//  menuLayout->setContentsMargins(4, 0, 4, 0);
-//  menuLayout->addWidget(static_cast<FlashingCircle *>(statusCircle));
-//
-//  centralLayout->addLayout(menuLayout);
-//  centralLayout->addWidget(ui->centralwidget);  // Your original central widget
-//
-//// Create a new central widget and set the layout to it
-//  QWidget *newCentralWidget = new QWidget(this);
-//  newCentralWidget->setLayout(centralLayout);
-//  setCentralWidget(newCentralWidget);
+  // Windows configuration
+    auto iconButton = new QWK::WindowButton();
+    auto minButton = new QWK::WindowButton();
+    auto maxButton = new QWK::WindowButton();
+    auto closeButton = new QWK::WindowButton();
 
-#endif // PDM_USE_FRAMELESSHELPER
+    windowBar->setIconButton(iconButton);
+    windowBar->setMinButton(minButton);
+    windowBar->setMaxButton(maxButton);
+    windowBar->setCloseButton(closeButton);
+
+    barLayout->addWidget(statusCircle);
+    barLayout->addWidget(titleLabel, 1);
+    windowBar->setMenuBar(ui->menubar);
+
+    windowAgent->setSystemButton(QWK::WindowAgentBase::WindowIcon, iconButton);
+    windowAgent->setSystemButton(QWK::WindowAgentBase::Minimize, minButton);
+    windowAgent->setSystemButton(QWK::WindowAgentBase::Maximize, maxButton);
+    windowAgent->setSystemButton(QWK::WindowAgentBase::Close, closeButton);
+#endif
+
+  // Critical configuration for all platforms
+  windowBar->setHostWidget(this);
+  windowBar->setMenuBar(ui->menubar);
+  windowAgent->setTitleBar(windowBar);
+
+
+  // Ensure proper event propagation
+//  windowBar->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+//  titleLabel->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+//  statusCircle->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+
+  // Enable dragging for the entire title bar area
+  windowAgent->setHitTestVisible(statusCircle, true);
+
+  setMenuWidget(windowBar);
+  loadStyleSheet(Light);
+
+#ifndef Q_OS_MAC
+  // Windows event connections
+    connect(windowBar, &QWK::WindowBar::minimizeRequested, this, &QWidget::showMinimized);
+    connect(windowBar, &QWK::WindowBar::maximizeRequested, this, [this](bool max) {
+        max ? showMaximized() : showNormal();
+    });
+    connect(windowBar, &QWK::WindowBar::closeRequested, this, &QWidget::close);
+#endif
+
+  show();
+#endif
 }
 
 void MainWindow::moveEvent(QMoveEvent *event) {
@@ -582,3 +565,18 @@ void MainWindow::mainwindowNoteRename(int noteId) {
     return;
   }
 }
+
+#ifdef Q_OS_MAC
+//void MainWindow::showEvent(QShowEvent *event) {
+//  emit rt->logc_std("[MainWindow::showEvent] Called", "orange");
+//  QTimer::singleShot(0, this, [this] {
+//    if (windowBar && titleLabel && statusCircle) {
+//      // Match system button width (72px)
+//      titleLabel->move(72, 0);
+//      titleLabel->resize(width() - 72 - statusCircle->width(), height());
+//      statusCircle->move(width() - statusCircle->width(), 0);
+//    }
+//  });
+//  QMainWindow::showEvent(event);
+//}
+#endif

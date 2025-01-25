@@ -28,7 +28,7 @@
 //WId winId = reinterpret_cast<WId>(createNativeMacOSWindow());
 //  extern "C" WId createNativeMacOSWindow();
 DebugWindow::DebugWindow(QWidget *parent,PdmRunTime*r) :
-    QMainWindow(parent, Qt::FramelessWindowHint),
+    QMainWindow(parent),
     PdmRunTimeRef(r)
 {
 
