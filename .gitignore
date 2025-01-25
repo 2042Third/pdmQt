@@ -5,3 +5,4 @@
 /lib/framelesshelperBuild
 /build
 CMakeLists.txt.user
+/build/
